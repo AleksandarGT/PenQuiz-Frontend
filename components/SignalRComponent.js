@@ -15,7 +15,7 @@ export function SignalRComponent() {
     // })
     useEffect(() => {
         const connect = new HubConnectionBuilder()
-        .withUrl("http://localhost:5000/chathubs")
+        .withUrl("http://localhost:5000/chathubs", {accessTokenFactory: () => "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJsZWdlbmRzeGNoYW9zQGdtYWlsLmNvbSIsImp0aSI6Ijc1MjBmZWI1LWY4ODktNDJhNS1iMWY1LTBiN2Q0YzQ0YWVhMyIsImV4cCI6MTYzMTUzMDA4M30.rPlQIZjgypphXg9DubS7iHGOSORv9kF6J44joA4iqGM"})
         .withAutomaticReconnect()
         .withHubProtocol(new JsonHubProtocol())
         .configureLogging(LogLevel.Information)
