@@ -3,7 +3,7 @@ import { useSetRecoilState } from 'recoil';
 import {  useFetchWrapper } from '../helpers';
 import { authAtom, usersAtom } from '../state';
 import * as Google from 'expo-auth-session/providers/google';
-import {BACKEND_API_URL} from '@env'
+import {BACKEND_API_URL, GOOGLE_CLIENT_URL} from '@env'
 
 export { userUserActions };
 
@@ -17,10 +17,10 @@ function userUserActions () {
     const setUsers = useSetRecoilState(usersAtom);
 
     const [request, googleResponse, googlePromptAsync] = Google.useIdTokenAuthRequest({
-        expoClientId: 'GOOGLE_GUID.apps.googleusercontent.com',
+        expoClientId: GOOGLE_CLIENT_URL,
         iosClientId: 'GOOGLE_GUID.apps.googleusercontent.com',
         androidClientId: 'GOOGLE_GUID.apps.googleusercontent.com',
-        webClientId: '765711093147-j8b16iv096jprl4q92rqlrjcrb7rm0bl.apps.googleusercontent.com',
+        webClientId: GOOGLE_CLIENT_URL,
     });
 
     return {
@@ -33,6 +33,7 @@ function userUserActions () {
 
 
     function login(tokenId) {
+        console.log(`Calling ${baseUrl}/authenticate`)
         return fetchWrapper.post(`${baseUrl}/authenticate`, { TokenId: tokenId })
             .then(user => {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes

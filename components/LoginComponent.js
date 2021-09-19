@@ -11,7 +11,7 @@ export default function Login({ history }) {
     const userActions = userUserActions();
 
     useEffect(() => {
-        if(auth) history.push('/');
+        //if(auth) history.push('/');
     }, [])
 
     useEffect(() => {

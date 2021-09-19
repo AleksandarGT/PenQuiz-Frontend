@@ -9,7 +9,10 @@ import LoginComponent from './components/LoginComponent';
 import { SignalRComponent } from './components/SignalRComponent';
 import { RecoilRoot } from 'recoil';
 
+import { LogBox } from 'react-native';
 
+// Ignore timer warning 
+LogBox.ignoreLogs(['Setting a timer']);
 const Stack = createNativeStackNavigator();
 
 export default function App() {
