@@ -2,7 +2,15 @@ import { atom } from 'recoil';
 
 const authAtom = atom({
     key: "auth",
-    default: ""
+    default: "",
+    effects_UNSTABLE: [
+        ({onSet}) => {
+            onSet(newContent => {
+                console.log("Updated with:")
+                console.log(newContent)
+            })
+        }
+    ]
 })
 
 export { authAtom }

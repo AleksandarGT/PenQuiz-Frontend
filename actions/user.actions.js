@@ -3,6 +3,7 @@ import { useSetRecoilState } from 'recoil';
 import {  useFetchWrapper } from '../helpers';
 import { authAtom, usersAtom } from '../state';
 import * as Google from 'expo-auth-session/providers/google';
+import {BACKEND_API_URL} from '@env'
 
 export { userUserActions };
 
@@ -10,7 +11,7 @@ export { userUserActions };
 
 
 function userUserActions () {
-    const baseUrl = `${process.env.BACKEND_API_URL}/api/account`;
+    const baseUrl = `${BACKEND_API_URL}/api/account`;
     const fetchWrapper = useFetchWrapper();
     const setAuth = useSetRecoilState(authAtom);
     const setUsers = useSetRecoilState(usersAtom);
@@ -32,7 +33,6 @@ function userUserActions () {
 
 
     function login(tokenId) {
-        console.log(baseUrl)
         return fetchWrapper.post(`${baseUrl}/authenticate`, { TokenId: tokenId })
             .then(user => {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
@@ -40,8 +40,8 @@ function userUserActions () {
                 setAuth(user);
 
                 // get return url from location state or default to home page
-                const { from } = history.location.state || { from: { pathname: '/' } };
-                history.push(from);
+                //const { from } = history.location.state || { from: { pathname: '/' } };
+                //history.push(from);
             });
     }
 

@@ -3,6 +3,8 @@ import { useRecoilState } from 'recoil';
 import { authAtom } from '../state';
 
 export { useFetchWrapper };
+import { BACKEND_API_URL } from '@env'
+
 
 function useFetchWrapper() {
     const [auth, setAuth] = useRecoilState(authAtom);
@@ -34,7 +36,7 @@ function useFetchWrapper() {
 
         const isLoggedIn = !!token;
 
-        const isApiUrl = url.startsWith(process.env.BACKEND_API_URL)
+        const isApiUrl = url.startsWith(BACKEND_API_URL)
 
         if (isLoggedIn && isApiUrl) {
             return { Authorization: `Bearer ${token}` };

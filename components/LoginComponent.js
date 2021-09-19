@@ -16,8 +16,7 @@ export default function Login({ history }) {
 
     useEffect(() => {
         if (userActions.googleResponse?.type === 'success') {
-        //   console.log(userActions.googleResponse.params.id_token)
-          onLogin(userActions.googleResponse.params.id_token)
+            onLogin({tokenId: userActions.googleResponse.params.id_token})
         }
       }, [userActions.googleResponse]);
 
@@ -31,6 +30,8 @@ export default function Login({ history }) {
     return (
         <View>
             <Text>This is login content fuck me :(</Text>
+            <Text>{auth?.username}</Text>
+            <Text>{auth ? "This will render if auth has value" : "This will render if there is no AUTH"}</Text>
             <Button onPress={() => userActions.googlePromptAsync()} title="Some content" />
         </View>
     )
