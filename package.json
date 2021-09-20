@@ -23,7 +23,8 @@
     "react-native-safe-area-context": "3.2.0",
     "react-native-screens": "~3.4.0",
     "react-native-web": "^0.17.1",
-    "recoil": "^0.4.1"
+    "recoil": "^0.4.1",
+    "expo-screen-orientation": "~3.2.1"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
