@@ -5,16 +5,15 @@ import { authAtom, usersAtom } from '../state';
 import * as Google from 'expo-auth-session/providers/google';
 import {BACKEND_API_URL, GOOGLE_CLIENT_URL} from '@env'
 
-export { userUserActions };
+export { authActions };
 
 
 
 
-function userUserActions () {
+function authActions () {
     const baseUrl = `${BACKEND_API_URL}/api/account`;
     const fetchWrapper = useFetchWrapper();
-    const [auth,setAuth] = useRecoilState(authAtom);
-    const setUsers = useSetRecoilState(usersAtom);
+    const setAuth = useSetRecoilState(authAtom);
     var timeout;
 
     function startRefreshTokenTimer(jwt) {
@@ -42,13 +41,14 @@ function userUserActions () {
     return {
         login,
         logout,
-        getAll,
         googleResponse,
         googlePromptAsync,
+        refreshToken,
     }
 
 
     function login(tokenId) {
+        console.log(baseUrl)
         return fetchWrapper.post(`${baseUrl}/authenticate`, { TokenId: tokenId })
             .then(user => {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
@@ -75,8 +75,4 @@ function userUserActions () {
         clearInterval(timeout);
         history.push('/login');
     }
-
-    function getAll() {
-        return fetchWrapper.get(baseUrl).then(setUsers);
-    }    
 }
