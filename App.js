@@ -9,6 +9,7 @@ import * as ScreenOrientation from 'expo-screen-orientation';
 import { LogBox } from 'react-native';
 
 import Main from './Main.js'
+import 'react-native-gesture-handler';
 
 // Ignore timer warning 
 LogBox.ignoreLogs(['Setting a timer']);

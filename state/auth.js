@@ -1,4 +1,4 @@
-import { atom } from 'recoil';
+import { atom, selector } from 'recoil';
 
 const authAtom = atom({
     key: "auth",
@@ -13,4 +13,22 @@ const authAtom = atom({
     ]
 })
 
-export { authAtom }
+
+const authStatus = selector({
+    key: 'smth',
+    get: ({get}) => {
+        const auth = get(authAtom);
+
+        if(auth?.status == 'LOADING') {
+            return 'LOADING'
+        }
+        else if(auth) {
+            return 'LOGGED'
+        }
+        else {
+            return 'NOT_LOGGED'
+        }
+    },
+})
+
+export { authAtom, authStatus }

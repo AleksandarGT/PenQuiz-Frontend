@@ -1,6 +1,6 @@
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
-import {  useFetchWrapper } from '../helpers';
+import {  useFetchWrapper, navigate, removeBackStack } from '../helpers';
 import { authAtom, usersAtom } from '../state';
 import * as Google from 'expo-auth-session/providers/google';
 import {BACKEND_API_URL, GOOGLE_CLIENT_URL} from '@env'
@@ -49,6 +49,7 @@ function authActions () {
 
     function login(tokenId) {
         console.log(baseUrl)
+        setAuth({status: 'LOADING'})
         return fetchWrapper.post(`${baseUrl}/authenticate`, { TokenId: tokenId })
             .then(user => {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
@@ -58,13 +59,19 @@ function authActions () {
                 // get return url from location state or default to home page
                 //const { from } = history.location.state || { from: { pathname: '/' } };
                 //history.push(from);
-            });
+            }).catch(() => setAuth(null));
     }
 
     function refreshToken() {
+        setAuth({status: 'LOADING'})
         return fetchWrapper.post(`${baseUrl}/refresh-token`).then(user => {
             setAuth(user);
+            removeBackStack('Grid')
             return user.jwtToken
+        }).catch(() => {
+            setAuth(null)
+            removeBackStack('Login')
+            //navigate('Login')
         })
     }
 

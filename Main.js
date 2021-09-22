@@ -1,66 +1,36 @@
 import React, { useEffect, useState } from 'react';
 import { Platform, Text, StyleSheet, View, ActivityIndicator } from 'react-native';
 import { useRecoilValue } from 'recoil';
-import { authAtom } from './state';
 import { authActions } from './actions';
 import GoogleComponent from './components/GoogleComponent';
 import GridSquares from './components/GridSquares';
 import LoginComponent from './components/LoginComponent';
-import { NavigationContainer } from '@react-navigation/native';
 import { SignalRComponent } from './components/SignalRComponent';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { navigationRef } from './helpers';
+import TestingSvg from './components/TestingSvg';
 
-const Stack = createNativeStackNavigator();
+const Stack = createStackNavigator();
 
 
 export default function Main() {
-    const logStates = {
-        LOADING: 0,
-        SUCCESS: 1,
-        ERROR: 2,
-    }
-
-    const auth = useRecoilValue(authAtom);
     const useAuthActions = authActions();
-    const [isLogged, setIsLogged] = useState(logStates.LOADING)
-
-
-
 
     useEffect(() => {
+        // Call refresh token. If auth is successful you will navigate to main component
+        // If not to login / register component
         useAuthActions.refreshToken()
-            .then((ss) => setIsLogged(logStates.SUCCESS))
-            .catch((ss) => setIsLogged(logStates.ERROR))
     }, [])
 
 
-
-
-
-    function renderAuth() {
-        switch(isLogged) {
-            case logStates.ERROR:
-                return <Stack.Screen name="Login" component={LoginComponent} />
-
-            case logStates.LOADING:
-                return <Stack.Screen name="Loading" component={loadingComponent} />
-                
-            case logStates.SUCCESS:
-                return <Stack.Screen name="Grid" component={GridSquares} />
-
-                default: 
-                return <Stack.Screen name="Loading" component={loadingComponent} />
-        }
-    }
-
-    function ss() {
-        return <Stack.Screen name="Loading" component={loadingComponent} />
-    }
-
     return (
-        <NavigationContainer>
+        <NavigationContainer ref={navigationRef}>
             <Stack.Navigator>
-                {renderAuth()}
+                <Stack.Screen name="Loading" component={loadingComponent} />
+                <Stack.Screen name="Login" component={LoginComponent} />
+                <Stack.Screen name="Grid" component={GridSquares} />
+                <Stack.Screen name="SVG" component={TestingSvg} />
             </Stack.Navigator>
         </NavigationContainer>
     )

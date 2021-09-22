@@ -11,13 +11,6 @@ export default function Login({ history }) {
     const auth = useRecoilValue(authAtom);
     const userActions = authActions();
 
-    // Call refresh token on start to fetch a new jwt using your refreshtoken
-    useEffect(() => {
-        // userActions.refreshToken().catch(er => {
-        //     // Redirect to login page
-        // })
-    }, [])
-
     useEffect(() => {
         if (userActions.googleResponse?.type === 'success') {
             onLogin({tokenId: userActions.googleResponse.params.id_token})
