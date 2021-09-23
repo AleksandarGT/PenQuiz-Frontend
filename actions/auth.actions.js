@@ -66,7 +66,7 @@ function authActions () {
         setAuth({status: 'LOADING'})
         return fetchWrapper.post(`${baseUrl}/refresh-token`).then(user => {
             setAuth(user);
-            removeBackStack('Grid')
+            removeBackStack('SVG')
             return user.jwtToken
         }).catch(() => {
             setAuth(null)
