@@ -1,19 +1,14 @@
 import React, { useState } from "react"
-import Svg, { SvgProps, Defs, ClipPath, Path, G } from "react-native-svg"
-import { View, Text, Button, StyleSheet, Dimensions, Platform } from 'react-native';
+import Svg, { SvgProps, Defs, ClipPath, Path, G, Text, TSpan } from "react-native-svg"
+import { View, Button, StyleSheet, Dimensions, Platform } from 'react-native';
 /* SVGR has dropped some elements not supported by react-native-svg: style */
 import { useHeaderHeight } from '@react-navigation/elements';
 
 export default function SvgComponent() {
-  const [paths, setPaths] = useState();
   const [selected, setSelected] = useState([])
 
   const antarcticaBorders = require('../assets/Antarctica.json')
   const antarcticaTerritorySVG = require('../assets/AntarcticaTerritory.json')
-
-  function populatePaths() {
-    console.log("Works");
-  }
 
   // Original map dimensions
   const originalWidth = 694.41;
@@ -27,14 +22,27 @@ export default function SvgComponent() {
   const aspectRatio = calculatedWidth / calculatedHeight;
 
 
-  function onTerritoryClick(e) {
-    if (selected.filter(x => x == e.target.id) == 0) {
-      setSelected([...selected, e.target.id]) //simple value
-      e.target.setAttribute('fill', 'orange')
-    }
-    else {
-      setSelected(selected.filter((id) => id !== e.target.id))
-      e.target.setAttribute('fill', '#D7FFFE')
+  function onTerritoryClick(key) {
+    if (selected.filter(x => x == key) == 0) {
+
+      // Allow first anywhere
+      if (selected.length == 0) {
+        setSelected([...selected, key])
+        return
+      }
+
+      // Get the territory borders
+      const allNeighbourTerritories = antarcticaBorders[key]
+
+      // Search selected if any contains any item fromm the above value
+      const intersection = selected.filter(x => allNeighbourTerritories.includes(x))
+
+      if (intersection.length > 0) {
+        setSelected([...selected, key])
+      }
+      else {
+        console.log("You don't border that")
+      }
     }
   }
 
@@ -43,16 +51,19 @@ export default function SvgComponent() {
     Object.keys(antarcticaTerritorySVG).forEach((k) => {
 
       jsx.push(
-        <Path
-        key={k}
-        onClick={(e) => onTerritoryClick(e)}
-        id={`prefix_${k}`}
-        fill="#D7FFFE"
-        stroke="#000"
-        strokeMiterlimit={10}
-        className="prefix__cls-1"
-        d={antarcticaTerritorySVG[k]}
-      />
+        <G key={k}>
+          <Path
+            onClick={Platform.OS === 'web' ? () => onTerritoryClick(k) : null}
+            onPress={Platform.OS !== 'web' ? () => onTerritoryClick(k) : null}
+            id={k}
+            fill={selected.includes(k) ? "orange" : "#D7FFFE"}
+            stroke="#000"
+            strokeMiterlimit={10}
+            className="prefix__cls-1"
+            d={antarcticaTerritorySVG[k]}
+          />
+        </G>
+
       )
     })
 
@@ -62,16 +73,16 @@ export default function SvgComponent() {
   function characterBoxes() {
     return (
       <View style={{ flex: 0.1, paddingTop: 50, flexDirection: "row", flexWrap: "wrap", justifyContent: "space-around" }}>
-      <View style={[styles.characterBox, { backgroundColor: "green" }]}>
-        <Text style={[styles.characterText]}>Person 1</Text>
+        <View style={[styles.characterBox, { backgroundColor: "green" }]}>
+          <Text style={[styles.characterText]}>Person 1</Text>
+        </View>
+        <View style={[styles.characterBox, { backgroundColor: "blue" }]}>
+          <Text style={[styles.characterText]}>Person 2</Text>
+        </View>
+        <View style={[styles.characterBox, { backgroundColor: "red" }]}>
+          <Text style={[styles.characterText]}>Person 3</Text>
+        </View>
       </View>
-      <View style={[styles.characterBox, { backgroundColor: "blue" }]}>
-        <Text style={[styles.characterText]}>Person 2</Text>
-      </View>
-      <View style={[styles.characterBox, { backgroundColor: "red" }]}>
-        <Text style={[styles.characterText]}>Person 3</Text>
-      </View>
-    </View>
     )
   }
 
@@ -87,8 +98,6 @@ export default function SvgComponent() {
           </G>
         </Svg>
       </View>
-      {characterBoxes()}
-      {/* <View style={[{backgroundColor: "blue", width: '100%', height: '100%'}]} /> */}
     </View>
   )
 }
