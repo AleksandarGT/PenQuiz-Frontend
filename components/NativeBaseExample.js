@@ -1,34 +1,17 @@
-import React from 'react';
-import { useEffect } from 'react';
+import React, { useState } from 'react';
 
 import { ImageBackground, Platform, StyleSheet, View } from "react-native";
 import { VStack, Box, Divider, Text, Center, Heading, Button, Icon, Image } from 'native-base';
 import { FontAwesome5 } from "@expo/vector-icons"
 import { authStatus, authAtom } from '../state';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { authActions } from '../actions';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
-export default function NativeBaseExample({ history }) {
-  const userActions = authActions();
-  useEffect(() => {
-    if (userActions.googleResponse?.type === 'success') {
-      onLogin({ tokenId: userActions.googleResponse.params.id_token })
-    }
-  }, [userActions.googleResponse]);
-
-
-  function onLogin({ tokenId }) {
-    return userActions.login(tokenId).catch(error => {
-      console.log(error)
-    })
-  }
-
-
+export default function NativeBaseExample({ history, onLogin }) {
   return (
     <View style={styles.container}>
       <ImageBackground source={require('../assets/crackbd.jpg')} blurRadius={3} resizeMode="cover" style={styles.image}>
         <Center>
-          <RenderCard onLogin={userActions.googlePromptAsync} />
+          <RenderCard onLogin={onLogin} />
 
         </Center>
       </ImageBackground>
@@ -61,7 +44,7 @@ function RenderCard({ onLogin }) {
   const setAuth = useSetRecoilState(authAtom);
 
   function onLoginClick() {
-    setAuth({ status: 'LOADING' })
+    setAuth({status: 'LOADING'})
     onLogin();
   }
 

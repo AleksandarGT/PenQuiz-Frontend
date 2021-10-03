@@ -48,8 +48,6 @@ function authActions () {
 
 
     function login(tokenId) {
-        console.log(baseUrl)
-        setAuth({status: 'LOADING'})
         return fetchWrapper.post(`${baseUrl}/authenticate`, { TokenId: tokenId })
             .then(user => {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes

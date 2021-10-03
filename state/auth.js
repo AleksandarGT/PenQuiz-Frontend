@@ -15,7 +15,7 @@ const authAtom = atom({
 
 
 const authStatus = selector({
-    key: 'smth',
+    key: 'authStatus',
     get: ({get}) => {
         const auth = get(authAtom);
 
