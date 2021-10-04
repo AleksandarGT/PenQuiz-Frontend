@@ -1,16 +1,16 @@
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
-import {  useFetchWrapper, navigate, removeBackStack } from '../helpers';
+import { useFetchWrapper, navigate, removeBackStack } from '../helpers';
 import { authAtom, usersAtom } from '../state';
 import * as Google from 'expo-auth-session/providers/google';
-import {BACKEND_API_URL, GOOGLE_CLIENT_URL} from '@env'
+import { BACKEND_API_URL, GOOGLE_CLIENT_URL } from '@env'
 
 export { authActions };
 
 
 
 
-function authActions () {
+function authActions() {
     const baseUrl = `${BACKEND_API_URL}/api/account`;
     const fetchWrapper = useFetchWrapper();
     const setAuth = useSetRecoilState(authAtom);
@@ -61,7 +61,7 @@ function authActions () {
     }
 
     function refreshToken() {
-        setAuth({status: 'LOADING'})
+        setAuth({ status: 'LOADING' })
         return fetchWrapper.post(`${baseUrl}/refresh-token`).then(user => {
             setAuth(user);
             removeBackStack('SVG')
@@ -74,10 +74,10 @@ function authActions () {
     }
 
     function logout() {
-        // remove user from local storage, set auth state to null and redirect to login page
-        //localStorage.removeItem('user');
-        setAuth(null);
-        clearInterval(timeout);
-        history.push('/login');
+        fetchWrapper.post(`${baseUrl}/revoke-cookie`).then(res => {
+            setAuth(null);
+            clearInterval(timeout);
+            removeBackStack('Login');
+        })
     }
 }

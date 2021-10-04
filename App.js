@@ -11,7 +11,7 @@ import { LogBox } from 'react-native';
 import Main from './Main.js'
 import 'react-native-gesture-handler';
 import { NativeBaseProvider } from 'native-base';
-
+import {theme} from './theme'
 // Ignore timer warning 
 LogBox.ignoreLogs(['Setting a timer']);
 
@@ -31,7 +31,7 @@ export default function App() {
 
   return (
     <RecoilRoot>
-      <NativeBaseProvider>
+      <NativeBaseProvider theme={theme}>
         <Main />
       </NativeBaseProvider>
     </RecoilRoot>

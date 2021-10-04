@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Platform, Text, StyleSheet, View, ActivityIndicator } from 'react-native';
+import { Platform, Text, StyleSheet, View, ActivityIndicator, Button } from 'react-native';
 import { useRecoilValue } from 'recoil';
 import { authActions } from './actions';
 import GoogleComponent from './components/GoogleComponent';
@@ -18,46 +18,54 @@ const Stack = createStackNavigator();
 
 
 export default function Main() {
-    const useAuthActions = authActions();
-    let [fontsLoaded] = useFonts({
-      'Before-Collapse': require('./assets/BeforeCollapse.ttf'),
-    });
-    useEffect(() => {
-        // Call refresh token. If auth is successful you will navigate to main component
-        // If not to login / register component
-        useAuthActions.refreshToken()
-    }, [])
+  const useAuthActions = authActions();
+  let [fontsLoaded] = useFonts({
+    'Before-Collapse': require('./assets/BeforeCollapse.ttf'),
+  });
+  useEffect(() => {
+    // Call refresh token. If auth is successful you will navigate to main component
+    // If not to login / register component
+    useAuthActions.refreshToken()
+  }, [])
 
 
-      return (
-        <NavigationContainer ref={navigationRef}>
-            <Stack.Navigator>
-                {/* <Stack.Screen options={{headerShown: false}} name="NativeBaseExample" component={NativeBaseExample} /> */}
-                <Stack.Screen name="Loading" component={loadingComponent} />
-                <Stack.Screen options={{headerShown: false}} name="Login" component={LoginComponent} />
-                <Stack.Screen name="Grid" component={GridSquares} />
-                <Stack.Screen name="SVG" component={TestingSvg} />
-            </Stack.Navigator>
-        </NavigationContainer>
-    )
+  return (
+    <NavigationContainer ref={navigationRef}>
+      <Stack.Navigator>
+        {/* <Stack.Screen options={{headerShown: false}} name="NativeBaseExample" component={NativeBaseExample} /> */}
+        <Stack.Screen name="Loading" component={loadingComponent} />
+        <Stack.Screen options={{ headerShown: false }} name="Login" component={LoginComponent} />
+        <Stack.Screen name="Grid" component={GridSquares} />
+        <Stack.Screen options={{
+          title: "SomeTitle",
+          headerRight: () => (
+            <Button
+              title="Logout"
+              onPress={() => useAuthActions.logout()}
+              color="green" />
+          )
+        }} name="SVG" component={TestingSvg} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  )
 }
 
 function loadingComponent() {
-    return (
-        <View style={styles.container}>
-        <ActivityIndicator size="large" />
-      </View>
-    )
+  return (
+    <View style={styles.container}>
+      <ActivityIndicator size="large" />
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      justifyContent: 'center',
-    },
-    horizontal: {
-      flexDirection: 'row',
-      justifyContent: 'space-around',
-      padding: 10,
-    },
-  });
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  horizontal: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    padding: 10,
+  },
+});
