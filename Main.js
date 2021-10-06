@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Platform, Text, StyleSheet, View, ActivityIndicator, Button } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { Platform, Text, StyleSheet, View, ActivityIndicator, Button, Image } from 'react-native';
 import { useRecoilValue } from 'recoil';
 import { authActions } from './actions';
 import GoogleComponent from './components/GoogleComponent';
@@ -13,11 +13,15 @@ import { navigationRef } from './helpers';
 import TestingSvg from './components/TestingSvg';
 import AppLoading from 'expo-app-loading';
 import { useFonts } from 'expo-font';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { useWindowDimensions } from 'react-native';
 
 const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
 
 
 export default function Main() {
+
   const useAuthActions = authActions();
   let [fontsLoaded] = useFonts({
     'Before-Collapse': require('./assets/BeforeCollapse.ttf'),
@@ -35,18 +39,50 @@ export default function Main() {
         <Stack.Screen name="Loading" component={loadingComponent} />
         <Stack.Screen options={{ headerShown: false }} name="Login" component={LoginComponent} />
         <Stack.Screen name="Grid" component={GridSquares} />
-        <Stack.Screen options={{
-          title: "SomeTitle",
-          headerRight: () => (
-            <Button
-              title="Logout"
-              onPress={() => useAuthActions.logout()}
-              color="green" />
-          )
-        }} name="SVG" component={TestingSvg} />
+        <Stack.Screen
+          name="SVG"
+          component={MyDrawer}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   )
+}
+
+function Feed() {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Feed Screen</Text>
+    </View>
+  );
+}
+
+function Article() {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Article Screen</Text>
+    </View>
+  );
+}
+
+function MyDrawer() {
+
+  const dimensions = useWindowDimensions();
+
+  const isLargeScreen = dimensions.width >= 768;
+
+  return (
+    <Drawer.Navigator
+      screenOptions={{
+        headerShown: isLargeScreen ? false : true,
+        drawerType: isLargeScreen ? 'permanent' : 'front',
+        drawerStyle: isLargeScreen ? null : { width: '80%', },
+      }}
+    >
+      <Drawer.Screen name="Feed" component={Feed} />
+      <Drawer.Screen name="Article" component={Article} />
+    </Drawer.Navigator>
+  );
 }
 
 function loadingComponent() {

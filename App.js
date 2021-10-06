@@ -1,3 +1,4 @@
+import 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
 import { Platform, Text } from 'react-native';
@@ -9,7 +10,6 @@ import * as ScreenOrientation from 'expo-screen-orientation';
 import { LogBox } from 'react-native';
 
 import Main from './Main.js'
-import 'react-native-gesture-handler';
 import { NativeBaseProvider } from 'native-base';
 import {theme} from './theme'
 // Ignore timer warning 
