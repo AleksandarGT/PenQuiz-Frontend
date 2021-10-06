@@ -2,19 +2,18 @@ import 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
 import { Platform, Text } from 'react-native';
-import GridSquares from './components/GridSquares';
-
 import { RecoilRoot } from 'recoil';
 import * as ScreenOrientation from 'expo-screen-orientation';
-
 import { LogBox } from 'react-native';
-
-import Main from './Main.js'
+import * as WebBrowser from 'expo-web-browser';
 import { NativeBaseProvider } from 'native-base';
 import {theme} from './theme'
+import { useFonts } from 'expo-font';
+import { Routes } from './routes/Routes'
+
 // Ignore timer warning 
 LogBox.ignoreLogs(['Setting a timer']);
-
+WebBrowser.maybeCompleteAuthSession();
 
 export default function App() {
   function changeScreenOrientation() {
@@ -22,6 +21,10 @@ export default function App() {
       .then(() => console.log("Successfully locked screen to landscape"))
       .catch((err) => console.log(err));
   }
+
+  let [fontsLoaded] = useFonts({
+    'Before-Collapse': require('./assets/BeforeCollapse.ttf'),
+  });
 
   // Handle orientation on mobile devices
   useEffect(() => {
@@ -32,7 +35,7 @@ export default function App() {
   return (
     <RecoilRoot>
       <NativeBaseProvider theme={theme}>
-        <Main />
+        <Routes />
       </NativeBaseProvider>
     </RecoilRoot>
   )
