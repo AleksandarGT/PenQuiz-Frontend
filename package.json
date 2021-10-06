@@ -32,7 +32,8 @@
     "recoil": "^0.4.1",
     "styled-components": "^5.3.1",
     "styled-system": "^5.1.5",
-    "react-native-reanimated": "~2.2.0"
+    "react-native-reanimated": "~2.2.0",
+    "expo-linking": "~2.3.1"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",

@@ -2,7 +2,9 @@ import { atom, selector } from 'recoil';
 
 const authAtom = atom({
     key: "auth",
-    default: "",
+    default: {
+        status: "LOADING"
+    },
     effects_UNSTABLE: [
         ({onSet}) => {
             onSet(newContent => {

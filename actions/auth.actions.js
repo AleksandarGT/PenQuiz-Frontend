@@ -61,14 +61,14 @@ function authActions() {
     }
 
     function refreshToken() {
-        setAuth({ status: 'LOADING' })
+        //setAuth({ status: 'LOADING' })
         return fetchWrapper.post(`${baseUrl}/refresh-token`).then(user => {
             setAuth(user);
-            removeBackStack('SVG')
+            //removeBackStack('Home')
             return user.jwtToken
         }).catch(() => {
             setAuth(null)
-            removeBackStack('Login')
+            //removeBackStack('Login')
             //navigate('Login')
         })
     }

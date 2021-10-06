@@ -8,34 +8,14 @@ import { authStatus, authAtom } from '../state';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { authActions } from '../actions';
 import { justifyContent } from 'styled-system';
+import { useState } from 'react/cjs/react.development';
 
-export default function NativeBaseExample({ history }) {
-    const userActions = authActions();
-    const setAuth = useSetRecoilState(authAtom);
-
-    useEffect(() => {
-        if (userActions.googleResponse?.type === 'success') {
-            onLogin({ tokenId: userActions.googleResponse.params.id_token })
-        }
-        else if (userActions.googleResponse?.type === 'dismiss') {
-            setAuth(null);
-        }
-    }, [userActions.googleResponse]);
-
-
-    function onLogin({ tokenId }) {
-        return userActions.login(tokenId).catch(error => {
-            console.log(error)
-        })
-    }
-
-
+export default function LoginComponent({ history }) {
     return (
         <View style={styles.container}>
             <ImageBackground source={require('../assets/crackbd.jpg')} blurRadius={3} resizeMode="cover" style={styles.image}>
                 <Center>
-                    <RenderCard onLogin={userActions.googlePromptAsync} />
-
+                    <RenderCard/>
                 </Center>
             </ImageBackground>
         </View>
@@ -62,13 +42,33 @@ function RenderAntarctica() {
 }
 
 
-function RenderCard({ onLogin }) {
-    const localAuthStatus = useRecoilValue(authStatus);
+function RenderCard() {
+    const userActions = authActions();
     const setAuth = useSetRecoilState(authAtom);
+    const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(() => {
+        if (userActions.googleResponse?.type === 'success') {
+            onLogin({ tokenId: userActions.googleResponse.params.id_token })
+            setIsLoading(false)
+        }
+        else if (userActions.googleResponse?.type === 'dismiss') {
+            setAuth(null);
+            setIsLoading(false)
+        }
+    }, [userActions.googleResponse]);
+
+
+    function onLogin({ tokenId }) {
+        return userActions.login(tokenId).catch(error => {
+            console.log(error)
+        })
+    }
 
     function onLoginClick() {
-        setAuth({ status: 'LOADING' })
-        onLogin();
+        //setAuth({ status: 'LOADING' })
+        setIsLoading(true);
+        userActions.googlePromptAsync()
     }
 
     return (
@@ -91,8 +91,8 @@ function RenderCard({ onLogin }) {
                 </Box>
                 <Box px={4} pb={4} pt={4}>
                     <Button
-                        isDisabled={localAuthStatus == 'LOADING' ? true : false}
-                        isLoading={localAuthStatus == 'LOADING' ? true : false}
+                        isDisabled={isLoading ? true : false}
+                        isLoading={isLoading ? true : false}
                         colorScheme="white_bd"
                         size="lg"
                         onPress={() => onLoginClick()}

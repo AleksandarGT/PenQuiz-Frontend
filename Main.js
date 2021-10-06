@@ -15,12 +15,17 @@ import AppLoading from 'expo-app-loading';
 import { useFonts } from 'expo-font';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { useWindowDimensions } from 'react-native';
+import * as Linking from 'expo-linking';
+
+import { authStatus } from './state';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
+const prefix = Linking.createURL('http://localhost:19006');
 
 
 export default function Main() {
+  const localAuthStatus = useRecoilValue(authStatus);
 
   const useAuthActions = authActions();
   let [fontsLoaded] = useFonts({
@@ -32,35 +37,73 @@ export default function Main() {
     useAuthActions.refreshToken()
   }, [])
 
+  const linking = {
+    prefixes: [prefix],
+    config: {
+      screens: {
+        Home: 'home',
+        Game: 'game'
+      }
+    }
+  };
+
+  function SwitchAuthState() {
+
+    if(localAuthStatus === 'LOADING') {
+      return (
+        <Stack.Screen name="Loading" component={loadingComponent} />
+      )
+    }
+    else if (localAuthStatus === "LOGGED") {
+      return (
+        <>
+          <Stack.Screen name="Game" component={TestingSvg} />
+          <Stack.Screen
+            name="Home"
+            component={MyDrawer}
+            options={{ headerShown: false }}
+          />
+        </>
+      )
+    }
+    else {
+      return (
+        <Stack.Screen name="Login" component={LoginComponent} />
+      )
+    }
+  }
 
   return (
-    <NavigationContainer ref={navigationRef}>
+    <NavigationContainer linking={linking} ref={navigationRef}>
       <Stack.Navigator>
-        <Stack.Screen name="Loading" component={loadingComponent} />
-        <Stack.Screen options={{ headerShown: false }} name="Login" component={LoginComponent} />
-        <Stack.Screen name="Grid" component={GridSquares} />
-        <Stack.Screen
-          name="SVG"
-          component={MyDrawer}
-          options={{ headerShown: false }}
-        />
+        {SwitchAuthState()}
       </Stack.Navigator>
     </NavigationContainer>
   )
 }
 
-function Feed() {
+function Feed({ navigation, route }) {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <Text>Feed Screen</Text>
+      <Button
+        title="Go to articlke"
+        onPress={() => {
+          navigation.navigate('Article', {
+            url: 'picachu-i-want-u'
+          })
+        }}
+      />
     </View>
   );
 }
 
-function Article() {
+function Article({ navigation, route }) {
+
+  const url = route.params?.url ?? "DefaultURL"
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Article Screen</Text>
+      <Text>Article Screen: {url}</Text>
     </View>
   );
 }
