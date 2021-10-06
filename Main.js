@@ -32,7 +32,6 @@ export default function Main() {
   return (
     <NavigationContainer ref={navigationRef}>
       <Stack.Navigator>
-        {/* <Stack.Screen options={{headerShown: false}} name="NativeBaseExample" component={NativeBaseExample} /> */}
         <Stack.Screen name="Loading" component={loadingComponent} />
         <Stack.Screen options={{ headerShown: false }} name="Login" component={LoginComponent} />
         <Stack.Screen name="Grid" component={GridSquares} />

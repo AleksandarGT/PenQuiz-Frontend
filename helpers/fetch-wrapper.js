@@ -2,9 +2,10 @@ import { useRecoilState } from 'recoil';
 //import { history } from './index';
 import { authAtom } from '../state';
 
-export { useFetchWrapper };
 import { BACKEND_API_URL } from '@env'
+import { removeBackStack } from './index'
 
+export { useFetchWrapper, };
 
 function useFetchWrapper() {
     const [auth, setAuth] = useRecoilState(authAtom);
@@ -55,6 +56,8 @@ function useFetchWrapper() {
                     // auto logout if 401 Unauthorized or 403 Forbidden response returned from api
                     //localStorage.removeItem('user');
                     setAuth(null);
+            removeBackStack('Login');
+
                     //history.push('/login');
                 }
 
