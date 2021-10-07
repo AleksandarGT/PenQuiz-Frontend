@@ -6,6 +6,7 @@ import { Text, Button, Input } from 'native-base';
 
 export function GameLobby({ route, navigation }) {
     const [users, setUsers] = useState();
+    const [gameInstance, setGameInstance] = useState();
     const [code, setCode] = useState();
     const connection = useSignalR();
 
@@ -17,8 +18,19 @@ export function GameLobby({ route, navigation }) {
             connection.on('LobbyCanceled', (() => {
                 navigation.navigate('Home')
             }))
+            connection.on('GetGameInstance', ((gi) => {
+                setGameInstance(gi)
+            }))
         }
     }, [connection])
+
+    useEffect(() => {
+        const unsubscribe = navigation.addListener('beforeRemove', () => {
+            // do something
+            connection?.stop()
+        });
+        return unsubscribe
+    }, [navigation])
 
     function SendMessage() {
         if (connection) {
@@ -34,6 +46,9 @@ export function GameLobby({ route, navigation }) {
 
     return (
         <>
+            {gameInstance && (
+                <Text color="black">Game code: {gameInstance?.invitationLink}</Text>
+            )}
             {users && users.map(x => (
                 <Text color="black" key={x.id}>My name is: {x.username}</Text>
             ))}
