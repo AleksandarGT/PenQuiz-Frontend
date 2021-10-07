@@ -8,7 +8,7 @@ import {
 } from '@react-navigation/drawer';
 import { useWindowDimensions } from 'react-native';
 import { View, Button, Text } from 'react-native';
-
+import { Feed} from '../components/Feed'
 const Drawer = createDrawerNavigator();
 
 export function HomeDrawer() {
@@ -39,22 +39,6 @@ export function HomeDrawer() {
             <Drawer.Screen name="Feed" component={Feed} />
             <Drawer.Screen name="Article" component={Article} />
         </Drawer.Navigator>
-    );
-}
-
-function Feed({ navigation, route }) {
-    return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text>Feed Screen</Text>
-            <Button
-                title="Go to articlke"
-                onPress={() => {
-                    navigation.navigate('Article', {
-                        url: 'picachu-i-want-u'
-                    })
-                }}
-            />
-        </View>
     );
 }
 

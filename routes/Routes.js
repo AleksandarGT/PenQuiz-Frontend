@@ -12,11 +12,12 @@ import * as Linking from 'expo-linking';
 import { authStatus } from '../state';
 import { HomeDrawer } from './HomeDrawer'
 import { LoadingComponent } from './LoadingComponent'
-const Stack = createStackNavigator();
-const prefix = Linking.createURL('http://localhost:19006');
 
 export * from './LoadingComponent';
 
+
+const Stack = createStackNavigator();
+const prefix = Linking.createURL('http://localhost:19006');
 export function Routes() {
     const localAuthStatus = useRecoilValue(authStatus);
   

@@ -1,5 +1,4 @@
-import React from 'react';
-import { useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
 
 import { ImageBackground, Platform, StyleSheet, View } from "react-native";
 import { VStack, Box, Divider, Text, Center, Heading, Button, Icon, Image, Pressable, HStack } from 'native-base';
@@ -8,7 +7,6 @@ import { authStatus, authAtom } from '../state';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { authActions } from '../actions';
 import { justifyContent } from 'styled-system';
-import { useState } from 'react/cjs/react.development';
 
 export default function LoginComponent({ history }) {
     return (
