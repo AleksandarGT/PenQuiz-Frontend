@@ -50,7 +50,6 @@ export function Routes() {
             <Stack.Screen
               name="Home"
               component={HomeDrawer}
-              options={{ headerShown: false }}
             />
             <Stack.Screen name="Game" component={TestingSvg} />
           </>
@@ -65,7 +64,7 @@ export function Routes() {
   
     return (
       <NavigationContainer linking={linking} ref={navigationRef}>
-        <Stack.Navigator>
+        <Stack.Navigator screenOptions={{headerShown: false}}>
           {SwitchAuthState()}
         </Stack.Navigator>
       </NavigationContainer>

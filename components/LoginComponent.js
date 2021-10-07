@@ -102,7 +102,7 @@ function RenderCard() {
 
                     </Button>
                 </Box>
-                <Divider />
+                <Divider bg="black" thickness="1.5" />
 
                 <Button.Group
                     mx={{
@@ -111,7 +111,7 @@ function RenderCard() {
                     }}
                     justifyContent="space-around"
                 >
-                    <Button size="lg" bg="#006078">Rules</Button>
+                    <Button size="lg" bg="#006078" style={{alignSelf: 'flex-start'}}>Rules</Button>
                     <Button size="lg" bg="#006078">About us</Button>
                 </Button.Group>
             </VStack>
