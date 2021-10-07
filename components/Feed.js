@@ -1,40 +1,28 @@
 import React from 'react';
-import { View, Button, Text } from 'react-native';
+import { View } from 'react-native';
 import { useEffect } from 'react/cjs/react.development';
-import {useSignalR} from '../actions/useSignalR'
+import { useSignalR } from '../actions/useSignalR'
+import { Text, Button } from 'native-base';
+
 export function Feed({ navigation, route }) {
-    const connection = useSignalR();
 
-    useEffect(() => {
-        if(connection) {
-            connection.on('ReceiveMessage', ((e) => {
-                console.log(e)
-            }))
-        }
-    }, [connection])
-
-    function SendMessage() {
-        if(connection) {
-            connection.invoke("SendMessage", "Cool bro")
-        }
-    }
     return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
             <Text>Feed Screen</Text>
             <Button
-                title="Send message"
                 onPress={() => {
-                    SendMessage()
+                    navigation.navigate('GameLobby')
                 }}
-            />
+                my={5}
+            >Start Game</Button>
             <Button
-                title="Go to articlke"
+                title="Join Game"
                 onPress={() => {
                     navigation.navigate('Article', {
                         url: 'picachu-i-want-u'
                     })
                 }}
-            />
+            >Join Game</Button>
         </View>
     );
 }

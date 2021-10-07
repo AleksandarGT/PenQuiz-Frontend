@@ -12,6 +12,7 @@ import * as Linking from 'expo-linking';
 import { authStatus } from '../state';
 import { HomeDrawer } from './HomeDrawer'
 import { LoadingComponent } from './LoadingComponent'
+import { GameLobby } from '../components/GameLobby'
 
 export * from './LoadingComponent';
 
@@ -52,6 +53,7 @@ export function Routes() {
               name="Home"
               component={HomeDrawer}
             />
+            <Stack.Screen name="GameLobby" component={GameLobby} />
             <Stack.Screen name="Game" component={TestingSvg} />
           </>
         )
