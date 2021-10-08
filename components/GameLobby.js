@@ -7,6 +7,7 @@ import { Text, Button, Input } from 'native-base';
 export function GameLobby({ route, navigation }) {
     const [users, setUsers] = useState([]);
     const [isDisconnected, setIsDisconnected] = useState(false);
+    const [joiningGameException, setJoiningGameException] = useState();
     const [gameInstance, setGameInstance] = useState();
     const [code, setCode] = useState();
     const connection = useSignalR();
@@ -27,6 +28,9 @@ export function GameLobby({ route, navigation }) {
             }))
             connection.on('GetGameInstance', ((gi) => {
                 setGameInstance(gi)
+            }))
+            connection.on('JoiningGameException', ((er) => {
+                setJoiningGameException(er)
             }))
         }
     }, [connection])
@@ -71,6 +75,9 @@ export function GameLobby({ route, navigation }) {
 
             <Button onPress={() => SendMessage()}>Game Lobby</Button>
             <Input mt={5} onChangeText={setCode} variant="outline" placeholder="Code" />
+            {joiningGameException ? (
+                <Text color="black">{joiningGameException}</Text>
+            ) : null}
             <Button onPress={() => JoinLobby()}>Join game</Button>
             <Button isDisabled={users.length == 3 ? false : true} onPress={() => JoinLobby()}>Start Game</Button>
 
