@@ -1,15 +1,22 @@
 import React, { useState } from 'react';
-import { View } from 'react-native';
+import { View, ActivityIndicator } from 'react-native';
 import { useEffect } from 'react/cjs/react.development';
 import { useSignalR } from '../actions/useSignalR'
 import { Text, Button, Input } from 'native-base';
 
 export function GameLobby({ route, navigation }) {
-    const [users, setUsers] = useState();
+    const [users, setUsers] = useState([]);
+    const [isDisconnected, setIsDisconnected] = useState(false);
     const [gameInstance, setGameInstance] = useState();
     const [code, setCode] = useState();
     const connection = useSignalR();
 
+    connection.onreconnecting(() => {
+        setIsDisconnected(true)
+    })
+    connection.onreconnected(() => {
+        setIsDisconnected(false)
+    })
     useEffect(() => {
         if (connection) {
             connection.on('AllLobbyPlayers', ((e) => {
@@ -44,6 +51,15 @@ export function GameLobby({ route, navigation }) {
         }
     }
 
+    if (isDisconnected) {
+        return (
+            <>
+                <ActivityIndicator size="large" />
+
+            </>
+        )
+    }
+
     return (
         <>
             {gameInstance && (
@@ -56,6 +72,7 @@ export function GameLobby({ route, navigation }) {
             <Button onPress={() => SendMessage()}>Game Lobby</Button>
             <Input mt={5} onChangeText={setCode} variant="outline" placeholder="Code" />
             <Button onPress={() => JoinLobby()}>Join game</Button>
+            <Button isDisabled={users.length == 3 ? false : true} onPress={() => JoinLobby()}>Start Game</Button>
 
         </>
     )
