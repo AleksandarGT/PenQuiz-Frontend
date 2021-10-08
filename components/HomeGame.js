@@ -1,13 +1,17 @@
 import React from 'react';
 import { View, ImageBackground, StyleSheet } from 'react-native';
 import { Text, Button, Center, Box, Pressable, Input } from 'native-base';
-
+import { useGameLobby } from '../actions/'
 export function HomeGame({ navigation, route }) {
+    const lobby = useGameLobby();
+
+    lobby.gameInstance
+
 
     function CreateGameButton() {
         return (
             <Pressable onPress={() => {
-                navigation.navigate('GameLobby')
+                lobby.CreateGameLobby()
             }}>
                 {({ isHovered, isFocused, isPressed }) => {
                     return (
@@ -42,15 +46,23 @@ export function HomeGame({ navigation, route }) {
         )
     }
 
+    if (lobby.isDisconnected) {
+        return (
+            <>
+                <ActivityIndicator size="large" />
+            </>
+        )
+    }
+
     return (
-        <ImageBackground source={require('../assets/homeBackground.svg')}  resizeMode="cover" style={styles.image}>
+        <ImageBackground source={require('../assets/homeBackground.svg')} resizeMode="cover" style={styles.image}>
             <Center >
                 <Text textAlign="center" color="#fff" fontSize={{ base: 40, md: 60, lg: 80, xl: 90 }} style={{ fontFamily: 'Before-Collapse', }}>
                     ConQuiz
                 </Text>
                 <CreateGameButton />
-                <Input mt={9} mb={2} bg="#D7D7D7" color="black" _hover={{bg: "#C6C6C6"}} size="lg" placeholder="Enter code" />
-                <JoinGameButton  />
+                <Input mt={9} mb={2} bg="#D7D7D7" color="black" _hover={{ bg: "#C6C6C6" }} size="lg" placeholder="Enter code" />
+                <JoinGameButton />
             </Center>
         </ImageBackground>
     )
