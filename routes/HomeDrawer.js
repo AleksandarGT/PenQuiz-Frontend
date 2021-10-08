@@ -8,7 +8,7 @@ import {
 } from '@react-navigation/drawer';
 import { useWindowDimensions } from 'react-native';
 import { View, Button, Text } from 'react-native';
-import { Feed} from '../components/Feed'
+import { HomeGame } from '../components/HomeGame'
 const Drawer = createDrawerNavigator();
 
 export function HomeDrawer() {
@@ -22,9 +22,15 @@ export function HomeDrawer() {
         return (
             <DrawerContentScrollView {...props}>
                 <DrawerItemList {...props} />
-                <DrawerItem label="Logout" onPress={() => actions.logout()} />
+                <DrawerItem inactiveTintColor="#DEDEDE" label="Logout" onPress={() => actions.logout()} />
             </DrawerContentScrollView>
         );
+    }
+
+    const drawerScreenOptions = {
+        drawerActiveTintColor: "white",
+        drawerInactiveTintColor: "#DEDEDE",
+        drawerActiveBackgroundColor: "#0E328E",
     }
 
     return (
@@ -32,12 +38,18 @@ export function HomeDrawer() {
             screenOptions={{
                 headerShown: isLargeScreen ? false : true,
                 drawerType: isLargeScreen ? 'permanent' : 'front',
-                drawerStyle: isLargeScreen ? null : { width: '80%', },
+                drawerStyle: isLargeScreen ? {
+                    borderRightWidth: 0, // Make 1 if you want border between drawer and content
+                    backgroundColor: "#071D55"
+                } : {
+                    backgroundColor: "#071D55",
+                    width: "80%"
+                },
             }}
             drawerContent={props => <CustomLogout {...props} />}
         >
-            <Drawer.Screen name="Feed" component={Feed} />
-            <Drawer.Screen name="Article" component={Article} />
+            <Drawer.Screen options={drawerScreenOptions} name="Game" component={HomeGame} />
+            <Drawer.Screen options={drawerScreenOptions} name="Article" component={Article} />
         </Drawer.Navigator>
     );
 }
