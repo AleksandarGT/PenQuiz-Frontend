@@ -10,7 +10,7 @@ export function useGameLobby() {
     const [gameInstance, setGameInstance] = useState();
     const [joiningGameException, setJoiningGameException] = useState();
     const [participants, setParticipants] = useState([]);
-    const [code, setCode] = useState();
+    const [code, setCode] = useState("");
     const [isDisconnected, setIsDisconnected] = useState(false);
 
     
@@ -51,5 +51,5 @@ export function useGameLobby() {
         }
     }
 
-    return {connection, gameInstance, joiningGameException, participants, code, isDisconnected, CreateGameLobby, JoinLobby}
+    return {connection, gameInstance, joiningGameException, participants, code, isDisconnected, CreateGameLobby, JoinLobby, setCode}
 }

@@ -1,11 +1,11 @@
 import React from 'react';
 import { View, ImageBackground, StyleSheet } from 'react-native';
-import { Text, Button, Center, Box, Pressable, Input } from 'native-base';
+import { Text, Button, Center, Box, Pressable, Input, Alert, VStack, HStack, IconButton, CloseIcon } from 'native-base';
 import { useGameLobby } from '../actions/'
+
 export function HomeGame({ navigation, route }) {
     const lobby = useGameLobby();
 
-    lobby.gameInstance
 
 
     function CreateGameButton() {
@@ -30,7 +30,9 @@ export function HomeGame({ navigation, route }) {
 
     function JoinGameButton() {
         return (
-            <Pressable>
+            <Pressable onPress={() => {
+                lobby.JoinLobby();
+            }}>
                 {({ isHovered, isFocused, isPressed }) => {
                     return (
                         <Box shadow={3} bg={isPressed ? "#C6C6C6" : isHovered ? "#D7D7D7" : "white"} px={8} borderRadius={25}>
@@ -46,6 +48,21 @@ export function HomeGame({ navigation, route }) {
         )
     }
 
+    function RenderAlert({message}) {
+        return (
+            <Alert my={3} maxW="80%" status="error">
+                <VStack space={2} flexShrink={1} w="100%">
+                    <HStack flexShrink={1} space={2} >
+                        <Alert.Icon mt="1" />
+                        <Text fontSize="md" color="coolGray.800">
+                            {message}
+                        </Text>
+                    </HStack>
+                </VStack>
+            </Alert>
+        )
+    }
+
     if (lobby.isDisconnected) {
         return (
             <>
@@ -54,14 +71,36 @@ export function HomeGame({ navigation, route }) {
         )
     }
 
+
     return (
         <ImageBackground source={require('../assets/homeBackground.svg')} resizeMode="cover" style={styles.image}>
             <Center >
                 <Text textAlign="center" color="#fff" fontSize={{ base: 40, md: 60, lg: 80, xl: 90 }} style={{ fontFamily: 'Before-Collapse', }}>
                     ConQuiz
                 </Text>
+
+                {lobby.joiningGameException ? (
+                    <RenderAlert message={lobby.joiningGameException} />
+                ) : null}
+
+
                 <CreateGameButton />
-                <Input mt={9} mb={2} bg="#D7D7D7" color="black" _hover={{ bg: "#C6C6C6" }} size="lg" placeholder="Enter code" />
+                <Input onChangeText={(e) => {
+                    if (/^\d+$/.test(e) || !e) {
+                        lobby.setCode(e)
+                    }
+                }}
+                    maxLength={4}
+                    value={lobby.code}
+                    keyboardType="numeric"
+                    mt={9}
+                    mb={2}
+                    variant="rounded"
+                    bg="#D7D7D7"
+                    color="black"
+                    _hover={{ bg: "#C6C6C6" }}
+                    size="md"
+                    placeholder="Enter code" />
                 <JoinGameButton />
             </Center>
         </ImageBackground>

@@ -6,8 +6,8 @@ import {
     DrawerItemList,
     DrawerItem,
 } from '@react-navigation/drawer';
-import { useWindowDimensions } from 'react-native';
-import { View, Button, Text } from 'react-native';
+import { View, Button, Text, useWindowDimensions } from 'react-native';
+import { Center } from 'native-base';
 import { HomeGame } from '../components/HomeGame'
 const Drawer = createDrawerNavigator();
 
@@ -57,8 +57,10 @@ export function HomeDrawer() {
 function Article({ navigation, route }) {
     const url = route.params?.url ?? "DefaultURL"
     return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text>Article Screen: {url}</Text>
-        </View>
+        <Center style={{flex: 1}} >
+            <Text style={{fontSize: 90, fontFamily: 'Before-Collapse', alignItems: "center", textShadowColor: "red", textShadowRadius: 5}} >
+                ConQuiz
+            </Text>
+        </Center>
     );
 }
