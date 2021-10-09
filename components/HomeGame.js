@@ -1,12 +1,10 @@
-import React from 'react';
-import { View, ImageBackground, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, ImageBackground, StyleSheet, ActivityIndicator } from 'react-native';
 import { Text, Button, Center, Box, Pressable, Input, Alert, VStack, HStack, IconButton, CloseIcon } from 'native-base';
-import { useGameLobby } from '../actions/'
+import { useGameLobby, StatusCode } from '../actions/'
 
 export function HomeGame({ navigation, route }) {
     const lobby = useGameLobby();
-
-
 
     function CreateGameButton() {
         return (
@@ -48,7 +46,7 @@ export function HomeGame({ navigation, route }) {
         )
     }
 
-    function RenderAlert({message}) {
+    function RenderAlert({ message }) {
         return (
             <Alert my={3} maxW="80%" status="error">
                 <VStack space={2} flexShrink={1} w="100%">
@@ -63,11 +61,12 @@ export function HomeGame({ navigation, route }) {
         )
     }
 
-    if (lobby.isDisconnected) {
+    if (lobby.connectionStatus.StatusCode == StatusCode.DISCONNECTED) {
         return (
-            <>
+            <Center flex={1}>
+                <Text color="black">{lobby.connectionStatus.Error?.message}</Text>
                 <ActivityIndicator size="large" />
-            </>
+            </Center>
         )
     }
 

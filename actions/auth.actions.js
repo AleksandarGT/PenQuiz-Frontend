@@ -24,11 +24,10 @@ function authActions() {
         const expires = new Date(tokenExp.exp * 1000);
         const timeoutSec = expires.getTime() - Date.now() - (60 * 1000);
 
-        console.log(timeoutSec)
+        console.log(`${timeoutSec / 1000} s before next JWT fetch call`)
 
-        refreshToken().then((jwt) => {
-            timeout = setTimeout(() => startRefreshTokenTimer(jwt), timeoutSec);
-        })
+        timeout = setTimeout(() => refreshToken(), timeoutSec)
+
     }
 
     const [request, googleResponse, googlePromptAsync] = Google.useIdTokenAuthRequest({
@@ -65,7 +64,7 @@ function authActions() {
         return fetchWrapper.post(`${baseUrl}/refresh-token`).then(user => {
             setAuth(user);
             //removeBackStack('Home')
-            return user.jwtToken
+            startRefreshTokenTimer(user.jwtToken)
         }).catch(() => {
             setAuth(null)
             //removeBackStack('Login')
@@ -75,9 +74,9 @@ function authActions() {
 
     function logout() {
         fetchWrapper.post(`${baseUrl}/revoke-cookie`).then(res => {
+            clearTimeout(timeout)
             setAuth(null);
-            clearInterval(timeout);
-            removeBackStack('Login');
+            //removeBackStack('Login');
         })
     }
 }

@@ -40,9 +40,9 @@ export function HomeDrawer() {
                 drawerType: isLargeScreen ? 'permanent' : 'front',
                 drawerStyle: isLargeScreen ? {
                     borderRightWidth: 0, // Make 1 if you want border between drawer and content
-                    backgroundColor: "#071D55"
+                    backgroundColor: "#032157"
                 } : {
-                    backgroundColor: "#071D55",
+                    backgroundColor: "#032157",
                     width: "80%"
                 },
             }}

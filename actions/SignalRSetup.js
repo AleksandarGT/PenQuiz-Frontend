@@ -43,9 +43,7 @@ export const setupSignalRConnection = (connectionHub, accessToken) => {
     connection.serverTimeoutInMilliseconds = 60000;
 
     // re-establish the connection if connection dropped
-    connection.onclose(error => {
-        removeBackStack('Home');
-    });
+
 
 
     startSignalRConnection(connection);

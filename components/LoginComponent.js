@@ -11,7 +11,7 @@ import { justifyContent } from 'styled-system';
 export default function LoginComponent({ history }) {
     return (
         <View style={styles.container}>
-            <ImageBackground source={require('../assets/crackbd.jpg')} blurRadius={3} resizeMode="cover" style={styles.image}>
+            <ImageBackground source={require('../assets/crackbd.jpg')} resizeMode="cover" style={styles.image}>
                 <Center>
                     <RenderCard/>
                 </Center>
@@ -89,6 +89,7 @@ function RenderCard() {
                 </Box>
                 <Box px={4} pb={4} pt={4}>
                     <Button
+                    py={3}
                         isDisabled={isLoading ? true : false}
                         isLoading={isLoading ? true : false}
                         colorScheme="white_bd"
@@ -100,7 +101,7 @@ function RenderCard() {
 
                     </Button>
                 </Box>
-                <Divider bg="black" thickness="1.5" />
+                <Divider bg="white" thickness="1" />
 
                 <Button.Group
                     mx={{
@@ -109,8 +110,8 @@ function RenderCard() {
                     }}
                     justifyContent="space-around"
                 >
-                    <Button size="lg" bg="#006078" style={{alignSelf: 'flex-start'}}>Rules</Button>
-                    <Button size="lg" bg="#006078">About us</Button>
+                    <Button px={7} size="lg" bg="#006078" style={{alignSelf: 'flex-start'}}>Rules</Button>
+                    <Button  px={7} size="lg" bg="#006078">About</Button>
                 </Button.Group>
             </VStack>
         </Box>
