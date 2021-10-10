@@ -1,86 +1,74 @@
 import React, { useState } from 'react';
-import { View, ActivityIndicator } from 'react-native';
-import { useEffect } from 'react/cjs/react.development';
-import { useSignalR } from '../actions/useSignalR'
-import { Text, Button, Input } from 'native-base';
+import { Text, Button, Input, Center, Modal, } from 'native-base';
+import { View } from 'react-native';
+import { useGameLobby, StatusCode } from '../actions/'
 
 export function GameLobby({ route, navigation }) {
-    const [users, setUsers] = useState([]);
-    const [isDisconnected, setIsDisconnected] = useState(false);
-    const [joiningGameException, setJoiningGameException] = useState();
-    const [gameInstance, setGameInstance] = useState();
-    const [code, setCode] = useState();
-    const connection = useSignalR();
+    const lobby = useGameLobby();
 
-    connection.onreconnecting(() => {
-        setIsDisconnected(true)
-    })
-    connection.onreconnected(() => {
-        setIsDisconnected(false)
-    })
-    useEffect(() => {
-        if (connection) {
-            connection.on('AllLobbyPlayers', ((e) => {
-                setUsers(e)
-            }))
-            connection.on('LobbyCanceled', (() => {
-                navigation.navigate('Home')
-            }))
-            connection.on('GetGameInstance', ((gi) => {
-                setGameInstance(gi)
-            }))
-            connection.on('JoiningGameException', ((er) => {
-                setJoiningGameException(er)
-            }))
-        }
-    }, [connection])
+    const [backAction, setBackAction] = useState()
+    React.useEffect(
+        () =>
+            navigation.addListener('beforeRemove', (e) => {
 
-    useEffect(() => {
-        const unsubscribe = navigation.addListener('beforeRemove', () => {
-            // do something
-            connection?.stop()
-        });
-        return unsubscribe
-    }, [navigation])
+                // Prevent default behavior of leaving the screen
+                e.preventDefault();
 
-    function SendMessage() {
-        if (connection) {
-            connection.invoke("CreateGameLobby")
-        }
-    }
+                // Prompt the user before leaving the screen
+                setBackAction(e.data.action)
 
-    function JoinLobby() {
-        if (connection) {
-            connection.invoke("JoinGameLobby", code)
-        }
-    }
+            }),
+        [navigation]
+    );
 
-    if (isDisconnected) {
+
+
+    function CustomModal() {
         return (
-            <>
-                <ActivityIndicator size="large" />
-
-            </>
+            <Modal isOpen={backAction} onClose={() => setBackAction(null)}>
+                <Modal.Content maxWidth="400px">
+                    <Modal.CloseButton />
+                    <Modal.Header>Contact Us</Modal.Header>
+                    <Modal.Body>
+                        <Text>
+                            Are you sure you want to leave the game lobby? If you are the owner of it, the lobby will be canceled.
+                        </Text>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button.Group space={2}>
+                            <Button
+                                onPress={() => {
+                                    setBackAction(null)
+                                }}
+                            >
+                                Cancel
+                            </Button>
+                            <Button
+                                onPress={() => {
+                                    lobby.LeaveGameLobby()
+                                    setBackAction(null)
+                                    navigation.dispatch(backAction)
+                                }}
+                            >
+                                Go back
+                            </Button>
+                        </Button.Group>
+                    </Modal.Footer>
+                </Modal.Content>
+            </Modal>
         )
+
     }
 
     return (
         <>
-            {gameInstance && (
-                <Text color="black">Game code: {gameInstance?.invitationLink}</Text>
-            )}
-            {users && users.map(x => (
-                <Text color="black" key={x.id}>My name is: {x.username}</Text>
-            ))}
-
-            <Button onPress={() => SendMessage()}>Game Lobby</Button>
-            <Input mt={5} onChangeText={setCode} variant="outline" placeholder="Code" />
-            {joiningGameException ? (
-                <Text color="black">{joiningGameException}</Text>
-            ) : null}
-            <Button onPress={() => JoinLobby()}>Join game</Button>
-            <Button isDisabled={users.length == 3 ? false : true} onPress={() => JoinLobby()}>Start Game</Button>
-
+            <View style={{ flex: 1, justifyContent: "center" }}>
+                <Center>
+                    <CustomModal />
+                    <Text color="black">Content</Text>
+                    <Text color="black">Game Instance: {lobby?.gameInstance?.invitationLink}</Text>
+                </Center>
+            </View>
         </>
     )
 }

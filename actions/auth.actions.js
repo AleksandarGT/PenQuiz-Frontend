@@ -4,6 +4,7 @@ import { useFetchWrapper, navigate, removeBackStack } from '../helpers';
 import { authAtom, usersAtom } from '../state';
 import * as Google from 'expo-auth-session/providers/google';
 import { BACKEND_API_URL, GOOGLE_CLIENT_URL } from '@env'
+import { useGameLobby } from '.';
 
 export { authActions };
 
@@ -14,6 +15,7 @@ function authActions() {
     const baseUrl = `${BACKEND_API_URL}/api/account`;
     const fetchWrapper = useFetchWrapper();
     const setAuth = useSetRecoilState(authAtom);
+    const lobby = useGameLobby();
     var timeout;
 
     function startRefreshTokenTimer(jwt) {
@@ -74,6 +76,7 @@ function authActions() {
 
     function logout() {
         fetchWrapper.post(`${baseUrl}/revoke-cookie`).then(res => {
+        lobby.connection?.stop()
             clearTimeout(timeout)
             setAuth(null);
             //removeBackStack('Login');
