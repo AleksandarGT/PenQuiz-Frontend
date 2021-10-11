@@ -55,7 +55,7 @@ export function Routes() {
             component={HomeDrawer}
           />
           <Stack.Screen name="Game" options={{ headerShown: false }} component={TestingSvg} />
-          <Stack.Screen name="GameLobby" component={GameLobby} />
+          <Stack.Screen name="GameLobby" options={{ headerShown: false }} component={GameLobby} />
         </>
       )
     }

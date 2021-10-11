@@ -15,6 +15,10 @@ function authActions() {
     const baseUrl = `${BACKEND_API_URL}/api/account`;
     const fetchWrapper = useFetchWrapper();
     const setAuth = useSetRecoilState(authAtom);
+
+    //TODO
+    // This establishes the connection automatically and then you can destroy it
+    // To prevent this behavior - have a custom class that doesn't try to establish a connection on create
     const lobby = useGameLobby();
     var timeout;
 

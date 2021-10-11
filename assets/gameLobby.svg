@@ -1,174 +1,93 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 17.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1400px"
-	 height="980px" viewBox="0 0 1400 980" enable-background="new 0 0 1400 980" xml:space="preserve">
-<g id="Layer_1">
-	<g>
-		<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="700" y1="980" x2="700" y2="-3.142668e-008">
-			<stop  offset="0" style="stop-color:#B8FFFF"/>
-			<stop  offset="1" style="stop-color:#0F78C2"/>
-		</linearGradient>
-		<rect fill-rule="evenodd" clip-rule="evenodd" fill="url(#SVGID_1_)" width="1400" height="980"/>
-		<linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="700" y1="574.3355" x2="700" y2="346.3191">
-			<stop  offset="0" style="stop-color:#8BD8F7"/>
-			<stop  offset="1" style="stop-color:#8BD8F7;stop-opacity:0"/>
-		</linearGradient>
-		<path fill-rule="evenodd" clip-rule="evenodd" fill="url(#SVGID_2_)" d="M0,441.8l1058,49.7l-712.5,32.9l439.7,27L0,574.3V441.8z
-			 M0,386.2l1172.2-15.8L0,346.3V386.2z M1400,457.5l-994.5-44.5l994.5-19.5V457.5z"/>
+<svg width="1920" height="1344" viewBox="0 0 1920 1344" fill="none" xmlns="http://www.w3.org/2000/svg">
+	<g clip-path="url(#clip0)">
+	<path d="M1920 0H0V1344H1920V0Z" fill="url(#paint0_linear)"/>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M0 605.897L1450.97 674.057L473.829 719.177L1076.85 756.206L0 787.612V605.897ZM0 529.646L1607.59 507.977L0 474.926V529.646ZM1920 627.429L556.114 566.4L1920 539.657V627.429Z" fill="url(#paint1_linear)"/>
+	<g filter="url(#filter0_d)">
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M147.566 705.6L245.349 691.612L268.114 654.72L463.68 615.36L491.657 658.423L580.526 677.623L627.566 802.286H122.194L147.566 705.6Z" fill="white"/>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M627.566 802.286H122.194L147.566 705.6L225.6 737.417L301.851 722.743L400.183 740.434L501.257 711.223L534.857 717.669L580.526 677.623L627.566 802.286Z" fill="#8CBAFF"/>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M308.161 802.286H212.983L225.601 737.417L301.852 722.88L308.161 802.286ZM627.566 802.286H403.201L400.183 740.572L501.121 711.223L523.201 778.834L534.721 717.532L580.389 677.623L627.566 802.286Z" fill="#66A0DE"/>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M1473.74 735.32L1542.11 725.539L1558.03 699.743L1694.78 672.222L1714.34 702.333L1776.48 715.758L1809.37 802.926H1456L1473.74 735.32Z" fill="white"/>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M1809.37 802.926H1456L1473.74 735.32L1528.3 757.568L1581.62 747.307L1650.38 759.678L1721.05 739.252L1744.55 743.759L1776.48 715.758L1809.37 802.926Z" fill="#8CBAFF"/>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M1586.03 802.926H1519.48L1528.3 757.568L1581.62 747.403L1586.03 802.926ZM1809.37 802.926H1652.49L1650.38 759.773L1720.96 739.252L1736.4 786.528L1744.45 743.663L1776.38 715.758L1809.37 802.926Z" fill="#66A0DE"/>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M718.628 719.04L802.834 706.972L840.411 739.749L870.446 757.44L883.063 802.286H696.686L718.628 719.04Z" fill="white"/>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M718.628 719.04L770.743 775.68L843.566 766.766L870.446 757.44L883.063 802.286H696.686L718.628 719.04Z" fill="#8CBAFF"/>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M770.742 775.68L843.565 766.766L836.297 793.921L870.445 757.44L883.062 802.286H764.982L770.742 775.68Z" fill="#66A0DE"/>
+	<path d="M1920 800.915H0V1344H1920V800.915Z" fill="url(#paint2_linear)"/>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M1920 947.932L800.503 1021.71L1562.33 1057.37L523.611 1120.87L797.897 1085.21L54.72 1056.41L513.326 1031.86L0 994.149V1344H1920V947.932ZM1219.47 940.389L1611.84 939.155L1770.51 922.561L1454.26 916.252L1219.47 940.389ZM0 977.006L477.12 988.115L748.389 969.052L504.549 922.835L1149.67 885.806L0 875.521V977.006Z" fill="url(#paint3_linear)"/>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M1920 1145.83L782.674 1167.5L1716.07 1258.97L929.829 1296.82L77.6229 1257.19L612.48 1208.09L0 1168.87V1344H1920V1145.83Z" fill="url(#paint4_linear)"/>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M524.983 873.052L552 862.629L564.068 890.88L573.668 906.103L577.645 944.915H517.988L524.983 873.052Z" fill="white"/>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M524.983 873.052L539.383 897.737L565.028 914.057L573.668 906.103L577.645 944.915H517.988L524.983 873.052Z" fill="#8CBAFF"/>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M539.383 897.875L565.029 914.195L562.697 937.509L573.669 906.104L577.646 944.915H539.794L539.383 897.875Z" fill="#66A0DE"/>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M549.943 966.858H669.806L655.406 899.795L631.132 889.783L595.749 900.343L582.583 921.326L558.172 935.315L549.943 966.858Z" fill="white"/>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M549.943 966.858H669.806L655.406 899.795L630.309 903.086L605.76 934.904L570.103 940.389L558.172 935.315L549.943 966.858Z" fill="#8CBAFF"/>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M572.572 966.858H669.806L655.406 899.795L630.309 903.086L632.504 937.921L611.521 957.944L605.761 934.904L570.104 940.526L572.572 966.858Z" fill="#66A0DE"/>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M1376.11 862.36L1400.25 847L1418.08 850.703L1427.68 865.789L1431.79 904.326H1372L1376.11 862.36Z" fill="white"/>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M1376.11 862.36L1393.39 862.635L1419.04 874.017L1427.68 865.789L1431.79 904.326H1372L1376.11 862.36Z" fill="#8CBAFF"/>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M1395.59 875.389L1401.9 896.92L1419.04 874.018L1427.68 865.789L1431.8 904.326H1393.81L1395.59 875.389Z" fill="#66A0DE"/>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M1704.27 855.397L1762.85 847L1789 869.805L1809.89 882.113L1818.67 913.314H1689L1704.27 855.397Z" fill="white"/>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M1704.27 855.396L1740.52 894.803L1791.19 888.601L1809.89 882.113L1818.67 913.314H1689L1704.27 855.396Z" fill="#8CBAFF"/>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M1740.53 894.804L1791.19 888.602L1786.13 907.494L1809.89 882.113L1818.67 913.314H1736.52L1740.53 894.804Z" fill="#66A0DE"/>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M1402 936.074H1521.86L1507.46 869.011L1483.19 859L1447.81 869.56L1434.64 890.543L1410.23 904.532L1402 936.074Z" fill="white"/>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M1402 936.075H1521.86L1507.46 869.012L1482.37 872.303L1457.82 904.12L1422.16 909.606L1410.23 904.532L1402 936.075Z" fill="#8CBAFF"/>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M1424.63 936.075H1521.86L1507.46 869.012L1482.37 872.303L1484.56 907.138L1463.58 927.16L1457.82 904.12L1422.16 909.743L1424.63 936.075Z" fill="#66A0DE"/>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M402.651 938.606L426.789 923.246L444.617 926.949L454.217 942.035L458.331 980.572H398.537L402.651 938.606Z" fill="white"/>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M402.651 938.606L419.931 938.881L445.577 950.264L454.217 942.035L458.331 980.572H398.537L402.651 938.606Z" fill="#8CBAFF"/>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M422.126 951.635L428.434 973.166L445.577 950.264L454.217 942.035L458.331 980.572H420.343L422.126 951.635Z" fill="#66A0DE"/>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M0 866.332V1121.83H306.651L255.36 1008.69L159.36 996.069L137.143 899.795L0 866.332Z" fill="white"/>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M0 943.955V1121.83H306.651L255.36 1008.69L209.966 1046.95L86.4 1034.74L159.36 996.069L137.28 899.795L64.1829 958.904L0 943.955Z" fill="#8CBAFF"/>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M54.7202 1056.41L22.3545 1121.83H306.652L255.36 1008.69L209.966 1046.95L205.577 1092.07L96.4116 1109.07L86.4002 1034.74L159.36 996.069L137.28 899.795L64.1831 958.904L54.7202 1056.41Z" fill="#66A0DE"/>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M176.229 1210.97H451.886L418.834 1057.23L362.88 1034.33L281.691 1058.47L251.109 1106.74L195.291 1138.56L176.229 1210.97Z" fill="white"/>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M176.229 1210.97H451.886L418.834 1057.24L361.097 1064.92L304.457 1137.88L222.583 1150.63L195.291 1138.56L176.229 1210.97Z" fill="#8CBAFF"/>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M228.343 1210.97H451.886L418.834 1057.24L361.097 1064.92L366.034 1144.87L317.897 1190.81L304.457 1137.88L222.583 1150.63L228.343 1210.97Z" fill="#66A0DE"/>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M1675.2 984.549L1727.31 964.389L1750.77 1019.11L1769.42 1048.46L1777.23 1123.2H1661.62L1675.2 984.549Z" fill="white"/>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M1675.2 984.549L1703.04 1032.55L1752.69 1064.23L1769.42 1048.46L1777.23 1123.2H1661.62L1675.2 984.549Z" fill="#8CBAFF"/>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M1703.04 1032.69L1752.69 1064.23L1748.3 1109.35L1769.42 1048.46L1777.24 1123.2H1704L1703.04 1032.69Z" fill="#66A0DE"/>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M1210.56 1182.17H1486.22L1453.17 1028.71L1397.21 1005.94L1316.02 1030.22L1285.44 1078.63L1229.62 1110.03L1210.56 1182.17Z" fill="white"/>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M1210.56 1182.17H1486.22L1453.17 1028.71L1395.29 1036.53L1338.93 1109.76L1256.91 1122.38L1229.62 1110.03L1210.56 1182.17Z" fill="#8CBAFF"/>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M1262.67 1182.17H1486.22L1453.17 1028.71L1395.29 1036.53L1400.37 1116.62L1352.23 1162.7L1338.93 1109.76L1256.91 1122.1L1262.67 1182.17Z" fill="#66A0DE"/>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M647.588 1130.61L684.206 1138.42L731.108 1129.65L741.806 1194.38L749.623 1268.57H634.148L647.588 1130.61Z" fill="white"/>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M647.588 1130.61L675.566 1178.74L712.183 1182.04L741.806 1194.38L749.623 1268.57H634.148L647.588 1130.61Z" fill="#8CBAFF"/>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M675.565 1178.61L712.183 1181.9L720.685 1255.82L741.805 1194.38L749.623 1268.57H676.388L675.565 1178.61Z" fill="#66A0DE"/>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M1920 1344H173.074L329.28 1214.26L611.109 1230.58L810.514 1275.15L839.726 1240.73L1008.69 1224.14L1086.17 1168.32L1387.06 1149.12L1488.69 1173.39L1543.27 1112.37L1840.46 1079.31L1883.66 1043.66L1920 1037.35V1344Z" fill="#FEFEFE"/>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M329.28 1214.26L173.074 1344H509.623L424.594 1308.07L293.76 1295.31L329.28 1214.26ZM1840.46 1079.31L1883.66 1043.66L1909.71 1067.79L1840.46 1079.31ZM1488.69 1173.39L1576.32 1154.33L1543.95 1142.95L1543.27 1112.5L1488.69 1173.39ZM1008.69 1224.14L1093.71 1228.66L1086.03 1168.32L1008.69 1224.14ZM810.514 1275.02L912.823 1297.65L1055.04 1289.97L932.571 1282.97L839.863 1240.59L810.514 1275.02Z" fill="#8CBAFF"/>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M254.399 1344L293.759 1295.31L424.594 1308.21L428.434 1344H254.399Z" fill="#66A0DE"/>
 	</g>
-</g>
-<g id="Layer_2">
-	<g>
-		<polygon fill-rule="evenodd" clip-rule="evenodd" fill="#FFFFFF" points="107.6,514.5 178.9,504.3 195.5,477.4 338.1,448.7 
-			358.5,480.1 423.3,494.1 457.6,585 89.1,585 		"/>
-		<polygon fill-rule="evenodd" clip-rule="evenodd" fill="#8CBAFF" points="457.6,585 89.1,585 107.6,514.5 164.5,537.7 220.1,527 
-			291.8,539.9 365.5,518.6 390,523.3 423.3,494.1 		"/>
-		<path fill-rule="evenodd" clip-rule="evenodd" fill="#66A0DE" d="M224.7,585h-69.4l9.2-47.3l55.6-10.6L224.7,585z M457.6,585H294
-			l-2.2-45l73.6-21.4l16.1,49.3l8.4-44.7l33.3-29.1L457.6,585z"/>
+	<path d="M56.41 172.59L51.83 168L56.41 163.41L55 162L49 168L55 174L56.41 172.59Z" fill="black"/>
 	</g>
-	<g>
-		<polygon fill-rule="evenodd" clip-rule="evenodd" fill="#FFFFFF" points="524,524.3 585.4,515.5 612.8,539.4 634.7,552.3 
-			643.9,585 508,585 		"/>
-		<polygon fill-rule="evenodd" clip-rule="evenodd" fill="#8CBAFF" points="524,524.3 562,565.6 615.1,559.1 634.7,552.3 643.9,585 
-			508,585 		"/>
-		<polygon fill-rule="evenodd" clip-rule="evenodd" fill="#66A0DE" points="562,565.6 615.1,559.1 609.8,578.9 634.7,552.3 
-			643.9,585 557.8,585 		"/>
-	</g>
-	<g>
-		<linearGradient id="SVGID_3_" gradientUnits="userSpaceOnUse" x1="700" y1="980" x2="700" y2="584">
-			<stop  offset="0" style="stop-color:#2B6AC2"/>
-			<stop  offset="1" style="stop-color:#2C9AE8"/>
-		</linearGradient>
-		<rect y="584" fill-rule="evenodd" clip-rule="evenodd" fill="url(#SVGID_3_)" width="1400" height="396"/>
-		<linearGradient id="SVGID_4_" gradientUnits="userSpaceOnUse" x1="700" y1="980" x2="700" y2="638.407">
-			<stop  offset="0" style="stop-color:#2B6CC4"/>
-			<stop  offset="1" style="stop-color:#2B6CC4;stop-opacity:0"/>
-		</linearGradient>
-		<path fill-rule="evenodd" clip-rule="evenodd" fill="url(#SVGID_4_)" d="M1400,691.2L583.7,745l555.5,26l-757.4,46.3l200-26
-			L39.9,770.3l334.4-17.9L0,724.9V980h1400V691.2z M889.2,685.7l286.1-0.9l115.7-12.1l-230.6-4.6L889.2,685.7z M0,712.4l347.9,8.1
-			l197.8-13.9l-177.8-33.7l470.4-27L0,638.4V712.4z"/>
-		<linearGradient id="SVGID_5_" gradientUnits="userSpaceOnUse" x1="700" y1="980" x2="700" y2="835.4911">
-			<stop  offset="0" style="stop-color:#1653A8"/>
-			<stop  offset="1" style="stop-color:#1653A8;stop-opacity:0"/>
-		</linearGradient>
-		<polygon fill-rule="evenodd" clip-rule="evenodd" fill="url(#SVGID_5_)" points="1400,835.5 570.7,851.3 1251.3,918 678,945.6 
-			56.6,916.7 446.6,880.9 0,852.3 0,980 1400,980 		"/>
-	</g>
-	<g>
-		<g>
-			<polygon fill-rule="evenodd" clip-rule="evenodd" fill="#FFFFFF" points="843.5,540.6 1235.6,561.4 1228.7,604 885.2,604 			"/>
-			<polygon fill-rule="evenodd" clip-rule="evenodd" fill="#FF8C8C" points="1234.5,568.3 1228.7,604 885.2,604 848.9,548.8 			"/>
-			<polygon fill-rule="evenodd" clip-rule="evenodd" fill="#3160A3" points="1233.6,573.9 1228.7,604 885.2,604 852.8,554.7 			"/>
-		</g>
-		<g>
-			<g>
-				<polygon fill-rule="evenodd" clip-rule="evenodd" fill="#FFFFFF" points="969,547.4 969,536 1078,536 1078,553.1 				"/>
-				<polygon fill-rule="evenodd" clip-rule="evenodd" fill="#A8CBFF" points="969,547.4 969,544 1078,544 1078,553.1 				"/>
-			</g>
-			<g>
-				<rect x="995" y="509" fill-rule="evenodd" clip-rule="evenodd" fill="#FFFFFF" width="7" height="27"/>
-				<rect x="995" y="528" fill-rule="evenodd" clip-rule="evenodd" fill="#A8CBFF" width="7" height="8"/>
-			</g>
-			<g>
-				<rect x="1016" y="509" fill-rule="evenodd" clip-rule="evenodd" fill="#FFFFFF" width="6" height="27"/>
-				<rect x="1016" y="528" fill-rule="evenodd" clip-rule="evenodd" fill="#A8CBFF" width="6" height="8"/>
-			</g>
-			<g>
-				<rect x="1064" y="526" fill-rule="evenodd" clip-rule="evenodd" fill="#FFFFFF" width="6" height="10"/>
-				<rect x="1064" y="532" fill-rule="evenodd" clip-rule="evenodd" fill="#A8CBFF" width="6" height="4"/>
-			</g>
-		</g>
-		<g>
-			<g>
-				<polygon fill-rule="evenodd" clip-rule="evenodd" fill="#FFFFFF" points="1105,554.7 1105,543 1214,543 1214,560.4 				"/>
-				<polygon fill-rule="evenodd" clip-rule="evenodd" fill="#A8CBFF" points="1105,554.7 1105,552 1214,552 1214,560.4 				"/>
-			</g>
-			<g>
-				<rect x="1117" y="533" fill-rule="evenodd" clip-rule="evenodd" fill="#FFFFFF" width="8" height="10"/>
-				<rect x="1117" y="540" fill-rule="evenodd" clip-rule="evenodd" fill="#A8CBFF" width="8" height="3"/>
-			</g>
-			<g>
-				<rect x="1142" y="533" fill-rule="evenodd" clip-rule="evenodd" fill="#FFFFFF" width="7" height="10"/>
-				<rect x="1142" y="540" fill-rule="evenodd" clip-rule="evenodd" fill="#A8CBFF" width="7" height="3"/>
-			</g>
-			<g>
-				<rect x="1170" y="527" fill-rule="evenodd" clip-rule="evenodd" fill="#FFFFFF" width="39" height="16"/>
-				<rect x="1170" y="537" fill-rule="evenodd" clip-rule="evenodd" fill="#A8CBFF" width="39" height="6"/>
-			</g>
-		</g>
-	</g>
-	<g>
-		<polygon fill-rule="evenodd" clip-rule="evenodd" fill="#FFFFFF" points="382.8,636.6 402.5,629 411.3,649.6 418.3,660.7 
-			421.2,689 377.7,689 		"/>
-		<polygon fill-rule="evenodd" clip-rule="evenodd" fill="#8CBAFF" points="382.8,636.6 393.3,654.6 412,666.5 418.3,660.7 
-			421.2,689 377.7,689 		"/>
-		<polygon fill-rule="evenodd" clip-rule="evenodd" fill="#66A0DE" points="393.3,654.7 412,666.6 410.3,683.6 418.3,660.7 
-			421.2,689 393.6,689 		"/>
-	</g>
-	<g>
-		<polygon fill-rule="evenodd" clip-rule="evenodd" fill="#FFFFFF" points="401,705 488.4,705 477.9,656.1 460.2,648.8 434.4,656.5 
-			424.8,671.8 407,682 		"/>
-		<polygon fill-rule="evenodd" clip-rule="evenodd" fill="#8CBAFF" points="401,705 488.4,705 477.9,656.1 459.6,658.5 441.7,681.7 
-			415.7,685.7 407,682 		"/>
-		<polygon fill-rule="evenodd" clip-rule="evenodd" fill="#66A0DE" points="417.5,705 488.4,705 477.9,656.1 459.6,658.5 
-			461.2,683.9 445.9,698.5 441.7,681.7 415.7,685.8 		"/>
-	</g>
-	<g>
-		<polygon fill-rule="evenodd" clip-rule="evenodd" fill="#FFFFFF" points="293.6,684.4 311.2,673.2 324.2,675.9 331.2,686.9 
-			334.2,715 290.6,715 		"/>
-		<polygon fill-rule="evenodd" clip-rule="evenodd" fill="#8CBAFF" points="293.6,684.4 306.2,684.6 324.9,692.9 331.2,686.9 
-			334.2,715 290.6,715 		"/>
-		<polygon fill-rule="evenodd" clip-rule="evenodd" fill="#66A0DE" points="307.8,693.9 312.4,709.6 324.9,692.9 331.2,686.9 
-			334.2,715 306.5,715 		"/>
-	</g>
-	<g>
-		<polygon fill-rule="evenodd" clip-rule="evenodd" fill="#FFFFFF" points="0,631.7 0,818 223.6,818 186.2,735.5 116.2,726.3 
-			100,656.1 		"/>
-		<polygon fill-rule="evenodd" clip-rule="evenodd" fill="#8CBAFF" points="0,688.3 0,818 223.6,818 186.2,735.5 153.1,763.4 
-			63,754.5 116.2,726.3 100.1,656.1 46.8,699.2 		"/>
-		<polygon fill-rule="evenodd" clip-rule="evenodd" fill="#66A0DE" points="39.9,770.3 16.3,818 223.6,818 186.2,735.5 153.1,763.4 
-			149.9,796.3 70.3,808.7 63,754.5 116.2,726.3 100.1,656.1 46.8,699.2 		"/>
-	</g>
-	<g>
-		<polygon fill-rule="evenodd" clip-rule="evenodd" fill="#FFFFFF" points="128.5,883 329.5,883 305.4,770.9 264.6,754.2 
-			205.4,771.8 183.1,807 142.4,830.2 		"/>
-		<polygon fill-rule="evenodd" clip-rule="evenodd" fill="#8CBAFF" points="128.5,883 329.5,883 305.4,770.9 263.3,776.5 222,829.7 
-			162.3,839 142.4,830.2 		"/>
-		<polygon fill-rule="evenodd" clip-rule="evenodd" fill="#66A0DE" points="166.5,883 329.5,883 305.4,770.9 263.3,776.5 
-			266.9,834.8 231.8,868.3 222,829.7 162.3,839 		"/>
-	</g>
-	<g>
-		<polygon fill-rule="evenodd" clip-rule="evenodd" fill="#FFFFFF" points="1221.5,717.9 1259.5,703.2 1276.6,743.1 1290.2,764.5 
-			1295.9,819 1211.6,819 		"/>
-		<polygon fill-rule="evenodd" clip-rule="evenodd" fill="#8CBAFF" points="1221.5,717.9 1241.8,752.9 1278,776 1290.2,764.5 
-			1295.9,819 1211.6,819 		"/>
-		<polygon fill-rule="evenodd" clip-rule="evenodd" fill="#66A0DE" points="1241.8,753 1278,776 1274.8,808.9 1290.2,764.5 
-			1295.9,819 1242.5,819 		"/>
-	</g>
-	<g>
-		<polygon fill-rule="evenodd" clip-rule="evenodd" fill="#FFFFFF" points="882.7,862 1083.7,862 1059.6,750.1 1018.8,733.5 
-			959.6,751.2 937.3,786.5 896.6,809.4 		"/>
-		<polygon fill-rule="evenodd" clip-rule="evenodd" fill="#8CBAFF" points="882.7,862 1083.7,862 1059.6,750.1 1017.4,755.8 
-			976.3,809.2 916.5,818.4 896.6,809.4 		"/>
-		<polygon fill-rule="evenodd" clip-rule="evenodd" fill="#66A0DE" points="920.7,862 1083.7,862 1059.6,750.1 1017.4,755.8 
-			1021.1,814.2 986,847.8 976.3,809.2 916.5,818.2 		"/>
-	</g>
-	<g>
-		<polygon fill-rule="evenodd" clip-rule="evenodd" fill="#FFFFFF" points="472.2,824.4 498.9,830.1 533.1,823.7 540.9,870.9 
-			546.6,925 462.4,925 		"/>
-		<polygon fill-rule="evenodd" clip-rule="evenodd" fill="#8CBAFF" points="472.2,824.4 492.6,859.5 519.3,861.9 540.9,870.9 
-			546.6,925 462.4,925 		"/>
-		<polygon fill-rule="evenodd" clip-rule="evenodd" fill="#66A0DE" points="492.6,859.4 519.3,861.8 525.5,915.7 540.9,870.9 
-			546.6,925 493.2,925 		"/>
-	</g>
-	<g>
-		<polygon fill-rule="evenodd" clip-rule="evenodd" fill="#FEFEFE" points="1400,980 126.2,980 240.1,885.4 445.6,897.3 591,929.8 
-			612.3,904.7 735.5,892.6 792,851.9 1011.4,837.9 1085.5,855.6 1125.3,811.1 1342,787 1373.5,761 1400,756.4 		"/>
-		<path fill-rule="evenodd" clip-rule="evenodd" fill="#8CBAFF" d="M240.1,885.4L126.2,980h245.4l-62-26.2l-95.4-9.3L240.1,885.4z
-			 M1342,787l31.5-26l19,17.6L1342,787z M1085.5,855.6l63.9-13.9l-23.6-8.3l-0.5-22.2L1085.5,855.6z M735.5,892.6l62,3.3l-5.6-44
-			L735.5,892.6z M591,929.7l74.6,16.5l103.7-5.6l-89.3-5.1l-67.6-30.9L591,929.7z"/>
-		<polygon fill-rule="evenodd" clip-rule="evenodd" fill="#66A0DE" points="185.5,980 214.2,944.5 309.6,953.9 312.4,980 		"/>
-	</g>
-</g>
-</svg>
+	<defs>
+	<filter id="filter0_d" x="-4" y="615.36" width="1928" height="736.641" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+	<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+	<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+	<feOffset dy="4"/>
+	<feGaussianBlur stdDeviation="2"/>
+	<feComposite in2="hardAlpha" operator="out"/>
+	<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+	<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+	<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+	</filter>
+	<linearGradient id="paint0_linear" x1="960" y1="1344" x2="960" y2="0" gradientUnits="userSpaceOnUse">
+	<stop stop-color="#B8FFFF"/>
+	<stop offset="1" stop-color="#0F78C2"/>
+	</linearGradient>
+	<linearGradient id="paint1_linear" x1="960" y1="787.66" x2="960" y2="474.952" gradientUnits="userSpaceOnUse">
+	<stop stop-color="#8BD8F7"/>
+	<stop offset="1" stop-color="#8BD8F7" stop-opacity="0"/>
+	</linearGradient>
+	<linearGradient id="paint2_linear" x1="960" y1="1344" x2="960" y2="800.915" gradientUnits="userSpaceOnUse">
+	<stop stop-color="#2B6AC2"/>
+	<stop offset="1" stop-color="#2C9AE8"/>
+	</linearGradient>
+	<linearGradient id="paint3_linear" x1="960" y1="1344" x2="960" y2="875.53" gradientUnits="userSpaceOnUse">
+	<stop stop-color="#2B6CC4"/>
+	<stop offset="1" stop-color="#2B6CC4" stop-opacity="0"/>
+	</linearGradient>
+	<linearGradient id="paint4_linear" x1="960" y1="1344" x2="960" y2="1145.82" gradientUnits="userSpaceOnUse">
+	<stop stop-color="#1653A8"/>
+	<stop offset="1" stop-color="#1653A8" stop-opacity="0"/>
+	</linearGradient>
+	<clipPath id="clip0">
+	<rect width="1920" height="1344" fill="white"/>
+	</clipPath>
+	</defs>
+	</svg>
+	
