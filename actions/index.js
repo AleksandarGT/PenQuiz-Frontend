@@ -1,2 +1,2 @@
 export * from './auth.actions'
-export * from './useGameLobby'
+export * from './useSignalR'

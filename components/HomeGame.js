@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { View, ImageBackground, StyleSheet, ActivityIndicator } from 'react-native';
 import { Text, Button, Center, Box, Pressable, Input, Alert, VStack, HStack, IconButton, CloseIcon } from 'native-base';
-import { useGameLobby, StatusCode } from '../actions/'
+import { useSignalR, StatusCode } from '../actions/'
 
 export function HomeGame({ navigation, route }) {
-    const lobby = useGameLobby();
+    const lobby = useSignalR();
 
     function CreateGameButton() {
         return (

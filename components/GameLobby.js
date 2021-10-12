@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Text, Button, Input, Center, Modal, Container, Box, Icon, HStack, Pressable, VStack, Image } from 'native-base';
 import { View, StyleSheet, ImageBackground } from 'react-native';
-import { useGameLobby, StatusCode } from '../actions/'
+import { useSignalR, StatusCode } from '../actions/'
 import { FontAwesome5 } from "@expo/vector-icons"
 
 export function GameLobby({ route, navigation }) {
-    const lobby = useGameLobby();
+    const lobby = useSignalR();
 
+    const [avatars, setAvatars] = useState([])
     const [backAction, setBackAction] = useState()
     React.useEffect(
         () =>
@@ -62,10 +63,10 @@ export function GameLobby({ route, navigation }) {
 
     }
 
-    function StartGameButton() {
+    function StartGameButton({onPress}) {
         return (
             <Pressable onPress={() => {
-                lobby.CreateGameLobby()
+                onPress()
             }}>
                 {({ isHovered, isFocused, isPressed }) => {
                     return (
@@ -92,24 +93,20 @@ export function GameLobby({ route, navigation }) {
         )
     }
 
-    function PlayerCard({avatarUrl}) {
+    function PlayerCard({avatarUrl, isHost}) {
         return (
-            <Container m={2} p={3} backgroundColor="white" borderRadius={20}>
+            <Container style={{ borderWidth: isHost ? 5 : 0, borderColor: "gold" }} m={2} p={3} backgroundColor="white" borderRadius={20}>
 
                 <VStack>
                     <Center>
-                        <Box>
                             <Image
                                 source={require(`../assets/${avatarUrl}.svg`)}
                                 alt="Alternate Text"
                                 resizeMode="contain"
                                 size="xl"
                             />
-                        </Box>
-                    </Center>
-                    <Center>
 
-                        <Text mb={5} fontSize="xl" color="black">
+                        <Text mb={5} isTruncated maxWidth="90%" fontSize="xl" color="black">
                             BoostedPenguin
                         </Text>
                     </Center>
@@ -132,14 +129,16 @@ export function GameLobby({ route, navigation }) {
             </Box>
             <Center>
                 <HStack>
-                    <PlayerCard avatarUrl="penguinAvatar" />
-                    <PlayerCard avatarUrl="penguin2Avatar" />
-                    <PlayerCard avatarUrl="penguin3Avatar" />
+                    {console.log(avatars)}
+                    {avatars.map(x => <PlayerCard key={x} isHost={x == "penguinAvatar" ? true: false} avatarUrl={x} />)}
+                    
 
                 </HStack>
                 <CustomModal />
                 <CodeCard />
-                <StartGameButton />
+                <StartGameButton onPress={() =>
+                    setAvatars([...avatars, `penguinAvatar${avatars.length > 0 ? avatars.length + 1 : ""}`]) 
+                } />
             </Center>
         </ImageBackground>
     )
