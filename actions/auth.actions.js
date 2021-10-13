@@ -4,11 +4,12 @@ import { useFetchWrapper, navigate, removeBackStack } from '../helpers';
 import { authAtom, usersAtom } from '../state';
 import * as Google from 'expo-auth-session/providers/google';
 import { BACKEND_API_URL, GOOGLE_CLIENT_URL } from '@env'
-
+import { closeConnection } from './SignalRSetup'
 export { authActions };
 
 
 
+const connectionHub = `${BACKEND_API_URL}/gamehubs`;
 
 function authActions() {
     const baseUrl = `${BACKEND_API_URL}/api/account`;
@@ -58,6 +59,7 @@ function authActions() {
                 //localStorage.setItem('user', JSON.stringify(user));
                 setAuth(user);
                 startRefreshTokenTimer(user.jwtToken)
+
                 // get return url from location state or default to home page
                 //const { from } = history.location.state || { from: { pathname: '/' } };
                 //history.push(from);
@@ -81,7 +83,9 @@ function authActions() {
         fetchWrapper.post(`${baseUrl}/revoke-cookie`).then(res => {
             //lobby.connection?.stop()
             clearTimeout(timeout)
-            setAuth(null);
+            closeConnection()
+            setAuth(null)
+
             //removeBackStack('Login');
         })
     }

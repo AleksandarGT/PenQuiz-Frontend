@@ -7,7 +7,8 @@ import { useEffect } from 'react/cjs/react.development';
 import { navigate } from '../helpers'
 import { gameInstanceAtom } from '../state/gameAtom'
 const connectionHub = `${BACKEND_API_URL}/gamehubs`;
-import { usersAtom } from '../state/users'
+import { getConnection } from './SignalRSetup'
+
 export const StatusCode = {
     "CONNECTED": 1,
     "DISCONNECTED": 0
@@ -15,6 +16,11 @@ export const StatusCode = {
 export function useSignalR() {
     const userJwt = useRecoilValue(authToken)
     const [gameInstance, setGameInstance] = useRecoilState(gameInstanceAtom);
+
+    let connection = getConnection();
+    if(!connection) {
+        connection = setupSignalRConnection(connectionHub ,userJwt);
+    }
     const [joiningGameException, setJoiningGameException] = useState();
     const [participants, setParticipants] = useState([]);
     const [code, setCode] = useState("");
@@ -23,59 +29,51 @@ export function useSignalR() {
         Error: {}
     });
 
-    const [connection, setConnection] = useState();
-
     useEffect(() => {
-        if (!connection) {
-            setConnection(
-                setupSignalRConnection(connectionHub, userJwt)
-            )
-        }
-        else {
-            // Subscribe to isDisconnected to display loader
-            connection.onreconnecting((error) => {
-                setConnectionStatus({
-                    StatusCode: StatusCode.DISCONNECTED,
-                    Error: error,
-                })
+
+        // Subscribe to isDisconnected to display loader
+        connection.onreconnecting((error) => {
+            setConnectionStatus({
+                StatusCode: StatusCode.DISCONNECTED,
+                Error: error,
             })
-            connection.onreconnected(() => {
-                setConnectionStatus({
-                    StatusCode: StatusCode.CONNECTED,
-                    Error: {},
-                })
+        })
+        connection.onreconnected(() => {
+            setConnectionStatus({
+                StatusCode: StatusCode.CONNECTED,
+                Error: {},
             })
+        })
 
-            connection.onclose(error => {
-                setConnectionStatus({
-                    StatusCode: StatusCode.DISCONNECTED,
-                    Error: error ? error : { message: "Connection to the server lost. Please try again later." },
-                })
-            });
+        connection.onclose(error => {
+            setConnectionStatus({
+                StatusCode: StatusCode.DISCONNECTED,
+                Error: error ? error : { message: "Connection to the server lost. Please try again later." },
+            })
+        });
 
-            // On server event handler
-            connection.on('LobbyCanceled', (() => {
-                navigate("Home")
+        // On server event handler
+        connection.on('LobbyCanceled', (() => {
+            navigate("Home")
 
-            }))
-            connection.on('NavigateToLobby', ((gi) => {
-                //navigate("GameLobby")
-            }))
-            connection.on('Testing', ((gi) => {
-                //navigate("GameLobby")
-                console.log(gi);
-            }))
-            connection.on('GetGameInstance', ((gi) => {
-                setGameInstance(gi)
-                navigate("GameLobby")
-            }))
-            connection.on('GameException', ((er) => {
-                setJoiningGameException(er)
-            }))
-            connection.on('AllLobbyPlayers', ((e) => {
-                setParticipants(e)
-            }))
-        }
+        }))
+        connection.on('NavigateToLobby', ((gi) => {
+            //navigate("GameLobby")
+        }))
+        connection.on('Testing', ((gi) => {
+            //navigate("GameLobby")
+            console.log(gi);
+        }))
+        connection.on('GetGameInstance', ((gi) => {
+            setGameInstance(gi)
+            navigate("GameLobby")
+        }))
+        connection.on('GameException', ((er) => {
+            setJoiningGameException(er)
+        }))
+        connection.on('AllLobbyPlayers', ((e) => {
+            setParticipants(e)
+        }))
     }, [connection])
 
 

@@ -99,7 +99,7 @@ export function GameLobby({ route, navigation }) {
 
     function PlayerCard({avatarUrl, participant}) {
         return (
-            <Container  m={2} p={3} backgroundColor="white" borderRadius={20}>
+            <Container  style={{ borderWidth: participant.playerId == lobby.gameInstance.gameCreatorId ? 5 : 0, borderColor: "gold" }}  m={2} p={3} backgroundColor="white" borderRadius={20}>
 
                 <VStack>
                     <Center>

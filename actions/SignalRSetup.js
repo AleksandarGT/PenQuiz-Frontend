@@ -4,8 +4,7 @@ import {
     HubConnectionBuilder,
     LogLevel
 } from '@microsoft/signalr';
-import { removeBackStack } from '../helpers'
-
+let client;
 
 const startSignalRConnection = async connection => {
     try {
@@ -49,5 +48,14 @@ export const setupSignalRConnection = (connectionHub, accessToken) => {
     startSignalRConnection(connection);
 
 
+    client = connection;
     return connection;
 };
+
+export const getConnection = () => {
+    return client
+}
+
+export const closeConnection = () => {
+    client.stop();
+}
