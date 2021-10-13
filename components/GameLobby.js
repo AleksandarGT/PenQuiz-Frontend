@@ -10,9 +10,7 @@ import { usersAtom } from "../state/users"
 
 export function GameLobby({ route, navigation }) {
     const lobby = useSignalR();
-
-    const localGameInstanceValue = useRecoilValue(gameInstanceAtom)
-    const users = useRecoilValue(usersAtom)
+    const gameInstance = useRecoilValue(gameInstanceAtom);
 
     const [avatars, setAvatars] = useState([])
     const [backAction, setBackAction] = useState()
@@ -29,11 +27,6 @@ export function GameLobby({ route, navigation }) {
             }),
         [navigation]
     );
-
-    useEffect(() => {
-        console.log(users)
-    }, [users])
-
 
 
     function CustomModal() {
@@ -98,7 +91,7 @@ export function GameLobby({ route, navigation }) {
         return (
             <Container backgroundColor="#C8FBFF" py={6} style={{ paddingHorizontal: "10%" }} borderRadius={15}>
                 <Text color="black" fontWeight="bold" fontSize="3xl">
-                    Code: {localGameInstanceValue.invitationLink}
+                    Code: {lobby.gameInstance.invitationLink}
                 </Text>
             </Container>
         )
@@ -140,13 +133,9 @@ export function GameLobby({ route, navigation }) {
             </Box>
             <Center>
                 <HStack>
-                    {console.log("This should be updated whenever someone joins lobby")}
-                    {console.log(localGameInstanceValue)}
-                    {localGameInstanceValue.participants?.map(x => {
-                        return(
-                            <PlayerCard key={x.playerId} participant={
-                                x
-                            } avatarUrl="penguinAvatar" />
+                    {lobby.gameInstance.participants?.map(x => {
+                        return (
+                            <PlayerCard key={x.playerId} participant={x} avatarUrl="penguinAvatar" />
                         )
                     })}
                     
@@ -156,7 +145,7 @@ export function GameLobby({ route, navigation }) {
                 <CodeCard />
                 <StartGameButton onPress={() =>
                     // setAvatars([...avatars, `penguinAvatar${avatars.length > 0 ? avatars.length + 1 : ""}`])
-                    console.log(localGameInstanceValue)
+                    console.log(lobby.gameInstance)
                 } />
             </Center>
         </ImageBackground>

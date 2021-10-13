@@ -14,7 +14,7 @@ export const StatusCode = {
 }
 export function useSignalR() {
     const userJwt = useRecoilValue(authToken)
-    const setGameInstance = useSetRecoilState(gameInstanceAtom);
+    const [gameInstance, setGameInstance] = useRecoilState(gameInstanceAtom);
     const [joiningGameException, setJoiningGameException] = useState();
     const [participants, setParticipants] = useState([]);
     const [code, setCode] = useState("");
@@ -61,6 +61,10 @@ export function useSignalR() {
             connection.on('NavigateToLobby', ((gi) => {
                 //navigate("GameLobby")
             }))
+            connection.on('Testing', ((gi) => {
+                //navigate("GameLobby")
+                console.log(gi);
+            }))
             connection.on('GetGameInstance', ((gi) => {
                 setGameInstance(gi)
                 navigate("GameLobby")
@@ -89,5 +93,5 @@ export function useSignalR() {
         connection?.invoke("JoinGameLobby", code)
     }
 
-    return { connection, joiningGameException, participants, code, connectionStatus, CreateGameLobby, JoinLobby, setCode, LeaveGameLobby }
+    return { connection, gameInstance, joiningGameException, participants, code, connectionStatus, CreateGameLobby, JoinLobby, setCode, LeaveGameLobby }
 }

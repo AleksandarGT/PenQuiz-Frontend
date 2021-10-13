@@ -1,13 +1,13 @@
 import { atom } from 'recoil'
 
 export const gameInstanceAtom = atom({
-    id: "game",
+    key: "game",
     default: "",
     effects_UNSTABLE: [
         ({ onSet }) => {
             onSet(newContent => {
-                 console.log("Updated with:")
-                 console.log(newContent)
+                //  console.log("Updated with:")
+                //  console.log(newContent)
             })
         }
     ]

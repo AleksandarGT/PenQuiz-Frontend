@@ -4,7 +4,6 @@ import { useFetchWrapper, navigate, removeBackStack } from '../helpers';
 import { authAtom, usersAtom } from '../state';
 import * as Google from 'expo-auth-session/providers/google';
 import { BACKEND_API_URL, GOOGLE_CLIENT_URL } from '@env'
-import { useSignalR } from '.';
 
 export { authActions };
 
@@ -19,7 +18,7 @@ function authActions() {
     //TODO
     // This establishes the connection automatically and then you can destroy it
     // To prevent this behavior - have a custom class that doesn't try to establish a connection on create
-    const lobby = useSignalR();
+    //const lobby = useSignalR();
     var timeout;
 
     function startRefreshTokenTimer(jwt) {
@@ -80,7 +79,7 @@ function authActions() {
 
     function logout() {
         fetchWrapper.post(`${baseUrl}/revoke-cookie`).then(res => {
-        lobby.connection?.stop()
+            //lobby.connection?.stop()
             clearTimeout(timeout)
             setAuth(null);
             //removeBackStack('Login');
