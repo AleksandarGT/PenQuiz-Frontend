@@ -6,6 +6,7 @@ import { useSignalR, StatusCode } from '../actions/'
 
 export function HomeGame({ navigation, route }) {
     const lobby = useSignalR();
+    const [code, setCode] = useState("");
 
     function CreateGameButton() {
         return (
@@ -30,7 +31,7 @@ export function HomeGame({ navigation, route }) {
     function JoinGameButton() {
         return (
             <Pressable onPress={() => {
-                lobby.JoinLobby();
+                lobby.JoinLobby(code);
             }}>
                 {({ isHovered, isFocused, isPressed }) => {
                     return (
@@ -87,11 +88,11 @@ export function HomeGame({ navigation, route }) {
                 <CreateGameButton />
                 <Input onChangeText={(e) => {
                     if (/^\d+$/.test(e) || !e) {
-                        lobby.setCode(e)
+                        setCode(e)
                     }
                 }}
                     maxLength={4}
-                    value={lobby.code}
+                    value={code}
                     keyboardType="numeric"
                     mt={9}
                     mb={2}

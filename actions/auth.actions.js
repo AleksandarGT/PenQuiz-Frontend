@@ -1,7 +1,7 @@
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
 import { useFetchWrapper, navigate, removeBackStack } from '../helpers';
-import { authAtom, usersAtom } from '../state';
+import { authAtom } from '../state';
 import * as Google from 'expo-auth-session/providers/google';
 import { BACKEND_API_URL, GOOGLE_CLIENT_URL } from '@env'
 import { closeConnection } from './SignalRSetup'
