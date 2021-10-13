@@ -3,9 +3,16 @@ import { Text, Button, Input, Center, Modal, Container, Box, Icon, HStack, Press
 import { View, StyleSheet, ImageBackground } from 'react-native';
 import { useSignalR, StatusCode } from '../actions/'
 import { FontAwesome5 } from "@expo/vector-icons"
+import { useEffect } from 'react/cjs/react.development';
+import { useRecoilValue } from "recoil"
+import { gameInstanceAtom } from "../state/gameAtom"
+import { usersAtom } from "../state/users"
 
 export function GameLobby({ route, navigation }) {
     const lobby = useSignalR();
+
+    const localGameInstanceValue = useRecoilValue(gameInstanceAtom)
+    const users = useRecoilValue(usersAtom)
 
     const [avatars, setAvatars] = useState([])
     const [backAction, setBackAction] = useState()
@@ -22,6 +29,10 @@ export function GameLobby({ route, navigation }) {
             }),
         [navigation]
     );
+
+    useEffect(() => {
+        console.log(users)
+    }, [users])
 
 
 
@@ -87,15 +98,15 @@ export function GameLobby({ route, navigation }) {
         return (
             <Container backgroundColor="#C8FBFF" py={6} style={{ paddingHorizontal: "10%" }} borderRadius={15}>
                 <Text color="black" fontWeight="bold" fontSize="3xl">
-                    Code: {lobby?.gameInstance?.invitationLink}
+                    Code: {localGameInstanceValue.invitationLink}
                 </Text>
             </Container>
         )
     }
 
-    function PlayerCard({avatarUrl, isHost}) {
+    function PlayerCard({avatarUrl, participant}) {
         return (
-            <Container style={{ borderWidth: isHost ? 5 : 0, borderColor: "gold" }} m={2} p={3} backgroundColor="white" borderRadius={20}>
+            <Container  m={2} p={3} backgroundColor="white" borderRadius={20}>
 
                 <VStack>
                     <Center>
@@ -107,7 +118,7 @@ export function GameLobby({ route, navigation }) {
                             />
 
                         <Text mb={5} isTruncated maxWidth="90%" fontSize="xl" color="black">
-                            BoostedPenguin
+                        {participant.player.username}
                         </Text>
                     </Center>
 
@@ -129,15 +140,23 @@ export function GameLobby({ route, navigation }) {
             </Box>
             <Center>
                 <HStack>
-                    {console.log(avatars)}
-                    {avatars.map(x => <PlayerCard key={x} isHost={x == "penguinAvatar" ? true: false} avatarUrl={x} />)}
+                    {console.log("This should be updated whenever someone joins lobby")}
+                    {console.log(localGameInstanceValue)}
+                    {localGameInstanceValue.participants?.map(x => {
+                        return(
+                            <PlayerCard key={x.playerId} participant={
+                                x
+                            } avatarUrl="penguinAvatar" />
+                        )
+                    })}
                     
 
                 </HStack>
                 <CustomModal />
                 <CodeCard />
                 <StartGameButton onPress={() =>
-                    setAvatars([...avatars, `penguinAvatar${avatars.length > 0 ? avatars.length + 1 : ""}`]) 
+                    // setAvatars([...avatars, `penguinAvatar${avatars.length > 0 ? avatars.length + 1 : ""}`])
+                    console.log(localGameInstanceValue)
                 } />
             </Center>
         </ImageBackground>

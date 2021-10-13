@@ -1,20 +1,20 @@
 import { setupSignalRConnection } from './SignalRSetup';
 import { authToken } from '../state';
-import { useRecoilValue, useRecoilState } from 'recoil';
+import { useRecoilValue, useRecoilState, useSetRecoilState } from 'recoil';
 import { useState } from 'react';
 import { BACKEND_API_URL, GOOGLE_CLIENT_URL } from '@env'
 import { useEffect } from 'react/cjs/react.development';
 import { navigate } from '../helpers'
 import { gameInstanceAtom } from '../state/gameAtom'
 const connectionHub = `${BACKEND_API_URL}/gamehubs`;
-
+import { usersAtom } from '../state/users'
 export const StatusCode = {
     "CONNECTED": 1,
     "DISCONNECTED": 0
 }
 export function useSignalR() {
     const userJwt = useRecoilValue(authToken)
-    const [gameInstance, setGameInstance] = useRecoilState(gameInstanceAtom);
+    const setGameInstance = useSetRecoilState(gameInstanceAtom);
     const [joiningGameException, setJoiningGameException] = useState();
     const [participants, setParticipants] = useState([]);
     const [code, setCode] = useState("");
@@ -58,10 +58,12 @@ export function useSignalR() {
                 navigate("Home")
 
             }))
+            connection.on('NavigateToLobby', ((gi) => {
+                //navigate("GameLobby")
+            }))
             connection.on('GetGameInstance', ((gi) => {
                 setGameInstance(gi)
                 navigate("GameLobby")
-
             }))
             connection.on('GameException', ((er) => {
                 setJoiningGameException(er)
@@ -87,5 +89,5 @@ export function useSignalR() {
         connection?.invoke("JoinGameLobby", code)
     }
 
-    return { connection, gameInstance, joiningGameException, participants, code, connectionStatus, CreateGameLobby, JoinLobby, setCode, LeaveGameLobby }
+    return { connection, joiningGameException, participants, code, connectionStatus, CreateGameLobby, JoinLobby, setCode, LeaveGameLobby }
 }
