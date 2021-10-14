@@ -6,8 +6,8 @@ export const gameInstanceAtom = atom({
     effects_UNSTABLE: [
         ({ onSet }) => {
             onSet(newContent => {
-                // console.log("Updated with:")
-                // console.log(newContent)
+                 console.log("Updated with:")
+                 console.log(newContent)
             })
         }
     ]

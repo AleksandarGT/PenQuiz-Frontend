@@ -4,31 +4,33 @@ import { View, StyleSheet, ImageBackground, ActivityIndicator } from 'react-nati
 import { useSignalR, StatusCode } from '../actions/'
 import { FontAwesome5 } from "@expo/vector-icons"
 import { useRecoilValue } from "recoil"
-import { gameInstanceAtom } from "../state"
+import { userIdSelector } from "../state"
 import ExitGameModal from './ExitGameModal'
 import { Heading } from 'native-base';
 
 export function GameLobby({ route, navigation }) {
     const lobby = useSignalR();
-    const [avatars, setAvatars] = useState([])
     const [isClosing, setIsClosing] = useState()
-    const RequiredPlayers = 2
+    const RequiredPlayers = 3
+    const userId = useRecoilValue(userIdSelector)
+    const IsLobbyFull = () => lobby.gameInstance.participants?.length == RequiredPlayers ? true : false
+    const IsGameHost = () => userId == lobby.gameInstance.gameCreatorId ? true : false
 
-    const IsLobbyFull = () => lobby.gameInstance.participants?.length != RequiredPlayers ? true : false
+
     function StartGameButton({ onPress }) {
         return (
-            <Pressable disabled={IsLobbyFull()} onPress={() => {
+            <Pressable disabled={!IsGameHost() || !IsLobbyFull()} onPress={() => {
                 onPress()
             }}>
                 {({ isHovered, isFocused, isPressed }) => {
                     return (
                         <Box px={9} mt={6} shadow={3} bg={
-                            IsLobbyFull() ? "#4D66A5" :
+                            !IsLobbyFull() ? "#4D66A5" :
                                 isPressed ? "#0D569B" : isHovered ? "#06326F" : "#071D56"
                         } p={2} borderRadius={50}>
                             <Box px={4} pb={2} pt={2}>
                                 <Text fontSize={{ base: "md", md: "lg", lg: "xl", xl: 35 }}>
-                                    {IsLobbyFull() ? `Waiting for ${RequiredPlayers - lobby.gameInstance.participants?.length} more players` : "Start game"}
+                                    {!IsLobbyFull() ? `Waiting for ${RequiredPlayers - lobby.gameInstance.participants?.length} more players` : IsGameHost() ? "Start game" : "Waiting for host to start"} 
                                 </Text>
                             </Box>
                         </Box>
@@ -118,7 +120,7 @@ export function GameLobby({ route, navigation }) {
                 <CodeCard />
                 <StartGameButton onPress={() =>
                     // setAvatars([...avatars, `penguinAvatar${avatars.length > 0 ? avatars.length + 1 : ""}`])
-                    console.log(lobby.gameInstance)
+                    lobby.StartGame()
                 } />
             </Center>
         </ImageBackground>

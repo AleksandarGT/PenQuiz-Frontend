@@ -82,5 +82,9 @@ export function useSignalR() {
         connection?.invoke("JoinGameLobby", code)
     }
 
-    return { connection, gameInstance, joiningGameException, connectionStatus, CreateGameLobby, JoinLobby, LeaveGameLobby }
+    function StartGame() {
+        connection?.invoke("StartGame")
+    }
+
+    return { connection, gameInstance, joiningGameException, connectionStatus, CreateGameLobby, JoinLobby, LeaveGameLobby, StartGame }
 }

@@ -15,6 +15,14 @@ const authAtom = atom({
     ]
 })
 
+const userIdSelector = selector({
+    key: 'userId',
+    get: ({get}) => {
+        const auth = get(authAtom)
+        return auth.id
+    }
+})
+
 const authToken = selector({
     key: 'authToken',
     get: ({get}) => {
@@ -47,4 +55,4 @@ const authStatus = selector({
     },
 })
 
-export { authAtom, authStatus, authToken }
+export { authAtom, authStatus, authToken, userIdSelector }
