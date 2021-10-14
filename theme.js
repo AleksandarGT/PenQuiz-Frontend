@@ -24,6 +24,15 @@ const theme = extendTheme({
       // Changing initialColorMode to 'dark'
       initialColorMode: 'dark',
     },
+    components: {
+      ModalBody: {
+        baseStyle: {
+          _text: {
+            color: '#961919'
+          }
+        }
+      }
+    }
   });
 
   export {theme}

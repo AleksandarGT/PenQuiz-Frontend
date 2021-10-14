@@ -1,27 +1,34 @@
 import React, { useState } from 'react';
 import { Text, Button, Input, Center, Modal, Container, Box, Icon, HStack, Pressable, VStack, Image } from 'native-base';
-import { View, StyleSheet, ImageBackground } from 'react-native';
+import { View, StyleSheet, ImageBackground, ActivityIndicator } from 'react-native';
 import { useSignalR, StatusCode } from '../actions/'
 import { FontAwesome5 } from "@expo/vector-icons"
 import { useRecoilValue } from "recoil"
 import { gameInstanceAtom } from "../state"
 import ExitGameModal from './ExitGameModal'
+import { Heading } from 'native-base';
+
 export function GameLobby({ route, navigation }) {
     const lobby = useSignalR();
     const [avatars, setAvatars] = useState([])
     const [isClosing, setIsClosing] = useState()
+    const RequiredPlayers = 2
 
+    const IsLobbyFull = () => lobby.gameInstance.participants?.length != RequiredPlayers ? true : false
     function StartGameButton({ onPress }) {
         return (
-            <Pressable onPress={() => {
+            <Pressable disabled={IsLobbyFull()} onPress={() => {
                 onPress()
             }}>
                 {({ isHovered, isFocused, isPressed }) => {
                     return (
-                        <Box px={9} mt={6} shadow={3} bg={isPressed ? "#0D569B" : isHovered ? "#06326F" : "#071D56"} p={2} borderRadius={50}>
+                        <Box px={9} mt={6} shadow={3} bg={
+                            IsLobbyFull() ? "#4D66A5" :
+                                isPressed ? "#0D569B" : isHovered ? "#06326F" : "#071D56"
+                        } p={2} borderRadius={50}>
                             <Box px={4} pb={2} pt={2}>
                                 <Text fontSize={{ base: "md", md: "lg", lg: "xl", xl: 35 }}>
-                                    Start Game
+                                    {IsLobbyFull() ? `Waiting for ${RequiredPlayers - lobby.gameInstance.participants?.length} more players` : "Start game"}
                                 </Text>
                             </Box>
                         </Box>
@@ -33,7 +40,7 @@ export function GameLobby({ route, navigation }) {
 
     function CodeCard() {
         return (
-            <Container backgroundColor="#C8FBFF" py={6} style={{ paddingHorizontal: "10%" }} borderRadius={15}>
+            <Container backgroundColor="#C8FBFF" py={6} style={{ paddingHorizontal: "10%" }} shadow={3} borderRadius={15}>
                 <Text color="black" fontWeight="bold" fontSize="3xl">
                     Code: {lobby.gameInstance.invitationLink}
                 </Text>
@@ -41,33 +48,48 @@ export function GameLobby({ route, navigation }) {
         )
     }
 
-    function PlayerCard({ avatarUrl, participant }) {
+    function PlayerCard({ participant }) {
         return (
-            <Container style={{ borderWidth: participant.playerId == lobby.gameInstance.gameCreatorId ? 5 : 0, borderColor: "gold" }} m={2} p={3} backgroundColor="white" borderRadius={20}>
+            <Container style={{ borderWidth: participant.playerId == lobby.gameInstance.gameCreatorId ? 5 : 0, borderColor: "gold", }} m={5} p={3} backgroundColor="white" borderRadius={20}>
 
                 <VStack>
                     <Center>
                         <Image
-                            source={require(`../assets/${avatarUrl}.svg`)}
+                            source={require(`../assets/${participant.avatarName}`)}
                             alt="Alternate Text"
                             resizeMode="contain"
                             size="xl"
                         />
 
-                        <Text mb={5} isTruncated maxWidth="90%" fontSize="xl" color="black">
+                    </Center>
+                    <Center>
+                        <Text isTruncated maxWidth="90%" fontSize="xl" color="black">
                             {participant.player.username}
                         </Text>
-                    </Center>
 
+                        {participant.playerId == lobby.gameInstance.gameCreatorId ? (
+                            <Text isTruncated maxWidth="90%" fontSize="md" color="black">
+                                (host)
+                            </Text>
+                        ) : null}
+                    </Center>
                 </VStack>
 
             </Container>
         )
     }
 
+    if (lobby.connectionStatus.StatusCode == StatusCode.DISCONNECTED) {
+        return (
+            <Center flex={1}>
+                <Text color="black">{lobby.connectionStatus.Error?.message}</Text>
+                <ActivityIndicator size="large" />
+            </Center>
+        )
+    }
+
     return (
         <ImageBackground source={require('../assets/gameLobby.svg')} resizeMode="cover" style={styles.image}>
-
             <Box position="absolute" top="0" left="0">
                 <Button onPress={() => {
                     setIsClosing(true);
@@ -79,7 +101,7 @@ export function GameLobby({ route, navigation }) {
                 <HStack>
                     {lobby.gameInstance.participants?.map(x => {
                         return (
-                            <PlayerCard key={x.playerId} participant={x} avatarUrl="penguinAvatar" />
+                            <PlayerCard key={x.playerId} participant={x} />
                         )
                     })}
 
