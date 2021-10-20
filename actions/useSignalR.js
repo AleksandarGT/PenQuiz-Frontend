@@ -44,9 +44,12 @@ export function useSignalR() {
         });
 
         // On server event handler
-        connection.on('LobbyCanceled', (() => {
-            setJoiningGameException("The owner canceled the lobby.")
+        connection.on('LobbyCanceled', ((msg) => {
+            setJoiningGameException(msg)
             navigate("Home")
+        }))
+        connection.on('TESTING', ((msg) => {
+            console.log(msg)
         }))
         connection.on('PersonLeft', (() => {
             navigate("Home")

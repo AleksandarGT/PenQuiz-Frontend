@@ -57,7 +57,7 @@ export function GameLobby({ route, navigation }) {
                 <VStack>
                     <Center>
                         <Image
-                            source={require(`../assets/${participant.avatarName}`)}
+                            source={require(`../assets/${participant.avatarName}.svg`)}
                             alt="Alternate Text"
                             resizeMode="contain"
                             size="xl"
@@ -119,7 +119,6 @@ export function GameLobby({ route, navigation }) {
                     }} />
                 <CodeCard />
                 <StartGameButton onPress={() =>
-                    // setAvatars([...avatars, `penguinAvatar${avatars.length > 0 ? avatars.length + 1 : ""}`])
                     lobby.StartGame()
                 } />
             </Center>

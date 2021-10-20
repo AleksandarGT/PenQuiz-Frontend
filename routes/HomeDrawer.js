@@ -6,9 +6,11 @@ import {
     DrawerItemList,
     DrawerItem,
 } from '@react-navigation/drawer';
-import { View, Button, Text, useWindowDimensions } from 'react-native';
-import { Center } from 'native-base';
+import { View, Button, Text, useWindowDimensions } from 'react-native'
+import { Center } from 'native-base'
 import { HomeGame } from '../components/HomeGame'
+import AntarcticaMapSvg from '../components/AntarcticaMapSvg'
+import GameMap from '../components/GameMap';
 const Drawer = createDrawerNavigator();
 
 export function HomeDrawer() {
@@ -49,18 +51,6 @@ export function HomeDrawer() {
             drawerContent={props => <CustomLogout {...props} />}
         >
             <Drawer.Screen options={drawerScreenOptions} name="Game" component={HomeGame} />
-            <Drawer.Screen options={drawerScreenOptions} name="Article" component={Article} />
         </Drawer.Navigator>
-    );
-}
-
-function Article({ navigation, route }) {
-    const url = route.params?.url ?? "DefaultURL"
-    return (
-        <Center style={{flex: 1}} >
-            <Text style={{fontSize: 90, fontFamily: 'Before-Collapse', alignItems: "center", textShadowColor: "red", textShadowRadius: 5}} >
-                ConQuiz
-            </Text>
-        </Center>
     );
 }

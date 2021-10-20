@@ -13,6 +13,7 @@ import { authStatus } from '../state';
 import { HomeDrawer } from './HomeDrawer'
 import { LoadingComponent } from './LoadingComponent'
 import { GameLobby } from '../components/GameLobby'
+import GameMap from '../components/GameMap';
 
 export * from './LoadingComponent';
 
@@ -49,6 +50,9 @@ export function Routes() {
     else if (localAuthStatus === "LOGGED") {
       return (
         <>
+          <Stack.Screen name="GameMap" options={{ headerShown: false }} component={GameMap} />
+          <Stack.Screen name="TestingSVG" options={{ headerShown: false }} component={TestingSvg} />
+
           <Stack.Screen
             name="Home"
             options={{ headerShown: false }}
