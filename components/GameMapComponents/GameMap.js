@@ -2,6 +2,7 @@ import { Box, Center, Container, HStack, Stack, VStack, ZStack, Text, Spacer, Bu
 import React, { useState } from "react"
 import { View, StyleSheet, ImageBackground } from 'react-native';
 import AntarcticaMapSvg from './AntarcticaMapSvg'
+import GameChat from "./GameChat";
 import GamePlayerBoard from "./GamePlayerBoard";
 import GameRounding from "./GameRounding";
 import GameTimer from "./GameTimer";
@@ -39,23 +40,13 @@ export default function GameMap() {
                                 }
                             }} />
                         </Container>
-                        <Box mt={9} p={3} borderRadius={25} height={50} bg="#fff" width={300} style={{ flex: 1 }}>
-                            <Center>
-                                <Text color="black">
-                                    Chat space
-                                </Text>
-                            </Center>
-
-                        </Box>
+                        <GameChat />
                     </VStack>
 
                     <VStack>
-                        <Center>
-                            <GameTimer />
-                            <AntarcticaMapSvg onTerritoryClick={(ter) => console.log(ter)} />
-
-                        </Center>
-                        <GameRounding />
+                        <GameTimer time={25} />
+                        <AntarcticaMapSvg onTerritoryClick={(ter) => console.log(ter)} />
+                        <GameRounding rounds={18} currentRound={8} />
 
 
                     </VStack>

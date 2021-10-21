@@ -1,18 +1,10 @@
 import { Center, Container, HStack, Text, Image, VStack, Box } from "native-base";
 import React, { useState } from "react"
 import { View, StyleSheet } from 'react-native';
+import { GetAvatarColor } from './CommonGameFunc'
 
-export default function GameMap({ participant, hisTurn }) {
-    function GetAvatarColor(avatarName) {
-        switch (avatarName) {
-            case "penguinAvatar":
-                return "#5074FF"
-            case "penguinAvatar2":
-                return "#8350FF"
-            case "penguinAvatar3":
-                return "#FF5074"
-        }
-    }
+export default function GamePlayerBoard({ participant, hisTurn }) {
+
     return (
         <>
             <Box backgroundColor={GetAvatarColor(participant.avatarName)} style={hisTurn ? {

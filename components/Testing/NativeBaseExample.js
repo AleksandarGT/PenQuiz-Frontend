@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { ImageBackground, Platform, StyleSheet, View } from "react-native";
 import { VStack, Box, Divider, Text, Center, Heading, Button, Icon, Image } from 'native-base';
 import { FontAwesome5 } from "@expo/vector-icons"
-import { authStatus, authAtom } from '../state';
+import { authStatus, authAtom } from '../../state';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
 export default function NativeBaseExample({ history, onLogin }) {
