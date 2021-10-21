@@ -1,7 +1,7 @@
 import React from 'react'
 import {Alert, VStack, HStack, Text} from 'native-base'
 
-export default function RenderAlert({ message }) {
+export default function DefaultAlert({ message }) {
     return (
         <Alert my={3} maxW="80%" status="error">
             <VStack space={2} flexShrink={1} w="100%">

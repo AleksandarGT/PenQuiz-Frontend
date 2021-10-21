@@ -5,7 +5,7 @@ import { useSignalR, StatusCode } from '../actions/'
 import { FontAwesome5 } from "@expo/vector-icons"
 import { useRecoilValue } from "recoil"
 import { userIdSelector } from "../state"
-import ExitGameModal from './ExitGameModal'
+import ExitGameModal from './Popups/ExitGameModal'
 import { Heading } from 'native-base';
 
 export function GameLobby({ route, navigation }) {

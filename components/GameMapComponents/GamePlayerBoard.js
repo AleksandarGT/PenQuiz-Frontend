@@ -22,7 +22,7 @@ export default function GameMap({ participant, hisTurn }) {
                 <HStack>
                     <Container bg="#fff" borderRadius={200} p={2}>
                         <Image
-                            source={require(`../assets/${participant.avatarName}.svg`)}
+                            source={require(`../../assets/${participant.avatarName}.svg`)}
                             alt="Alternate Text"
                             resizeMode="contain"
                             size="md"

@@ -8,9 +8,9 @@ import { Center } from "native-base";
 export default function AntarcticaMapSvg({ onTerritoryClick }) {
   const [selected, setSelected] = useState([])
 
-  const antarcticaBorders = require('../assets/Antarctica.json')
-  const antarcticaTerritorySVG = require('../assets/AntarcticaTerritory.json')
-  const antarcticaSVGElements = require('../assets/AntarcticaSvgElements.json')
+  const antarcticaBorders = require('../../assets/Antarctica.json')
+  const antarcticaTerritorySVG = require('../../assets/AntarcticaTerritory.json')
+  const antarcticaSVGElements = require('../../assets/AntarcticaSvgElements.json')
 
   // Original map dimensions
   const originalWidth = 694.3;

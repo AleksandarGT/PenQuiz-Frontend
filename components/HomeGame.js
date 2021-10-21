@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, ImageBackground, StyleSheet, ActivityIndicator } from 'react-native';
 import { Text, Button, Center, Box, Pressable, Input, Alert, VStack, HStack, IconButton, CloseIcon } from 'native-base';
 import { useSignalR, StatusCode } from '../actions/'
-import RenderAlert from './DefaultAlert';
+import DefaultAlert from './Popups/DefaultAlert';
 
 export function HomeGame({ navigation, route }) {
     const lobby = useSignalR();
@@ -50,7 +50,7 @@ export function HomeGame({ navigation, route }) {
 
 
 
-    if (lobby.connectionStatus.StatusCode == StatusCode.DISCONNECTED) {
+    if (lobby.connectionStatus?.StatusCode == StatusCode.DISCONNECTED) {
         return (
             <Center flex={1}>
                 <Text color="black">{lobby.connectionStatus.Error?.message}</Text>
@@ -68,7 +68,7 @@ export function HomeGame({ navigation, route }) {
                 </Text>
 
                 {lobby.joiningGameException ? (
-                    <RenderAlert message={lobby.joiningGameException} />
+                    <DefaultAlert message={lobby.joiningGameException} />
                 ) : null}
 
 

@@ -47,7 +47,6 @@ export const setupSignalRConnection = (connectionHub, accessToken) => {
 
     startSignalRConnection(connection);
 
-
     client = connection;
     return connection;
 };
@@ -57,5 +56,5 @@ export const getConnection = () => {
 }
 
 export const closeConnection = () => {
-    client.stop();
+    client.stop().then(() => client = null);
 }

@@ -16,13 +16,19 @@ export function useSignalR() {
     const [joiningGameException, setJoiningGameException] = useRecoilState(joiningGameExceptionAtom);
     const [connectionStatus, setConnectionStatus] = useRecoilState(connectionStatusAtom);
 
-    
+
     let connection = getConnection();
-    if(!connection) {
-        connection = setupSignalRConnection(connectionHub ,userJwt);
+    if (!connection) {
+        connection = setupSignalRConnection(connectionHub, userJwt);
+        setConnectionStatus({
+            StatusCode: StatusCode.CONNECTED,
+            Error: null,
+        })
     }
 
     function setupEvents() {
+
+
         connection.onreconnecting((error) => {
             setConnectionStatus({
                 StatusCode: StatusCode.DISCONNECTED,
@@ -69,7 +75,7 @@ export function useSignalR() {
         }))
     }
 
-    if(connection)
+    if (connection)
         setupEvents()
 
     // Send events to server

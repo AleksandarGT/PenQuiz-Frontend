@@ -7,8 +7,8 @@ import { useHeaderHeight } from '@react-navigation/elements';
 export default function SvgComponent() {
   const [selected, setSelected] = useState([])
 
-  const antarcticaBorders = require('../assets/Antarctica.json')
-  const antarcticaTerritorySVG = require('../assets/AntarcticaTerritory.json')
+  const antarcticaBorders = require('../../assets/Antarctica.json')
+  const antarcticaTerritorySVG = require('../../assets/AntarcticaTerritory.json')
 
   // Original map dimensions
   const originalWidth = 694.41;

@@ -10,7 +10,7 @@ export default function GameMap() {
 
     return (
         <>
-            <ImageBackground source={require('../assets/gameBackground.svg')} resizeMode="cover" style={{
+            <ImageBackground source={require('../../assets/gameBackground.svg')} resizeMode="cover" style={{
                 flex: 1,
                 backgroundColor: "#032157",
             }}>

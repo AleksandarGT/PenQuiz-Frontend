@@ -2,18 +2,17 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Platform, Text, StyleSheet, View, ActivityIndicator, Button, Image } from 'react-native';
 import { useRecoilValue } from 'recoil';
 import { authActions } from '../actions';
-import GridSquares from '../components/GridSquares';
 import LoginComponent from '../components/LoginComponent';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { navigationRef } from '../helpers';
-import TestingSvg from '../components/TestingSvg';
+import TestingSvg from '../components/Testing/TestingSvg';
 import * as Linking from 'expo-linking';
 import { authStatus } from '../state';
 import { HomeDrawer } from './HomeDrawer'
 import { LoadingComponent } from './LoadingComponent'
 import { GameLobby } from '../components/GameLobby'
-import GameMap from '../components/GameMap';
+import GameMap from '../components/GameMapComponents/GameMap';
 
 export * from './LoadingComponent';
 
@@ -50,14 +49,13 @@ export function Routes() {
     else if (localAuthStatus === "LOGGED") {
       return (
         <>
-          <Stack.Screen name="GameMap" options={{ headerShown: false }} component={GameMap} />
-          <Stack.Screen name="TestingSVG" options={{ headerShown: false }} component={TestingSvg} />
 
           <Stack.Screen
             name="Home"
             options={{ headerShown: false }}
             component={HomeDrawer}
           />
+          <Stack.Screen name="GameMap" options={{ headerShown: false }} component={GameMap} />
           <Stack.Screen name="Game" options={{ headerShown: false }} component={TestingSvg} />
           <Stack.Screen name="GameLobby" options={{ headerShown: false }} component={GameLobby} />
         </>

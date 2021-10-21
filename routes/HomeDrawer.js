@@ -9,8 +9,6 @@ import {
 import { View, Button, Text, useWindowDimensions } from 'react-native'
 import { Center } from 'native-base'
 import { HomeGame } from '../components/HomeGame'
-import AntarcticaMapSvg from '../components/AntarcticaMapSvg'
-import GameMap from '../components/GameMap';
 const Drawer = createDrawerNavigator();
 
 export function HomeDrawer() {
