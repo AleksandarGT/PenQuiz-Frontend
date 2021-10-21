@@ -4,12 +4,14 @@ import { View, Button, StyleSheet, useWindowDimensions, Platform } from 'react-n
 /* SVGR has dropped some elements not supported by react-native-svg: style */
 import { useHeaderHeight } from '@react-navigation/elements';
 import { Center } from "native-base";
+import { useRecoilValue } from 'recoil'
+import { gameInstanceAtom } from '../../state'
+import { GetParticipantColor, gameInstanceMock } from './CommonGameFunc'
 
 export default function AntarcticaMapSvg({ onTerritoryClick }) {
-  const [selected, setSelected] = useState([])
 
+  const gameInstance = gameInstanceMock //useRecoilValue(gameInstanceAtom)
   const antarcticaBorders = require('../../assets/Antarctica.json')
-  const antarcticaTerritorySVG = require('../../assets/AntarcticaTerritory.json')
   const antarcticaSVGElements = require('../../assets/AntarcticaSvgElements.json')
 
   // Original map dimensions
@@ -20,8 +22,6 @@ export default function AntarcticaMapSvg({ onTerritoryClick }) {
 
   const aspectRatio = originalWidth / originalHeight;
 
-
-
   function SVGTerritories() {
     var jsx = []
     Object.keys(antarcticaSVGElements).forEach((k) => {
@@ -31,40 +31,47 @@ export default function AntarcticaMapSvg({ onTerritoryClick }) {
           {/* Territory path */}
           <Path
             d={antarcticaSVGElements[k].TerritoryPath}
-            fill="#d7fffe"
+            fill={GetParticipantColor(gameInstance, gameInstance.objectTerritory.find(x => x.mapTerritory.territoryName == k).takenBy) ?? "#d7fffe"}
             stroke="#000"
             strokeMiterlimit={10}
             fillRule="evenodd"
           />
 
-          {/* Line between score and igloo */}
-          <Path
-            fill="none"
-            stroke="#51565f"
-            strokeMiterlimit={10}
-            d={antarcticaSVGElements[k].IglooScoreLine}
-          />
+          {/* Conditionally rendering the capital  */}
+          {gameInstance.objectTerritory.find(x => x.mapTerritory.territoryName == k).isCapital ? (
+            <>
+              {/* Line between score and igloo */}
+              <Path
+                fill="none"
+                stroke="#51565f"
+                strokeMiterlimit={10}
+                d={antarcticaSVGElements[k].IglooScoreLine}
+              />
 
-          {/* Igloo background color */}
-          <Path
-            d={antarcticaSVGElements[k].IglooBackgroundColor}
-            fill="#e4f2de"
-          />
+              {/* Igloo background color */}
+              <Path
+                d={antarcticaSVGElements[k].IglooBackgroundColor}
+                fill="#e4f2de"
+              />
 
-          {/* Igloo door */}
-          <Path
-            d={antarcticaSVGElements[k].IglooDoor}
-            fill="#ae938d"
-          />
+              {/* Igloo door */}
+              <Path
+                d={antarcticaSVGElements[k].IglooDoor}
+                fill="#ae938d"
+              />
 
-          {/* Flag color */}
-          <Path fill="#50dd8e" d={antarcticaSVGElements[k].FlagColor} />
+              {/* Flag color */}
+              <Path fill="#50dd8e" d={antarcticaSVGElements[k].FlagColor} />
 
-          {/* Igloo texture */}
-          <Path
-            d={antarcticaSVGElements[k].IglooTexture}
-            fill="#51565f"
-          />
+              {/* Igloo texture */}
+              <Path
+                d={antarcticaSVGElements[k].IglooTexture}
+                fill="#51565f"
+              />
+            </>
+          ) : null}
+
+
 
           {/* Score */}
           <Text

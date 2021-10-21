@@ -6,7 +6,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 export default function GameChat() {
     return (
         <>
-            <Box mt={9} p={3} borderRadius={25} height={50} bg="#fff" width={300} style={{ flex: 1 }}>
+            <Box mt={5} p={3} borderRadius={25} height={50} bg="#fff" width={300} style={{ flex: 1 }}>
                 <Center>
                     <Text color="black">
                         Chat space

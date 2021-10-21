@@ -6,7 +6,7 @@ export function GetAvatarColor(avatarName) {
 export function GetParticipantColor(gameInstance, playerId) {
     let particip = gameInstance.participants.find(x => x.playerId == playerId)
 
-    return ReturnColor(particip.avatarName);
+    return ReturnColor(particip?.avatarName);
 }
 
 function ReturnColor(avatarName) {
@@ -22,23 +22,25 @@ function ReturnColor(avatarName) {
 
 
 export const gameInstanceMock = {
-    "id": 641,
+    "id": 643,
     "resultId": 0,
     "questionTimerSeconds": 30,
-    "startTime": "2021-10-21T18:58:11.997",
+    "startTime": "2021-10-22T00:00:07.587",
     "endTime": null,
     "mapid": 1,
     "participantsId": 0,
     "gameCreatorId": 1,
     "gameState": 1,
-    "invitationLink": "5261",
+    "invitationLink": "0542",
     "gameRoundNumber": 1,
     "map": null,
     "objectTerritory": [
         {
-            "id": 2156,
+            "id": 2196,
             "mapTerritoryId": 1,
-            "gameInstanceId": 641,
+            "gameInstanceId": 643,
+            "isCapital": false,
+            "territoryScore": 0,
             "takenBy": null,
             "attackedBy": null,
             "mapTerritory": {
@@ -52,9 +54,11 @@ export const gameInstanceMock = {
             }
         },
         {
-            "id": 2153,
+            "id": 2193,
             "mapTerritoryId": 2,
-            "gameInstanceId": 641,
+            "gameInstanceId": 643,
+            "isCapital": false,
+            "territoryScore": 0,
             "takenBy": null,
             "attackedBy": null,
             "mapTerritory": {
@@ -68,9 +72,11 @@ export const gameInstanceMock = {
             }
         },
         {
-            "id": 2154,
+            "id": 2194,
             "mapTerritoryId": 3,
-            "gameInstanceId": 641,
+            "gameInstanceId": 643,
+            "isCapital": false,
+            "territoryScore": 0,
             "takenBy": null,
             "attackedBy": null,
             "mapTerritory": {
@@ -84,9 +90,11 @@ export const gameInstanceMock = {
             }
         },
         {
-            "id": 2155,
+            "id": 2195,
             "mapTerritoryId": 4,
-            "gameInstanceId": 641,
+            "gameInstanceId": 643,
+            "isCapital": false,
+            "territoryScore": 0,
             "takenBy": null,
             "attackedBy": null,
             "mapTerritory": {
@@ -100,9 +108,11 @@ export const gameInstanceMock = {
             }
         },
         {
-            "id": 2160,
+            "id": 2200,
             "mapTerritoryId": 5,
-            "gameInstanceId": 641,
+            "gameInstanceId": 643,
+            "isCapital": false,
+            "territoryScore": 0,
             "takenBy": null,
             "attackedBy": null,
             "mapTerritory": {
@@ -116,9 +126,11 @@ export const gameInstanceMock = {
             }
         },
         {
-            "id": 2157,
+            "id": 2197,
             "mapTerritoryId": 6,
-            "gameInstanceId": 641,
+            "gameInstanceId": 643,
+            "isCapital": false,
+            "territoryScore": 0,
             "takenBy": null,
             "attackedBy": null,
             "mapTerritory": {
@@ -132,9 +144,11 @@ export const gameInstanceMock = {
             }
         },
         {
-            "id": 2158,
+            "id": 2198,
             "mapTerritoryId": 7,
-            "gameInstanceId": 641,
+            "gameInstanceId": 643,
+            "isCapital": false,
+            "territoryScore": 0,
             "takenBy": null,
             "attackedBy": null,
             "mapTerritory": {
@@ -148,9 +162,11 @@ export const gameInstanceMock = {
             }
         },
         {
-            "id": 2159,
+            "id": 2199,
             "mapTerritoryId": 8,
-            "gameInstanceId": 641,
+            "gameInstanceId": 643,
+            "isCapital": true,
+            "territoryScore": 0,
             "takenBy": 4,
             "attackedBy": null,
             "mapTerritory": {
@@ -164,9 +180,11 @@ export const gameInstanceMock = {
             }
         },
         {
-            "id": 2151,
+            "id": 2191,
             "mapTerritoryId": 9,
-            "gameInstanceId": 641,
+            "gameInstanceId": 643,
+            "isCapital": false,
+            "territoryScore": 0,
             "takenBy": null,
             "attackedBy": null,
             "mapTerritory": {
@@ -180,9 +198,11 @@ export const gameInstanceMock = {
             }
         },
         {
-            "id": 2152,
+            "id": 2192,
             "mapTerritoryId": 10,
-            "gameInstanceId": 641,
+            "gameInstanceId": 643,
+            "isCapital": false,
+            "territoryScore": 0,
             "takenBy": null,
             "attackedBy": null,
             "mapTerritory": {
@@ -196,10 +216,12 @@ export const gameInstanceMock = {
             }
         },
         {
-            "id": 2149,
+            "id": 2189,
             "mapTerritoryId": 11,
-            "gameInstanceId": 641,
-            "takenBy": 1,
+            "gameInstanceId": 643,
+            "isCapital": false,
+            "territoryScore": 0,
+            "takenBy": null,
             "attackedBy": null,
             "mapTerritory": {
                 "id": 11,
@@ -212,9 +234,11 @@ export const gameInstanceMock = {
             }
         },
         {
-            "id": 2148,
+            "id": 2188,
             "mapTerritoryId": 12,
-            "gameInstanceId": 641,
+            "gameInstanceId": 643,
+            "isCapital": false,
+            "territoryScore": 0,
             "takenBy": null,
             "attackedBy": null,
             "mapTerritory": {
@@ -228,9 +252,11 @@ export const gameInstanceMock = {
             }
         },
         {
-            "id": 2147,
+            "id": 2187,
             "mapTerritoryId": 13,
-            "gameInstanceId": 641,
+            "gameInstanceId": 643,
+            "isCapital": false,
+            "territoryScore": 0,
             "takenBy": null,
             "attackedBy": null,
             "mapTerritory": {
@@ -244,9 +270,11 @@ export const gameInstanceMock = {
             }
         },
         {
-            "id": 2146,
+            "id": 2186,
             "mapTerritoryId": 14,
-            "gameInstanceId": 641,
+            "gameInstanceId": 643,
+            "isCapital": false,
+            "territoryScore": 0,
             "takenBy": null,
             "attackedBy": null,
             "mapTerritory": {
@@ -260,10 +288,12 @@ export const gameInstanceMock = {
             }
         },
         {
-            "id": 2145,
+            "id": 2185,
             "mapTerritoryId": 15,
-            "gameInstanceId": 641,
-            "takenBy": null,
+            "gameInstanceId": 643,
+            "isCapital": true,
+            "territoryScore": 0,
+            "takenBy": 1,
             "attackedBy": null,
             "mapTerritory": {
                 "id": 15,
@@ -276,9 +306,11 @@ export const gameInstanceMock = {
             }
         },
         {
-            "id": 2144,
+            "id": 2184,
             "mapTerritoryId": 16,
-            "gameInstanceId": 641,
+            "gameInstanceId": 643,
+            "isCapital": false,
+            "territoryScore": 0,
             "takenBy": null,
             "attackedBy": null,
             "mapTerritory": {
@@ -292,10 +324,12 @@ export const gameInstanceMock = {
             }
         },
         {
-            "id": 2143,
+            "id": 2183,
             "mapTerritoryId": 17,
-            "gameInstanceId": 641,
-            "takenBy": null,
+            "gameInstanceId": 643,
+            "isCapital": true,
+            "territoryScore": 0,
+            "takenBy": 2,
             "attackedBy": null,
             "mapTerritory": {
                 "id": 17,
@@ -308,9 +342,11 @@ export const gameInstanceMock = {
             }
         },
         {
-            "id": 2142,
+            "id": 2182,
             "mapTerritoryId": 18,
-            "gameInstanceId": 641,
+            "gameInstanceId": 643,
+            "isCapital": false,
+            "territoryScore": 0,
             "takenBy": null,
             "attackedBy": null,
             "mapTerritory": {
@@ -324,10 +360,12 @@ export const gameInstanceMock = {
             }
         },
         {
-            "id": 2150,
+            "id": 2190,
             "mapTerritoryId": 19,
-            "gameInstanceId": 641,
-            "takenBy": 2,
+            "gameInstanceId": 643,
+            "isCapital": false,
+            "territoryScore": 0,
+            "takenBy": null,
             "attackedBy": null,
             "mapTerritory": {
                 "id": 19,
@@ -340,9 +378,11 @@ export const gameInstanceMock = {
             }
         },
         {
-            "id": 2141,
+            "id": 2181,
             "mapTerritoryId": 20,
-            "gameInstanceId": 641,
+            "gameInstanceId": 643,
+            "isCapital": false,
+            "territoryScore": 0,
             "takenBy": null,
             "attackedBy": null,
             "mapTerritory": {
@@ -358,10 +398,10 @@ export const gameInstanceMock = {
     ],
     "participants": [
         {
-            "id": 831,
-            "avatarName": "penguinAvatar3",
+            "id": 837,
+            "avatarName": "penguinAvatar2",
             "playerId": 1,
-            "gameId": 641,
+            "gameId": 643,
             "isBot": false,
             "score": 0,
             "player": {
@@ -378,10 +418,10 @@ export const gameInstanceMock = {
             }
         },
         {
-            "id": 832,
-            "avatarName": "penguinAvatar2",
+            "id": 838,
+            "avatarName": "penguinAvatar",
             "playerId": 2,
-            "gameId": 641,
+            "gameId": 643,
             "isBot": false,
             "score": 0,
             "player": {
@@ -398,10 +438,10 @@ export const gameInstanceMock = {
             }
         },
         {
-            "id": 833,
-            "avatarName": "penguinAvatar",
+            "id": 839,
+            "avatarName": "penguinAvatar3",
             "playerId": 4,
-            "gameId": 641,
+            "gameId": 643,
             "isBot": false,
             "score": 0,
             "player": {
@@ -420,205 +460,205 @@ export const gameInstanceMock = {
     ],
     "rounds": [
         {
-            "id": 1833,
+            "id": 1867,
             "roundStage": 0,
             "isLastUntakenTerritories": false,
             "gameRoundNumber": 1,
             "attackerId": 1,
             "defenderId": null,
-            "gameInstanceId": 641,
+            "gameInstanceId": 643,
             "description": "Fixed question. Attacker vs NEUTRAL territory",
             "roundWinnerId": null,
             "roundQuestion": []
         },
         {
-            "id": 1832,
+            "id": 1866,
             "roundStage": 0,
             "isLastUntakenTerritories": false,
             "gameRoundNumber": 2,
-            "attackerId": 2,
+            "attackerId": 4,
             "defenderId": null,
-            "gameInstanceId": 641,
+            "gameInstanceId": 643,
             "description": "Fixed question. Attacker vs NEUTRAL territory",
             "roundWinnerId": null,
             "roundQuestion": []
         },
         {
-            "id": 1831,
+            "id": 1865,
             "roundStage": 0,
             "isLastUntakenTerritories": false,
             "gameRoundNumber": 3,
-            "attackerId": 4,
+            "attackerId": 2,
             "defenderId": null,
-            "gameInstanceId": 641,
+            "gameInstanceId": 643,
             "description": "Fixed question. Attacker vs NEUTRAL territory",
             "roundWinnerId": null,
             "roundQuestion": []
         },
         {
-            "id": 1830,
+            "id": 1864,
             "roundStage": 0,
             "isLastUntakenTerritories": false,
             "gameRoundNumber": 4,
-            "attackerId": 2,
+            "attackerId": 4,
             "defenderId": null,
-            "gameInstanceId": 641,
+            "gameInstanceId": 643,
             "description": "Fixed question. Attacker vs NEUTRAL territory",
             "roundWinnerId": null,
             "roundQuestion": []
         },
         {
-            "id": 1836,
+            "id": 1870,
             "roundStage": 0,
             "isLastUntakenTerritories": false,
             "gameRoundNumber": 5,
-            "attackerId": 4,
+            "attackerId": 1,
             "defenderId": null,
-            "gameInstanceId": 641,
+            "gameInstanceId": 643,
             "description": "Fixed question. Attacker vs NEUTRAL territory",
             "roundWinnerId": null,
             "roundQuestion": []
         },
         {
-            "id": 1829,
+            "id": 1863,
             "roundStage": 0,
             "isLastUntakenTerritories": false,
             "gameRoundNumber": 6,
-            "attackerId": 1,
+            "attackerId": 2,
             "defenderId": null,
-            "gameInstanceId": 641,
+            "gameInstanceId": 643,
             "description": "Fixed question. Attacker vs NEUTRAL territory",
             "roundWinnerId": null,
             "roundQuestion": []
         },
         {
-            "id": 1828,
+            "id": 1862,
             "roundStage": 0,
             "isLastUntakenTerritories": false,
             "gameRoundNumber": 7,
-            "attackerId": 1,
+            "attackerId": 4,
             "defenderId": null,
-            "gameInstanceId": 641,
+            "gameInstanceId": 643,
             "description": "Fixed question. Attacker vs NEUTRAL territory",
             "roundWinnerId": null,
             "roundQuestion": []
         },
         {
-            "id": 1827,
+            "id": 1861,
             "roundStage": 0,
             "isLastUntakenTerritories": false,
             "gameRoundNumber": 8,
-            "attackerId": 2,
+            "attackerId": 1,
             "defenderId": null,
-            "gameInstanceId": 641,
+            "gameInstanceId": 643,
             "description": "Fixed question. Attacker vs NEUTRAL territory",
             "roundWinnerId": null,
             "roundQuestion": []
         },
         {
-            "id": 1835,
+            "id": 1869,
             "roundStage": 0,
             "isLastUntakenTerritories": false,
             "gameRoundNumber": 9,
-            "attackerId": 4,
+            "attackerId": 2,
             "defenderId": null,
-            "gameInstanceId": 641,
+            "gameInstanceId": 643,
             "description": "Fixed question. Attacker vs NEUTRAL territory",
             "roundWinnerId": null,
             "roundQuestion": []
         },
         {
-            "id": 1826,
+            "id": 1860,
             "roundStage": 0,
             "isLastUntakenTerritories": false,
             "gameRoundNumber": 10,
-            "attackerId": 4,
+            "attackerId": 1,
             "defenderId": null,
-            "gameInstanceId": 641,
+            "gameInstanceId": 643,
             "description": "Fixed question. Attacker vs NEUTRAL territory",
             "roundWinnerId": null,
             "roundQuestion": []
         },
         {
-            "id": 1825,
+            "id": 1859,
             "roundStage": 0,
             "isLastUntakenTerritories": false,
             "gameRoundNumber": 11,
-            "attackerId": 2,
+            "attackerId": 4,
             "defenderId": null,
-            "gameInstanceId": 641,
+            "gameInstanceId": 643,
             "description": "Fixed question. Attacker vs NEUTRAL territory",
             "roundWinnerId": null,
             "roundQuestion": []
         },
         {
-            "id": 1824,
+            "id": 1858,
             "roundStage": 0,
             "isLastUntakenTerritories": false,
             "gameRoundNumber": 12,
-            "attackerId": 1,
+            "attackerId": 2,
             "defenderId": null,
-            "gameInstanceId": 641,
+            "gameInstanceId": 643,
             "description": "Fixed question. Attacker vs NEUTRAL territory",
             "roundWinnerId": null,
             "roundQuestion": []
         },
         {
-            "id": 1823,
+            "id": 1857,
             "roundStage": 0,
             "isLastUntakenTerritories": false,
             "gameRoundNumber": 13,
-            "attackerId": 2,
+            "attackerId": 1,
             "defenderId": null,
-            "gameInstanceId": 641,
+            "gameInstanceId": 643,
             "description": "Fixed question. Attacker vs NEUTRAL territory",
             "roundWinnerId": null,
             "roundQuestion": []
         },
         {
-            "id": 1822,
+            "id": 1856,
             "roundStage": 0,
             "isLastUntakenTerritories": false,
             "gameRoundNumber": 14,
             "attackerId": 4,
             "defenderId": null,
-            "gameInstanceId": 641,
+            "gameInstanceId": 643,
             "description": "Fixed question. Attacker vs NEUTRAL territory",
             "roundWinnerId": null,
             "roundQuestion": []
         },
         {
-            "id": 1821,
+            "id": 1855,
             "roundStage": 0,
             "isLastUntakenTerritories": false,
             "gameRoundNumber": 15,
-            "attackerId": 1,
+            "attackerId": 2,
             "defenderId": null,
-            "gameInstanceId": 641,
+            "gameInstanceId": 643,
             "description": "Fixed question. Attacker vs NEUTRAL territory",
             "roundWinnerId": null,
             "roundQuestion": []
         },
         {
-            "id": 1820,
+            "id": 1854,
             "roundStage": 0,
             "isLastUntakenTerritories": true,
             "gameRoundNumber": 16,
             "attackerId": null,
             "defenderId": null,
-            "gameInstanceId": 641,
+            "gameInstanceId": 643,
             "description": "Number question. Attacker vs NEUTRAL territory",
             "roundWinnerId": null,
             "roundQuestion": []
         },
         {
-            "id": 1834,
+            "id": 1868,
             "roundStage": 0,
             "isLastUntakenTerritories": true,
             "gameRoundNumber": 17,
             "attackerId": null,
             "defenderId": null,
-            "gameInstanceId": 641,
+            "gameInstanceId": 643,
             "description": "Number question. Attacker vs NEUTRAL territory",
             "roundWinnerId": null,
             "roundQuestion": []

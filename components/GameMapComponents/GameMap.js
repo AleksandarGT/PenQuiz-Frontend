@@ -3,7 +3,7 @@ import React, { useState } from "react"
 import { View, StyleSheet, ImageBackground } from 'react-native';
 import AntarcticaMapSvg from './AntarcticaMapSvg'
 import GameChat from "./GameChat";
-import GamePlayerBoard from "./GamePlayerBoard";
+import GameBoards from "./GamePlayerBoard";
 import GameRounding from "./GameRounding";
 import GameTimer from "./GameTimer";
 
@@ -18,27 +18,7 @@ export default function GameMap() {
                 <HStack justifyContent="space-between" flexDirection="row" flex={1}>
                     <VStack >
                         <Container>
-                            <GamePlayerBoard participant={{
-                                avatarName: "penguinAvatar",
-                                score: 1231,
-                                player: {
-                                    username: "BoostedPenguin"
-                                }
-                            }} />
-                            <GamePlayerBoard participant={{
-                                avatarName: "penguinAvatar2",
-                                score: 612,
-                                player: {
-                                    username: "Gosho"
-                                }
-                            }} hisTurn={true} />
-                            <GamePlayerBoard participant={{
-                                avatarName: "penguinAvatar3",
-                                score: 123,
-                                player: {
-                                    username: "Aleksandar Todorov Is very Long"
-                                }
-                            }} />
+                            <GameBoards />
                         </Container>
                         <GameChat />
                     </VStack>

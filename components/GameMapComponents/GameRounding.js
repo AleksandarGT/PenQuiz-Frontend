@@ -15,8 +15,8 @@ export default function GameRounding() {
             <View style={{
                 flex: 1,
                 backgroundColor: "#BFD2D4",
-                borderRadius: 10,
-                justifyContent: "center"
+                borderRadius: 25,
+                justifyContent: "center",
             }}>
                 <HStack style={{ flex: 1 }}>
                     {gameInstance.rounds.filter(x => !x.isLastUntakenTerritories).map((x, index) =>
@@ -29,10 +29,10 @@ export default function GameRounding() {
                         } : null, {
                             flex: 1,
                             backgroundColor: GetParticipantColor(gameInstance, x.attackerId),
-                            margin: 8,
+                            margin: 10,
                             borderRadius: 5,
                             marginRight: index % 3 == 2 ? 10 : 0,
-                            marginVertical: 33,
+                            marginVertical: 34,
 
                         }]} />
                     )}
