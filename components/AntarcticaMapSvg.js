@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import Svg, { Defs, Path, G, Text } from "react-native-svg"
+import Svg, { Defs, Path, G, Text, TSpan } from "react-native-svg"
 import { View, Button, StyleSheet, useWindowDimensions, Platform } from 'react-native';
 /* SVGR has dropped some elements not supported by react-native-svg: style */
 import { useHeaderHeight } from '@react-navigation/elements';
@@ -10,50 +10,91 @@ export default function AntarcticaMapSvg({ onTerritoryClick }) {
 
   const antarcticaBorders = require('../assets/Antarctica.json')
   const antarcticaTerritorySVG = require('../assets/AntarcticaTerritory.json')
+  const antarcticaSVGElements = require('../assets/AntarcticaSvgElements.json')
 
   // Original map dimensions
-  const originalWidth = 694.41;
-  const originalHeight = 587.05;
-
+  const originalWidth = 694.3;
+  const originalHeight = 587.02;
   // Calculated max height without header
   const windowHeight = useWindowDimensions().height
 
-  const calculatedWidth = originalWidth + (0 * originalWidth)
-  const calculatedHeight = originalHeight + (0 * originalHeight)
-  const aspectRatio = calculatedWidth / calculatedHeight;
+  const aspectRatio = originalWidth / originalHeight;
 
-  function loadSVGs() {
-    var jsx = [];
-    Object.keys(antarcticaTerritorySVG).forEach((k) => {
 
+
+  function SVGTerritories() {
+    var jsx = []
+    Object.keys(antarcticaSVGElements).forEach((k) => {
       jsx.push(
-        <G key={k}>
+        <G key={k} onClick={() => console.log(k)}>
+
+          {/* Territory path */}
           <Path
-            onClick={Platform.OS === 'web' ? () => onTerritoryClick(k) : null}
-            onPress={Platform.OS !== 'web' ? () => onTerritoryClick(k) : null}
-            id={k}
-            fill={selected.includes(k) ? "orange" : "#D7FFFE"}
+            d={antarcticaSVGElements[k].TerritoryPath}
+            fill="#d7fffe"
             stroke="#000"
             strokeMiterlimit={10}
-            className="prefix__cls-1"
-            d={antarcticaTerritorySVG[k]}
+            fillRule="evenodd"
           />
-        </G>
 
+          {/* Line between score and igloo */}
+          <Path
+            fill="none"
+            stroke="#51565f"
+            strokeMiterlimit={10}
+            d={antarcticaSVGElements[k].IglooScoreLine}
+          />
+
+          {/* Igloo background color */}
+          <Path
+            d={antarcticaSVGElements[k].IglooBackgroundColor}
+            fill="#e4f2de"
+          />
+
+          {/* Igloo door */}
+          <Path
+            d={antarcticaSVGElements[k].IglooDoor}
+            fill="#ae938d"
+          />
+
+          {/* Flag color */}
+          <Path fill="#50dd8e" d={antarcticaSVGElements[k].FlagColor} />
+
+          {/* Igloo texture */}
+          <Path
+            d={antarcticaSVGElements[k].IglooTexture}
+            fill="#51565f"
+          />
+
+          {/* Score */}
+          <Text
+            transform={antarcticaSVGElements[k].ScorePosition}
+            fontSize={25}
+            pointerEvents="none"
+            fill="#fff"
+            stroke="#000"
+            strokeMiterlimit={10}
+            strokeWidth={1}
+            fontFamily="Arial-BoldMT,Arial"
+            fontWeight={700}
+          >
+            {"500"}
+          </Text>
+        </G>
       )
     })
-
-    return jsx;
+    return jsx
   }
 
   return (
     <View style={{ height: windowHeight - 160, aspectRatio }}>
-
-      <Svg xmlns="http://www.w3.org/2000/svg" viewBox={`0 0 ${calculatedWidth} ${calculatedHeight}`}>
-        <Defs></Defs>
-        <G id="prefix__Layer_2" data-name="Layer 2">
-          <G id="prefix__svg130">
-            {loadSVGs()}
+      <Svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 694.3 587.02"
+      >
+        <G data-name="Layer 2">
+          <G data-name="Layer 1">
+            {SVGTerritories()}
           </G>
         </G>
       </Svg>
