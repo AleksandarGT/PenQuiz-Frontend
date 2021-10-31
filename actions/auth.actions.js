@@ -3,16 +3,14 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 import { useFetchWrapper, navigate, removeBackStack } from '../helpers';
 import { authAtom } from '../state';
 import * as Google from 'expo-auth-session/providers/google';
-import { BACKEND_API_URL, GOOGLE_CLIENT_URL } from '@env'
+import { BACKEND_ACCOUNT_API_URL, GOOGLE_CLIENT_URL } from '@env'
 import { closeConnection } from './SignalRSetup'
 export { authActions };
 
 
 
-const connectionHub = `${BACKEND_API_URL}/gamehubs`;
-
 function authActions() {
-    const baseUrl = `${BACKEND_API_URL}/api/account`;
+    const baseUrl = `${BACKEND_ACCOUNT_API_URL}/api/account`;
     const fetchWrapper = useFetchWrapper();
     const setAuth = useSetRecoilState(authAtom);
 

@@ -1,15 +1,17 @@
 import { setupSignalRConnection } from './SignalRSetup';
 import { authToken, gameInstanceAtom, joiningGameExceptionAtom, connectionStatusAtom } from '../state';
 import { useRecoilValue, useRecoilState } from 'recoil';
-import { BACKEND_API_URL } from '@env'
+import { BACKEND_GAME_API_URL } from '@env'
 import { navigate } from '../helpers'
 import { getConnection } from './SignalRSetup'
+import { useEffect } from 'react';
 
-const connectionHub = `${BACKEND_API_URL}/gamehubs`;
+const connectionHub = `${BACKEND_GAME_API_URL}/gamehubs`;
 export const StatusCode = {
     "CONNECTED": 1,
     "DISCONNECTED": 0
 }
+
 export function useSignalR() {
     const userJwt = useRecoilValue(authToken)
     const [gameInstance, setGameInstance] = useRecoilState(gameInstanceAtom);
@@ -17,14 +19,21 @@ export function useSignalR() {
     const [connectionStatus, setConnectionStatus] = useRecoilState(connectionStatusAtom);
 
 
-    let connection = getConnection();
-    if (!connection) {
-        connection = setupSignalRConnection(connectionHub, userJwt);
-        setConnectionStatus({
-            StatusCode: StatusCode.CONNECTED,
-            Error: null,
-        })
-    }
+    let connection = getConnection()
+
+    useEffect(() => {
+        if (!connection) {
+            connection = setupSignalRConnection(connectionHub, userJwt);
+            setConnectionStatus({
+                StatusCode: StatusCode.CONNECTED,
+                Error: null,
+            })
+        }
+
+
+        if (connection)
+            setupEvents()
+    }, [])
 
     function setupEvents() {
 
@@ -74,9 +83,6 @@ export function useSignalR() {
             setParticipants(e)
         }))
     }
-
-    if (connection)
-        setupEvents()
 
     // Send events to server
     function CreateGameLobby() {

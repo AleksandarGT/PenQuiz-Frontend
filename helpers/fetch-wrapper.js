@@ -1,8 +1,6 @@
 import { useRecoilState } from 'recoil';
 //import { history } from './index';
 import { authAtom } from '../state';
-
-import { BACKEND_API_URL } from '@env'
 import { removeBackStack } from './index'
 
 export { useFetchWrapper, };
@@ -21,7 +19,7 @@ function useFetchWrapper() {
         return (url, body) => {
             const requestOptions = {
                 method,
-                headers: authHeader(url),
+                headers: authHeader(),
                 credentials: 'include',
             };
             if (body) {
@@ -32,14 +30,12 @@ function useFetchWrapper() {
         }
     }
 
-    function authHeader(url) {
+    function authHeader() {
         const token = auth?.token;
 
         const isLoggedIn = !!token;
 
-        const isApiUrl = url.startsWith(BACKEND_API_URL)
-
-        if (isLoggedIn && isApiUrl) {
+        if (isLoggedIn) {
             return { Authorization: `Bearer ${token}` };
         }
         else {
