@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, ImageBackground, StyleSheet, ActivityIndicator } from 'react-native';
 import { Text, Button, Center, Box, Pressable, Input, Alert, VStack, HStack, IconButton, CloseIcon } from 'native-base';
-import { useSignalR, StatusCode } from '../actions/'
+import { useSignalR, StatusCode } from '../hooks/'
 import DefaultAlert from './Popups/DefaultAlert';
 
 export function HomeGame({ navigation, route }) {

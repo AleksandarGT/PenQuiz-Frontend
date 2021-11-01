@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { authActions } from '../actions';
+import { useAuthActions } from '../hooks';
 import {
     createDrawerNavigator, DrawerContentScrollView,
     DrawerItemList,
@@ -13,7 +13,7 @@ const Drawer = createDrawerNavigator();
 
 export function HomeDrawer() {
 
-    const actions = authActions();
+    const actions = useAuthActions();
     const dimensions = useWindowDimensions();
 
     const isLargeScreen = dimensions.width >= 768;

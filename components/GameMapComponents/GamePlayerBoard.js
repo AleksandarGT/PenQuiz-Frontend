@@ -6,8 +6,7 @@ import { useRecoilValue } from 'recoil'
 import { gameInstanceAtom } from '../../state'
 import { GetParticipantColor, gameInstanceMock } from './CommonGameFunc'
 
-export default function GameBoards() {
-    const gameInstance = gameInstanceMock //useRecoilValue(gameInstanceAtom)
+export default function GameBoards({gameInstance}) {
     const currentRoundAttacker = gameInstance.rounds.find(x => x.gameRoundNumber == gameInstance.gameRoundNumber).attackerId
     return (
         <>

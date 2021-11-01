@@ -5,11 +5,11 @@ import { authAtom } from '../state';
 import * as Google from 'expo-auth-session/providers/google';
 import { BACKEND_ACCOUNT_API_URL, GOOGLE_CLIENT_URL } from '@env'
 import { closeConnection } from './SignalRSetup'
-export { authActions };
+export { useAuthActions };
 
 
 
-function authActions() {
+function useAuthActions() {
     const baseUrl = `${BACKEND_ACCOUNT_API_URL}/api/account`;
     const fetchWrapper = useFetchWrapper();
     const setAuth = useSetRecoilState(authAtom);

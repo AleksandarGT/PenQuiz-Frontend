@@ -5,7 +5,7 @@ import { VStack, Box, Divider, Text, Center, Heading, Button, Icon, Image, Press
 import { FontAwesome5 } from "@expo/vector-icons"
 import { authStatus, authAtom } from '../state';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { authActions } from '../actions';
+import { useAuthActions } from '../hooks';
 import { justifyContent } from 'styled-system';
 
 export default function LoginComponent({ history }) {
@@ -41,7 +41,7 @@ function RenderAntarctica() {
 
 
 function RenderCard() {
-    const userActions = authActions();
+    const userActions = useAuthActions();
     const setAuth = useSetRecoilState(authAtom);
     const [isLoading, setIsLoading] = useState(false);
 

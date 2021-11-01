@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Platform, Text, StyleSheet, View, ActivityIndicator, Button, Image } from 'react-native';
 import { useRecoilValue } from 'recoil';
-import { authActions } from '../actions';
+import { useAuthActions } from '../hooks';
 import LoginComponent from '../components/LoginComponent';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
@@ -22,11 +22,11 @@ const prefix = Linking.createURL('http://localhost:19006');
 export function Routes() {
   const localAuthStatus = useRecoilValue(authStatus);
 
-  const useAuthActions = authActions();
+  const useuseAuthActions = useAuthActions();
   useEffect(() => {
     // Call refresh token. If auth is successful you will navigate to main component
     // If not to login / register component
-    useAuthActions.refreshToken()
+    useuseAuthActions.refreshToken()
   }, [])
 
   const linking = {

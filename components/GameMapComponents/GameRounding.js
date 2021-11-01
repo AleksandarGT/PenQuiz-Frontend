@@ -1,13 +1,12 @@
 import { Center, Container, HStack, Text, Image, VStack, Box, ZStack } from "native-base";
 import React, { useState } from "react"
 import { View, StyleSheet } from 'react-native';
-import { GetParticipantColor, gameInstanceMock } from './CommonGameFunc'
+import { GetParticipantColor } from './CommonGameFunc'
 import { useRecoilValue } from 'recoil'
 import { gameInstanceAtom } from '../../state'
 
-export default function GameRounding() {
-    const gameInstance = gameInstanceMock //useRecoilValue(gameInstanceAtom)
-    if(!gameInstance) {
+export default function GameRounding({ gameInstance }) {
+    if (!gameInstance) {
         return null
     }
     return (

@@ -8,9 +8,7 @@ import { useRecoilValue } from 'recoil'
 import { gameInstanceAtom } from '../../state'
 import { GetParticipantColor, gameInstanceMock } from './CommonGameFunc'
 
-export default function AntarcticaMapSvg({ onTerritoryClick }) {
-
-  const gameInstance = gameInstanceMock //useRecoilValue(gameInstanceAtom)
+export default function AntarcticaMapSvg({ onTerritoryClick, gameInstance }) {
   const antarcticaBorders = require('../../assets/Antarctica.json')
   const antarcticaSVGElements = require('../../assets/AntarcticaSvgElements.json')
 

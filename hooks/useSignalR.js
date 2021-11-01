@@ -76,6 +76,9 @@ export function useSignalR() {
             setGameInstance(gi)
             setJoiningGameException(null)
         }))
+        connection.on('GameStarting', (() => {
+            navigate("GameMap")
+        }))
         connection.on('GameException', ((er) => {
             setJoiningGameException(er)
         }))
