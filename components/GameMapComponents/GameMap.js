@@ -14,7 +14,7 @@ export default function GameMap() {
     const gameInstance = useRecoilValue(gameInstanceAtom)
 
     // For testing purposes uncomment the line below
-    //const gameInstace = gameInstanceMock
+    // const gameInstance = gameInstanceMock
     
     return (
         <>

@@ -66,8 +66,16 @@ export function useSignalR() {
         connection.on('TESTING', ((msg) => {
             console.log(msg)
         }))
-        connection.on('PersonLeft', (() => {
+        connection.on('CallerLeftGame', (() => {
             navigate("Home")
+        }))
+        connection.on('PersonLeftGame', ((disconnectedPersonId) => {
+            setGameInstance(old => ({
+                ...old,
+                 participants: old.participants.map(
+                     el => el.playerId === disconnectedPersonId ? {...el, isBot: true} : el
+                 )
+            }))
         }))
         connection.on('NavigateToLobby', ((gi) => {
             navigate("GameLobby")

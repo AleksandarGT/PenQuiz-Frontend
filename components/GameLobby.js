@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text, Button, Input, Center, Modal, Container, Box, Icon, HStack, Pressable, VStack, Image } from 'native-base';
 import { View, StyleSheet, ImageBackground, ActivityIndicator } from 'react-native';
 import { useSignalR, StatusCode } from '../hooks/'
 import { FontAwesome5 } from "@expo/vector-icons"
-import { useRecoilValue } from "recoil"
-import { userIdSelector } from "../state"
+import { useRecoilState, useRecoilValue } from "recoil"
+import { gameInstanceAtom, userIdSelector } from "../state"
 import ExitGameModal from './Popups/ExitGameModal'
 import { Heading } from 'native-base';
 

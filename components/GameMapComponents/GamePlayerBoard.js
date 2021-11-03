@@ -39,7 +39,7 @@ function GamePlayerBoard({ participant, hisTurn }) {
                         <VStack>
 
                             <Text ml={2} isTruncated maxWidth={180} fontSize={{ base: "sm", md: "md", lg: "xl" }}>
-                                {participant.player.username}
+                                {`${participant.isBot ? "[BOT]" : ""} ${participant.player.username}`}
                             </Text>
 
                             <Box ml={2} width="150" bg="#fff" borderRadius={15}>

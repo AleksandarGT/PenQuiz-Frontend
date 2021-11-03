@@ -1,7 +1,9 @@
 import { atom, selector } from 'recoil'
-
+import { gameInstanceMock } from '../components/GameMapComponents/CommonGameFunc'
 export const gameInstanceAtom = atom({
     key: "gameInstance",
+    // Add default value of "" for production
+    // default: gameInstanceMock,
     default: "",
     effects_UNSTABLE: [
         ({ onSet }) => {
