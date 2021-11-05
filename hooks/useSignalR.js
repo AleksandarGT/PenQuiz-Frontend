@@ -7,6 +7,7 @@ import { getConnection } from './SignalRSetup'
 import { useEffect } from 'react';
 
 const connectionHub = `${BACKEND_GAME_API_URL}/gamehubs`;
+
 export const StatusCode = {
     "CONNECTED": 1,
     "DISCONNECTED": 0
@@ -72,26 +73,34 @@ export function useSignalR() {
         connection.on('PersonLeftGame', ((disconnectedPersonId) => {
             setGameInstance(old => ({
                 ...old,
-                 participants: old.participants.map(
-                     el => el.playerId === disconnectedPersonId ? {...el, isBot: true} : el
-                 )
+                participants: old.participants.map(
+                    el => el.playerId === disconnectedPersonId ? { ...el, isBot: true } : el
+                )
             }))
         }))
         connection.on('NavigateToLobby', ((gi) => {
             navigate("GameLobby")
         }))
+        connection.on('NavigateToGame', ((gi) => {
+            navigate("GameMap")
+        }))
         connection.on('GetGameInstance', ((gi) => {
             setGameInstance(gi)
             setJoiningGameException(null)
+        }))
+        connection.on('PlayerRejoined', ((participId) => {
+            setGameInstance(old => ({
+                ...old,
+                participants: old.participants.map(
+                    el => el.playerId === participId ? { ...el, isBot: false } : el
+                )
+            }))
         }))
         connection.on('GameStarting', (() => {
             navigate("GameMap")
         }))
         connection.on('GameException', ((er) => {
             setJoiningGameException(er)
-        }))
-        connection.on('AllLobbyPlayers', ((e) => {
-            setParticipants(e)
         }))
     }
 
