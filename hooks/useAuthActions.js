@@ -10,7 +10,6 @@ export { useAuthActions };
 
 
 function useAuthActions() {
-    
     const baseUrl = `${BACKEND_ACCOUNT_API_URL}/api/account`;
     const fetchWrapper = useFetchWrapper();
     const setAuth = useSetRecoilState(authAtom);

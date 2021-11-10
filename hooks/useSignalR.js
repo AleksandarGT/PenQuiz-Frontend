@@ -7,7 +7,6 @@ import { getConnection } from './SignalRSetup'
 import { useEffect } from 'react';
 
 const connectionHub = `${BACKEND_GAME_API_URL}/gamehubs`;
-
 export const StatusCode = {
     "CONNECTED": 1,
     "DISCONNECTED": 0
