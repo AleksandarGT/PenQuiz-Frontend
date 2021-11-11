@@ -8,7 +8,7 @@ import { useRecoilValue } from 'recoil'
 import { gameInstanceAtom } from '../../state'
 import { GetParticipantColor, gameInstanceMock } from './CommonGameFunc'
 
-export default function AntarcticaMapSvg({ onTerritoryClick, gameInstance }) {
+export default function AntarcticaMapSvg({ onTerritoryClick, gameInstance = gameInstanceMock }) {
   const antarcticaBorders = require('../../assets/Antarctica.json')
   const antarcticaSVGElements = require('../../assets/AntarcticaSvgElements.json')
 
@@ -29,7 +29,9 @@ export default function AntarcticaMapSvg({ onTerritoryClick, gameInstance }) {
           {/* Territory path */}
           <Path
             d={antarcticaSVGElements[k].TerritoryPath}
-            fill={GetParticipantColor(gameInstance, gameInstance.objectTerritory.find(x => x.mapTerritory.territoryName == k).takenBy) ?? "#d7fffe"}
+            fill={GetParticipantColor(gameInstance, gameInstance.objectTerritory.find(x => x.mapTerritory.territoryName == k).takenBy) 
+              ?? GetParticipantColor(gameInstance, gameInstance.objectTerritory.find(x => x.mapTerritory.territoryName == k).attackedBy)
+              ?? "#d7fffe"}
             stroke="#000"
             strokeMiterlimit={10}
             fillRule="evenodd"

@@ -1,10 +1,10 @@
 import { setupSignalRConnection } from './SignalRSetup';
-import { authToken, gameInstanceAtom, joiningGameExceptionAtom, connectionStatusAtom } from '../state';
+import { authToken, gameInstanceAtom, joiningGameExceptionAtom, connectionStatusAtom, gameTimerAtom } from '../state';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import { BACKEND_GAME_API_URL } from '@env'
 import { navigate } from '../helpers'
 import { getConnection } from './SignalRSetup'
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const connectionHub = `${BACKEND_GAME_API_URL}/gamehubs`;
 export const StatusCode = {
@@ -17,7 +17,8 @@ export function useSignalR() {
     const [gameInstance, setGameInstance] = useRecoilState(gameInstanceAtom);
     const [joiningGameException, setJoiningGameException] = useRecoilState(joiningGameExceptionAtom);
     const [connectionStatus, setConnectionStatus] = useRecoilState(connectionStatusAtom);
-
+    const [gameTimer, setGameTimer] = useRecoilState(gameTimerAtom);
+    const [currentAttackerId, setCurrentAttackerId] = useState(0);
 
     let connection = getConnection()
 
@@ -59,6 +60,7 @@ export function useSignalR() {
         });
 
         // On server event handler
+        // Lobby events
         connection.on('LobbyCanceled', ((msg) => {
             setJoiningGameException(msg)
             navigate("Home")
@@ -101,6 +103,18 @@ export function useSignalR() {
         connection.on('GameException', ((er) => {
             setJoiningGameException(er)
         }))
+
+
+
+        // Game events
+        connection.on('Game_Show_Main_Screen', (() => {
+            navigate("GameMap")
+        }))
+
+        connection.on('ShowRoundingAttacker', ((attackerId, msTimeForAction) => {
+            setCurrentAttackerId(attackerId)
+            setGameTimer((msTimeForAction - 1000) / 1000)
+        }))
     }
 
     // Send events to server
@@ -120,5 +134,19 @@ export function useSignalR() {
         connection?.invoke("StartGame")
     }
 
-    return { connection, gameInstance, joiningGameException, connectionStatus, CreateGameLobby, JoinLobby, LeaveGameLobby, StartGame }
+    return {
+        // Game
+        currentAttackerId,
+        gameTimer,
+
+
+        connection,
+        gameInstance,
+        joiningGameException,
+        connectionStatus,
+        CreateGameLobby,
+        JoinLobby,
+        LeaveGameLobby,
+        StartGame
+    }
 }

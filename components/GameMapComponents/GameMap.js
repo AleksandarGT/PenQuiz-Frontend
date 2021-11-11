@@ -2,6 +2,7 @@ import { Box, Center, Container, HStack, Stack, VStack, ZStack, Text, Spacer, Bu
 import React, { useState } from "react"
 import { View, StyleSheet, ImageBackground } from 'react-native';
 import { useRecoilValue } from "recoil";
+import { useSignalR } from "../../hooks";
 import { gameInstanceAtom } from "../../state";
 import AntarcticaMapSvg from './AntarcticaMapSvg'
 import { gameInstanceMock } from "./CommonGameFunc";
@@ -11,10 +12,14 @@ import GameRounding from "./GameRounding";
 import GameTimer from "./GameTimer";
 
 export default function GameMap() {
-    const gameInstance = useRecoilValue(gameInstanceAtom)
+    const lobby = useSignalR();
+    const gameInstance = lobby.gameInstance
+    const currentAttackerId = lobby.currentAttackerId
 
-    // For testing purposes uncomment the line below
+    // For testing purposes uncomment the lines below
     // const gameInstance = gameInstanceMock
+    // const gameTimer = 5000
+    // const currentAttackerId = gameInstanceMock.participants[gameInstanceMock.participants.length - 2].playerId
     
     return (
         <>
@@ -25,13 +30,13 @@ export default function GameMap() {
                 <HStack justifyContent="space-between" flexDirection="row" flex={1}>
                     <VStack >
                         <Container>
-                            <GameBoards gameInstance={gameInstance} />
+                            <GameBoards gameInstance={gameInstance} currentAttackerId={currentAttackerId} />
                         </Container>
                         <GameChat />
                     </VStack>
 
                     <VStack>
-                        <GameTimer time={25} />
+                        <GameTimer  />
                         <AntarcticaMapSvg gameInstance={gameInstance} onTerritoryClick={(ter) => console.log(ter)} />
                         <GameRounding gameInstance={gameInstance} rounds={18} currentRound={8} />
 

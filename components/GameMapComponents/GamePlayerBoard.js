@@ -6,12 +6,11 @@ import { useRecoilValue } from 'recoil'
 import { gameInstanceAtom } from '../../state'
 import { GetParticipantColor, gameInstanceMock } from './CommonGameFunc'
 
-export default function GameBoards({gameInstance}) {
-    const currentRoundAttacker = gameInstance.rounds.find(x => x.gameRoundNumber == gameInstance.gameRoundNumber).attackerId
+export default function GameBoards({gameInstance = gameInstanceMock, currentAttackerId}) {
     return (
         <>
             {gameInstance.participants.map(x =>
-                <GamePlayerBoard key={x.id} hisTurn={x.playerId == currentRoundAttacker ? true : false} participant={x} />
+                <GamePlayerBoard key={x.id} hisTurn={x.playerId == currentAttackerId ? true : false} participant={x} />
             )}
         </>
     )
