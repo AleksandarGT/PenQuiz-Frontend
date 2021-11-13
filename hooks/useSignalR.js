@@ -1,5 +1,5 @@
 import { setupSignalRConnection } from './SignalRSetup';
-import { authToken, gameInstanceAtom, joiningGameExceptionAtom, connectionStatusAtom, gameTimerAtom } from '../state';
+import { authToken, gameInstanceAtom, joiningGameExceptionAtom, connectionStatusAtom, gameTimerAtom, gameMapExceptionAtom } from '../state';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import { BACKEND_GAME_API_URL } from '@env'
 import { navigate } from '../helpers'
@@ -19,6 +19,7 @@ export function useSignalR() {
     const [connectionStatus, setConnectionStatus] = useRecoilState(connectionStatusAtom);
     const [gameTimer, setGameTimer] = useRecoilState(gameTimerAtom);
     const [currentAttackerId, setCurrentAttackerId] = useState(0);
+    const [gameMapException, setGameMapException] = useRecoilState(gameMapExceptionAtom);
 
     let connection = getConnection()
 
@@ -115,6 +116,15 @@ export function useSignalR() {
             setCurrentAttackerId(attackerId)
             setGameTimer((msTimeForAction - 1000) / 1000)
         }))
+
+        connection.on('BorderSelectedGameException', ((msg) => {
+            setGameMapException(msg)
+        }))
+    }
+
+    // Game map events
+    function SelectTerritory(territoryName) {
+        connection?.invoke("SelectTerritory", territoryName)
     }
 
     // Send events to server
@@ -138,8 +148,9 @@ export function useSignalR() {
         // Game
         currentAttackerId,
         gameTimer,
-
-
+        gameMapException,
+        SelectTerritory,
+        
         connection,
         gameInstance,
         joiningGameException,

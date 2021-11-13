@@ -7,8 +7,9 @@ import { Center } from "native-base";
 import { useRecoilValue } from 'recoil'
 import { gameInstanceAtom } from '../../state'
 import { GetParticipantColor, gameInstanceMock } from './CommonGameFunc'
+import DefaultAlert from "../Popups/DefaultAlert";
 
-export default function AntarcticaMapSvg({ onTerritoryClick, gameInstance = gameInstanceMock }) {
+export default function AntarcticaMapSvg({ gameMapException, onTerritoryClick, gameInstance = gameInstanceMock }) {
   const antarcticaBorders = require('../../assets/Antarctica.json')
   const antarcticaSVGElements = require('../../assets/AntarcticaSvgElements.json')
 
@@ -24,12 +25,12 @@ export default function AntarcticaMapSvg({ onTerritoryClick, gameInstance = game
     var jsx = []
     Object.keys(antarcticaSVGElements).forEach((k) => {
       jsx.push(
-        <G key={k} onClick={() => console.log(k)}>
+        <G key={k} onClick={() => onTerritoryClick(k)}>
 
           {/* Territory path */}
           <Path
             d={antarcticaSVGElements[k].TerritoryPath}
-            fill={GetParticipantColor(gameInstance, gameInstance.objectTerritory.find(x => x.mapTerritory.territoryName == k).takenBy) 
+            fill={GetParticipantColor(gameInstance, gameInstance.objectTerritory.find(x => x.mapTerritory.territoryName == k).takenBy)
               ?? GetParticipantColor(gameInstance, gameInstance.objectTerritory.find(x => x.mapTerritory.territoryName == k).attackedBy)
               ?? "#d7fffe"}
             stroke="#000"
@@ -95,6 +96,11 @@ export default function AntarcticaMapSvg({ onTerritoryClick, gameInstance = game
 
   return (
     <View style={{ height: windowHeight - 160, aspectRatio }}>
+      {gameMapException ?
+        <DefaultAlert message={gameMapException} />
+        :
+        null
+      }
       <Svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 694.3 587.02"

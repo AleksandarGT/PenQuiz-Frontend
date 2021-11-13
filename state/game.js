@@ -28,6 +28,19 @@ export const joiningGameExceptionAtom = atom({
     ] 
 })
 
+export const gameMapExceptionAtom = atom({
+    key: "gameMapExceptionAtom",
+    default: "",
+    effects_UNSTABLE: [
+        ({ onSet }) => {
+            onSet(newContent => {
+                // console.log("Updated with:")
+                // console.log(newContent)
+            })
+        }
+    ] 
+})
+
 export const connectionStatusAtom = atom({
     key: "connectionStatus",
     default: "",
