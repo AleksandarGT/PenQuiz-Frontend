@@ -26,17 +26,17 @@ export default function AntarcticaMapSvg({ gameMapException, onTerritoryClick, g
     Object.keys(antarcticaSVGElements).forEach((k) => {
       jsx.push(
         <G key={k} onClick={() => onTerritoryClick(k)}>
-
           {/* Territory path */}
           <Path
             d={antarcticaSVGElements[k].TerritoryPath}
             fill={GetParticipantColor(gameInstance, gameInstance.objectTerritory.find(x => x.mapTerritory.territoryName == k).takenBy)
-              ?? GetParticipantColor(gameInstance, gameInstance.objectTerritory.find(x => x.mapTerritory.territoryName == k).attackedBy)
               ?? "#d7fffe"}
             stroke="#000"
             strokeMiterlimit={10}
             fillRule="evenodd"
           />
+
+
 
           {/* Conditionally rendering the capital  */}
           {gameInstance.objectTerritory.find(x => x.mapTerritory.territoryName == k).isCapital ? (
@@ -72,6 +72,18 @@ export default function AntarcticaMapSvg({ gameMapException, onTerritoryClick, g
             </>
           ) : null}
 
+
+
+          {gameInstance.objectTerritory.find(x => x.mapTerritory.territoryName == k).attackedBy ?
+            <>
+              {/* Attack Icon */}
+              <Path
+                d={antarcticaSVGElements[k].AttackIcon}
+              />
+              {/* Attack Icon Color*/}
+              <Path fill={GetParticipantColor(gameInstance, gameInstance.objectTerritory.find(x => x.mapTerritory.territoryName == k).attackedBy)} d={antarcticaSVGElements[k].AttackIconFill} />
+            </>
+            : null}
 
 
           {/* Score */}

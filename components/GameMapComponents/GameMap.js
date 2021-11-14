@@ -23,7 +23,7 @@ export default function GameMap() {
     // For testing purposes uncomment the lines below
     // const gameInstance = gameInstanceMock
     // const currentAttackerId = gameInstanceMock.participants[gameInstanceMock.participants.length - 2].playerId
-    // const gameMapException = "You can't attack this territory"
+    // const gameMapException = ""
 
 
     function OnTerritoryClick(territoryName) {
