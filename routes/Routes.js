@@ -13,6 +13,7 @@ import { HomeDrawer } from './HomeDrawer'
 import { LoadingComponent } from './LoadingComponent'
 import { GameLobby } from '../components/GameLobby'
 import GameMap from '../components/GameMapComponents/GameMap';
+import MultipleChoiceScreen from '../components/GameMapComponents/MultipleChoiceScreen';
 
 export * from './LoadingComponent';
 
@@ -50,6 +51,7 @@ export function Routes() {
       return (
         <>
 
+<Stack.Screen name="MultipleChoiceScreen" options={{ headerShown: false }} component={MultipleChoiceScreen} />
           <Stack.Screen
             name="Home"
             options={{ headerShown: false }}
