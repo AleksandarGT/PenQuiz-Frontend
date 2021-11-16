@@ -6,25 +6,26 @@ import { useSignalR } from "../../hooks";
 import { authAtom, gameInstanceAtom } from "../../state";
 import DefaultAlert from "../Popups/DefaultAlert";
 import AntarcticaMapSvg from './AntarcticaMapSvg'
-import { gameInstanceMock, RoundAttackStage } from "./CommonGameFunc";
+import { gameInstanceMock, multipleChoiceQuestionMock, RoundAttackStage } from "./CommonGameFunc";
 import GameChat from "./GameChat";
 import GameBoards from "./GamePlayerBoard";
 import GameRounding from "./GameRounding";
 import GameTimer from "./GameTimer";
+import MultipleChoiceScreen from "./MultipleChoiceScreen";
 
 export default function GameMap() {
-    const lobby = useSignalR();
-
-    const currentUser = useRecoilValue(authAtom)
-    const gameInstance = lobby.gameInstance
-    const currentAttackerId = lobby.currentAttackerId
-    const gameMapException = lobby.gameMapException
+    // const lobby = useSignalR();
+    // const roundQuestion = lobby.roundQuestion
+    // const currentUser = useRecoilValue(authAtom)
+    // const gameInstance = lobby.gameInstance
+    // const currentAttackerId = lobby.currentAttackerId
+    // const gameMapException = lobby.gameMapException
 
     // For testing purposes uncomment the lines below
-    // const gameInstance = gameInstanceMock
-    // const currentAttackerId = gameInstanceMock.participants[gameInstanceMock.participants.length - 2].playerId
-    // const gameMapException = ""
-
+    const gameInstance = gameInstanceMock
+    const currentAttackerId = gameInstanceMock.participants[gameInstanceMock.participants.length - 2].playerId
+    const gameMapException = ""
+    const roundQuestion = multipleChoiceQuestionMock
 
     function OnTerritoryClick(territoryName) {
         const currentRound = gameInstance.rounds.find(x => x.gameRoundNumber == gameInstance.gameRoundNumber)
@@ -50,32 +51,35 @@ export default function GameMap() {
                 flex: 1,
                 backgroundColor: "#032157",
             }}>
-                <HStack justifyContent="space-between" flexDirection="row" flex={1}>
-                    <VStack >
-                        <Container>
-                            <GameBoards gameInstance={gameInstance} currentAttackerId={currentAttackerId} />
-                        </Container>
-                        <GameChat />
-                    </VStack>
+                {roundQuestion ?
+                    <MultipleChoiceScreen question={roundQuestion} />
+                    :
+                    <HStack justifyContent="space-between" flexDirection="row" flex={1}>
+                        <VStack >
+                            <Container>
+                                <GameBoards gameInstance={gameInstance} currentAttackerId={currentAttackerId} />
+                            </Container>
+                            <GameChat />
+                        </VStack>
 
-                    <VStack>
+                        <VStack>
 
-                        <GameTimer />
-                        <AntarcticaMapSvg gameMapException={gameMapException} gameInstance={gameInstance} onTerritoryClick={(ter) => OnTerritoryClick(ter)} />
-                        <GameRounding gameInstance={gameInstance} rounds={18} currentRound={8} />
+                            <GameTimer />
+                            <AntarcticaMapSvg gameMapException={gameMapException} gameInstance={gameInstance} onTerritoryClick={(ter) => OnTerritoryClick(ter)} />
+                            <GameRounding gameInstance={gameInstance} rounds={18} currentRound={8} />
 
 
-                    </VStack>
-                    <Box >
-                        <Button colorScheme="red">
-                            <Text>
-                                Exit Game
-                            </Text>
-                        </Button>
-                    </Box>
+                        </VStack>
+                        <Box >
+                            <Button colorScheme="red">
+                                <Text>
+                                    Exit Game
+                                </Text>
+                            </Button>
+                        </Box>
 
-                </HStack>
-
+                    </HStack>
+                }
 
 
 

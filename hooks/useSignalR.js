@@ -1,5 +1,5 @@
 import { setupSignalRConnection } from './SignalRSetup';
-import { authToken, gameInstanceAtom, joiningGameExceptionAtom, connectionStatusAtom, gameTimerAtom, gameMapExceptionAtom } from '../state';
+import { authToken, gameInstanceAtom, joiningGameExceptionAtom, connectionStatusAtom, gameTimerAtom, gameMapExceptionAtom, canUserAnswerQuestionAtom, showMultipleChoiceQuestionAtom, multipleChoiceQuestionAtom, authAtom, questionParticipantsAtom, roundQuestionAtom } from '../state';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import { BACKEND_GAME_API_URL } from '@env'
 import { navigate } from '../helpers'
@@ -14,12 +14,14 @@ export const StatusCode = {
 
 export function useSignalR() {
     const userJwt = useRecoilValue(authToken)
+    const currentUser = useRecoilValue(authAtom)
     const [gameInstance, setGameInstance] = useRecoilState(gameInstanceAtom);
     const [joiningGameException, setJoiningGameException] = useRecoilState(joiningGameExceptionAtom);
     const [connectionStatus, setConnectionStatus] = useRecoilState(connectionStatusAtom);
     const [gameTimer, setGameTimer] = useRecoilState(gameTimerAtom);
     const [currentAttackerId, setCurrentAttackerId] = useState(0);
     const [gameMapException, setGameMapException] = useRecoilState(gameMapExceptionAtom);
+    const [roundQuestion, setRoundQuestion] = useRecoilState(roundQuestionAtom)
 
     let connection = getConnection()
 
@@ -120,6 +122,12 @@ export function useSignalR() {
         connection.on('BorderSelectedGameException', ((msg) => {
             setGameMapException(msg)
         }))
+
+        // Question events
+        connection.on('GetRoundQuestion', ((roundQuestion, msTimeForAction) => {
+            setRoundQuestion(roundQuestion)
+            setGameTimer((msTimeForAction - 1000) / 1000)
+        }))
     }
 
     // Game map events
@@ -150,6 +158,9 @@ export function useSignalR() {
         gameTimer,
         gameMapException,
         SelectTerritory,
+
+        // Question rounding
+        roundQuestion,
         
         connection,
         gameInstance,

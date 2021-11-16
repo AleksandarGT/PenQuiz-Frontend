@@ -1,36 +1,13 @@
 import { Box, Center, Container, HStack, Text, VStack, Image, Divider, Pressable } from 'native-base'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ImageBackground, View } from 'react-native'
 import { MaterialIcons } from '@expo/vector-icons';
-import { GetAvatarColor } from './CommonGameFunc';
+import { gameInstanceMock, GetAvatarColor, multipleChoiceQuestionMock } from './CommonGameFunc';
+import { authAtom, gameTimerAtom } from '../../state';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
-export default function MultipleChoiceScreen() {
-    const questionMock = {
-        "id": 1,
-        "question": "When was Bulgaria founded?",
-        "type": "multiple",
-        "answers": [
-            {
-                "id": 1,
-                "answer": "681"
-            },
-            {
-                "id": 2,
-                "answer": "1332"
-            },
-            {
-                "id": 3,
-                "answer": "806"
-            },
-            {
-                "id": 4,
-                "answer": "927"
-            },
-        ]
-    }
-
-    const timer = 30
-
+export default function MultipleChoiceScreen({ question = multipleChoiceQuestionMock }) {
+    const user = useRecoilValue(authAtom)
     function PlayerAvatar({ supportIcon, avatarName }) {
         return (
             <VStack flex={1}>
@@ -64,16 +41,16 @@ export default function MultipleChoiceScreen() {
         )
     }
 
-    function MultipleDefenders({avatarName, secondAvatarName}) {
+    function MultipleDefenders({ avatarNames }) {
         return (
             <VStack flex={1}>
                 <Center>
-                    <Box style={{ backgroundColor: GetAvatarColor(avatarName), borderRadius: 20 }} shadow={7}>
+                    <Box style={{ backgroundColor: GetAvatarColor(avatarNames[0]), borderRadius: 20 }} shadow={7}>
                         <Box m={2} p={2} backgroundColor="white" borderRadius={2000} shadow={5}>
                             <VStack>
                                 <Center>
                                     <Image
-                                        source={require(`../../assets/${avatarName}.svg`)}
+                                        source={require(`../../assets/${avatarNames[0]}.svg`)}
                                         alt="Alternate Text"
                                         resizeMode="contain"
                                         size="md"
@@ -83,12 +60,12 @@ export default function MultipleChoiceScreen() {
                         </Box>
                     </Box>
 
-                    <Box style={{ backgroundColor: GetAvatarColor(secondAvatarName), borderRadius: 20 }} shadow={7}>
+                    <Box mt={2} style={{ backgroundColor: GetAvatarColor(avatarNames[1]), borderRadius: 20 }} shadow={7}>
                         <Box m={2} p={2} backgroundColor="white" borderRadius={2000} shadow={5}>
                             <VStack>
                                 <Center>
                                     <Image
-                                        source={require(`../../assets/${secondAvatarName}.svg`)}
+                                        source={require(`../../assets/${avatarNames[1]}.svg`)}
                                         alt="Alternate Text"
                                         resizeMode="contain"
                                         size="md"
@@ -124,6 +101,49 @@ export default function MultipleChoiceScreen() {
             </Pressable>
         )
     }
+
+    function MCQuestionTimer() {
+        const [displayTime, setDisplayTime] = useRecoilState(gameTimerAtom)
+        useEffect(() => {
+            setDisplayTime(10)
+        }, [])
+
+
+        useEffect(() => {
+            // Update the display time value
+            const updatingTimeInterval = setInterval(() => {
+                setDisplayTime((prevValue) => {
+                    if (prevValue <= 1) {
+                        clearInterval(updatingTimeInterval)
+                        return 0;
+                    }
+                    return prevValue - 1
+                })
+            }, 1000)
+
+            return () => clearInterval(updatingTimeInterval)
+        }, [displayTime])
+
+        return (
+            <View style={{
+                justifyContent: "center",
+                minWidth: 160,
+                minHeight: 50,
+                width: "30%",
+                backgroundColor: "#2651EB",
+                borderRadius: 50,
+            }}>
+                <Center>
+                    <HStack>
+                        <MaterialIcons name="timer" size={32} color="white" />
+                        <Text fontSize="xl" fontWeight="bold">
+                            {`${displayTime}s`}
+                        </Text>
+                    </HStack>
+                </Center>
+            </View>
+        )
+    }
     return (
         <>
             <ImageBackground source={require('../../assets/gameBackground.svg')} resizeMode="cover" style={{
@@ -135,23 +155,7 @@ export default function MultipleChoiceScreen() {
                         <Box >
                             <Center>
                                 {/* Top Timer */}
-                                <View style={{
-                                    justifyContent: "center",
-                                    minWidth: 160,
-                                    minHeight: 50,
-                                    width: "30%",
-                                    backgroundColor: "#2651EB",
-                                    borderRadius: 50,
-                                }}>
-                                    <Center>
-                                        <HStack>
-                                            <MaterialIcons name="timer" size={32} color="white" />
-                                            <Text fontSize="xl" fontWeight="bold">
-                                                {`${timer}s`}
-                                            </Text>
-                                        </HStack>
-                                    </Center>
-                                </View>
+                                <MCQuestionTimer />
                             </Center>
 
                             {/* Question / Avatars */}
@@ -159,7 +163,12 @@ export default function MultipleChoiceScreen() {
 
 
                                 {/* Attacker */}
-                                <PlayerAvatar supportIcon={"sword"} avatarName={"penguinAvatar"} />
+                                {question.isNeutral ?
+                                    <PlayerAvatar supportIcon={"sword"} avatarName={question.participants.find(x => x.playerId == user.id).avatarName} />
+                                    :
+                                    <PlayerAvatar supportIcon={"sword"} avatarName={question.participants.find(x => x.playerId == question.attackerId).avatarName} />
+                                }
+
 
 
                                 {/* Question */}
@@ -171,14 +180,17 @@ export default function MultipleChoiceScreen() {
                                         justifyContent: "center"
                                     }} p={10} shadow="5">
                                         <Text fontWeight="bold" fontSize="4xl" style={{ textAlign: "center" }}>
-                                            {questionMock.question}
+                                            {question.question}
                                         </Text>
                                     </Box>
                                 </VStack>
 
                                 {/* Defender */}
-                                <PlayerAvatar supportIcon={"shield"} avatarName={"penguinAvatar2"} />
-
+                                {question.isNeutral ?
+                                    <MultipleDefenders avatarNames={question.participants.filter(x => x.playerId != user.id).map(e => e.avatarName)} />
+                                    :
+                                    <PlayerAvatar supportIcon={"shield"} avatarName={question.participants.find(x => x.playerId == question.defenderId).avatarName} />
+                                }
                             </HStack>
 
                             {/* Divider */}
@@ -191,12 +203,12 @@ export default function MultipleChoiceScreen() {
                             <Box>
                                 <HStack justifyContent="space-evenly" >
                                     <VStack>
-                                        <CustomButton answer={questionMock.answers[0]} />
-                                        <CustomButton answer={questionMock.answers[1]} />
+                                        <CustomButton answer={question.answers[0]} />
+                                        <CustomButton answer={question.answers[1]} />
                                     </VStack>
                                     <VStack>
-                                        <CustomButton answer={questionMock.answers[2]} />
-                                        <CustomButton answer={questionMock.answers[3]} />
+                                        <CustomButton answer={question.answers[2]} />
+                                        <CustomButton answer={question.answers[3]} />
                                     </VStack>
                                 </HStack>
                             </Box>

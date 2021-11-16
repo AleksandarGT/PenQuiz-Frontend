@@ -15,6 +15,11 @@ export const gameInstanceAtom = atom({
     ]
 });
 
+export const roundQuestionAtom = atom({
+    key: "roundQuestion",
+    default: {},
+})
+
 export const joiningGameExceptionAtom = atom({
     key: "joiningGameException",
     default: "",
