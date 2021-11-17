@@ -14,18 +14,18 @@ import GameTimer from "./GameTimer";
 import MultipleChoiceScreen from "./MultipleChoiceScreen";
 
 export default function GameMap() {
-    // const lobby = useSignalR();
-    // const roundQuestion = lobby.roundQuestion
-    // const currentUser = useRecoilValue(authAtom)
-    // const gameInstance = lobby.gameInstance
-    // const currentAttackerId = lobby.currentAttackerId
-    // const gameMapException = lobby.gameMapException
+    const lobby = useSignalR();
+    const roundQuestion = lobby.roundQuestion
+    const currentUser = useRecoilValue(authAtom)
+    const gameInstance = lobby.gameInstance
+    const currentAttackerId = lobby.currentAttackerId
+    const gameMapException = lobby.gameMapException
 
     // For testing purposes uncomment the lines below
-    const gameInstance = gameInstanceMock
-    const currentAttackerId = gameInstanceMock.participants[gameInstanceMock.participants.length - 2].playerId
-    const gameMapException = ""
-    const roundQuestion = multipleChoiceQuestionMock
+    // const gameInstance = gameInstanceMock
+    // const currentAttackerId = gameInstanceMock.participants[gameInstanceMock.participants.length - 2].playerId
+    // const gameMapException = ""
+    // const roundQuestion = multipleChoiceQuestionMock
 
     function OnTerritoryClick(territoryName) {
         const currentRound = gameInstance.rounds.find(x => x.gameRoundNumber == gameInstance.gameRoundNumber)

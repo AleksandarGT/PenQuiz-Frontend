@@ -51,12 +51,12 @@ export function Routes() {
       return (
         <>
 
-          <Stack.Screen name="GameMap" options={{ headerShown: false }} component={GameMap} />
           <Stack.Screen
             name="Home"
             options={{ headerShown: false }}
             component={HomeDrawer}
           />
+          <Stack.Screen name="GameMap" options={{ headerShown: false }} component={GameMap} />
           <Stack.Screen name="Game" options={{ headerShown: false }} component={TestingSvg} />
           <Stack.Screen name="GameLobby" options={{ headerShown: false }} component={GameLobby} />
         </>

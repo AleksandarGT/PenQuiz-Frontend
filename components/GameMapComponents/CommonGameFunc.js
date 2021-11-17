@@ -33,6 +33,29 @@ export function RoundAttackStage(attackStage) {
     }
 }
 
+export const gameSvgs = [
+    {
+        name: "penguinAvatar",
+        img: require(`../../assets/penguinAvatar.svg`)
+    },
+    {
+        name: "penguinAvatar2",
+        img: require(`../../assets/penguinAvatar2.svg`)
+    },
+    {
+        name: "penguinAvatar3",
+        img: require(`../../assets/penguinAvatar3.svg`)
+    },
+    {
+        name: "shield",
+        img: require(`../../assets/shield.svg`)
+    },
+    {
+        name: "sword",
+        img: require(`../../assets/sword.svg`)
+    },
+]
+
 export const multipleChoiceQuestionMock = {
     "id": 1,
     "isNeutral" : true,

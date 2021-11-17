@@ -2,12 +2,14 @@ import { Box, Center, Container, HStack, Text, VStack, Image, Divider, Pressable
 import React, { useEffect, useState } from 'react'
 import { ImageBackground, View } from 'react-native'
 import { MaterialIcons } from '@expo/vector-icons';
-import { gameInstanceMock, GetAvatarColor, multipleChoiceQuestionMock } from './CommonGameFunc';
+import { gameInstanceMock, gameSvgs, GetAvatarColor, multipleChoiceQuestionMock } from './CommonGameFunc';
 import { authAtom, gameTimerAtom } from '../../state';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
 export default function MultipleChoiceScreen({ question = multipleChoiceQuestionMock }) {
     const user = useRecoilValue(authAtom)
+
+
     function PlayerAvatar({ supportIcon, avatarName }) {
         return (
             <VStack flex={1}>
@@ -17,7 +19,7 @@ export default function MultipleChoiceScreen({ question = multipleChoiceQuestion
                             <VStack>
                                 <Center>
                                     <Image
-                                        source={require(`../../assets/${avatarName}.svg`)}
+                                        source={gameSvgs.find(x => x.name == avatarName).img}
                                         alt="Alternate Text"
                                         resizeMode="contain"
                                         size="lg"
@@ -29,7 +31,7 @@ export default function MultipleChoiceScreen({ question = multipleChoiceQuestion
 
                     <Center style={{ borderColor: "black", borderWidth: 2, borderRadius: 15 }} mt={3} p={2}>
                         <Image
-                            source={require(`../../assets/${supportIcon}.svg`)}
+                            source={gameSvgs.find(x => x.name == supportIcon).img}
                             alt="Alternate Text"
                             resizeMode="contain"
                             size="sm"
@@ -50,7 +52,7 @@ export default function MultipleChoiceScreen({ question = multipleChoiceQuestion
                             <VStack>
                                 <Center>
                                     <Image
-                                        source={require(`../../assets/${avatarNames[0]}.svg`)}
+                                        source={gameSvgs.find(x => x.name == avatarNames[0]).img}
                                         alt="Alternate Text"
                                         resizeMode="contain"
                                         size="md"
@@ -65,7 +67,7 @@ export default function MultipleChoiceScreen({ question = multipleChoiceQuestion
                             <VStack>
                                 <Center>
                                     <Image
-                                        source={require(`../../assets/${avatarNames[1]}.svg`)}
+                                        source={gameSvgs.find(x => x.name == avatarNames[1]).img}
                                         alt="Alternate Text"
                                         resizeMode="contain"
                                         size="md"
@@ -92,7 +94,7 @@ export default function MultipleChoiceScreen({ question = multipleChoiceQuestion
                         } p={2} borderRadius={50}>
                             <Box px={8} minWidth="20vw" py={2}>
                                 <Text style={{ textAlign: "center" }} fontSize={{ base: "md", md: "lg", lg: "xl", xl: "3xl" }}>
-                                    {answer.answer}
+                                    {decodeURIComponent(answer.answer)}
                                 </Text>
                             </Box>
                         </Box>
@@ -104,10 +106,6 @@ export default function MultipleChoiceScreen({ question = multipleChoiceQuestion
 
     function MCQuestionTimer() {
         const [displayTime, setDisplayTime] = useRecoilState(gameTimerAtom)
-        useEffect(() => {
-            setDisplayTime(10)
-        }, [])
-
 
         useEffect(() => {
             // Update the display time value
@@ -180,7 +178,7 @@ export default function MultipleChoiceScreen({ question = multipleChoiceQuestion
                                         justifyContent: "center"
                                     }} p={10} shadow="5">
                                         <Text fontWeight="bold" fontSize="4xl" style={{ textAlign: "center" }}>
-                                            {question.question}
+                                            {decodeURIComponent(question.question)}
                                         </Text>
                                     </Box>
                                 </VStack>

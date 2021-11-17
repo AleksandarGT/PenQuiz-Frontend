@@ -135,6 +135,10 @@ export function useSignalR() {
         connection?.invoke("SelectTerritory", territoryName)
     }
 
+    function AnswerMCQuestion(answerId) {
+        connection?.invoke("AnswerMCQuestion", answerId)
+    }
+
     // Send events to server
     function CreateGameLobby() {
         connection?.invoke("CreateGameLobby")
@@ -161,7 +165,8 @@ export function useSignalR() {
 
         // Question rounding
         roundQuestion,
-        
+        AnswerMCQuestion,
+
         connection,
         gameInstance,
         joiningGameException,
