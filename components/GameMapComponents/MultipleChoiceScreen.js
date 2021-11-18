@@ -4,11 +4,11 @@ import { ImageBackground, View } from 'react-native'
 import { MaterialIcons } from '@expo/vector-icons';
 import { gameInstanceMock, gameSvgs, GetAvatarColor, multipleChoiceQuestionMock } from './CommonGameFunc';
 import { authAtom, gameTimerAtom } from '../../state';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import MCQuestionTimer from './MCQuestionTimer';
 
-export default function MultipleChoiceScreen({ question = multipleChoiceQuestionMock }) {
+export default function MultipleChoiceScreen({ question = multipleChoiceQuestionMock, AnswerMCQuestion = () => console.log("Default behavior") }) {
     const user = useRecoilValue(authAtom)
-
 
     function PlayerAvatar({ supportIcon, avatarName }) {
         return (
@@ -82,16 +82,37 @@ export default function MultipleChoiceScreen({ question = multipleChoiceQuestion
         )
     }
 
-    function CustomButton({ answer }) {
+    function CustomButton({ answer, playerAnswers = [
+        {
+            "id": 1,
+            "avatarName" : "penguinAvatar"
+        },
+        {
+            "id": 2,
+            "avatarName" : "penguinAvatar2"
+        },
+        {
+            "id": 3,
+            "avatarName" : "penguinAvatar3"
+        }
+    ] }) {
+        const [isAnswered, setIsAnswered] = useState(false)
         return (
             <Pressable onPress={() => {
-                console.log(`Response ID ${answer.id}`)
+                AnswerMCQuestion(answer.id)
+                setIsAnswered(true)
             }}>
                 {({ isHovered, isFocused, isPressed }) => {
                     return (
                         <Box mt={6} shadow={3} bg={
-                            isPressed ? "#06295A" : isHovered ? "#06326F" : "#25479D"
-                        } p={2} borderRadius={50}>
+                            isAnswered ? GetAvatarColor(question.participants.find(x => x.playerId == user.id).avatarName) :
+                                isPressed ? "#06295A" :
+                                    isHovered ? "#06326F" : "#25479D"
+                        } p={2} style={{
+                            background: playerAnswers.length == 3 ? "linear-gradient(90deg, #5074FF 0%, #5074FF 33%, #8350FF 33%, #8350FF 66%, #FF5074 66%, #FF5074 100%)" :
+                                        playerAnswers.length == 2 ? `linear-gradient(90deg, ${GetAvatarColor(playerAnswers[0].avatarName)} 0%, ${GetAvatarColor(playerAnswers[0].avatarName)} 50%, ${GetAvatarColor(playerAnswers[1].avatarName)} 50%, ${GetAvatarColor(playerAnswers[1].avatarName)} 100%)` :
+                                        playerAnswers.length == 1 ? GetAvatarColor(playerAnswers[0].avatarName) : "#25479D"
+                        }} borderRadius={50}>
                             <Box px={8} minWidth="20vw" py={2}>
                                 <Text style={{ textAlign: "center" }} fontSize={{ base: "md", md: "lg", lg: "xl", xl: "3xl" }}>
                                     {decodeURIComponent(answer.answer)}
@@ -104,44 +125,7 @@ export default function MultipleChoiceScreen({ question = multipleChoiceQuestion
         )
     }
 
-    function MCQuestionTimer() {
-        const [displayTime, setDisplayTime] = useRecoilState(gameTimerAtom)
 
-        useEffect(() => {
-            // Update the display time value
-            const updatingTimeInterval = setInterval(() => {
-                setDisplayTime((prevValue) => {
-                    if (prevValue <= 1) {
-                        clearInterval(updatingTimeInterval)
-                        return 0;
-                    }
-                    return prevValue - 1
-                })
-            }, 1000)
-
-            return () => clearInterval(updatingTimeInterval)
-        }, [displayTime])
-
-        return (
-            <View style={{
-                justifyContent: "center",
-                minWidth: 160,
-                minHeight: 50,
-                width: "30%",
-                backgroundColor: "#2651EB",
-                borderRadius: 50,
-            }}>
-                <Center>
-                    <HStack>
-                        <MaterialIcons name="timer" size={32} color="white" />
-                        <Text fontSize="xl" fontWeight="bold">
-                            {`${displayTime}s`}
-                        </Text>
-                    </HStack>
-                </Center>
-            </View>
-        )
-    }
     return (
         <>
             <ImageBackground source={require('../../assets/gameBackground.svg')} resizeMode="cover" style={{
@@ -166,8 +150,6 @@ export default function MultipleChoiceScreen({ question = multipleChoiceQuestion
                                     :
                                     <PlayerAvatar supportIcon={"sword"} avatarName={question.participants.find(x => x.playerId == question.attackerId).avatarName} />
                                 }
-
-
 
                                 {/* Question */}
                                 <VStack flex={4} >

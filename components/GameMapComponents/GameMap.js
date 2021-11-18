@@ -20,7 +20,7 @@ export default function GameMap() {
     const gameInstance = lobby.gameInstance
     const currentAttackerId = lobby.currentAttackerId
     const gameMapException = lobby.gameMapException
-
+    const AnswerMcQuestion = lobby.AnswerMCQuestion
     // For testing purposes uncomment the lines below
     // const gameInstance = gameInstanceMock
     // const currentAttackerId = gameInstanceMock.participants[gameInstanceMock.participants.length - 2].playerId
@@ -52,7 +52,7 @@ export default function GameMap() {
                 backgroundColor: "#032157",
             }}>
                 {roundQuestion ?
-                    <MultipleChoiceScreen question={roundQuestion} />
+                    <MultipleChoiceScreen AnswerMCQuestion={AnswerMcQuestion} question={roundQuestion} />
                     :
                     <HStack justifyContent="space-between" flexDirection="row" flex={1}>
                         <VStack >
