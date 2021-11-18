@@ -56,9 +56,27 @@ export const gameSvgs = [
     },
 ]
 
+export const playerQuestionAnswersMock = {
+    "correctAnswerId" : 1,
+    "playerAnswers": [
+        {
+            "id": 1,
+            "answerId": 3
+        },
+        {
+            "id": 2,
+            "answerId": 1
+        },
+        {
+            "id": 3,
+            "answerId": 2
+        }
+    ]
+}
+
 export const multipleChoiceQuestionMock = {
     "id": 1,
-    "isNeutral" : true,
+    "isNeutral": true,
     "question": "When was Bulgaria founded?",
     "type": "multiple",
     "answers": [
@@ -79,21 +97,21 @@ export const multipleChoiceQuestionMock = {
             "answer": "927"
         },
     ],
-    "attackerId" : 1,
-    "defenderId" : 2,
-    "participants" : [
+    "attackerId": 1,
+    "defenderId": 2,
+    "participants": [
         {
-            "avatarName" : "penguinAvatar",
-            "playerId" : 1,
-            
+            "avatarName": "penguinAvatar",
+            "playerId": 1,
+
         },
         {
-            "avatarName" : "penguinAvatar2",
-            "playerId" : 2,
+            "avatarName": "penguinAvatar2",
+            "playerId": 2,
         },
         {
-            "avatarName" : "penguinAvatar3",
-            "playerId" : 3,
+            "avatarName": "penguinAvatar3",
+            "playerId": 3,
         }
     ],
 }

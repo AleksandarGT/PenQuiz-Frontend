@@ -1,5 +1,5 @@
 import { setupSignalRConnection } from './SignalRSetup';
-import { authToken, gameInstanceAtom, joiningGameExceptionAtom, connectionStatusAtom, gameTimerAtom, gameMapExceptionAtom, canUserAnswerQuestionAtom, showMultipleChoiceQuestionAtom, multipleChoiceQuestionAtom, authAtom, questionParticipantsAtom, roundQuestionAtom } from '../state';
+import { authToken, gameInstanceAtom, joiningGameExceptionAtom, connectionStatusAtom, gameTimerAtom, gameMapExceptionAtom, canUserAnswerQuestionAtom, showMultipleChoiceQuestionAtom, multipleChoiceQuestionAtom, authAtom, questionParticipantsAtom, roundQuestionAtom, playerQuestionAnswersAtom } from '../state';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import { BACKEND_GAME_API_URL } from '@env'
 import { navigate } from '../helpers'
@@ -22,6 +22,7 @@ export function useSignalR() {
     const [currentAttackerId, setCurrentAttackerId] = useState(0);
     const [gameMapException, setGameMapException] = useRecoilState(gameMapExceptionAtom);
     const [roundQuestion, setRoundQuestion] = useRecoilState(roundQuestionAtom)
+    const [playerQuestionAnswers, setPlayerQuestionAnswers] = useRecoilState(playerQuestionAnswersAtom)
 
     let connection = getConnection()
 
@@ -128,6 +129,10 @@ export function useSignalR() {
             setRoundQuestion(roundQuestion)
             setGameTimer((msTimeForAction - 1000) / 1000)
         }))
+
+        connection.on('QuestionPreviewResult', ((previewResult) => {
+            setPlayerQuestionAnswers(previewResult)
+        }))
     }
 
     // Game map events
@@ -166,6 +171,7 @@ export function useSignalR() {
         // Question rounding
         roundQuestion,
         AnswerMCQuestion,
+        playerQuestionAnswers,
 
         connection,
         gameInstance,

@@ -2,12 +2,16 @@ import { Box, Center, Container, HStack, Text, VStack, Image, Divider, Pressable
 import React, { useEffect, useState } from 'react'
 import { ImageBackground, View } from 'react-native'
 import { MaterialIcons } from '@expo/vector-icons';
-import { gameInstanceMock, gameSvgs, GetAvatarColor, multipleChoiceQuestionMock } from './CommonGameFunc';
+import { gameInstanceMock, gameSvgs, GetAvatarColor, multipleChoiceQuestionMock, playerQuestionAnswersMock } from './CommonGameFunc';
 import { authAtom, gameTimerAtom } from '../../state';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import MCQuestionTimer from './MCQuestionTimer';
 
-export default function MultipleChoiceScreen({ question = multipleChoiceQuestionMock, AnswerMCQuestion = () => console.log("Default behavior") }) {
+export default function MultipleChoiceScreen({
+    question = multipleChoiceQuestionMock,
+    AnswerMCQuestion = () => console.log("Default behavior"),
+    playerQuestionAnswers = playerQuestionAnswersMock
+}) {
     const user = useRecoilValue(authAtom)
 
     function PlayerAvatar({ supportIcon, avatarName }) {
@@ -82,20 +86,7 @@ export default function MultipleChoiceScreen({ question = multipleChoiceQuestion
         )
     }
 
-    function CustomButton({ answer, playerAnswers = [
-        {
-            "id": 1,
-            "avatarName" : "penguinAvatar"
-        },
-        {
-            "id": 2,
-            "avatarName" : "penguinAvatar2"
-        },
-        {
-            "id": 3,
-            "avatarName" : "penguinAvatar3"
-        }
-    ] }) {
+    function AnswerButton({ answer, playerAnswers }) {
         const [isAnswered, setIsAnswered] = useState(false)
         return (
             <Pressable onPress={() => {
@@ -105,13 +96,23 @@ export default function MultipleChoiceScreen({ question = multipleChoiceQuestion
                 {({ isHovered, isFocused, isPressed }) => {
                     return (
                         <Box mt={6} shadow={3} bg={
-                            isAnswered ? GetAvatarColor(question.participants.find(x => x.playerId == user.id).avatarName) :
                                 isPressed ? "#06295A" :
                                     isHovered ? "#06326F" : "#25479D"
                         } p={2} style={{
-                            background: playerAnswers.length == 3 ? "linear-gradient(90deg, #5074FF 0%, #5074FF 33%, #8350FF 33%, #8350FF 66%, #FF5074 66%, #FF5074 100%)" :
-                                        playerAnswers.length == 2 ? `linear-gradient(90deg, ${GetAvatarColor(playerAnswers[0].avatarName)} 0%, ${GetAvatarColor(playerAnswers[0].avatarName)} 50%, ${GetAvatarColor(playerAnswers[1].avatarName)} 50%, ${GetAvatarColor(playerAnswers[1].avatarName)} 100%)` :
-                                        playerAnswers.length == 1 ? GetAvatarColor(playerAnswers[0].avatarName) : "#25479D"
+                            background: playerAnswers?.length == 3 ? "linear-gradient(90deg, #5074FF 0%, #5074FF 33%, #8350FF 33%, #8350FF 66%, #FF5074 66%, #FF5074 100%)" :
+                                playerAnswers?.length == 2 ? `linear-gradient(90deg, ${GetAvatarColor(question.participants.find(x => x.playerId == playerAnswers[0].id).avatarName)} 0%, ${GetAvatarColor(question.participants.find(x => x.playerId == playerAnswers[0].id).avatarName)} 50%, ${GetAvatarColor(question.participants.find(x => x.playerId == playerAnswers[1].id).avatarName)} 50%, ${GetAvatarColor(question.participants.find(x => x.playerId == playerAnswers[1].id).avatarName)} 100%)` :
+                                    playerAnswers?.length == 1 ? GetAvatarColor(question.participants.find(x => x.playerId == playerAnswers[0].id).avatarName) : null,
+
+                            // Border for right answer
+                            borderColor: "gold",
+                            borderWidth: playerQuestionAnswers.correctAnswerId == answer.id ? 5 : 0,
+
+                            // Outline for user selection
+                            outlineColor: 'rgba(6, 28, 83, 0.8)',
+                            outlineStyle: "solid",
+                            outlineWidth: playerAnswers?.find(x => x.id == user.id) ? 4 : 0,
+                            elevation: 5,
+                            
                         }} borderRadius={50}>
                             <Box px={8} minWidth="20vw" py={2}>
                                 <Text style={{ textAlign: "center" }} fontSize={{ base: "md", md: "lg", lg: "xl", xl: "3xl" }}>
@@ -183,12 +184,12 @@ export default function MultipleChoiceScreen({ question = multipleChoiceQuestion
                             <Box>
                                 <HStack justifyContent="space-evenly" >
                                     <VStack>
-                                        <CustomButton answer={question.answers[0]} />
-                                        <CustomButton answer={question.answers[1]} />
+                                        <AnswerButton answer={question.answers[0]} playerAnswers={playerQuestionAnswers?.playerAnswers?.filter(x => x.answerId == question.answers[0].id)} />
+                                        <AnswerButton answer={question.answers[1]} playerAnswers={playerQuestionAnswers?.playerAnswers?.filter(x => x.answerId == question.answers[1].id)} />
                                     </VStack>
                                     <VStack>
-                                        <CustomButton answer={question.answers[2]} />
-                                        <CustomButton answer={question.answers[3]} />
+                                        <AnswerButton answer={question.answers[2]} playerAnswers={playerQuestionAnswers?.playerAnswers?.filter(x => x.answerId == question.answers[2].id)}/>
+                                        <AnswerButton answer={question.answers[3]} playerAnswers={playerQuestionAnswers?.playerAnswers?.filter(x => x.answerId == question.answers[3].id)}/>
                                     </VStack>
                                 </HStack>
                             </Box>

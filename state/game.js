@@ -20,6 +20,11 @@ export const roundQuestionAtom = atom({
     default: "",
 })
 
+export const playerQuestionAnswersAtom = atom({
+    key: "playerQuestionAnswers",
+    default: "",
+})
+
 export const joiningGameExceptionAtom = atom({
     key: "joiningGameException",
     default: "",

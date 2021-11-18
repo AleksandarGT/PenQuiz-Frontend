@@ -50,7 +50,6 @@ export function Routes() {
     else if (localAuthStatus === "LOGGED") {
       return (
         <>
-          <Stack.Screen name="MultipleChoiceScreen" options={{ headerShown: false }} component={MultipleChoiceScreen} />
           <Stack.Screen
             name="Home"
             options={{ headerShown: false }}
