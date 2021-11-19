@@ -7,11 +7,11 @@ import { getConnection } from './SignalRSetup'
 import { useEffect, useState } from 'react';
 
 const connectionHub = `${BACKEND_GAME_API_URL}/gamehubs`;
+
 export const StatusCode = {
     "CONNECTED": 1,
     "DISCONNECTED": 0
 }
-
 export function useSignalR() {
     const userJwt = useRecoilValue(authToken)
     const currentUser = useRecoilValue(authAtom)
@@ -24,18 +24,20 @@ export function useSignalR() {
     const [roundQuestion, setRoundQuestion] = useRecoilState(roundQuestionAtom)
     const [playerQuestionAnswers, setPlayerQuestionAnswers] = useRecoilState(playerQuestionAnswersAtom)
 
+
     let connection = getConnection()
+    let b = 5;
+    let b2 = 5;
 
     useEffect(() => {
         if (!connection) {
+
             connection = setupSignalRConnection(connectionHub, userJwt);
             setConnectionStatus({
                 StatusCode: StatusCode.CONNECTED,
                 Error: null,
             })
         }
-
-
         if (connection)
             setupEvents()
     }, [])

@@ -13,7 +13,7 @@ function useAuthActions() {
     const baseUrl = `${BACKEND_ACCOUNT_API_URL}/api/account`;
     const fetchWrapper = useFetchWrapper();
     const setAuth = useSetRecoilState(authAtom);
-
+var s =5
     //TODO
     // This establishes the connection automatically and then you can destroy it
     // To prevent this behavior - have a custom class that doesn't try to establish a connection on create

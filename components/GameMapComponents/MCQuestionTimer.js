@@ -23,7 +23,7 @@ export default function MCQuestionTimer() {
             minWidth: 160,
             minHeight: 50,
             width: "30%",
-            backgroundColor: "#2651EB",
+            backgroundColor: "#2B4A99",
             borderRadius: 50,
         }}>
             <Center>

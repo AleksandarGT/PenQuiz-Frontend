@@ -13,6 +13,7 @@ export default function MultipleChoiceScreen({
     playerQuestionAnswers = playerQuestionAnswersMock
 }) {
     const user = useRecoilValue(authAtom)
+    const [answeredId, setAnsweredId] = useState()
 
     function PlayerAvatar({ supportIcon, avatarName }) {
         return (
@@ -87,32 +88,31 @@ export default function MultipleChoiceScreen({
     }
 
     function AnswerButton({ answer, playerAnswers }) {
-        const [isAnswered, setIsAnswered] = useState(false)
         return (
             <Pressable onPress={() => {
+                if (answeredId || playerQuestionAnswers) return
+                setAnsweredId(answer.id)
                 AnswerMCQuestion(answer.id)
-                setIsAnswered(true)
             }}>
                 {({ isHovered, isFocused, isPressed }) => {
                     return (
                         <Box mt={6} shadow={3} bg={
+                            answeredId == answer.id ? GetAvatarColor(question.participants.find(x => x.playerId == user.id).avatarName) :
                                 isPressed ? "#06295A" :
-                                    isHovered ? "#06326F" : "#25479D"
+                                    isHovered ? "#06326F" : "#000000"
                         } p={2} style={{
                             background: playerAnswers?.length == 3 ? "linear-gradient(90deg, #5074FF 0%, #5074FF 33%, #8350FF 33%, #8350FF 66%, #FF5074 66%, #FF5074 100%)" :
                                 playerAnswers?.length == 2 ? `linear-gradient(90deg, ${GetAvatarColor(question.participants.find(x => x.playerId == playerAnswers[0].id).avatarName)} 0%, ${GetAvatarColor(question.participants.find(x => x.playerId == playerAnswers[0].id).avatarName)} 50%, ${GetAvatarColor(question.participants.find(x => x.playerId == playerAnswers[1].id).avatarName)} 50%, ${GetAvatarColor(question.participants.find(x => x.playerId == playerAnswers[1].id).avatarName)} 100%)` :
                                     playerAnswers?.length == 1 ? GetAvatarColor(question.participants.find(x => x.playerId == playerAnswers[0].id).avatarName) : null,
 
                             // Border for right answer
-                            borderColor: "gold",
-                            borderWidth: playerQuestionAnswers.correctAnswerId == answer.id ? 5 : 0,
+                            borderColor: "#42FF00",
+                            borderWidth: playerQuestionAnswers?.correctAnswerId == answer.id ? 10 : 0,
 
                             // Outline for user selection
-                            outlineColor: 'rgba(6, 28, 83, 0.8)',
-                            outlineStyle: "solid",
-                            outlineWidth: playerAnswers?.find(x => x.id == user.id) ? 4 : 0,
+
                             elevation: 5,
-                            
+
                         }} borderRadius={50}>
                             <Box px={8} minWidth="20vw" py={2}>
                                 <Text style={{ textAlign: "center" }} fontSize={{ base: "md", md: "lg", lg: "xl", xl: "3xl" }}>
@@ -129,12 +129,12 @@ export default function MultipleChoiceScreen({
 
     return (
         <>
-            <ImageBackground source={require('../../assets/gameBackground.svg')} resizeMode="cover" style={{
+            <ImageBackground source={require('../../assets/gameLobby.svg')} resizeMode="cover" style={{
                 flex: 1,
                 backgroundColor: "#032157",
             }}>
                 <Center flex={1}>
-                    <Box height="80%" minHeight="500" style={{ backgroundColor: "#CCDEDB", borderRadius: 25, justifyContent: "center" }} width="90%">
+                    <Box height="80%" minHeight="500" style={{ backgroundColor: "#D7FFFE", borderRadius: 25, justifyContent: "center" }} width="90%">
                         <Box >
                             <Center>
                                 {/* Top Timer */}
@@ -157,7 +157,7 @@ export default function MultipleChoiceScreen({
                                     <Box style={{
                                         height: "100%",
                                         borderRadius: 30,
-                                        backgroundColor: "#7297F3",
+                                        backgroundColor: "#2F4887",
                                         justifyContent: "center"
                                     }} p={10} shadow="5">
                                         <Text fontWeight="bold" fontSize="4xl" style={{ textAlign: "center" }}>
@@ -188,8 +188,8 @@ export default function MultipleChoiceScreen({
                                         <AnswerButton answer={question.answers[1]} playerAnswers={playerQuestionAnswers?.playerAnswers?.filter(x => x.answerId == question.answers[1].id)} />
                                     </VStack>
                                     <VStack>
-                                        <AnswerButton answer={question.answers[2]} playerAnswers={playerQuestionAnswers?.playerAnswers?.filter(x => x.answerId == question.answers[2].id)}/>
-                                        <AnswerButton answer={question.answers[3]} playerAnswers={playerQuestionAnswers?.playerAnswers?.filter(x => x.answerId == question.answers[3].id)}/>
+                                        <AnswerButton answer={question.answers[2]} playerAnswers={playerQuestionAnswers?.playerAnswers?.filter(x => x.answerId == question.answers[2].id)} />
+                                        <AnswerButton answer={question.answers[3]} playerAnswers={playerQuestionAnswers?.playerAnswers?.filter(x => x.answerId == question.answers[3].id)} />
                                     </VStack>
                                 </HStack>
                             </Box>
