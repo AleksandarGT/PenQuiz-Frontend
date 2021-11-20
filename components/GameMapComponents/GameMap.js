@@ -68,7 +68,7 @@ export default function GameMap() {
 
                             <GameTimer />
                             <AntarcticaMapSvg gameMapException={gameMapException} gameInstance={gameInstance} onTerritoryClick={(ter) => OnTerritoryClick(ter)} />
-                            <GameRounding gameInstance={gameInstance} rounds={18} currentRound={8} />
+                            <GameRounding gameInstance={gameInstance} />
 
 
                         </VStack>

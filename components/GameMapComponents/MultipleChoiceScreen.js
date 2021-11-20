@@ -90,7 +90,6 @@ export default function MultipleChoiceScreen({
     function AnswerButton({ answer, playerAnswers }) {
         return (
             <Pressable onPress={() => {
-                if (answeredId || playerQuestionAnswers) return
                 setAnsweredId(answer.id)
                 AnswerMCQuestion(answer.id)
             }}>

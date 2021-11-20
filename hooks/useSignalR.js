@@ -26,8 +26,6 @@ export function useSignalR() {
 
 
     let connection = getConnection()
-    let b = 5;
-    let b2 = 5;
 
     useEffect(() => {
         if (!connection) {
@@ -74,6 +72,7 @@ export function useSignalR() {
         connection.on('TESTING', ((msg) => {
             console.log(msg)
         }))
+        
         connection.on('CallerLeftGame', (() => {
             navigate("Home")
         }))
@@ -93,6 +92,7 @@ export function useSignalR() {
         }))
         connection.on('GetGameInstance', ((gi) => {
             setGameInstance(gi)
+
             setJoiningGameException(null)
         }))
         connection.on('PlayerRejoined', ((participId) => {
@@ -119,6 +119,7 @@ export function useSignalR() {
 
         connection.on('ShowRoundingAttacker', ((attackerId, msTimeForAction) => {
             setCurrentAttackerId(attackerId)
+            setRoundQuestion("")
             setGameTimer((msTimeForAction - 1000) / 1000)
         }))
 
@@ -134,6 +135,7 @@ export function useSignalR() {
 
         connection.on('QuestionPreviewResult', ((previewResult) => {
             setPlayerQuestionAnswers(previewResult)
+            setGameMapException("")
         }))
     }
 

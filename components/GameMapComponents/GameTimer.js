@@ -44,7 +44,7 @@ export default function GameTimer() {
 
                             <Center>
                                 <Text fontSize="xl" fontWeight="bold">
-                                    {`${displayTime}s`}
+                                    {displayTime ? `${displayTime}s` : `Preview`}
                                 </Text>
                             </Center>
                         </HStack>
