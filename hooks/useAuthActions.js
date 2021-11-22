@@ -26,11 +26,8 @@ function useAuthActions() {
         const tokenExp = JSON.parse(Buffer.from(jwt.split('.')[1], 'base64'));
         const expires = new Date(tokenExp.exp * 1000);
         const timeoutSec = expires.getTime() - Date.now() - (60 * 1000);
-
         console.log(`${timeoutSec / 1000} s before next JWT fetch call`)
-
         timeout = setTimeout(() => refreshToken(), timeoutSec)
-
     }
 
     const [request, googleResponse, googlePromptAsync] = Google.useIdTokenAuthRequest({

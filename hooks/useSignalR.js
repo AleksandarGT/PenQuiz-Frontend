@@ -23,8 +23,6 @@ export function useSignalR() {
     const [gameMapException, setGameMapException] = useRecoilState(gameMapExceptionAtom);
     const [roundQuestion, setRoundQuestion] = useRecoilState(roundQuestionAtom)
     const [playerQuestionAnswers, setPlayerQuestionAnswers] = useRecoilState(playerQuestionAnswersAtom)
-
-
     let connection = getConnection()
 
     useEffect(() => {
