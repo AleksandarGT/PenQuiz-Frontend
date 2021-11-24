@@ -15,6 +15,11 @@ export const gameInstanceAtom = atom({
     ]
 });
 
+export const playerAttackPossibilitiesAtom = atom({
+    key: "playerAttackPossibilities",
+    default: "",
+})
+
 export const roundQuestionAtom = atom({
     key: "roundQuestion",
     default: "",

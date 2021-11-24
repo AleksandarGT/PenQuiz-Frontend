@@ -9,6 +9,19 @@ export function GetParticipantColor(gameInstance, playerId) {
     return ReturnColor(particip?.avatarName);
 }
 
+export function GetAttackTerritoryPossibilityColor(gameInstance, playerId) {
+    let particip = gameInstance.participants.find(x => x.playerId == playerId)
+
+    switch(particip?.avatarName) {
+        case "penguinAvatar":
+            return "#90A7FF"
+        case "penguinAvatar2":
+            return "#BCA0FF"
+        case "penguinAvatar3":
+            return "#FF98AD"
+    }
+}
+
 function ReturnColor(avatarName) {
     switch (avatarName) {
         case "penguinAvatar":
@@ -114,6 +127,14 @@ export const multipleChoiceQuestionMock = {
             "playerId": 3,
         }
     ],
+}
+
+export const playerAttackPossibilitiesMock = {
+    "territoryNames": [
+        "Lisu",
+        "Renyt"
+    ],
+    "attackerId" : 2
 }
 
 export const gameInstanceMock = {

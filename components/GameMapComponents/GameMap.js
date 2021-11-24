@@ -18,7 +18,7 @@ export default function GameMap() {
     const roundQuestion = lobby.roundQuestion
     const currentUser = useRecoilValue(authAtom)
     const gameInstance = lobby.gameInstance
-    const currentAttackerId = lobby.currentAttackerId
+    const playerAttackPossibilities = lobby.playerAttackPossibilities
     const gameMapException = lobby.gameMapException
     const AnswerMcQuestion = lobby.AnswerMCQuestion
     const playerQuestionAnswers = lobby.playerQuestionAnswers
@@ -59,7 +59,7 @@ export default function GameMap() {
                     <HStack justifyContent="space-between" flexDirection="row" flex={1}>
                         <VStack >
                             <Container>
-                                <GameBoards gameInstance={gameInstance} currentAttackerId={currentAttackerId} />
+                                <GameBoards gameInstance={gameInstance} currentAttackerId={playerAttackPossibilities?.attackerId} />
                             </Container>
                             <GameChat />
                         </VStack>
@@ -67,7 +67,12 @@ export default function GameMap() {
                         <VStack>
 
                             <GameTimer />
-                            <AntarcticaMapSvg gameMapException={gameMapException} gameInstance={gameInstance} onTerritoryClick={(ter) => OnTerritoryClick(ter)} />
+                            <AntarcticaMapSvg
+                                gameMapException={gameMapException}
+                                gameInstance={gameInstance}
+                                onTerritoryClick={(ter) => OnTerritoryClick(ter)}
+                                playerAttackPossibilities={playerAttackPossibilities}
+                            />
                             <GameRounding gameInstance={gameInstance} />
 
 

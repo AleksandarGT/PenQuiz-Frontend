@@ -6,13 +6,12 @@ import { useHeaderHeight } from '@react-navigation/elements';
 import { Center } from "native-base";
 import { useRecoilValue } from 'recoil'
 import { gameInstanceAtom } from '../../state'
-import { GetParticipantColor, gameInstanceMock } from './CommonGameFunc'
+import { GetParticipantColor, gameInstanceMock, playerAttackPossibilitiesMock, GetAttackTerritoryPossibilityColor } from './CommonGameFunc'
 import DefaultAlert from "../Popups/DefaultAlert";
 
-export default function AntarcticaMapSvg({ gameMapException, onTerritoryClick, gameInstance = gameInstanceMock }) {
+export default function AntarcticaMapSvg({ gameMapException, onTerritoryClick, gameInstance = gameInstanceMock, playerAttackPossibilities = playerAttackPossibilitiesMock }) {
   const antarcticaBorders = require('../../assets/Antarctica.json')
   const antarcticaSVGElements = require('../../assets/AntarcticaSvgElements.json')
-
   // Original map dimensions
   const originalWidth = 694.3;
   const originalHeight = 587.02;
@@ -20,6 +19,13 @@ export default function AntarcticaMapSvg({ gameMapException, onTerritoryClick, g
   const windowHeight = useWindowDimensions().height
 
   const aspectRatio = originalWidth / originalHeight;
+
+  function SetTerritoryColor(territoryName) {
+    if(playerAttackPossibilities?.availableAttackTerritories?.find(x => x == territoryName)) {
+      return GetAttackTerritoryPossibilityColor(gameInstance, playerAttackPossibilities.attackerId)
+    }
+    return GetParticipantColor(gameInstance, gameInstance.objectTerritory.find(x => x.mapTerritory.territoryName == territoryName).takenBy) ?? "#d7fffe"
+  }
 
   function SVGTerritories() {
     var jsx = []
@@ -29,8 +35,7 @@ export default function AntarcticaMapSvg({ gameMapException, onTerritoryClick, g
           {/* Territory path */}
           <Path
             d={antarcticaSVGElements[k].TerritoryPath}
-            fill={GetParticipantColor(gameInstance, gameInstance.objectTerritory.find(x => x.mapTerritory.territoryName == k).takenBy)
-              ?? "#d7fffe"}
+            fill={SetTerritoryColor(k)}
             stroke="#000"
             strokeMiterlimit={10}
             fillRule="evenodd"

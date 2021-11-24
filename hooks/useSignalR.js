@@ -1,5 +1,5 @@
 import { setupSignalRConnection } from './SignalRSetup';
-import { authToken, gameInstanceAtom, joiningGameExceptionAtom, connectionStatusAtom, gameTimerAtom, gameMapExceptionAtom, canUserAnswerQuestionAtom, showMultipleChoiceQuestionAtom, multipleChoiceQuestionAtom, authAtom, questionParticipantsAtom, roundQuestionAtom, playerQuestionAnswersAtom } from '../state';
+import { authToken, gameInstanceAtom, joiningGameExceptionAtom, connectionStatusAtom, gameTimerAtom, gameMapExceptionAtom, canUserAnswerQuestionAtom, showMultipleChoiceQuestionAtom, multipleChoiceQuestionAtom, authAtom, questionParticipantsAtom, roundQuestionAtom, playerQuestionAnswersAtom, playerAttackPossibilitiesAtom } from '../state';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import { BACKEND_GAME_API_URL } from '@env'
 import { navigate } from '../helpers'
@@ -13,13 +13,14 @@ export const StatusCode = {
     "DISCONNECTED": 0
 }
 export function useSignalR() {
+
     const userJwt = useRecoilValue(authToken)
     const currentUser = useRecoilValue(authAtom)
     const [gameInstance, setGameInstance] = useRecoilState(gameInstanceAtom);
     const [joiningGameException, setJoiningGameException] = useRecoilState(joiningGameExceptionAtom);
     const [connectionStatus, setConnectionStatus] = useRecoilState(connectionStatusAtom);
     const [gameTimer, setGameTimer] = useRecoilState(gameTimerAtom);
-    const [currentAttackerId, setCurrentAttackerId] = useState(0);
+    const [playerAttackPossibilities, setPlayerAttackPossibilities] = useRecoilState(playerAttackPossibilitiesAtom)
     const [gameMapException, setGameMapException] = useRecoilState(gameMapExceptionAtom);
     const [roundQuestion, setRoundQuestion] = useRecoilState(roundQuestionAtom)
     const [playerQuestionAnswers, setPlayerQuestionAnswers] = useRecoilState(playerQuestionAnswersAtom)
@@ -70,7 +71,7 @@ export function useSignalR() {
         connection.on('TESTING', ((msg) => {
             console.log(msg)
         }))
-        
+
         connection.on('CallerLeftGame', (() => {
             navigate("Home")
         }))
@@ -115,8 +116,11 @@ export function useSignalR() {
             navigate("GameMap")
         }))
 
-        connection.on('ShowRoundingAttacker', ((attackerId, msTimeForAction) => {
-            setCurrentAttackerId(attackerId)
+        connection.on('ShowRoundingAttacker', ((attackerId, msTimeForAction, availableAttackTerritoriesNames) => {
+            // Set the preview of available attack territories for given playerid
+            setPlayerAttackPossibilities({ attackerId: attackerId, availableAttackTerritories: availableAttackTerritoriesNames })
+            
+            
             setRoundQuestion("")
             setGameTimer((msTimeForAction - 1000) / 1000)
         }))
@@ -132,6 +136,8 @@ export function useSignalR() {
         }))
 
         connection.on('QuestionPreviewResult', ((previewResult) => {
+            setPlayerAttackPossibilities("")
+
             setPlayerQuestionAnswers(previewResult)
             setGameMapException("")
         }))
@@ -165,10 +171,10 @@ export function useSignalR() {
 
     return {
         // Game
-        currentAttackerId,
         gameTimer,
         gameMapException,
         SelectTerritory,
+        playerAttackPossibilities,
 
         // Question rounding
         roundQuestion,
