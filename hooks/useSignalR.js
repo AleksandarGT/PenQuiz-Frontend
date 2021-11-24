@@ -118,9 +118,16 @@ export function useSignalR() {
 
         connection.on('ShowRoundingAttacker', ((attackerId, msTimeForAction, availableAttackTerritoriesNames) => {
             // Set the preview of available attack territories for given playerid
-            setPlayerAttackPossibilities({ attackerId: attackerId, availableAttackTerritories: availableAttackTerritoriesNames })
-            
-            
+            console.log(currentUser)
+            if (currentUser.id == attackerId) {
+                setPlayerAttackPossibilities({ attackerId: attackerId, availableAttackTerritories: availableAttackTerritoriesNames })
+            }
+            else {
+                setPlayerAttackPossibilities({ attackerId: attackerId })
+            }
+
+
+
             setRoundQuestion("")
             setGameTimer((msTimeForAction - 1000) / 1000)
         }))

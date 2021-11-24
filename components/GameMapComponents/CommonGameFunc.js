@@ -130,9 +130,10 @@ export const multipleChoiceQuestionMock = {
 }
 
 export const playerAttackPossibilitiesMock = {
-    "territoryNames": [
+    "availableAttackTerritories": [
         "Lisu",
-        "Renyt"
+        "Renyt",
+        "Dager"
     ],
     "attackerId" : 2
 }
