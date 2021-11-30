@@ -24,7 +24,7 @@ export default function GameRounding({ gameInstance = gameInstanceMock }) {
                             {rounds.map(round =>
                                 <React.Fragment key={round.id}>
                                     {round.neutralRound.territoryAttackers.map((pAttack, index) =>
-                                        <View key={pAttack.id} style={[round.gameRoundNumber == gameInstance.gameRoundNumber 
+                                        <View key={pAttack.id} style={[round.gameRoundNumber == gameInstance.gameRoundNumber
                                             && pAttack.attackOrderNumber == round.neutralRound.attackOrderNumber ? {
                                             outlineColor: 'rgba(6, 28, 83, 0.8)',
                                             outlineStyle: "solid",
@@ -44,6 +44,15 @@ export default function GameRounding({ gameInstance = gameInstanceMock }) {
                         </HStack>
                     </>
                 )
+            case "NUMBER_NEUTRAL":
+                return (
+                    <>
+                    
+                    </>
+                )
+
+            default:
+                return null;
         }
     }
     return (

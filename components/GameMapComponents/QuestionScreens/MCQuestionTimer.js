@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { ImageBackground, View } from 'react-native'
-import { authAtom, gameTimerAtom } from '../../state';
+import { authAtom, gameTimerAtom } from '../../../state';
 import { Box, Center, Container, HStack, Text, VStack, Image, Divider, Pressable } from 'native-base'
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { MaterialIcons } from '@expo/vector-icons';

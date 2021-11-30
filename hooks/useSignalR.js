@@ -109,16 +109,20 @@ export function useSignalR() {
             setJoiningGameException(er)
         }))
 
-
+        connection.on('ShowGameMap', ((msTimeForAction) => {
+            setRoundQuestion("")
+            setPlayerQuestionAnswers("")
+            setGameTimer((msTimeForAction - 1000) / 1000)
+        }))
 
         // Game events
-        connection.on('Game_Show_Main_Screen', (() => {
+        connection.on('Game_Show_Main_Screen', ((msTimeForAction) => {
             navigate("GameMap")
         }))
 
         connection.on('ShowRoundingAttacker', ((attackerId, msTimeForAction, availableAttackTerritoriesNames) => {
             // Set the preview of available attack territories for given playerid
-            console.log(currentUser)
+
             if (currentUser.id == attackerId) {
                 setPlayerAttackPossibilities({ attackerId: attackerId, availableAttackTerritories: availableAttackTerritoriesNames })
             }
@@ -127,7 +131,7 @@ export function useSignalR() {
             }
 
 
-
+            setPlayerQuestionAnswers("")
             setRoundQuestion("")
             setGameTimer((msTimeForAction - 1000) / 1000)
         }))
@@ -142,7 +146,14 @@ export function useSignalR() {
             setGameTimer((msTimeForAction - 1000) / 1000)
         }))
 
-        connection.on('QuestionPreviewResult', ((previewResult) => {
+        connection.on('MCQuestionPreviewResult', ((previewResult) => {
+            setPlayerAttackPossibilities("")
+
+            setPlayerQuestionAnswers(previewResult)
+            setGameMapException("")
+        }))
+
+        connection.on('NumberQuestionPreviewResult', ((previewResult) => {
             setPlayerAttackPossibilities("")
 
             setPlayerQuestionAnswers(previewResult)
@@ -156,7 +167,11 @@ export function useSignalR() {
     }
 
     function AnswerMCQuestion(answerId) {
-        connection?.invoke("AnswerMCQuestion", answerId)
+        connection?.invoke("AnswerQuestion", answerId)
+    }
+
+    function AnswerNumberQuestion(numberAnswer) {
+        connection?.invoke("AnswerQuestion", numberAnswer)
     }
 
     // Send events to server
@@ -186,6 +201,7 @@ export function useSignalR() {
         // Question rounding
         roundQuestion,
         AnswerMCQuestion,
+        AnswerNumberQuestion,
         playerQuestionAnswers,
 
         connection,

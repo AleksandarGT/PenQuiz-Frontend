@@ -12,6 +12,7 @@ import GameBoards from "./GamePlayerBoard";
 import GameRounding from "./GameRounding";
 import GameTimer from "./GameTimer";
 import MultipleChoiceScreen from "./MultipleChoiceScreen";
+import NumberChoiceScreen from "./NumberChoiceScreen";
 
 export default function GameMap() {
     const lobby = useSignalR();
@@ -21,6 +22,7 @@ export default function GameMap() {
     const playerAttackPossibilities = lobby.playerAttackPossibilities
     const gameMapException = lobby.gameMapException
     const AnswerMcQuestion = lobby.AnswerMCQuestion
+    const AnswerNumberQuestion = lobby.AnswerNumberQuestion
     const playerQuestionAnswers = lobby.playerQuestionAnswers
 
     // For testing purposes uncomment the lines below
@@ -53,39 +55,42 @@ export default function GameMap() {
                 flex: 1,
                 backgroundColor: "#032157",
             }}>
-                {roundQuestion ?
+                {roundQuestion?.type == "multiple" ?
                     <MultipleChoiceScreen playerQuestionAnswers={playerQuestionAnswers} AnswerMCQuestion={AnswerMcQuestion} question={roundQuestion} />
                     :
-                    <HStack justifyContent="space-between" flexDirection="row" flex={1}>
-                        <VStack >
-                            <Container>
-                                <GameBoards gameInstance={gameInstance} currentAttackerId={playerAttackPossibilities?.attackerId} />
-                            </Container>
-                            <GameChat />
-                        </VStack>
+                    roundQuestion?.type == "number" ?
+                        <NumberChoiceScreen playerQuestionAnswers={playerQuestionAnswers} AnswerNumberQuestion={AnswerNumberQuestion} question={roundQuestion} />
+                        :
+                        <HStack justifyContent="space-between" flexDirection="row" flex={1}>
+                            <VStack >
+                                <Container>
+                                    <GameBoards gameInstance={gameInstance} currentAttackerId={playerAttackPossibilities?.attackerId} />
+                                </Container>
+                                <GameChat />
+                            </VStack>
 
-                        <VStack>
+                            <VStack>
 
-                            <GameTimer />
-                            <AntarcticaMapSvg
-                                gameMapException={gameMapException}
-                                gameInstance={gameInstance}
-                                onTerritoryClick={(ter) => OnTerritoryClick(ter)}
-                                playerAttackPossibilities={playerAttackPossibilities}
-                            />
-                            <GameRounding gameInstance={gameInstance} />
+                                <GameTimer />
+                                <AntarcticaMapSvg
+                                    gameMapException={gameMapException}
+                                    gameInstance={gameInstance}
+                                    onTerritoryClick={(ter) => OnTerritoryClick(ter)}
+                                    playerAttackPossibilities={playerAttackPossibilities}
+                                />
+                                <GameRounding gameInstance={gameInstance} />
 
 
-                        </VStack>
-                        <Box >
-                            <Button colorScheme="red">
-                                <Text>
-                                    Exit Game
-                                </Text>
-                            </Button>
-                        </Box>
+                            </VStack>
+                            <Box >
+                                <Button colorScheme="red">
+                                    <Text>
+                                        Exit Game
+                                    </Text>
+                                </Button>
+                            </Box>
 
-                    </HStack>
+                        </HStack>
                 }
 
 

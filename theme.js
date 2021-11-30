@@ -15,6 +15,14 @@ const theme = extendTheme({
         800: '#9C9C9C',
         900: '#929292',
       },
+      blue_button_bd: {
+        500: '#061C53',
+        600: '#002B96',
+        700: '#002B96',
+        800: '#002B96',
+        900: '#002B96',
+      },
+      
       // Redefinig only one shade, rest of the color will remain same.
       amber: {
         400: '#d97706',

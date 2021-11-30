@@ -87,6 +87,56 @@ export const playerQuestionAnswersMock = {
     ]
 }
 
+
+
+export const playerQuestionNumberAnswersMock = {
+    "correctAnswer" : 681,
+    "playerAnswers" : [
+        {
+            "playerId" : 1,
+            "answer" : 312,
+            "differenceWithCorrect" : 369,
+            "timeElapsed" : "3.5s",
+            "winner" : true,
+        },
+        {
+            "playerId" : 2,
+            "answer" : 1211,
+            "differenceWithCorrect" : 530,
+            "timeElapsed" : "8.9s",
+            "winner" : false,
+        },
+        {
+            "playerId" : 3,
+            "answer" : 1532,
+            "differenceWithCorrect" : 851,
+            "timeElapsed" : "5.3s",
+            "winner" : false,
+        },
+    ]
+}
+
+export const numberChoiceQuestionMock = {
+    "id": 1,
+    "isNeutral": true,
+    "question": "When was Bulgaria founded?",
+    "type": "number",
+    "participants": [
+        {
+            "avatarName": "penguinAvatar",
+            "playerId": 1,
+        },
+        {
+            "avatarName": "penguinAvatar2",
+            "playerId": 2,
+        },
+        {
+            "avatarName": "penguinAvatar3",
+            "playerId": 3,
+        }
+    ],
+}
+
 export const multipleChoiceQuestionMock = {
     "id": 1,
     "isNeutral": true,
@@ -116,7 +166,6 @@ export const multipleChoiceQuestionMock = {
         {
             "avatarName": "penguinAvatar",
             "playerId": 1,
-
         },
         {
             "avatarName": "penguinAvatar2",

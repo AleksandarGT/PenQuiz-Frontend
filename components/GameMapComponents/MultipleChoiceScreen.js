@@ -1,11 +1,11 @@
 import { Box, Center, Container, HStack, Text, VStack, Image, Divider, Pressable } from 'native-base'
 import React, { useEffect, useState } from 'react'
 import { ImageBackground, View } from 'react-native'
-import { MaterialIcons } from '@expo/vector-icons';
 import { gameInstanceMock, gameSvgs, GetAvatarColor, multipleChoiceQuestionMock, playerQuestionAnswersMock } from './CommonGameFunc';
 import { authAtom, gameTimerAtom } from '../../state';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import MCQuestionTimer from './MCQuestionTimer';
+import { PlayerAvatar, MultipleAvatars } from './QuestionScreens'
+import MCQuestionTimer from './QuestionScreens/MCQuestionTimer';
 
 export default function MultipleChoiceScreen({
     question = multipleChoiceQuestionMock,
@@ -14,78 +14,6 @@ export default function MultipleChoiceScreen({
 }) {
     const user = useRecoilValue(authAtom)
     const [answeredId, setAnsweredId] = useState()
-
-    function PlayerAvatar({ supportIcon, avatarName }) {
-        return (
-            <VStack flex={1}>
-                <Center>
-                    <Box style={{ backgroundColor: GetAvatarColor(avatarName), borderRadius: 20 }} shadow={7}>
-                        <Box m={2} p={2} backgroundColor="white" borderRadius={2000} shadow={5}>
-                            <VStack>
-                                <Center>
-                                    <Image
-                                        source={gameSvgs.find(x => x.name == avatarName).img}
-                                        alt="Alternate Text"
-                                        resizeMode="contain"
-                                        size="lg"
-                                    />
-                                </Center>
-                            </VStack>
-                        </Box>
-                    </Box>
-
-                    <Center style={{ borderColor: "black", borderWidth: 2, borderRadius: 15 }} mt={3} p={2}>
-                        <Image
-                            source={gameSvgs.find(x => x.name == supportIcon).img}
-                            alt="Alternate Text"
-                            resizeMode="contain"
-                            size="sm"
-                        />
-                    </Center>
-                </Center>
-
-            </VStack>
-        )
-    }
-
-    function MultipleDefenders({ avatarNames }) {
-        return (
-            <VStack flex={1}>
-                <Center>
-                    <Box style={{ backgroundColor: GetAvatarColor(avatarNames[0]), borderRadius: 20 }} shadow={7}>
-                        <Box m={2} p={2} backgroundColor="white" borderRadius={2000} shadow={5}>
-                            <VStack>
-                                <Center>
-                                    <Image
-                                        source={gameSvgs.find(x => x.name == avatarNames[0]).img}
-                                        alt="Alternate Text"
-                                        resizeMode="contain"
-                                        size="md"
-                                    />
-                                </Center>
-                            </VStack>
-                        </Box>
-                    </Box>
-
-                    <Box mt={2} style={{ backgroundColor: GetAvatarColor(avatarNames[1]), borderRadius: 20 }} shadow={7}>
-                        <Box m={2} p={2} backgroundColor="white" borderRadius={2000} shadow={5}>
-                            <VStack>
-                                <Center>
-                                    <Image
-                                        source={gameSvgs.find(x => x.name == avatarNames[1]).img}
-                                        alt="Alternate Text"
-                                        resizeMode="contain"
-                                        size="md"
-                                    />
-                                </Center>
-                            </VStack>
-                        </Box>
-                    </Box>
-                </Center>
-
-            </VStack>
-        )
-    }
 
     function AnswerButton({ answer, playerAnswers }) {
         return (
@@ -125,6 +53,7 @@ export default function MultipleChoiceScreen({
             </Pressable>
         )
     }
+
 
 
     return (
@@ -168,7 +97,7 @@ export default function MultipleChoiceScreen({
 
                                 {/* Defender */}
                                 {question.isNeutral ?
-                                    <MultipleDefenders avatarNames={question.participants.filter(x => x.playerId != user.id).map(e => e.avatarName)} />
+                                    <MultipleAvatars avatarNames={question.participants.filter(x => x.playerId != user.id).map(e => e.avatarName)} />
                                     :
                                     <PlayerAvatar supportIcon={"shield"} avatarName={question.participants.find(x => x.playerId == question.defenderId).avatarName} />
                                 }
@@ -184,12 +113,24 @@ export default function MultipleChoiceScreen({
                             <Box>
                                 <HStack justifyContent="space-evenly" >
                                     <VStack>
-                                        <AnswerButton answer={question.answers[0]} playerAnswers={playerQuestionAnswers?.playerAnswers?.filter(x => x.answerId == question.answers[0].id)} />
-                                        <AnswerButton answer={question.answers[1]} playerAnswers={playerQuestionAnswers?.playerAnswers?.filter(x => x.answerId == question.answers[1].id)} />
+                                        <AnswerButton
+                                            answer={question.answers[0]}
+                                            playerAnswers={playerQuestionAnswers?.playerAnswers?.filter(x => x.answerId == question.answers[0].id)}
+                                        />
+                                        <AnswerButton
+                                            answer={question.answers[1]}
+                                            playerAnswers={playerQuestionAnswers?.playerAnswers?.filter(x => x.answerId == question.answers[1].id)}
+                                        />
                                     </VStack>
                                     <VStack>
-                                        <AnswerButton answer={question.answers[2]} playerAnswers={playerQuestionAnswers?.playerAnswers?.filter(x => x.answerId == question.answers[2].id)} />
-                                        <AnswerButton answer={question.answers[3]} playerAnswers={playerQuestionAnswers?.playerAnswers?.filter(x => x.answerId == question.answers[3].id)} />
+                                        <AnswerButton
+                                            answer={question.answers[2]}
+                                            playerAnswers={playerQuestionAnswers?.playerAnswers?.filter(x => x.answerId == question.answers[2].id)}
+                                        />
+                                        <AnswerButton
+                                            answer={question.answers[3]}
+                                            playerAnswers={playerQuestionAnswers?.playerAnswers?.filter(x => x.answerId == question.answers[3].id)}
+                                        />
                                     </VStack>
                                 </HStack>
                             </Box>

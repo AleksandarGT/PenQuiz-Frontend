@@ -14,6 +14,7 @@ import { LoadingComponent } from './LoadingComponent'
 import { GameLobby } from '../components/GameLobby'
 import GameMap from '../components/GameMapComponents/GameMap';
 import MultipleChoiceScreen from '../components/GameMapComponents/MultipleChoiceScreen';
+import NumberChoiceScreen from '../components/GameMapComponents/NumberChoiceScreen';
 
 export * from './LoadingComponent';
 
