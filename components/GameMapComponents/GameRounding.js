@@ -12,16 +12,16 @@ export default function GameRounding({ gameInstance = gameInstanceMock }) {
 
 
     function RenderRound() {
-        switch (RoundAttackStage(gameInstance.rounds.find(x => x.gameRoundNumber == gameInstance.gameRoundNumber).attackStage)) {
+        let ENUM_ID
+        switch (RoundAttackStage(gameInstance.rounds.find(x => x.gameRoundNumber == gameInstance.gameRoundNumber)?.attackStage)) {
             case "MULTIPLE_NEUTRAL":
-                const ENUM_ID = 0;
-                let rounds = gameInstance.rounds.filter(x => x.attackStage == ENUM_ID)
+                ENUM_ID = 0;
 
                 // Rounds hold a single round question // Contain 3 territory attackers
                 return (
                     <>
                         <HStack style={{ flex: 1 }}>
-                            {rounds.map(round =>
+                            {gameInstance.rounds.filter(x => x.attackStage == ENUM_ID).map(round =>
                                 <React.Fragment key={round.id}>
                                     {round.neutralRound.territoryAttackers.map((pAttack, index) =>
                                         <View key={pAttack.id} style={[round.gameRoundNumber == gameInstance.gameRoundNumber
@@ -45,9 +45,26 @@ export default function GameRounding({ gameInstance = gameInstanceMock }) {
                     </>
                 )
             case "NUMBER_NEUTRAL":
+                ENUM_ID = 1;
+
                 return (
                     <>
-                    
+                        <HStack style={{ flex: 1 }}>
+                            {gameInstance.rounds.filter(x => x.attackStage == ENUM_ID).map(round =>
+                                <View key={round.id} style={[round.gameRoundNumber == gameInstance.gameRoundNumber ? {
+                                    outlineColor: 'rgba(6, 28, 83, 0.8)',
+                                    outlineStyle: "solid",
+                                    outlineWidth: 4,
+                                    elevation: 5,
+                                } : null, {
+                                    flex: 1,
+                                    backgroundColor: GetParticipantColor(gameInstance, round.neutralRound.territoryAttackers.find(x => x.attackerWon)?.attackerId) ?? "#032157",
+                                    margin: 10,
+                                    borderRadius: 5,
+                                    marginVertical: 34,
+                                }]} />
+                            )}
+                        </HStack>
                     </>
                 )
 
