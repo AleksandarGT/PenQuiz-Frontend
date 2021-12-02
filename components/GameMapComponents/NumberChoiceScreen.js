@@ -11,47 +11,62 @@ import { MaterialIcons } from '@expo/vector-icons';
 export default function NumberChoiceScreen({
     question = numberChoiceQuestionMock,
     AnswerNumberQuestion = (e) => console.log("Default behavior" + e),
-    playerQuestionAnswers = playerQuestionNumberAnswersMock
+    playerQuestionAnswers
 }) {
     const user = useRecoilValue(authAtom)
 
     function AnswerNumberQuestionComponent() {
-    const [answer, setAnswer] = useState("")
+        const [answer, setAnswer] = useState("")
+        const [isAnswered, setisAnswered] = useState(false)
 
         return (
-            <Center mt={9} mb={2}>
-                <HStack>
-                    <Input onChangeText={(e) => {
-                        if (/^\d+$/.test(e) || !e) {
-                            setAnswer(e)
-                        }
-                    }}
-                        value={answer}
-                        maxLength={14}
-                        mr={2}
-                        keyboardType="numeric"
-                        variant="rounded"
-                        bg="#D7D7D7"
-                        color="black"
-                        _hover={{ bg: "#C6C6C6" }}
-                        size="md"
-                        placeholder="" />
+            <>
+                {isAnswered ?
+                    <HStack mt={9} mb={2} justifyContent="center">
+                        <Box width="33%" paddingY={6} borderRadius={25} bg={GetAvatarColor(question.participants.find(y => y.playerId == user.id).avatarName)}>
+                            <Center alignItems="center" justifyContent="center">
+                                <Text fontSize={{ base: "md", md: "lg", lg: "xl", xl: 26 }}>{answer}</Text>
+                            </Center>
+                        </Box>
+                    </HStack>
+                    :
+                    <Center mt={9} mb={2}>
+                        <HStack>
+                            <Input onChangeText={(e) => {
+                                if (/^\d+$/.test(e) || !e) {
+                                    setAnswer(e)
+                                }
+                            }}
+                                value={answer}
+                                maxLength={14}
+                                mr={2}
+                                keyboardType="numeric"
+                                variant="rounded"
+                                bg="#D7D7D7"
+                                color="black"
+                                _hover={{ bg: "#C6C6C6" }}
+                                size="md"
+                                placeholder="" />
 
-                    <IconButton
-                        onPress={() => {
-                            AnswerNumberQuestion(answer)
-                        }}
-                        size="md"
-                        colorScheme="blue_button_bd"
-                        variant="solid"
-                        _icon={{
-                            as: MaterialIcons,
-                            name: "check",
-                            color: "white"
-                        }}
-                    />
-                </HStack>
-            </Center>
+                            <IconButton
+                                onPress={() => {
+                                    if (isAnswered) return
+                                    setisAnswered(true)
+                                    AnswerNumberQuestion(answer)
+                                }}
+                                size="md"
+                                colorScheme="blue_button_bd"
+                                variant="solid"
+                                _icon={{
+                                    as: MaterialIcons,
+                                    name: "check",
+                                    color: "white"
+                                }}
+                            />
+                        </HStack>
+                    </Center>
+                }
+            </>
         )
     }
 

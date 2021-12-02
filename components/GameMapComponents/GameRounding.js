@@ -31,6 +31,7 @@ export default function GameRounding({ gameInstance = gameInstanceMock }) {
                                             outlineWidth: 4,
                                             elevation: 5,
                                         } : null, {
+                                            minWidth: 25,
                                             flex: 1,
                                             backgroundColor: GetParticipantColor(gameInstance, pAttack.attackerId),
                                             margin: 10,
@@ -57,6 +58,7 @@ export default function GameRounding({ gameInstance = gameInstanceMock }) {
                                     outlineWidth: 4,
                                     elevation: 5,
                                 } : null, {
+                                    minWidth: 25,
                                     flex: 1,
                                     backgroundColor: GetParticipantColor(gameInstance, round.neutralRound.territoryAttackers.find(x => x.attackerWon)?.attackerId) ?? "#032157",
                                     margin: 10,
