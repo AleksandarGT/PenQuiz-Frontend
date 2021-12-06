@@ -15,9 +15,9 @@ export default function MultipleChoiceScreen({
     const user = useRecoilValue(authAtom)
     const [answeredId, setAnsweredId] = useState()
 
-    function AnswerButton({ answer, playerAnswers }) {
+    function AnswerButton({ answer, playerAnswers, isDisabled }) {
         return (
-            <Pressable onPress={() => {
+            <Pressable disabled={isDisabled} onPress={() => {
                 if (answeredId) return
                 setAnsweredId(answer.id)
                 AnswerMCQuestion(answer.id)
@@ -114,20 +114,24 @@ export default function MultipleChoiceScreen({
                                 <HStack justifyContent="space-evenly" >
                                     <VStack>
                                         <AnswerButton
+                                            isDisabled={question.participants.find(x => x.playerId == user.id) ? false : true}
                                             answer={question.answers[0]}
                                             playerAnswers={playerQuestionAnswers?.playerAnswers?.filter(x => x.answerId == question.answers[0].id)}
                                         />
                                         <AnswerButton
+                                            isDisabled={question.participants.find(x => x.playerId == user.id) ? false : true}
                                             answer={question.answers[1]}
                                             playerAnswers={playerQuestionAnswers?.playerAnswers?.filter(x => x.answerId == question.answers[1].id)}
                                         />
                                     </VStack>
                                     <VStack>
                                         <AnswerButton
+                                            isDisabled={question.participants.find(x => x.playerId == user.id) ? false : true}
                                             answer={question.answers[2]}
                                             playerAnswers={playerQuestionAnswers?.playerAnswers?.filter(x => x.answerId == question.answers[2].id)}
                                         />
                                         <AnswerButton
+                                            isDisabled={question.participants.find(x => x.playerId == user.id) ? false : true}
                                             answer={question.answers[3]}
                                             playerAnswers={playerQuestionAnswers?.playerAnswers?.filter(x => x.answerId == question.answers[3].id)}
                                         />

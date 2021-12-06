@@ -70,6 +70,35 @@ export default function GameRounding({ gameInstance = gameInstanceMock }) {
                     </>
                 )
 
+            case "MULTIPLE_PVP":
+                ENUM_ID = 2;
+
+                // Rounds hold a single round question // Contain 3 territory attackers
+                return (
+                    <>
+                        <HStack style={{ flex: 1 }}>
+                            {gameInstance.rounds.filter(x => x.attackStage == ENUM_ID).map((round, index) =>
+                                <React.Fragment key={round.id}>
+                                    <View key={round.pvpRound.id} style={[round.gameRoundNumber == gameInstance.gameRoundNumber ? {
+                                        outlineColor: 'rgba(6, 28, 83, 0.8)',
+                                        outlineStyle: "solid",
+                                        outlineWidth: 4,
+                                        elevation: 5,
+                                    } : null, {
+                                        minWidth: 25,
+                                        flex: 1,
+                                        backgroundColor: GetParticipantColor(gameInstance, round.pvpRound.attackerId),
+                                        margin: 10,
+                                        borderRadius: 5,
+                                        marginRight: index % 3 == 2 ? 10 : 0,
+                                        marginVertical: 34,
+                                    }]} />
+                                </React.Fragment>
+                            )}
+                        </HStack>
+                    </>
+                )
+
             default:
                 return null;
         }

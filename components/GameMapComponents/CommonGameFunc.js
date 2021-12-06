@@ -188,208 +188,26 @@ export const playerAttackPossibilitiesMock = {
 }
 
 export const gameInstanceMock = {
-    "id": 3,
+    "id": 22,
     "resultId": 0,
     "questionTimerSeconds": 30,
-    "startTime": "2021-11-11T18:31:05.287",
+    "startTime": "2021-12-04T20:05:11.46",
     "endTime": null,
     "mapid": 1,
     "participantsId": 0,
     "gameCreatorId": 1,
     "gameState": 1,
-    "invitationLink": "5160",
-    "gameRoundNumber": 1,
+    "invitationLink": "3400",
+    "gameRoundNumber": 42,
     "map": null,
     "objectTerritory": [
         {
-            "id": 52,
-            "mapTerritoryId": 8,
-            "gameInstanceId": 3,
-            "isCapital": false,
-            "territoryScore": 0,
-            "takenBy": null,
-            "attackedBy": 3,
-            "neutralRoundsAttacks": [
-                {
-                    "id": 31,
-                    "attackOrderNumber": 1,
-                    "attackedTerritoryId": 52,
-                    "attackerWon": null,
-                    "attackerId": 3,
-                    "neutralRoundId": 11,
-                    "attackerMChoiceQAnswerId": null,
-                    "attackerNumberQAnswer": null,
-                    "neutralRound": {
-                        "id": 11,
-                        "roundId": 12,
-                        "attackOrderNumber": 3,
-                        "round": {
-                            "id": 12,
-                            "roundStage": 0,
-                            "attackStage": 0,
-                            "gameInstanceId": 3,
-                            "gameRoundNumber": 1,
-                            "isTerritoryVotingOpen": true,
-                            "isQuestionVotingOpen": false,
-                            "description": "MultipleChoice question. Attacker vs NEUTRAL territory",
-                            "question": null,
-                            "pvpRound": null
-                        },
-                        "territoryAttackers": [
-                            {
-                                "id": 32,
-                                "attackOrderNumber": 2,
-                                "attackedTerritoryId": 44,
-                                "attackerWon": null,
-                                "attackerId": 1,
-                                "neutralRoundId": 11,
-                                "attackerMChoiceQAnswerId": null,
-                                "attackerNumberQAnswer": null,
-                                "attackedTerritory": {
-                                    "id": 44,
-                                    "mapTerritoryId": 17,
-                                    "gameInstanceId": 3,
-                                    "isCapital": false,
-                                    "territoryScore": 0,
-                                    "takenBy": null,
-                                    "attackedBy": 1,
-                                    "neutralRoundsAttacks": [],
-                                    "pvpRounds": [],
-                                    "mapTerritory": {
-                                        "id": 17,
-                                        "territoryName": "Dager",
-                                        "mapId": 1,
-                                        "map": null,
-                                        "bordersNextToTerritoryNavigation": [],
-                                        "bordersThisTerritoryNavigation": [],
-                                        "objectTerritory": []
-                                    }
-                                }
-                            },
-                            {
-                                "id": 33,
-                                "attackOrderNumber": 3,
-                                "attackedTerritoryId": null,
-                                "attackerWon": null,
-                                "attackerId": 2,
-                                "neutralRoundId": 11,
-                                "attackerMChoiceQAnswerId": null,
-                                "attackerNumberQAnswer": null,
-                                "attackedTerritory": null
-                            }
-                        ]
-                    }
-                }
-            ],
-            "pvpRounds": [],
-            "mapTerritory": {
-                "id": 8,
-                "territoryName": "Kide",
-                "mapId": 1,
-                "map": null,
-                "bordersNextToTerritoryNavigation": [],
-                "bordersThisTerritoryNavigation": [],
-                "objectTerritory": []
-            }
-        },
-        {
-            "id": 44,
-            "mapTerritoryId": 17,
-            "gameInstanceId": 3,
-            "isCapital": false,
-            "territoryScore": 0,
-            "takenBy": null,
-            "attackedBy": 1,
-            "neutralRoundsAttacks": [
-                {
-                    "id": 32,
-                    "attackOrderNumber": 2,
-                    "attackedTerritoryId": 44,
-                    "attackerWon": null,
-                    "attackerId": 1,
-                    "neutralRoundId": 11,
-                    "attackerMChoiceQAnswerId": null,
-                    "attackerNumberQAnswer": null,
-                    "neutralRound": {
-                        "id": 11,
-                        "roundId": 12,
-                        "attackOrderNumber": 3,
-                        "round": {
-                            "id": 12,
-                            "roundStage": 0,
-                            "attackStage": 0,
-                            "gameInstanceId": 3,
-                            "gameRoundNumber": 1,
-                            "isTerritoryVotingOpen": true,
-                            "isQuestionVotingOpen": false,
-                            "description": "MultipleChoice question. Attacker vs NEUTRAL territory",
-                            "question": null,
-                            "pvpRound": null
-                        },
-                        "territoryAttackers": [
-                            {
-                                "id": 31,
-                                "attackOrderNumber": 1,
-                                "attackedTerritoryId": 52,
-                                "attackerWon": null,
-                                "attackerId": 3,
-                                "neutralRoundId": 11,
-                                "attackerMChoiceQAnswerId": null,
-                                "attackerNumberQAnswer": null,
-                                "attackedTerritory": {
-                                    "id": 52,
-                                    "mapTerritoryId": 8,
-                                    "gameInstanceId": 3,
-                                    "isCapital": false,
-                                    "territoryScore": 0,
-                                    "takenBy": null,
-                                    "attackedBy": 3,
-                                    "neutralRoundsAttacks": [],
-                                    "pvpRounds": [],
-                                    "mapTerritory": {
-                                        "id": 8,
-                                        "territoryName": "Kide",
-                                        "mapId": 1,
-                                        "map": null,
-                                        "bordersNextToTerritoryNavigation": [],
-                                        "bordersThisTerritoryNavigation": [],
-                                        "objectTerritory": []
-                                    }
-                                }
-                            },
-                            {
-                                "id": 33,
-                                "attackOrderNumber": 3,
-                                "attackedTerritoryId": null,
-                                "attackerWon": null,
-                                "attackerId": 2,
-                                "neutralRoundId": 11,
-                                "attackerMChoiceQAnswerId": null,
-                                "attackerNumberQAnswer": null,
-                                "attackedTerritory": null
-                            }
-                        ]
-                    }
-                }
-            ],
-            "pvpRounds": [],
-            "mapTerritory": {
-                "id": 17,
-                "territoryName": "Dager",
-                "mapId": 1,
-                "map": null,
-                "bordersNextToTerritoryNavigation": [],
-                "bordersThisTerritoryNavigation": [],
-                "objectTerritory": []
-            }
-        },
-        {
-            "id": 41,
+            "id": 421,
             "mapTerritoryId": 20,
-            "gameInstanceId": 3,
+            "gameInstanceId": 22,
             "isCapital": false,
             "territoryScore": 0,
-            "takenBy": null,
+            "takenBy": 1,
             "attackedBy": null,
             "neutralRoundsAttacks": [],
             "pvpRounds": [],
@@ -404,52 +222,12 @@ export const gameInstanceMock = {
             }
         },
         {
-            "id": 42,
-            "mapTerritoryId": 19,
-            "gameInstanceId": 3,
-            "isCapital": false,
-            "territoryScore": 0,
-            "takenBy": null,
-            "attackedBy": null,
-            "neutralRoundsAttacks": [],
-            "pvpRounds": [],
-            "mapTerritory": {
-                "id": 19,
-                "territoryName": "Rospa",
-                "mapId": 1,
-                "map": null,
-                "bordersNextToTerritoryNavigation": [],
-                "bordersThisTerritoryNavigation": [],
-                "objectTerritory": []
-            }
-        },
-        {
-            "id": 43,
-            "mapTerritoryId": 18,
-            "gameInstanceId": 3,
-            "isCapital": false,
-            "territoryScore": 0,
-            "takenBy": null,
-            "attackedBy": null,
-            "neutralRoundsAttacks": [],
-            "pvpRounds": [],
-            "mapTerritory": {
-                "id": 18,
-                "territoryName": "Ranku",
-                "mapId": 1,
-                "map": null,
-                "bordersNextToTerritoryNavigation": [],
-                "bordersThisTerritoryNavigation": [],
-                "objectTerritory": []
-            }
-        },
-        {
-            "id": 45,
+            "id": 425,
             "mapTerritoryId": 16,
-            "gameInstanceId": 3,
+            "gameInstanceId": 22,
             "isCapital": false,
             "territoryScore": 0,
-            "takenBy": null,
+            "takenBy": 1,
             "attackedBy": null,
             "neutralRoundsAttacks": [],
             "pvpRounds": [],
@@ -464,12 +242,12 @@ export const gameInstanceMock = {
             }
         },
         {
-            "id": 46,
+            "id": 426,
             "mapTerritoryId": 15,
-            "gameInstanceId": 3,
+            "gameInstanceId": 22,
             "isCapital": false,
             "territoryScore": 0,
-            "takenBy": null,
+            "takenBy": 1,
             "attackedBy": null,
             "neutralRoundsAttacks": [],
             "pvpRounds": [],
@@ -484,32 +262,12 @@ export const gameInstanceMock = {
             }
         },
         {
-            "id": 47,
-            "mapTerritoryId": 14,
-            "gameInstanceId": 3,
-            "isCapital": false,
-            "territoryScore": 0,
-            "takenBy": null,
-            "attackedBy": null,
-            "neutralRoundsAttacks": [],
-            "pvpRounds": [],
-            "mapTerritory": {
-                "id": 14,
-                "territoryName": "Tustra",
-                "mapId": 1,
-                "map": null,
-                "bordersNextToTerritoryNavigation": [],
-                "bordersThisTerritoryNavigation": [],
-                "objectTerritory": []
-            }
-        },
-        {
-            "id": 48,
+            "id": 428,
             "mapTerritoryId": 12,
-            "gameInstanceId": 3,
-            "isCapital": false,
+            "gameInstanceId": 22,
+            "isCapital": true,
             "territoryScore": 0,
-            "takenBy": null,
+            "takenBy": 1,
             "attackedBy": null,
             "neutralRoundsAttacks": [],
             "pvpRounds": [],
@@ -524,10 +282,201 @@ export const gameInstanceMock = {
             }
         },
         {
-            "id": 49,
+            "id": 431,
+            "mapTerritoryId": 9,
+            "gameInstanceId": 22,
+            "isCapital": false,
+            "territoryScore": 0,
+            "takenBy": 1,
+            "attackedBy": null,
+            "neutralRoundsAttacks": [],
+            "pvpRounds": [],
+            "mapTerritory": {
+                "id": 9,
+                "territoryName": "Renyt",
+                "mapId": 1,
+                "map": null,
+                "bordersNextToTerritoryNavigation": [],
+                "bordersThisTerritoryNavigation": [],
+                "objectTerritory": []
+            }
+        },
+        {
+            "id": 432,
+            "mapTerritoryId": 8,
+            "gameInstanceId": 22,
+            "isCapital": false,
+            "territoryScore": 0,
+            "takenBy": 1,
+            "attackedBy": null,
+            "neutralRoundsAttacks": [],
+            "pvpRounds": [],
+            "mapTerritory": {
+                "id": 8,
+                "territoryName": "Kide",
+                "mapId": 1,
+                "map": null,
+                "bordersNextToTerritoryNavigation": [],
+                "bordersThisTerritoryNavigation": [],
+                "objectTerritory": []
+            }
+        },
+        {
+            "id": 436,
+            "mapTerritoryId": 4,
+            "gameInstanceId": 22,
+            "isCapital": false,
+            "territoryScore": 0,
+            "takenBy": 1,
+            "attackedBy": null,
+            "neutralRoundsAttacks": [],
+            "pvpRounds": [
+                {
+                    "id": 379,
+                    "attackerId": 2,
+                    "defenderId": 1,
+                    "winnerId": 1,
+                    "attackedTerritoryId": 436,
+                    "roundId": 506,
+                    "numberQuestion": null,
+                    "round": {
+                        "id": 506,
+                        "attackStage": 2,
+                        "gameInstanceId": 22,
+                        "gameRoundNumber": 41,
+                        "isTerritoryVotingOpen": false,
+                        "isQuestionVotingOpen": false,
+                        "questionOpenedAt": null,
+                        "description": "MultipleChoice question. Attacker vs NEUTRAL territory",
+                        "question": null,
+                        "neutralRound": null
+                    },
+                    "pvpRoundAnswers": [
+                        {
+                            "id": 19,
+                            "userId": 1,
+                            "mChoiceQAnswerId": 2395,
+                            "numberQAnswer": null,
+                            "pvpRoundId": 379
+                        }
+                    ]
+                }
+            ],
+            "mapTerritory": {
+                "id": 4,
+                "territoryName": "Ronetia",
+                "mapId": 1,
+                "map": null,
+                "bordersNextToTerritoryNavigation": [],
+                "bordersThisTerritoryNavigation": [],
+                "objectTerritory": []
+            }
+        },
+        {
+            "id": 437,
+            "mapTerritoryId": 3,
+            "gameInstanceId": 22,
+            "isCapital": false,
+            "territoryScore": 0,
+            "takenBy": 1,
+            "attackedBy": null,
+            "neutralRoundsAttacks": [],
+            "pvpRounds": [],
+            "mapTerritory": {
+                "id": 3,
+                "territoryName": "Prusnia",
+                "mapId": 1,
+                "map": null,
+                "bordersNextToTerritoryNavigation": [],
+                "bordersThisTerritoryNavigation": [],
+                "objectTerritory": []
+            }
+        },
+        {
+            "id": 422,
+            "mapTerritoryId": 19,
+            "gameInstanceId": 22,
+            "isCapital": false,
+            "territoryScore": 0,
+            "takenBy": 3,
+            "attackedBy": null,
+            "neutralRoundsAttacks": [],
+            "pvpRounds": [],
+            "mapTerritory": {
+                "id": 19,
+                "territoryName": "Rospa",
+                "mapId": 1,
+                "map": null,
+                "bordersNextToTerritoryNavigation": [],
+                "bordersThisTerritoryNavigation": [],
+                "objectTerritory": []
+            }
+        },
+        {
+            "id": 423,
+            "mapTerritoryId": 18,
+            "gameInstanceId": 22,
+            "isCapital": false,
+            "territoryScore": 0,
+            "takenBy": 2,
+            "attackedBy": null,
+            "neutralRoundsAttacks": [],
+            "pvpRounds": [],
+            "mapTerritory": {
+                "id": 18,
+                "territoryName": "Ranku",
+                "mapId": 1,
+                "map": null,
+                "bordersNextToTerritoryNavigation": [],
+                "bordersThisTerritoryNavigation": [],
+                "objectTerritory": []
+            }
+        },
+        {
+            "id": 424,
+            "mapTerritoryId": 17,
+            "gameInstanceId": 22,
+            "isCapital": false,
+            "territoryScore": 0,
+            "takenBy": 2,
+            "attackedBy": null,
+            "neutralRoundsAttacks": [],
+            "pvpRounds": [],
+            "mapTerritory": {
+                "id": 17,
+                "territoryName": "Dager",
+                "mapId": 1,
+                "map": null,
+                "bordersNextToTerritoryNavigation": [],
+                "bordersThisTerritoryNavigation": [],
+                "objectTerritory": []
+            }
+        },
+        {
+            "id": 427,
+            "mapTerritoryId": 14,
+            "gameInstanceId": 22,
+            "isCapital": false,
+            "territoryScore": 0,
+            "takenBy": 3,
+            "attackedBy": null,
+            "neutralRoundsAttacks": [],
+            "pvpRounds": [],
+            "mapTerritory": {
+                "id": 14,
+                "territoryName": "Tustra",
+                "mapId": 1,
+                "map": null,
+                "bordersNextToTerritoryNavigation": [],
+                "bordersThisTerritoryNavigation": [],
+                "objectTerritory": []
+            }
+        },
+        {
+            "id": 429,
             "mapTerritoryId": 11,
-            "gameInstanceId": 3,
-            "isCapital": true,
+            "gameInstanceId": 22,
+            "isCapital": false,
             "territoryScore": 0,
             "takenBy": 2,
             "attackedBy": null,
@@ -544,12 +493,12 @@ export const gameInstanceMock = {
             }
         },
         {
-            "id": 50,
+            "id": 430,
             "mapTerritoryId": 13,
-            "gameInstanceId": 3,
+            "gameInstanceId": 22,
             "isCapital": false,
             "territoryScore": 0,
-            "takenBy": null,
+            "takenBy": 3,
             "attackedBy": null,
             "neutralRoundsAttacks": [],
             "pvpRounds": [],
@@ -564,32 +513,12 @@ export const gameInstanceMock = {
             }
         },
         {
-            "id": 51,
-            "mapTerritoryId": 9,
-            "gameInstanceId": 3,
-            "isCapital": false,
-            "territoryScore": 0,
-            "takenBy": null,
-            "attackedBy": null,
-            "neutralRoundsAttacks": [],
-            "pvpRounds": [],
-            "mapTerritory": {
-                "id": 9,
-                "territoryName": "Renyt",
-                "mapId": 1,
-                "map": null,
-                "bordersNextToTerritoryNavigation": [],
-                "bordersThisTerritoryNavigation": [],
-                "objectTerritory": []
-            }
-        },
-        {
-            "id": 53,
+            "id": 433,
             "mapTerritoryId": 7,
-            "gameInstanceId": 3,
+            "gameInstanceId": 22,
             "isCapital": false,
             "territoryScore": 0,
-            "takenBy": null,
+            "takenBy": 2,
             "attackedBy": null,
             "neutralRoundsAttacks": [],
             "pvpRounds": [],
@@ -604,12 +533,12 @@ export const gameInstanceMock = {
             }
         },
         {
-            "id": 54,
+            "id": 434,
             "mapTerritoryId": 6,
-            "gameInstanceId": 3,
+            "gameInstanceId": 22,
             "isCapital": false,
             "territoryScore": 0,
-            "takenBy": null,
+            "takenBy": 2,
             "attackedBy": null,
             "neutralRoundsAttacks": [],
             "pvpRounds": [],
@@ -624,12 +553,12 @@ export const gameInstanceMock = {
             }
         },
         {
-            "id": 55,
+            "id": 435,
             "mapTerritoryId": 5,
-            "gameInstanceId": 3,
-            "isCapital": false,
+            "gameInstanceId": 22,
+            "isCapital": true,
             "territoryScore": 0,
-            "takenBy": null,
+            "takenBy": 3,
             "attackedBy": null,
             "neutralRoundsAttacks": [],
             "pvpRounds": [],
@@ -644,52 +573,12 @@ export const gameInstanceMock = {
             }
         },
         {
-            "id": 56,
-            "mapTerritoryId": 4,
-            "gameInstanceId": 3,
-            "isCapital": true,
-            "territoryScore": 0,
-            "takenBy": 3,
-            "attackedBy": null,
-            "neutralRoundsAttacks": [],
-            "pvpRounds": [],
-            "mapTerritory": {
-                "id": 4,
-                "territoryName": "Ronetia",
-                "mapId": 1,
-                "map": null,
-                "bordersNextToTerritoryNavigation": [],
-                "bordersThisTerritoryNavigation": [],
-                "objectTerritory": []
-            }
-        },
-        {
-            "id": 57,
-            "mapTerritoryId": 3,
-            "gameInstanceId": 3,
-            "isCapital": false,
-            "territoryScore": 0,
-            "takenBy": null,
-            "attackedBy": null,
-            "neutralRoundsAttacks": [],
-            "pvpRounds": [],
-            "mapTerritory": {
-                "id": 3,
-                "territoryName": "Prusnia",
-                "mapId": 1,
-                "map": null,
-                "bordersNextToTerritoryNavigation": [],
-                "bordersThisTerritoryNavigation": [],
-                "objectTerritory": []
-            }
-        },
-        {
-            "id": 58,
+            "id": 438,
             "mapTerritoryId": 2,
-            "gameInstanceId": 3,
+            "gameInstanceId": 22,
             "isCapital": false,
             "territoryScore": 0,
-            "takenBy": null,
+            "takenBy": 2,
             "attackedBy": null,
             "neutralRoundsAttacks": [],
             "pvpRounds": [],
@@ -704,12 +593,12 @@ export const gameInstanceMock = {
             }
         },
         {
-            "id": 59,
+            "id": 439,
             "mapTerritoryId": 10,
-            "gameInstanceId": 3,
+            "gameInstanceId": 22,
             "isCapital": false,
             "territoryScore": 0,
-            "takenBy": null,
+            "takenBy": 2,
             "attackedBy": null,
             "neutralRoundsAttacks": [],
             "pvpRounds": [],
@@ -724,12 +613,12 @@ export const gameInstanceMock = {
             }
         },
         {
-            "id": 60,
+            "id": 440,
             "mapTerritoryId": 1,
-            "gameInstanceId": 3,
+            "gameInstanceId": 22,
             "isCapital": true,
             "territoryScore": 0,
-            "takenBy": 1,
+            "takenBy": 2,
             "attackedBy": null,
             "neutralRoundsAttacks": [],
             "pvpRounds": [],
@@ -746,10 +635,10 @@ export const gameInstanceMock = {
     ],
     "participants": [
         {
-            "id": 7,
-            "avatarName": "penguinAvatar3",
+            "id": 64,
+            "avatarName": "penguinAvatar2",
             "playerId": 1,
-            "gameId": 3,
+            "gameId": 22,
             "isBot": false,
             "score": 0,
             "player": {
@@ -761,30 +650,30 @@ export const gameInstanceMock = {
             }
         },
         {
-            "id": 8,
-            "avatarName": "penguinAvatar2",
+            "id": 65,
+            "avatarName": "penguinAvatar3",
             "playerId": 3,
-            "gameId": 3,
+            "gameId": 22,
             "isBot": false,
             "score": 0,
             "player": {
                 "id": 3,
-                "username": "Alex Todorov",
+                "username": "Aleksandar Todorov",
                 "isInGame": false,
                 "externalId": 3,
                 "participants": []
             }
         },
         {
-            "id": 9,
+            "id": 66,
             "avatarName": "penguinAvatar",
             "playerId": 2,
-            "gameId": 3,
+            "gameId": 22,
             "isBot": false,
             "score": 0,
             "player": {
                 "id": 2,
-                "username": "Aleksandar Todorov",
+                "username": "Alex Todorov",
                 "isInGame": false,
                 "externalId": 2,
                 "participants": []
@@ -793,191 +682,144 @@ export const gameInstanceMock = {
     ],
     "rounds": [
         {
-            "id": 12,
-            "roundStage": 0,
+            "id": 485,
             "attackStage": 0,
-            "gameInstanceId": 3,
+            "gameInstanceId": 22,
             "gameRoundNumber": 1,
-            "isTerritoryVotingOpen": true,
-            "isQuestionVotingOpen": false,
-            "description": "MultipleChoice question. Attacker vs NEUTRAL territory",
-            "question": null,
-            "neutralRound": {
-                "id": 11,
-                "roundId": 12,
-                "attackOrderNumber": 3,
-                "territoryAttackers": [
-                    {
-                        "id": 31,
-                        "attackOrderNumber": 1,
-                        "attackedTerritoryId": 52,
-                        "attackerWon": null,
-                        "attackerId": 3,
-                        "neutralRoundId": 11,
-                        "attackerMChoiceQAnswerId": null,
-                        "attackerNumberQAnswer": null,
-                        "attackedTerritory": {
-                            "id": 52,
-                            "mapTerritoryId": 8,
-                            "gameInstanceId": 3,
-                            "isCapital": false,
-                            "territoryScore": 0,
-                            "takenBy": null,
-                            "attackedBy": 3,
-                            "neutralRoundsAttacks": [],
-                            "pvpRounds": [],
-                            "mapTerritory": {
-                                "id": 8,
-                                "territoryName": "Kide",
-                                "mapId": 1,
-                                "map": null,
-                                "bordersNextToTerritoryNavigation": [],
-                                "bordersThisTerritoryNavigation": [],
-                                "objectTerritory": []
-                            }
-                        }
-                    },
-                    {
-                        "id": 32,
-                        "attackOrderNumber": 2,
-                        "attackedTerritoryId": 44,
-                        "attackerWon": null,
-                        "attackerId": 1,
-                        "neutralRoundId": 11,
-                        "attackerMChoiceQAnswerId": null,
-                        "attackerNumberQAnswer": null,
-                        "attackedTerritory": {
-                            "id": 44,
-                            "mapTerritoryId": 17,
-                            "gameInstanceId": 3,
-                            "isCapital": false,
-                            "territoryScore": 0,
-                            "takenBy": null,
-                            "attackedBy": 1,
-                            "neutralRoundsAttacks": [],
-                            "pvpRounds": [],
-                            "mapTerritory": {
-                                "id": 17,
-                                "territoryName": "Dager",
-                                "mapId": 1,
-                                "map": null,
-                                "bordersNextToTerritoryNavigation": [],
-                                "bordersThisTerritoryNavigation": [],
-                                "objectTerritory": []
-                            }
-                        }
-                    },
-                    {
-                        "id": 33,
-                        "attackOrderNumber": 3,
-                        "attackedTerritoryId": null,
-                        "attackerWon": null,
-                        "attackerId": 2,
-                        "neutralRoundId": 11,
-                        "attackerMChoiceQAnswerId": null,
-                        "attackerNumberQAnswer": null,
-                        "attackedTerritory": null
-                    }
-                ]
-            },
-            "pvpRound": null
-        },
-        {
-            "id": 11,
-            "roundStage": 0,
-            "attackStage": 0,
-            "gameInstanceId": 3,
-            "gameRoundNumber": 5,
             "isTerritoryVotingOpen": false,
             "isQuestionVotingOpen": false,
+            "questionOpenedAt": null,
             "description": "MultipleChoice question. Attacker vs NEUTRAL territory",
             "question": null,
             "neutralRound": {
-                "id": 15,
-                "roundId": 11,
+                "id": 106,
+                "roundId": 485,
                 "attackOrderNumber": 1,
                 "territoryAttackers": [
                     {
-                        "id": 43,
+                        "id": 316,
                         "attackOrderNumber": 1,
                         "attackedTerritoryId": null,
-                        "attackerWon": null,
-                        "attackerId": 3,
-                        "neutralRoundId": 15,
-                        "attackerMChoiceQAnswerId": null,
-                        "attackerNumberQAnswer": null,
-                        "attackedTerritory": null
-                    },
-                    {
-                        "id": 44,
-                        "attackOrderNumber": 2,
-                        "attackedTerritoryId": null,
-                        "attackerWon": null,
-                        "attackerId": 1,
-                        "neutralRoundId": 15,
-                        "attackerMChoiceQAnswerId": null,
-                        "attackerNumberQAnswer": null,
-                        "attackedTerritory": null
-                    },
-                    {
-                        "id": 45,
-                        "attackOrderNumber": 3,
-                        "attackedTerritoryId": null,
+                        "answeredAt": null,
                         "attackerWon": null,
                         "attackerId": 2,
-                        "neutralRoundId": 15,
+                        "neutralRoundId": 106,
+                        "attackerMChoiceQAnswerId": null,
+                        "attackerNumberQAnswer": null,
+                        "attackedTerritory": null
+                    },
+                    {
+                        "id": 317,
+                        "attackOrderNumber": 2,
+                        "attackedTerritoryId": null,
+                        "answeredAt": null,
+                        "attackerWon": null,
+                        "attackerId": 1,
+                        "neutralRoundId": 106,
+                        "attackerMChoiceQAnswerId": null,
+                        "attackerNumberQAnswer": null,
+                        "attackedTerritory": null
+                    },
+                    {
+                        "id": 318,
+                        "attackOrderNumber": 3,
+                        "attackedTerritoryId": null,
+                        "answeredAt": null,
+                        "attackerWon": null,
+                        "attackerId": 3,
+                        "neutralRoundId": 106,
                         "attackerMChoiceQAnswerId": null,
                         "attackerNumberQAnswer": null,
                         "attackedTerritory": null
                     }
                 ]
             },
-            "pvpRound": null
+            "pvpRound": {
+                "id": 379,
+                "attackerId": 2,
+                "defenderId": 1,
+                "winnerId": 1,
+                "attackedTerritoryId": 436,
+                "roundId": 506,
+                "numberQuestion": null,
+                "attackedTerritory": {
+                    "id": 436,
+                    "mapTerritoryId": 4,
+                    "gameInstanceId": 22,
+                    "isCapital": false,
+                    "territoryScore": 0,
+                    "takenBy": 1,
+                    "attackedBy": null,
+                    "neutralRoundsAttacks": [],
+                    "pvpRounds": [],
+                    "mapTerritory": {
+                        "id": 4,
+                        "territoryName": "Ronetia",
+                        "mapId": 1,
+                        "map": null,
+                        "bordersNextToTerritoryNavigation": [],
+                        "bordersThisTerritoryNavigation": [],
+                        "objectTerritory": []
+                    }
+                },
+                "pvpRoundAnswers": [
+                    {
+                        "id": 19,
+                        "userId": 1,
+                        "mChoiceQAnswerId": 2395,
+                        "numberQAnswer": null,
+                        "pvpRoundId": 379
+                    }
+                ]
+            }
         },
         {
-            "id": 13,
-            "roundStage": 0,
+            "id": 486,
             "attackStage": 0,
-            "gameInstanceId": 3,
+            "gameInstanceId": 22,
             "gameRoundNumber": 2,
             "isTerritoryVotingOpen": false,
             "isQuestionVotingOpen": false,
+            "questionOpenedAt": null,
             "description": "MultipleChoice question. Attacker vs NEUTRAL territory",
             "question": null,
             "neutralRound": {
-                "id": 12,
-                "roundId": 13,
+                "id": 107,
+                "roundId": 486,
                 "attackOrderNumber": 1,
                 "territoryAttackers": [
                     {
-                        "id": 34,
+                        "id": 319,
                         "attackOrderNumber": 1,
                         "attackedTerritoryId": null,
-                        "attackerWon": null,
-                        "attackerId": 1,
-                        "neutralRoundId": 12,
-                        "attackerMChoiceQAnswerId": null,
-                        "attackerNumberQAnswer": null,
-                        "attackedTerritory": null
-                    },
-                    {
-                        "id": 35,
-                        "attackOrderNumber": 2,
-                        "attackedTerritoryId": null,
-                        "attackerWon": null,
-                        "attackerId": 2,
-                        "neutralRoundId": 12,
-                        "attackerMChoiceQAnswerId": null,
-                        "attackerNumberQAnswer": null,
-                        "attackedTerritory": null
-                    },
-                    {
-                        "id": 36,
-                        "attackOrderNumber": 3,
-                        "attackedTerritoryId": null,
+                        "answeredAt": null,
                         "attackerWon": null,
                         "attackerId": 3,
-                        "neutralRoundId": 12,
+                        "neutralRoundId": 107,
+                        "attackerMChoiceQAnswerId": null,
+                        "attackerNumberQAnswer": null,
+                        "attackedTerritory": null
+                    },
+                    {
+                        "id": 320,
+                        "attackOrderNumber": 2,
+                        "attackedTerritoryId": null,
+                        "answeredAt": null,
+                        "attackerWon": null,
+                        "attackerId": 2,
+                        "neutralRoundId": 107,
+                        "attackerMChoiceQAnswerId": null,
+                        "attackerNumberQAnswer": null,
+                        "attackedTerritory": null
+                    },
+                    {
+                        "id": 321,
+                        "attackOrderNumber": 3,
+                        "attackedTerritoryId": null,
+                        "answeredAt": null,
+                        "attackerWon": null,
+                        "attackerId": 1,
+                        "neutralRoundId": 107,
                         "attackerMChoiceQAnswerId": null,
                         "attackerNumberQAnswer": null,
                         "attackedTerritory": null
@@ -987,49 +829,52 @@ export const gameInstanceMock = {
             "pvpRound": null
         },
         {
-            "id": 14,
-            "roundStage": 0,
+            "id": 487,
             "attackStage": 0,
-            "gameInstanceId": 3,
+            "gameInstanceId": 22,
             "gameRoundNumber": 3,
             "isTerritoryVotingOpen": false,
             "isQuestionVotingOpen": false,
+            "questionOpenedAt": null,
             "description": "MultipleChoice question. Attacker vs NEUTRAL territory",
             "question": null,
             "neutralRound": {
-                "id": 13,
-                "roundId": 14,
+                "id": 108,
+                "roundId": 487,
                 "attackOrderNumber": 1,
                 "territoryAttackers": [
                     {
-                        "id": 37,
+                        "id": 322,
                         "attackOrderNumber": 1,
                         "attackedTerritoryId": null,
-                        "attackerWon": null,
-                        "attackerId": 1,
-                        "neutralRoundId": 13,
-                        "attackerMChoiceQAnswerId": null,
-                        "attackerNumberQAnswer": null,
-                        "attackedTerritory": null
-                    },
-                    {
-                        "id": 38,
-                        "attackOrderNumber": 2,
-                        "attackedTerritoryId": null,
-                        "attackerWon": null,
-                        "attackerId": 2,
-                        "neutralRoundId": 13,
-                        "attackerMChoiceQAnswerId": null,
-                        "attackerNumberQAnswer": null,
-                        "attackedTerritory": null
-                    },
-                    {
-                        "id": 39,
-                        "attackOrderNumber": 3,
-                        "attackedTerritoryId": null,
+                        "answeredAt": null,
                         "attackerWon": null,
                         "attackerId": 3,
-                        "neutralRoundId": 13,
+                        "neutralRoundId": 108,
+                        "attackerMChoiceQAnswerId": null,
+                        "attackerNumberQAnswer": null,
+                        "attackedTerritory": null
+                    },
+                    {
+                        "id": 323,
+                        "attackOrderNumber": 2,
+                        "attackedTerritoryId": null,
+                        "answeredAt": null,
+                        "attackerWon": null,
+                        "attackerId": 2,
+                        "neutralRoundId": 108,
+                        "attackerMChoiceQAnswerId": null,
+                        "attackerNumberQAnswer": null,
+                        "attackedTerritory": null
+                    },
+                    {
+                        "id": 324,
+                        "attackOrderNumber": 3,
+                        "attackedTerritoryId": null,
+                        "answeredAt": null,
+                        "attackerWon": null,
+                        "attackerId": 1,
+                        "neutralRoundId": 108,
                         "attackerMChoiceQAnswerId": null,
                         "attackerNumberQAnswer": null,
                         "attackedTerritory": null
@@ -1039,49 +884,52 @@ export const gameInstanceMock = {
             "pvpRound": null
         },
         {
-            "id": 15,
-            "roundStage": 0,
+            "id": 488,
             "attackStage": 0,
-            "gameInstanceId": 3,
+            "gameInstanceId": 22,
             "gameRoundNumber": 4,
             "isTerritoryVotingOpen": false,
             "isQuestionVotingOpen": false,
+            "questionOpenedAt": null,
             "description": "MultipleChoice question. Attacker vs NEUTRAL territory",
             "question": null,
             "neutralRound": {
-                "id": 14,
-                "roundId": 15,
+                "id": 109,
+                "roundId": 488,
                 "attackOrderNumber": 1,
                 "territoryAttackers": [
                     {
-                        "id": 40,
+                        "id": 325,
                         "attackOrderNumber": 1,
                         "attackedTerritoryId": null,
-                        "attackerWon": null,
-                        "attackerId": 1,
-                        "neutralRoundId": 14,
-                        "attackerMChoiceQAnswerId": null,
-                        "attackerNumberQAnswer": null,
-                        "attackedTerritory": null
-                    },
-                    {
-                        "id": 41,
-                        "attackOrderNumber": 2,
-                        "attackedTerritoryId": null,
-                        "attackerWon": null,
-                        "attackerId": 2,
-                        "neutralRoundId": 14,
-                        "attackerMChoiceQAnswerId": null,
-                        "attackerNumberQAnswer": null,
-                        "attackedTerritory": null
-                    },
-                    {
-                        "id": 42,
-                        "attackOrderNumber": 3,
-                        "attackedTerritoryId": null,
+                        "answeredAt": null,
                         "attackerWon": null,
                         "attackerId": 3,
-                        "neutralRoundId": 14,
+                        "neutralRoundId": 109,
+                        "attackerMChoiceQAnswerId": null,
+                        "attackerNumberQAnswer": null,
+                        "attackedTerritory": null
+                    },
+                    {
+                        "id": 326,
+                        "attackOrderNumber": 2,
+                        "attackedTerritoryId": null,
+                        "answeredAt": null,
+                        "attackerWon": null,
+                        "attackerId": 2,
+                        "neutralRoundId": 109,
+                        "attackerMChoiceQAnswerId": null,
+                        "attackerNumberQAnswer": null,
+                        "attackedTerritory": null
+                    },
+                    {
+                        "id": 327,
+                        "attackOrderNumber": 3,
+                        "attackedTerritoryId": null,
+                        "answeredAt": null,
+                        "attackerWon": null,
+                        "attackerId": 1,
+                        "neutralRoundId": 109,
                         "attackerMChoiceQAnswerId": null,
                         "attackerNumberQAnswer": null,
                         "attackedTerritory": null
@@ -1089,6 +937,502 @@ export const gameInstanceMock = {
                 ]
             },
             "pvpRound": null
+        },
+        {
+            "id": 484,
+            "attackStage": 0,
+            "gameInstanceId": 22,
+            "gameRoundNumber": 5,
+            "isTerritoryVotingOpen": false,
+            "isQuestionVotingOpen": false,
+            "questionOpenedAt": null,
+            "description": "MultipleChoice question. Attacker vs NEUTRAL territory",
+            "question": null,
+            "neutralRound": {
+                "id": 110,
+                "roundId": 484,
+                "attackOrderNumber": 1,
+                "territoryAttackers": [
+                    {
+                        "id": 328,
+                        "attackOrderNumber": 1,
+                        "attackedTerritoryId": null,
+                        "answeredAt": null,
+                        "attackerWon": null,
+                        "attackerId": 1,
+                        "neutralRoundId": 110,
+                        "attackerMChoiceQAnswerId": null,
+                        "attackerNumberQAnswer": null,
+                        "attackedTerritory": null
+                    },
+                    {
+                        "id": 329,
+                        "attackOrderNumber": 2,
+                        "attackedTerritoryId": null,
+                        "answeredAt": null,
+                        "attackerWon": null,
+                        "attackerId": 3,
+                        "neutralRoundId": 110,
+                        "attackerMChoiceQAnswerId": null,
+                        "attackerNumberQAnswer": null,
+                        "attackedTerritory": null
+                    },
+                    {
+                        "id": 330,
+                        "attackOrderNumber": 3,
+                        "attackedTerritoryId": null,
+                        "answeredAt": null,
+                        "attackerWon": null,
+                        "attackerId": 2,
+                        "neutralRoundId": 110,
+                        "attackerMChoiceQAnswerId": null,
+                        "attackerNumberQAnswer": null,
+                        "attackedTerritory": null
+                    }
+                ]
+            },
+            "pvpRound": null
+        },
+        {
+            "id": 506,
+            "attackStage": 2,
+            "gameInstanceId": 22,
+            "gameRoundNumber": 41,
+            "isTerritoryVotingOpen": false,
+            "isQuestionVotingOpen": false,
+            "questionOpenedAt": null,
+            "description": "MultipleChoice question. Attacker vs NEUTRAL territory",
+            "question": null,
+            "neutralRound": null,
+            "pvpRound": {
+                "id": 379,
+                "attackerId": 2,
+                "defenderId": 1,
+                "winnerId": 1,
+                "attackedTerritoryId": 436,
+                "roundId": 506,
+                "numberQuestion": null,
+                "attackedTerritory": {
+                    "id": 436,
+                    "mapTerritoryId": 4,
+                    "gameInstanceId": 22,
+                    "isCapital": false,
+                    "territoryScore": 0,
+                    "takenBy": 1,
+                    "attackedBy": null,
+                    "neutralRoundsAttacks": [],
+                    "pvpRounds": [],
+                    "mapTerritory": {
+                        "id": 4,
+                        "territoryName": "Ronetia",
+                        "mapId": 1,
+                        "map": null,
+                        "bordersNextToTerritoryNavigation": [],
+                        "bordersThisTerritoryNavigation": [],
+                        "objectTerritory": []
+                    }
+                },
+                "pvpRoundAnswers": [
+                    {
+                        "id": 19,
+                        "userId": 1,
+                        "mChoiceQAnswerId": 2395,
+                        "numberQAnswer": null,
+                        "pvpRoundId": 379
+                    }
+                ]
+            }
+        },
+        {
+            "id": 491,
+            "attackStage": 2,
+            "gameInstanceId": 22,
+            "gameRoundNumber": 42,
+            "isTerritoryVotingOpen": true,
+            "isQuestionVotingOpen": false,
+            "questionOpenedAt": null,
+            "description": "MultipleChoice question. Attacker vs NEUTRAL territory",
+            "question": null,
+            "neutralRound": null,
+            "pvpRound": {
+                "id": 394,
+                "attackerId": 1,
+                "defenderId": null,
+                "winnerId": null,
+                "attackedTerritoryId": null,
+                "roundId": 491,
+                "numberQuestion": null,
+                "attackedTerritory": null,
+                "pvpRoundAnswers": []
+            }
+        },
+        {
+            "id": 492,
+            "attackStage": 2,
+            "gameInstanceId": 22,
+            "gameRoundNumber": 43,
+            "isTerritoryVotingOpen": false,
+            "isQuestionVotingOpen": false,
+            "questionOpenedAt": null,
+            "description": "MultipleChoice question. Attacker vs NEUTRAL territory",
+            "question": null,
+            "neutralRound": null,
+            "pvpRound": {
+                "id": 393,
+                "attackerId": 3,
+                "defenderId": null,
+                "winnerId": null,
+                "attackedTerritoryId": null,
+                "roundId": 492,
+                "numberQuestion": null,
+                "attackedTerritory": null,
+                "pvpRoundAnswers": []
+            }
+        },
+        {
+            "id": 493,
+            "attackStage": 2,
+            "gameInstanceId": 22,
+            "gameRoundNumber": 44,
+            "isTerritoryVotingOpen": false,
+            "isQuestionVotingOpen": false,
+            "questionOpenedAt": null,
+            "description": "MultipleChoice question. Attacker vs NEUTRAL territory",
+            "question": null,
+            "neutralRound": null,
+            "pvpRound": {
+                "id": 392,
+                "attackerId": 3,
+                "defenderId": null,
+                "winnerId": null,
+                "attackedTerritoryId": null,
+                "roundId": 493,
+                "numberQuestion": null,
+                "attackedTerritory": null,
+                "pvpRoundAnswers": []
+            }
+        },
+        {
+            "id": 494,
+            "attackStage": 2,
+            "gameInstanceId": 22,
+            "gameRoundNumber": 45,
+            "isTerritoryVotingOpen": false,
+            "isQuestionVotingOpen": false,
+            "questionOpenedAt": null,
+            "description": "MultipleChoice question. Attacker vs NEUTRAL territory",
+            "question": null,
+            "neutralRound": null,
+            "pvpRound": {
+                "id": 391,
+                "attackerId": 1,
+                "defenderId": null,
+                "winnerId": null,
+                "attackedTerritoryId": null,
+                "roundId": 494,
+                "numberQuestion": null,
+                "attackedTerritory": null,
+                "pvpRoundAnswers": []
+            }
+        },
+        {
+            "id": 495,
+            "attackStage": 2,
+            "gameInstanceId": 22,
+            "gameRoundNumber": 46,
+            "isTerritoryVotingOpen": false,
+            "isQuestionVotingOpen": false,
+            "questionOpenedAt": null,
+            "description": "MultipleChoice question. Attacker vs NEUTRAL territory",
+            "question": null,
+            "neutralRound": null,
+            "pvpRound": {
+                "id": 390,
+                "attackerId": 2,
+                "defenderId": null,
+                "winnerId": null,
+                "attackedTerritoryId": null,
+                "roundId": 495,
+                "numberQuestion": null,
+                "attackedTerritory": null,
+                "pvpRoundAnswers": []
+            }
+        },
+        {
+            "id": 496,
+            "attackStage": 2,
+            "gameInstanceId": 22,
+            "gameRoundNumber": 47,
+            "isTerritoryVotingOpen": false,
+            "isQuestionVotingOpen": false,
+            "questionOpenedAt": null,
+            "description": "MultipleChoice question. Attacker vs NEUTRAL territory",
+            "question": null,
+            "neutralRound": null,
+            "pvpRound": {
+                "id": 389,
+                "attackerId": 1,
+                "defenderId": null,
+                "winnerId": null,
+                "attackedTerritoryId": null,
+                "roundId": 496,
+                "numberQuestion": null,
+                "attackedTerritory": null,
+                "pvpRoundAnswers": []
+            }
+        },
+        {
+            "id": 498,
+            "attackStage": 2,
+            "gameInstanceId": 22,
+            "gameRoundNumber": 48,
+            "isTerritoryVotingOpen": false,
+            "isQuestionVotingOpen": false,
+            "questionOpenedAt": null,
+            "description": "MultipleChoice question. Attacker vs NEUTRAL territory",
+            "question": null,
+            "neutralRound": null,
+            "pvpRound": {
+                "id": 388,
+                "attackerId": 3,
+                "defenderId": null,
+                "winnerId": null,
+                "attackedTerritoryId": null,
+                "roundId": 498,
+                "numberQuestion": null,
+                "attackedTerritory": null,
+                "pvpRoundAnswers": []
+            }
+        },
+        {
+            "id": 505,
+            "attackStage": 2,
+            "gameInstanceId": 22,
+            "gameRoundNumber": 49,
+            "isTerritoryVotingOpen": false,
+            "isQuestionVotingOpen": false,
+            "questionOpenedAt": null,
+            "description": "MultipleChoice question. Attacker vs NEUTRAL territory",
+            "question": null,
+            "neutralRound": null,
+            "pvpRound": {
+                "id": 387,
+                "attackerId": 2,
+                "defenderId": null,
+                "winnerId": null,
+                "attackedTerritoryId": null,
+                "roundId": 505,
+                "numberQuestion": null,
+                "attackedTerritory": null,
+                "pvpRoundAnswers": []
+            }
+        },
+        {
+            "id": 499,
+            "attackStage": 2,
+            "gameInstanceId": 22,
+            "gameRoundNumber": 50,
+            "isTerritoryVotingOpen": false,
+            "isQuestionVotingOpen": false,
+            "questionOpenedAt": null,
+            "description": "MultipleChoice question. Attacker vs NEUTRAL territory",
+            "question": null,
+            "neutralRound": null,
+            "pvpRound": {
+                "id": 386,
+                "attackerId": 1,
+                "defenderId": null,
+                "winnerId": null,
+                "attackedTerritoryId": null,
+                "roundId": 499,
+                "numberQuestion": null,
+                "attackedTerritory": null,
+                "pvpRoundAnswers": []
+            }
+        },
+        {
+            "id": 500,
+            "attackStage": 2,
+            "gameInstanceId": 22,
+            "gameRoundNumber": 51,
+            "isTerritoryVotingOpen": false,
+            "isQuestionVotingOpen": false,
+            "questionOpenedAt": null,
+            "description": "MultipleChoice question. Attacker vs NEUTRAL territory",
+            "question": null,
+            "neutralRound": null,
+            "pvpRound": {
+                "id": 385,
+                "attackerId": 3,
+                "defenderId": null,
+                "winnerId": null,
+                "attackedTerritoryId": null,
+                "roundId": 500,
+                "numberQuestion": null,
+                "attackedTerritory": null,
+                "pvpRoundAnswers": []
+            }
+        },
+        {
+            "id": 501,
+            "attackStage": 2,
+            "gameInstanceId": 22,
+            "gameRoundNumber": 52,
+            "isTerritoryVotingOpen": false,
+            "isQuestionVotingOpen": false,
+            "questionOpenedAt": null,
+            "description": "MultipleChoice question. Attacker vs NEUTRAL territory",
+            "question": null,
+            "neutralRound": null,
+            "pvpRound": {
+                "id": 384,
+                "attackerId": 2,
+                "defenderId": null,
+                "winnerId": null,
+                "attackedTerritoryId": null,
+                "roundId": 501,
+                "numberQuestion": null,
+                "attackedTerritory": null,
+                "pvpRoundAnswers": []
+            }
+        },
+        {
+            "id": 502,
+            "attackStage": 2,
+            "gameInstanceId": 22,
+            "gameRoundNumber": 53,
+            "isTerritoryVotingOpen": false,
+            "isQuestionVotingOpen": false,
+            "questionOpenedAt": null,
+            "description": "MultipleChoice question. Attacker vs NEUTRAL territory",
+            "question": null,
+            "neutralRound": null,
+            "pvpRound": {
+                "id": 383,
+                "attackerId": 3,
+                "defenderId": null,
+                "winnerId": null,
+                "attackedTerritoryId": null,
+                "roundId": 502,
+                "numberQuestion": null,
+                "attackedTerritory": null,
+                "pvpRoundAnswers": []
+            }
+        },
+        {
+            "id": 503,
+            "attackStage": 2,
+            "gameInstanceId": 22,
+            "gameRoundNumber": 54,
+            "isTerritoryVotingOpen": false,
+            "isQuestionVotingOpen": false,
+            "questionOpenedAt": null,
+            "description": "MultipleChoice question. Attacker vs NEUTRAL territory",
+            "question": null,
+            "neutralRound": null,
+            "pvpRound": {
+                "id": 382,
+                "attackerId": 1,
+                "defenderId": null,
+                "winnerId": null,
+                "attackedTerritoryId": null,
+                "roundId": 503,
+                "numberQuestion": null,
+                "attackedTerritory": null,
+                "pvpRoundAnswers": []
+            }
+        },
+        {
+            "id": 504,
+            "attackStage": 2,
+            "gameInstanceId": 22,
+            "gameRoundNumber": 55,
+            "isTerritoryVotingOpen": false,
+            "isQuestionVotingOpen": false,
+            "questionOpenedAt": null,
+            "description": "MultipleChoice question. Attacker vs NEUTRAL territory",
+            "question": null,
+            "neutralRound": null,
+            "pvpRound": {
+                "id": 381,
+                "attackerId": 2,
+                "defenderId": null,
+                "winnerId": null,
+                "attackedTerritoryId": null,
+                "roundId": 504,
+                "numberQuestion": null,
+                "attackedTerritory": null,
+                "pvpRoundAnswers": []
+            }
+        },
+        {
+            "id": 490,
+            "attackStage": 2,
+            "gameInstanceId": 22,
+            "gameRoundNumber": 56,
+            "isTerritoryVotingOpen": false,
+            "isQuestionVotingOpen": false,
+            "questionOpenedAt": null,
+            "description": "MultipleChoice question. Attacker vs NEUTRAL territory",
+            "question": null,
+            "neutralRound": null,
+            "pvpRound": {
+                "id": 380,
+                "attackerId": 2,
+                "defenderId": null,
+                "winnerId": null,
+                "attackedTerritoryId": null,
+                "roundId": 490,
+                "numberQuestion": null,
+                "attackedTerritory": null,
+                "pvpRoundAnswers": []
+            }
+        },
+        {
+            "id": 497,
+            "attackStage": 2,
+            "gameInstanceId": 22,
+            "gameRoundNumber": 57,
+            "isTerritoryVotingOpen": false,
+            "isQuestionVotingOpen": false,
+            "questionOpenedAt": null,
+            "description": "MultipleChoice question. Attacker vs NEUTRAL territory",
+            "question": null,
+            "neutralRound": null,
+            "pvpRound": {
+                "id": 395,
+                "attackerId": 1,
+                "defenderId": null,
+                "winnerId": null,
+                "attackedTerritoryId": null,
+                "roundId": 497,
+                "numberQuestion": null,
+                "attackedTerritory": null,
+                "pvpRoundAnswers": []
+            }
+        },
+        {
+            "id": 489,
+            "attackStage": 2,
+            "gameInstanceId": 22,
+            "gameRoundNumber": 58,
+            "isTerritoryVotingOpen": false,
+            "isQuestionVotingOpen": false,
+            "questionOpenedAt": null,
+            "description": "MultipleChoice question. Attacker vs NEUTRAL territory",
+            "question": null,
+            "neutralRound": null,
+            "pvpRound": {
+                "id": 396,
+                "attackerId": 3,
+                "defenderId": null,
+                "winnerId": null,
+                "attackedTerritoryId": null,
+                "roundId": 489,
+                "numberQuestion": null,
+                "attackedTerritory": null,
+                "pvpRoundAnswers": []
+            }
         }
     ]
 }

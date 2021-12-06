@@ -35,7 +35,7 @@ export default function GameMap() {
         const currentRound = gameInstance.rounds.find(x => x.gameRoundNumber == gameInstance.gameRoundNumber)
         switch (RoundAttackStage(currentRound.attackStage)) {
             case "MULTIPLE_NEUTRAL":
-            case "NUMBER_NEUTRAL":
+            case "MULTIPLE_PVP":
 
                 // Check if the click was issued by a user who's turn is this one
                 // If it ain't drop the request
