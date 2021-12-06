@@ -142,8 +142,10 @@ export function useSignalR() {
 
         // Question events
         connection.on('GetRoundQuestion', ((roundQuestion, msTimeForAction) => {
-            setRoundQuestion(roundQuestion)
+            setPlayerQuestionAnswers("")
+            
             setGameTimer((msTimeForAction - 1000) / 1000)
+            setRoundQuestion(roundQuestion)
         }))
 
         connection.on('MCQuestionPreviewResult', ((previewResult) => {
