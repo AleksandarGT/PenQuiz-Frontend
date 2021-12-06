@@ -178,6 +178,43 @@ export const multipleChoiceQuestionMock = {
     ],
 }
 
+export const multipleChoicePvpQuestionMock = {
+    "id": 1,
+    "isNeutral": false,
+    "question": "When was Bulgaria founded?",
+    "type": "multiple",
+    "answers": [
+        {
+            "id": 1,
+            "answer": "681"
+        },
+        {
+            "id": 2,
+            "answer": "1332"
+        },
+        {
+            "id": 3,
+            "answer": "806"
+        },
+        {
+            "id": 4,
+            "answer": "927"
+        },
+    ],
+    "attackerId": 1,
+    "defenderId": 2,
+    "participants": [
+        {
+            "avatarName": "penguinAvatar",
+            "playerId": 1,
+        },
+        {
+            "avatarName": "penguinAvatar2",
+            "playerId": 2,
+        }
+    ],
+}
+
 export const playerAttackPossibilitiesMock = {
     "availableAttackTerritories": [
         "Lisu",

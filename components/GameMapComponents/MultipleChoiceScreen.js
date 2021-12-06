@@ -1,7 +1,7 @@
 import { Box, Center, Container, HStack, Text, VStack, Image, Divider, Pressable } from 'native-base'
 import React, { useEffect, useState } from 'react'
 import { ImageBackground, View } from 'react-native'
-import { gameInstanceMock, gameSvgs, GetAvatarColor, multipleChoiceQuestionMock, playerQuestionAnswersMock } from './CommonGameFunc';
+import { gameInstanceMock, gameSvgs, GetAvatarColor, multipleChoicePvpQuestionMock, multipleChoiceQuestionMock, playerQuestionAnswersMock } from './CommonGameFunc';
 import { authAtom, gameTimerAtom } from '../../state';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { PlayerAvatar, MultipleAvatars } from './QuestionScreens'
@@ -14,6 +14,10 @@ export default function MultipleChoiceScreen({
 }) {
     const user = useRecoilValue(authAtom)
     const [answeredId, setAnsweredId] = useState()
+
+    function IsPlayerParticipating() {
+        return question.participants.find(x => x.playerId == user.id) ? true : false
+    }
 
     function AnswerButton({ answer, playerAnswers, isDisabled }) {
         return (
@@ -63,6 +67,12 @@ export default function MultipleChoiceScreen({
                 backgroundColor: "#032157",
             }}>
                 <Center flex={1}>
+                    {!IsPlayerParticipating() ?
+                        <Box height="80%" minHeight="500" style={{ position: "absolute", zIndex: 150, backgroundColor: "rgba(0, 0, 0, 0.3)", borderRadius: 25, justifyContent: "center" }} width="90%" />
+                        :
+                        null
+                    }
+
                     <Box height="80%" minHeight="500" style={{ backgroundColor: "#D7FFFE", borderRadius: 25, justifyContent: "center" }} width="90%">
                         <Box >
                             <Center>
@@ -114,24 +124,24 @@ export default function MultipleChoiceScreen({
                                 <HStack justifyContent="space-evenly" >
                                     <VStack>
                                         <AnswerButton
-                                            isDisabled={question.participants.find(x => x.playerId == user.id) ? false : true}
+                                            isDisabled={!IsPlayerParticipating()}
                                             answer={question.answers[0]}
                                             playerAnswers={playerQuestionAnswers?.playerAnswers?.filter(x => x.answerId == question.answers[0].id)}
                                         />
                                         <AnswerButton
-                                            isDisabled={question.participants.find(x => x.playerId == user.id) ? false : true}
+                                            isDisabled={!IsPlayerParticipating()}
                                             answer={question.answers[1]}
                                             playerAnswers={playerQuestionAnswers?.playerAnswers?.filter(x => x.answerId == question.answers[1].id)}
                                         />
                                     </VStack>
                                     <VStack>
                                         <AnswerButton
-                                            isDisabled={question.participants.find(x => x.playerId == user.id) ? false : true}
+                                            isDisabled={!IsPlayerParticipating()}
                                             answer={question.answers[2]}
                                             playerAnswers={playerQuestionAnswers?.playerAnswers?.filter(x => x.answerId == question.answers[2].id)}
                                         />
                                         <AnswerButton
-                                            isDisabled={question.participants.find(x => x.playerId == user.id) ? false : true}
+                                            isDisabled={!IsPlayerParticipating()}
                                             answer={question.answers[3]}
                                             playerAnswers={playerQuestionAnswers?.playerAnswers?.filter(x => x.answerId == question.answers[3].id)}
                                         />
