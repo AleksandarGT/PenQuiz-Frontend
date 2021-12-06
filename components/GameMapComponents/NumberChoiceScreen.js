@@ -1,7 +1,7 @@
 import { Box, Center, Container, HStack, Text, VStack, Image, Divider, Pressable, Input, Button, IconButton } from 'native-base'
 import React, { useEffect, useState } from 'react'
 import { ImageBackground, View } from 'react-native'
-import { gameInstanceMock, gameSvgs, GetAvatarColor, multipleChoiceQuestionMock, numberChoiceQuestionMock, playerQuestionAnswersMock, playerQuestionNumberAnswersMock } from './CommonGameFunc';
+import { gameInstanceMock, gameSvgs, GetAvatarColor, multipleChoiceQuestionMock, numberChoicePvpQuestionMock, numberChoiceQuestionMock, playerQuestionAnswersMock, playerQuestionNumberAnswersMock } from './CommonGameFunc';
 import { authAtom, gameTimerAtom } from '../../state';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { PlayerAvatar, MultipleAvatars, AnswerButton } from './QuestionScreens'
@@ -9,11 +9,15 @@ import MCQuestionTimer from './QuestionScreens/MCQuestionTimer';
 import { MaterialIcons } from '@expo/vector-icons';
 
 export default function NumberChoiceScreen({
-    question = numberChoiceQuestionMock,
+    question = numberChoicePvpQuestionMock,
     AnswerNumberQuestion = (e) => console.log("Default behavior" + e),
     playerQuestionAnswers
 }) {
     const user = useRecoilValue(authAtom)
+
+    function IsPlayerParticipating() {
+        return question.participants.find(x => x.playerId == user.id) ? true : false
+    }
 
     function AnswerNumberQuestionComponent() {
         const [answer, setAnswer] = useState("")
@@ -108,6 +112,11 @@ export default function NumberChoiceScreen({
                 backgroundColor: "#032157",
             }}>
                 <Center flex={1}>
+                    {!IsPlayerParticipating() ?
+                        <Box height="80%" minHeight="500" style={{ position: "absolute", zIndex: 150, backgroundColor: "rgba(0, 0, 0, 0.3)", borderRadius: 25, justifyContent: "center" }} width="90%" />
+                        :
+                        null
+                    }
                     <Box height="80%" minHeight="500" style={{ backgroundColor: "#D7FFFE", borderRadius: 25, justifyContent: "center" }} width="90%">
                         <Box >
                             <Center>

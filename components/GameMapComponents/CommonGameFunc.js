@@ -116,6 +116,25 @@ export const playerQuestionNumberAnswersMock = {
     ]
 }
 
+export const numberChoicePvpQuestionMock = {
+    "id": 1,
+    "isNeutral": false,
+    "question": "When was Bulgaria founded?",
+    "type": "number",
+    "attackerId": 1,
+    "defenderId": 2,
+    "participants": [
+        {
+            "avatarName": "penguinAvatar",
+            "playerId": 1,
+        },
+        {
+            "avatarName": "penguinAvatar2",
+            "playerId": 2,
+        }
+    ],
+}
+
 export const numberChoiceQuestionMock = {
     "id": 1,
     "isNeutral": true,

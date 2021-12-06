@@ -72,12 +72,13 @@ export default function GameRounding({ gameInstance = gameInstanceMock }) {
 
             case "MULTIPLE_PVP":
                 ENUM_ID = 2;
+                const NUMBER_PVP_ID = 3;
 
                 // Rounds hold a single round question // Contain 3 territory attackers
                 return (
                     <>
                         <HStack style={{ flex: 1 }}>
-                            {gameInstance.rounds.filter(x => x.attackStage == ENUM_ID).map((round, index) =>
+                            {gameInstance.rounds.filter(x => x.attackStage == ENUM_ID || x.attackStage == NUMBER_PVP_ID).map((round, index) =>
                                 <React.Fragment key={round.id}>
                                     <View key={round.pvpRound.id} style={[round.gameRoundNumber == gameInstance.gameRoundNumber ? {
                                         outlineColor: 'rgba(6, 28, 83, 0.8)',
