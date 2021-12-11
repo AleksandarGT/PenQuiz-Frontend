@@ -15,13 +15,17 @@ export default function MultipleChoiceScreen({
     const user = useRecoilValue(authAtom)
     const [answeredId, setAnsweredId] = useState()
 
+    useEffect(() => {
+        setAnsweredId(null)
+    }, [question])
+
     function IsPlayerParticipating() {
         return question.participants.find(x => x.playerId == user.id) ? true : false
     }
 
     function AnswerButton({ answer, playerAnswers, isDisabled }) {
         return (
-            <Pressable disabled={isDisabled} onPress={() => {
+            <Pressable  onPress={() => {
                 if (answeredId) return
                 setAnsweredId(answer.id)
                 AnswerMCQuestion(answer.id)
