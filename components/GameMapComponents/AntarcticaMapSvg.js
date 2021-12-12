@@ -103,7 +103,7 @@ export default function AntarcticaMapSvg({ gameMapException, onTerritoryClick, g
             fontFamily="Arial-BoldMT,Arial"
             fontWeight={700}
           >
-            {"500"}
+            {gameInstance.objectTerritory.find(x => x.mapTerritory.territoryName == k)?.territoryScore ?? 0}
           </Text>
         </G>
       )

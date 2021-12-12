@@ -33,6 +33,7 @@ export default function GameMap() {
 
     function OnTerritoryClick(territoryName) {
         const currentRound = gameInstance.rounds.find(x => x.gameRoundNumber == gameInstance.gameRoundNumber)
+        if(!currentUser) return;
         switch (RoundAttackStage(currentRound.attackStage)) {
             case "MULTIPLE_NEUTRAL":
             case "MULTIPLE_PVP":
