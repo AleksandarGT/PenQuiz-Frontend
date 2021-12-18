@@ -1,11 +1,11 @@
 import { Box, Center, Container, HStack, Text, VStack, Image, Divider, Pressable } from 'native-base'
 import React, { useEffect, useState } from 'react'
 import { ImageBackground, View } from 'react-native'
-import { gameInstanceMock, gameSvgs, GetAvatarColor, multipleChoicePvpQuestionMock, multipleChoiceQuestionMock, playerQuestionAnswersMock } from './CommonGameFunc';
-import { authAtom, gameTimerAtom } from '../../state';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { gameInstanceMock, gameSvgs, GetAvatarColor, multipleChoicePvpQuestionMock, multipleChoiceQuestionMock, playerQuestionAnswersMock } from './CommonGameFunc'
+import { authAtom, gameTimerAtom } from '../../state'
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import { PlayerAvatar, MultipleAvatars } from './QuestionScreens'
-import MCQuestionTimer from './QuestionScreens/MCQuestionTimer';
+import MCQuestionTimer from './QuestionScreens/MCQuestionTimer'
 
 export default function MultipleChoiceScreen({
     question = multipleChoiceQuestionMock,
@@ -25,7 +25,7 @@ export default function MultipleChoiceScreen({
 
     function AnswerButton({ answer, playerAnswers, isDisabled }) {
         return (
-            <Pressable  onPress={() => {
+            <Pressable onPress={() => {
                 if (answeredId) return
                 setAnsweredId(answer.id)
                 AnswerMCQuestion(answer.id)
@@ -72,12 +72,12 @@ export default function MultipleChoiceScreen({
             }}>
                 <Center flex={1}>
                     {!IsPlayerParticipating() ?
-                        <Box height="80%" minHeight="500" style={{ position: "absolute", zIndex: 150, backgroundColor: "rgba(0, 0, 0, 0.3)", borderRadius: 25, justifyContent: "center" }} width="90%" />
+                        <Box height="80%" minHeight="550" style={{ position: "absolute", zIndex: 150, backgroundColor: "rgba(0, 0, 0, 0.3)", borderRadius: 25, justifyContent: "center" }} width="90%" />
                         :
                         null
                     }
 
-                    <Box height="80%" minHeight="500" style={{ backgroundColor: "#D7FFFE", borderRadius: 25, justifyContent: "center" }} width="90%">
+                    <Box height="80%" minHeight="550" style={{ backgroundColor: "#D7FFFE", borderRadius: 25, justifyContent: "center" }} width="90%">
                         <Box >
                             <Center>
                                 {/* Top Timer */}

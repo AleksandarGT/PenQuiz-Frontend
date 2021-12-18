@@ -1,12 +1,12 @@
-import { setupSignalRConnection } from './SignalRSetup';
-import { authToken, gameInstanceAtom, joiningGameExceptionAtom, connectionStatusAtom, gameTimerAtom, gameMapExceptionAtom, canUserAnswerQuestionAtom, showMultipleChoiceQuestionAtom, multipleChoiceQuestionAtom, authAtom, questionParticipantsAtom, roundQuestionAtom, playerQuestionAnswersAtom, playerAttackPossibilitiesAtom } from '../state';
-import { useRecoilValue, useRecoilState } from 'recoil';
+import { setupSignalRConnection } from './SignalRSetup'
+import { authToken, gameInstanceAtom, joiningGameExceptionAtom, connectionStatusAtom, gameTimerAtom, gameMapExceptionAtom, canUserAnswerQuestionAtom, showMultipleChoiceQuestionAtom, multipleChoiceQuestionAtom, authAtom, questionParticipantsAtom, roundQuestionAtom, playerQuestionAnswersAtom, playerAttackPossibilitiesAtom } from '../state'
+import { useRecoilValue, useRecoilState } from 'recoil'
 import { BACKEND_GAME_API_URL } from '@env'
 import { navigate } from '../helpers'
 import { getConnection } from './SignalRSetup'
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react'
 
-const connectionHub = `${BACKEND_GAME_API_URL}/gamehubs`;
+const connectionHub = `${BACKEND_GAME_API_URL}/gamehubs`
 
 export const StatusCode = {
     "CONNECTED": 1,
@@ -16,12 +16,12 @@ export function useSignalR() {
 
     const userJwt = useRecoilValue(authToken)
     const currentUser = useRecoilValue(authAtom)
-    const [gameInstance, setGameInstance] = useRecoilState(gameInstanceAtom);
-    const [joiningGameException, setJoiningGameException] = useRecoilState(joiningGameExceptionAtom);
-    const [connectionStatus, setConnectionStatus] = useRecoilState(connectionStatusAtom);
-    const [gameTimer, setGameTimer] = useRecoilState(gameTimerAtom);
+    const [gameInstance, setGameInstance] = useRecoilState(gameInstanceAtom)
+    const [joiningGameException, setJoiningGameException] = useRecoilState(joiningGameExceptionAtom)
+    const [connectionStatus, setConnectionStatus] = useRecoilState(connectionStatusAtom)
+    const [gameTimer, setGameTimer] = useRecoilState(gameTimerAtom)
     const [playerAttackPossibilities, setPlayerAttackPossibilities] = useRecoilState(playerAttackPossibilitiesAtom)
-    const [gameMapException, setGameMapException] = useRecoilState(gameMapExceptionAtom);
+    const [gameMapException, setGameMapException] = useRecoilState(gameMapExceptionAtom)
     const [roundQuestion, setRoundQuestion] = useRecoilState(roundQuestionAtom)
     const [playerQuestionAnswers, setPlayerQuestionAnswers] = useRecoilState(playerQuestionAnswersAtom)
     let connection = getConnection()
@@ -29,7 +29,7 @@ export function useSignalR() {
     useEffect(() => {
         if (!connection) {
 
-            connection = setupSignalRConnection(connectionHub, userJwt);
+            connection = setupSignalRConnection(connectionHub, userJwt)
             setConnectionStatus({
                 StatusCode: StatusCode.CONNECTED,
                 Error: null,
@@ -60,7 +60,7 @@ export function useSignalR() {
                 StatusCode: StatusCode.DISCONNECTED,
                 Error: error ? error : { message: "Connection to the server lost. Please try again later." },
             })
-        });
+        })
 
         // On server event handler
         // Lobby events
@@ -78,9 +78,10 @@ export function useSignalR() {
         connection.on('PersonLeftGame', ((disconnectedPersonId) => {
             setGameInstance(old => ({
                 ...old,
-                participants: old.participants.map(
-                    el => el.playerId === disconnectedPersonId ? { ...el, isBot: true } : el
-                )
+                participants: old.gameState == 0 ? old.participants.filter(
+                    el => el.playerId != disconnectedPersonId) : old.participants.map(
+                        y => y.playerId == disconnectedPersonId ? { ...y, isBot: true } : y
+                    )
             }))
         }))
         connection.on('NavigateToLobby', ((gi) => {
@@ -143,7 +144,7 @@ export function useSignalR() {
         // Question events
         connection.on('GetRoundQuestion', ((roundQuestion, msTimeForAction) => {
             setPlayerQuestionAnswers("")
-            
+
             setGameTimer(0)
             setGameTimer((msTimeForAction - 1000) / 1000)
             setRoundQuestion(roundQuestion)
