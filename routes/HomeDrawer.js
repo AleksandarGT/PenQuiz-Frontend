@@ -1,22 +1,23 @@
 
-import React from 'react';
-import { useAuthActions } from '../hooks';
+import React from 'react'
+import { useAuthActions } from '../hooks'
 import {
     createDrawerNavigator, DrawerContentScrollView,
     DrawerItemList,
     DrawerItem,
-} from '@react-navigation/drawer';
+} from '@react-navigation/drawer'
 import { View, Button, Text, useWindowDimensions } from 'react-native'
 import { Center } from 'native-base'
 import { HomeGame } from '../components/HomeGame'
-const Drawer = createDrawerNavigator();
+import { AccountDetails } from '../components/AccountDetails'
+const Drawer = createDrawerNavigator()
 
 export function HomeDrawer() {
 
-    const actions = useAuthActions();
-    const dimensions = useWindowDimensions();
+    const actions = useAuthActions()
+    const dimensions = useWindowDimensions()
 
-    const isLargeScreen = dimensions.width >= 768;
+    const isLargeScreen = dimensions.width >= 768
 
     function CustomLogout(props) {
         return (
@@ -24,7 +25,7 @@ export function HomeDrawer() {
                 <DrawerItemList {...props} />
                 <DrawerItem inactiveTintColor="#DEDEDE" label="Logout" onPress={() => actions.logout()} />
             </DrawerContentScrollView>
-        );
+        )
     }
 
     const drawerScreenOptions = {
@@ -49,6 +50,7 @@ export function HomeDrawer() {
             drawerContent={props => <CustomLogout {...props} />}
         >
             <Drawer.Screen options={drawerScreenOptions} name="Game" component={HomeGame} />
+            <Drawer.Screen options={drawerScreenOptions} name="Account" component={AccountDetails} />
         </Drawer.Navigator>
-    );
+    )
 }
