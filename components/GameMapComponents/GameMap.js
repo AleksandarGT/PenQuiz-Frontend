@@ -1,21 +1,22 @@
-import { Box, Center, Container, HStack, Stack, VStack, ZStack, Text, Spacer, Button, Circle } from "native-base";
+import { Box, Center, Container, HStack, Stack, VStack, ZStack, Text, Spacer, Button, Circle } from "native-base"
 import React, { useState } from "react"
-import { View, StyleSheet, ImageBackground } from 'react-native';
-import { useRecoilValue } from "recoil";
-import { useSignalR } from "../../hooks";
-import { authAtom, gameInstanceAtom } from "../../state";
-import DefaultAlert from "../Popups/DefaultAlert";
+import { View, StyleSheet, ImageBackground } from 'react-native'
+import { useRecoilValue } from "recoil"
+import { removeBackStack } from "../../helpers"
+import { useSignalR } from "../../hooks"
+import { authAtom, gameInstanceAtom } from "../../state"
+import DefaultAlert from "../Popups/DefaultAlert"
 import AntarcticaMapSvg from './AntarcticaMapSvg'
-import { gameInstanceMock, multipleChoiceQuestionMock, RoundAttackStage } from "./CommonGameFunc";
-import GameChat from "./GameChat";
-import GameBoards from "./GamePlayerBoard";
-import GameRounding from "./GameRounding";
-import GameTimer from "./GameTimer";
-import MultipleChoiceScreen from "./MultipleChoiceScreen";
-import NumberChoiceScreen from "./NumberChoiceScreen";
+import { gameInstanceMock, GetGameState, multipleChoiceQuestionMock, RoundAttackStage } from "./CommonGameFunc"
+import GameChat from "./GameChat"
+import GameBoards from "./GamePlayerBoard"
+import GameRounding from "./GameRounding"
+import GameTimer from "./GameTimer"
+import MultipleChoiceScreen from "./MultipleChoiceScreen"
+import NumberChoiceScreen from "./NumberChoiceScreen"
 
 export default function GameMap() {
-    const lobby = useSignalR();
+    const lobby = useSignalR()
     const roundQuestion = lobby.roundQuestion
     const currentUser = useRecoilValue(authAtom)
     const gameInstance = lobby.gameInstance
@@ -33,7 +34,7 @@ export default function GameMap() {
 
     function OnTerritoryClick(territoryName) {
         const currentRound = gameInstance.rounds.find(x => x.gameRoundNumber == gameInstance.gameRoundNumber)
-        if(!currentUser) return;
+        if (!currentUser) return
         switch (RoundAttackStage(currentRound.attackStage)) {
             case "MULTIPLE_NEUTRAL":
             case "MULTIPLE_PVP":
@@ -46,7 +47,7 @@ export default function GameMap() {
                 //     lobby.SelectTerritory(territoryName)
                 // }
                 lobby.SelectTerritory(territoryName)
-                break;
+                break
         }
     }
 
@@ -67,12 +68,12 @@ export default function GameMap() {
                                 <Container>
                                     <GameBoards gameInstance={gameInstance} currentAttackerId={playerAttackPossibilities?.attackerId} />
                                 </Container>
-                                <GameChat />
+                                {/* <GameChat /> */}
                             </VStack>
 
                             <VStack>
 
-                                <GameTimer />
+                                <GameTimer gameState={gameInstance.gameState} />
                                 <AntarcticaMapSvg
                                     gameMapException={gameMapException}
                                     gameInstance={gameInstance}
@@ -83,13 +84,18 @@ export default function GameMap() {
 
 
                             </VStack>
-                            <Box >
-                                <Button colorScheme="red">
-                                    <Text>
-                                        Exit Game
-                                    </Text>
-                                </Button>
-                            </Box>
+                            {
+                                GetGameState(gameInstance.gameState) == "FINISHED" ? <Box>
+                                    <Button onPress={() => {
+                                        removeBackStack("Home")
+                                    }} colorScheme="red">
+                                        <Text>
+                                            Exit Game
+                                        </Text>
+                                    </Button>
+                                </Box> : <View style={{ width: "10%" }}></View>
+                            }
+
 
                         </HStack>
                 }

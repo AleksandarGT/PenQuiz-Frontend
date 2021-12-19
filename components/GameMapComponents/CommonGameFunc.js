@@ -6,13 +6,13 @@ export function GetAvatarColor(avatarName) {
 export function GetParticipantColor(gameInstance, playerId) {
     let particip = gameInstance.participants.find(x => x.playerId == playerId)
 
-    return ReturnColor(particip?.avatarName);
+    return ReturnColor(particip?.avatarName)
 }
 
 export function GetAttackTerritoryPossibilityColor(gameInstance, playerId) {
     let particip = gameInstance.participants.find(x => x.playerId == playerId)
 
-    switch(particip?.avatarName) {
+    switch (particip?.avatarName) {
         case "penguinAvatar":
             return "#90A7FF"
         case "penguinAvatar2":
@@ -36,13 +36,28 @@ function ReturnColor(avatarName) {
 export function RoundAttackStage(attackStage) {
     switch (attackStage) {
         case 0:
-            return "MULTIPLE_NEUTRAL";
+            return "MULTIPLE_NEUTRAL"
         case 1:
-            return "NUMBER_NEUTRAL";
+            return "NUMBER_NEUTRAL"
         case 2:
-            return "MULTIPLE_PVP";
+            return "MULTIPLE_PVP"
         case 3:
-            return "NUMBER_PVP";
+            return "NUMBER_PVP"
+    }
+}
+
+export function GetGameState(gameState) {
+    switch (gameState) {
+        case 0:
+            return "IN_LOBBY"
+        case 1:
+            return "IN_PROGRESS"
+        case 2:
+            return "FINISHED"
+        case 3:
+            return "CANCELED"
+        default:
+            return null
     }
 }
 
@@ -70,7 +85,7 @@ export const gameSvgs = [
 ]
 
 export const playerQuestionAnswersMock = {
-    "correctAnswerId" : 1,
+    "correctAnswerId": 1,
     "playerAnswers": [
         {
             "id": 1,
@@ -90,28 +105,28 @@ export const playerQuestionAnswersMock = {
 
 
 export const playerQuestionNumberAnswersMock = {
-    "correctAnswer" : 681,
-    "playerAnswers" : [
+    "correctAnswer": 681,
+    "playerAnswers": [
         {
-            "playerId" : 1,
-            "answer" : 312,
-            "differenceWithCorrect" : 369,
-            "timeElapsed" : "3.5s",
-            "winner" : true,
+            "playerId": 1,
+            "answer": 312,
+            "differenceWithCorrect": 369,
+            "timeElapsed": "3.5s",
+            "winner": true,
         },
         {
-            "playerId" : 2,
-            "answer" : 1211,
-            "differenceWithCorrect" : 530,
-            "timeElapsed" : "8.9s",
-            "winner" : false,
+            "playerId": 2,
+            "answer": 1211,
+            "differenceWithCorrect": 530,
+            "timeElapsed": "8.9s",
+            "winner": false,
         },
         {
-            "playerId" : 3,
-            "answer" : 1532,
-            "differenceWithCorrect" : 851,
-            "timeElapsed" : "5.3s",
-            "winner" : false,
+            "playerId": 3,
+            "answer": 1532,
+            "differenceWithCorrect": 851,
+            "timeElapsed": "5.3s",
+            "winner": false,
         },
     ]
 }
@@ -240,7 +255,7 @@ export const playerAttackPossibilitiesMock = {
         "Renyt",
         "Dager"
     ],
-    "attackerId" : 2
+    "attackerId": 2
 }
 
 export const gameInstanceMock = {

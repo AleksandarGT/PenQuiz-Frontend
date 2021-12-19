@@ -1,12 +1,12 @@
 import { Box, Center, Container, HStack, Text, VStack, Image, Divider, Pressable, Input, Button, IconButton } from 'native-base'
 import React, { useEffect, useState } from 'react'
 import { ImageBackground, View } from 'react-native'
-import { gameInstanceMock, gameSvgs, GetAvatarColor, multipleChoiceQuestionMock, numberChoicePvpQuestionMock, numberChoiceQuestionMock, playerQuestionAnswersMock, playerQuestionNumberAnswersMock } from './CommonGameFunc';
-import { authAtom, gameTimerAtom } from '../../state';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { gameInstanceMock, gameSvgs, GetAvatarColor, multipleChoiceQuestionMock, numberChoicePvpQuestionMock, numberChoiceQuestionMock, playerQuestionAnswersMock, playerQuestionNumberAnswersMock } from './CommonGameFunc'
+import { authAtom, gameTimerAtom } from '../../state'
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import { PlayerAvatar, MultipleAvatars, AnswerButton } from './QuestionScreens'
-import MCQuestionTimer from './QuestionScreens/MCQuestionTimer';
-import { MaterialIcons } from '@expo/vector-icons';
+import MCQuestionTimer from './QuestionScreens/MCQuestionTimer'
+import { MaterialIcons } from '@expo/vector-icons'
 
 export default function NumberChoiceScreen({
     question = numberChoicePvpQuestionMock,
@@ -41,6 +41,11 @@ export default function NumberChoiceScreen({
                                     setAnswer(e)
                                 }
                             }}
+                                onSubmitEditing={() => {
+                                    if (isAnswered) return
+                                    setisAnswered(true)
+                                    AnswerNumberQuestion(answer)
+                                }}
                                 value={answer}
                                 maxLength={14}
                                 mr={2}
