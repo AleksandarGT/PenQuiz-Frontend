@@ -1,30 +1,30 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Platform, Text, StyleSheet, View, ActivityIndicator, Button, Image } from 'react-native';
-import { useRecoilValue } from 'recoil';
-import { useAuthActions } from '../hooks';
-import LoginComponent from '../components/LoginComponent';
-import { createStackNavigator } from '@react-navigation/stack';
-import { NavigationContainer } from '@react-navigation/native';
-import { navigationRef } from '../helpers';
-import TestingSvg from '../components/Testing/TestingSvg';
-import * as Linking from 'expo-linking';
-import { authStatus } from '../state';
+import React, { useEffect, useRef, useState } from 'react'
+import { Platform, Text, StyleSheet, View, ActivityIndicator, Button, Image } from 'react-native'
+import { useRecoilValue } from 'recoil'
+import { useAuthActions } from '../hooks'
+import LoginComponent from '../components/LoginComponent'
+import { createStackNavigator } from '@react-navigation/stack'
+import { NavigationContainer } from '@react-navigation/native'
+import { navigationRef } from '../helpers'
+import TestingSvg from '../components/Testing/TestingSvg'
+import * as Linking from 'expo-linking'
+import { authStatus } from '../state'
 import { HomeDrawer } from './HomeDrawer'
 import { LoadingComponent } from './LoadingComponent'
 import { GameLobby } from '../components/GameLobby'
-import GameMap from '../components/GameMapComponents/GameMap';
-import MultipleChoiceScreen from '../components/GameMapComponents/MultipleChoiceScreen';
-import NumberChoiceScreen from '../components/GameMapComponents/NumberChoiceScreen';
+import GameMap from '../components/GameMapComponents/GameMap'
+import MultipleChoiceScreen from '../components/GameMapComponents/MultipleChoiceScreen'
+import NumberChoiceScreen from '../components/GameMapComponents/NumberChoiceScreen'
 
-export * from './LoadingComponent';
+export * from './LoadingComponent'
 
 
-const Stack = createStackNavigator();
-const prefix = Linking.createURL('http://localhost:19006');
+const Stack = createStackNavigator()
+const prefix = Linking.createURL('http://localhost:19006')
 export function Routes() {
-  const localAuthStatus = useRecoilValue(authStatus);
+  const localAuthStatus = useRecoilValue(authStatus)
 
-  const useuseAuthActions = useAuthActions();
+  const useuseAuthActions = useAuthActions()
   useEffect(() => {
     // Call refresh token. If auth is successful you will navigate to main component
     // If not to login / register component
@@ -39,7 +39,7 @@ export function Routes() {
         Game: 'game'
       }
     }
-  };
+  }
 
   function SwitchAuthState() {
 

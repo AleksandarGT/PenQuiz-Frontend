@@ -1,23 +1,24 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react'
 
-import { ImageBackground, Platform, StyleSheet, View } from "react-native";
-import { VStack, Box, Divider, Text, Center, Heading, Button, Icon, Image, Pressable, HStack } from 'native-base';
+import { ImageBackground, Platform, StyleSheet, View } from "react-native"
+import { VStack, Box, Divider, Text, Center, Heading, Button, Icon, Image, Pressable, HStack, Modal, Container } from 'native-base'
 import { FontAwesome5 } from "@expo/vector-icons"
-import { authStatus, authAtom } from '../state';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { useAuthActions } from '../hooks';
-import { justifyContent } from 'styled-system';
+import { authStatus, authAtom } from '../state'
+import { useRecoilValue, useSetRecoilState } from 'recoil'
+import { useAuthActions } from '../hooks'
+import { justifyContent } from 'styled-system'
+import RulesModal from './Popups/RulesModal'
 
 export default function LoginComponent({ history }) {
     return (
         <View style={styles.container}>
             <ImageBackground source={require('../assets/crackbd.jpg')} resizeMode="cover" style={styles.image}>
                 <Center>
-                    <RenderCard/>
+                    <RenderCard />
                 </Center>
             </ImageBackground>
         </View>
-    );
+    )
 }
 
 function RenderAntarctica() {
@@ -28,22 +29,22 @@ function RenderAntarctica() {
                     source={require('../assets/minified_antarctica.svg')}
                     style={{ resizeMode: 'contain' }}
                     alt="Alternate Text"
-                    size="2xl"
-                    size={{ base: "md", lg: "xl" }}
+                    size="lg"
                 />
             </Center>
         )
     }
     else {
-        return null;
+        return null
     }
 }
 
 
 function RenderCard() {
-    const userActions = useAuthActions();
-    const setAuth = useSetRecoilState(authAtom);
-    const [isLoading, setIsLoading] = useState(false);
+    const userActions = useAuthActions()
+    const setAuth = useSetRecoilState(authAtom)
+    const [isLoading, setIsLoading] = useState(false)
+    const [showRulesModal, setShowRulesModal] = useState(false)
 
     useEffect(() => {
         if (userActions.googleResponse?.type === 'success') {
@@ -51,11 +52,10 @@ function RenderCard() {
             setIsLoading(false)
         }
         else if (userActions.googleResponse?.type === 'dismiss') {
-            setAuth(null);
+            setAuth(null)
             setIsLoading(false)
         }
-    }, [userActions.googleResponse]);
-
+    }, [userActions.googleResponse])
 
     function onLogin({ tokenId }) {
         return userActions.login(tokenId).catch(error => {
@@ -65,7 +65,7 @@ function RenderCard() {
 
     function onLoginClick() {
         //setAuth({ status: 'LOADING' })
-        setIsLoading(true);
+        setIsLoading(true)
         userActions.googlePromptAsync()
     }
 
@@ -75,8 +75,9 @@ function RenderCard() {
 
             <VStack space={4} >
                 {RenderAntarctica()}
+                <RulesModal showRulesModal={showRulesModal} setShowRulesModal={setShowRulesModal} />
                 <Box px={4} >
-                    <Text textAlign="center" color="#fff" fontSize={{ base: 40, md: 60, lg: 80, xl: 90 }} style={{ fontFamily: 'Before-Collapse', }}>
+                    <Text textAlign="center" color="#fff" fontSize={{ base: 40, md: 60, lg: 80 }} style={{ fontFamily: 'Before-Collapse', }}>
                         ConQuiz
                     </Text>
                 </Box>
@@ -89,7 +90,7 @@ function RenderCard() {
                 </Box>
                 <Box px={4} pb={4} pt={4}>
                     <Button
-                    py={3}
+                        py={3}
                         isDisabled={isLoading ? true : false}
                         isLoading={isLoading ? true : false}
                         colorScheme="white_bd"
@@ -110,8 +111,8 @@ function RenderCard() {
                     }}
                     justifyContent="space-around"
                 >
-                    <Button px={7} size="lg" bg="#006078" style={{alignSelf: 'flex-start'}}>Rules</Button>
-                    <Button  px={7} size="lg" bg="#006078">About</Button>
+                    <Button px={7} size="lg" bg="#006078" style={{ alignSelf: 'flex-start' }} onPress={() => setShowRulesModal(true)}>Rules</Button>
+                    <Button px={7} size="lg" bg="#006078">About</Button>
                 </Button.Group>
             </VStack>
         </Box>
@@ -126,4 +127,4 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center"
     },
-});
+})
