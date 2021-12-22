@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { View, ImageBackground, StyleSheet, ActivityIndicator } from 'react-native';
-import { Text, Button, Center, Box, Pressable, Input, Alert, VStack, HStack, IconButton, CloseIcon } from 'native-base';
+import React, { useState, useEffect } from 'react'
+import { View, ImageBackground, StyleSheet, ActivityIndicator } from 'react-native'
+import { Text, Button, Center, Box, Pressable, Input, Alert, VStack, HStack, IconButton, CloseIcon } from 'native-base'
 import { useSignalR, StatusCode } from '../hooks/'
-import DefaultAlert from './Popups/DefaultAlert';
+import DefaultAlert from './Popups/DefaultAlert'
+import { Ionicons } from '@expo/vector-icons'
+import RulesModal from './Popups/RulesModal'
 
 export function HomeGame({ navigation, route }) {
-    const lobby = useSignalR();
-    const [code, setCode] = useState("");
+    const lobby = useSignalR()
+    const [code, setCode] = useState("")
+    const [showRulesModal, setShowRulesModal] = useState(false)
 
     function CreateGameButton() {
         return (
@@ -31,7 +34,7 @@ export function HomeGame({ navigation, route }) {
     function JoinGameButton() {
         return (
             <Pressable onPress={() => {
-                lobby.JoinLobby(code);
+                lobby.JoinLobby(code)
             }}>
                 {({ isHovered, isFocused, isPressed }) => {
                     return (
@@ -62,6 +65,24 @@ export function HomeGame({ navigation, route }) {
 
     return (
         <ImageBackground source={require('../assets/homeBackground.svg')} resizeMode="cover" style={styles.image}>
+            <Box top="5" position="absolute" right="5">
+                <Center>
+                    <IconButton
+                        onPress={() => {
+                            setShowRulesModal(true)
+                        }}
+                        size="md"
+                        variant="outline"
+                        _icon={{
+                            as: Ionicons,
+                            name: "game-controller",
+                            color: "white"
+                        }}
+                    />
+                </Center>
+            </Box>
+            <RulesModal showRulesModal={showRulesModal} setShowRulesModal={setShowRulesModal} />
+
             <Center >
                 <Text textAlign="center" color="#fff" fontSize={{ base: 40, md: 60, lg: 80, xl: 90 }} style={{ fontFamily: 'Before-Collapse', }}>
                     ConQuiz
@@ -103,4 +124,4 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center"
     },
-});
+})
