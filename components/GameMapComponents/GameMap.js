@@ -6,6 +6,7 @@ import { removeBackStack } from "../../helpers"
 import { useSignalR } from "../../hooks"
 import { authAtom, gameInstanceAtom } from "../../state"
 import DefaultAlert from "../Popups/DefaultAlert"
+import GameEndModal from "../Popups/GameEndModal"
 import AntarcticaMapSvg from './AntarcticaMapSvg'
 import { gameInstanceMock, GetGameState, multipleChoiceQuestionMock, RoundAttackStage } from "./CommonGameFunc"
 import GameChat from "./GameChat"
@@ -85,16 +86,10 @@ export default function GameMap() {
 
                             </VStack>
                             {
-                                GetGameState(gameInstance.gameState) == "FINISHED" ? <Box>
-                                    <Button onPress={() => {
-                                        removeBackStack("Home")
-                                    }} colorScheme="red">
-                                        <Text>
-                                            Exit Game
-                                        </Text>
-                                    </Button>
-                                </Box> : <View style={{ width: "10%" }}></View>
+                                GetGameState(gameInstance.gameState) == "FINISHED" &&
+                                <GameEndModal gameInstance={gameInstance} />
                             }
+                            <View style={{ width: "10%" }}></View>
 
 
                         </HStack>

@@ -711,7 +711,7 @@ export const gameInstanceMock = {
             "playerId": 1,
             "gameId": 22,
             "isBot": false,
-            "score": 0,
+            "score": 1000,
             "player": {
                 "id": 1,
                 "username": "Boosted Penguin",
@@ -726,7 +726,7 @@ export const gameInstanceMock = {
             "playerId": 3,
             "gameId": 22,
             "isBot": false,
-            "score": 0,
+            "score": 1500,
             "player": {
                 "id": 3,
                 "username": "Aleksandar Todorov",
@@ -741,7 +741,7 @@ export const gameInstanceMock = {
             "playerId": 2,
             "gameId": 22,
             "isBot": false,
-            "score": 0,
+            "score": 500,
             "player": {
                 "id": 2,
                 "username": "Alex Todorov",

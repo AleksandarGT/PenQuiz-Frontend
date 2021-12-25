@@ -5,6 +5,7 @@ import { useSignalR, StatusCode } from '../hooks/'
 import DefaultAlert from './Popups/DefaultAlert'
 import { Ionicons } from '@expo/vector-icons'
 import RulesModal from './Popups/RulesModal'
+import GameEndModal from './Popups/GameEndModal'
 
 export function HomeGame({ navigation, route }) {
     const lobby = useSignalR()
@@ -82,7 +83,6 @@ export function HomeGame({ navigation, route }) {
                 </Center>
             </Box>
             <RulesModal showRulesModal={showRulesModal} setShowRulesModal={setShowRulesModal} />
-
             <Center >
                 <Text textAlign="center" color="#fff" fontSize={{ base: 40, md: 60, lg: 80, xl: 90 }} style={{ fontFamily: 'Before-Collapse', }}>
                     ConQuiz
