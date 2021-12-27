@@ -113,7 +113,7 @@ export function useSignalR() {
         connection.on('ShowGameMap', ((msTimeForAction) => {
             setRoundQuestion("")
             setPlayerQuestionAnswers("")
-            setGameTimer((msTimeForAction - 1000) / 1000)
+            setGameTimer((msTimeForAction ?? 1000 - 1000) / 1000)
         }))
 
         // Game events
