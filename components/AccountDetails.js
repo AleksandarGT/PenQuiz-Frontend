@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, ImageBackground, StyleSheet, ActivityIndicator } from 'react-native'
+import { View, ImageBackground, StyleSheet, ActivityIndicator, Platform } from 'react-native'
 import { Text, Button, Center, Box, Pressable, Input, Alert, VStack, HStack, IconButton, CloseIcon } from 'native-base'
 import { useSignalR, StatusCode } from '../hooks/'
 import DefaultAlert from './Popups/DefaultAlert'
@@ -29,16 +29,16 @@ export function AccountDetails() {
     }, [isFocused])
 
     return (
-        <ImageBackground source={require('../assets/homeBackground.svg')} resizeMode="cover" style={styles.image}>
+        <ImageBackground source={Platform.OS === 'web' ? require('../assets/homeBackground.svg') : require('../assets/homeBackground.png')} resizeMode="cover" style={styles.image}>
             <Center>
                 <Box bg="#071D56" p={5} borderRadius={25}>
                     <Text textAlign="center" color="#fff" fontSize={{ base: "md", md: "lg", lg: "xl", xl: "3xl" }} style={{ fontFamily: 'Before-Collapse', }}>
                         {authValue.username}
                     </Text>
                     <Text mt={2} textAlign="center" color="#fff" fontSize={{ base: "md", md: "lg", lg: "xl", xl: "2xl" }} style={{ fontFamily: 'Before-Collapse', }}>
-                        Total games: {userStatistics?.totalGames ?? 0}<br />
-                        Total wins: {userStatistics?.gamesWon ?? 0}<br />
-                        Win percentage: {userStatistics?.winPercentage ?? 0}%<br />
+                        Total games: {userStatistics?.totalGames ?? 0}{"\n"}
+                        Total wins: {userStatistics?.gamesWon ?? 0}{"\n"}
+                        Win percentage: {userStatistics?.winPercentage ?? 0}%{"\n"}
                     </Text>
                 </Box>
             </Center>

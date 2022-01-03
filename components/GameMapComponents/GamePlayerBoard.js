@@ -1,12 +1,12 @@
-import { Center, Container, HStack, Text, Image, VStack, Box } from "native-base";
+import { Center, Container, HStack, Text, Image, VStack, Box } from "native-base"
 import React, { useState } from "react"
-import { View, StyleSheet } from 'react-native';
-import { GetAvatarColor } from './CommonGameFunc'
+import { View, StyleSheet } from 'react-native'
+import { GetAvatarColor, GetPenguinAvatarImage } from './CommonGameFunc'
 import { useRecoilValue } from 'recoil'
 import { gameInstanceAtom } from '../../state'
 import { GetParticipantColor, gameInstanceMock } from './CommonGameFunc'
 
-export default function GameBoards({gameInstance = gameInstanceMock, currentAttackerId}) {
+export default function GameBoards({ gameInstance = gameInstanceMock, currentAttackerId }) {
     return (
         <>
             {gameInstance.participants.map(x =>
@@ -27,7 +27,7 @@ function GamePlayerBoard({ participant, hisTurn }) {
                 <HStack>
                     <Container bg="#fff" borderRadius={200} p={2}>
                         <Image
-                            source={require(`../../assets/${participant.avatarName}.svg`)}
+                            source={GetPenguinAvatarImage(participant.avatarName)}
                             alt="Alternate Text"
                             resizeMode="contain"
                             size="sm"

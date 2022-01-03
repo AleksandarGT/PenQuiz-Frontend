@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { Text, Button, Input, Center, Modal, Container, Box, Icon, HStack, Pressable, VStack, Image } from 'native-base';
-import { View, StyleSheet, ImageBackground, ActivityIndicator } from 'react-native';
+import React, { useEffect, useState } from 'react'
+import { Text, Button, Input, Center, Modal, Container, Box, Icon, HStack, Pressable, VStack, Image } from 'native-base'
+import { View, StyleSheet, ImageBackground, ActivityIndicator } from 'react-native'
 import { useSignalR, StatusCode } from '../hooks/'
 import { FontAwesome5 } from "@expo/vector-icons"
 import { useRecoilState, useRecoilValue } from "recoil"
 import { gameInstanceAtom, userIdSelector } from "../state"
 import ExitGameModal from './Popups/ExitGameModal'
-import { Heading } from 'native-base';
+import { Heading } from 'native-base'
+import { GetPenguinAvatarImage } from './GameMapComponents/CommonGameFunc'
 
 export function GameLobby({ route, navigation }) {
-    const lobby = useSignalR();
+    const lobby = useSignalR()
     const [isClosing, setIsClosing] = useState()
     const RequiredPlayers = 3
     const userId = useRecoilValue(userIdSelector)
@@ -30,7 +31,7 @@ export function GameLobby({ route, navigation }) {
                         } p={2} borderRadius={50}>
                             <Box px={4} pb={2} pt={2}>
                                 <Text fontSize={{ base: "md", md: "lg", lg: "xl", xl: 35 }}>
-                                    {!IsLobbyFull() ? `Waiting for ${RequiredPlayers - lobby.gameInstance.participants?.length} more players` : IsGameHost() ? "Start game" : "Waiting for host to start"} 
+                                    {!IsLobbyFull() ? `Waiting for ${RequiredPlayers - lobby.gameInstance.participants?.length} more players` : IsGameHost() ? "Start game" : "Waiting for host to start"}
                                 </Text>
                             </Box>
                         </Box>
@@ -57,7 +58,7 @@ export function GameLobby({ route, navigation }) {
                 <VStack>
                     <Center>
                         <Image
-                            source={require(`../assets/${participant.avatarName}.svg`)}
+                            source={GetPenguinAvatarImage(participant.avatarName)}
                             alt="Alternate Text"
                             resizeMode="contain"
                             size="xl"
@@ -94,7 +95,7 @@ export function GameLobby({ route, navigation }) {
         <ImageBackground source={require('../assets/gameLobby.svg')} resizeMode="cover" style={styles.image}>
             <Box position="absolute" top="0" left="0">
                 <Button onPress={() => {
-                    setIsClosing(true);
+                    setIsClosing(true)
                 }} leftIcon={<Icon as={FontAwesome5} name="arrow-left" size="sm" color="white" />} size="lg" colorScheme="danger">
                     <Text fontSize="lg" >Exit game lobby</Text>
                 </Button>
@@ -134,4 +135,4 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center"
     },
-});
+})

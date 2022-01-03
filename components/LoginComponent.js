@@ -96,7 +96,7 @@ function RenderCard() {
                         colorScheme="white_bd"
                         size="lg"
                         onPress={() => onLoginClick()}
-                        leftIcon={<Icon as={FontAwesome5} name="google" size="sm" color="green" />}
+                        leftIcon={<Icon as={FontAwesome5} name="google" size="sm" />}
                     >
                         Sign in with Google
 

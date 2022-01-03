@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, ImageBackground, StyleSheet, ActivityIndicator } from 'react-native'
+import { View, ImageBackground, StyleSheet, ActivityIndicator, Platform } from 'react-native'
 import { Text, Button, Center, Box, Pressable, Input, Alert, VStack, HStack, IconButton, CloseIcon } from 'native-base'
 import { useSignalR, StatusCode } from '../hooks/'
 import DefaultAlert from './Popups/DefaultAlert'
@@ -65,7 +65,7 @@ export function HomeGame({ navigation, route }) {
 
 
     return (
-        <ImageBackground source={require('../assets/homeBackground.svg')} resizeMode="cover" style={styles.image}>
+        <ImageBackground source={Platform.OS === 'web' ? require('../assets/homeBackground.svg') : require('../assets/homeBackground.png')} resizeMode="cover" style={styles.image}>
             <Box top="5" position="absolute" right="5">
                 <Center>
                     <IconButton

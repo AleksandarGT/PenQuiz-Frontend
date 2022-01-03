@@ -2,7 +2,7 @@ import { Box, Container, HStack, Modal, Text, VStack, Image, Center, AspectRatio
 import React from 'react'
 import { useEffect, useState } from 'react/cjs/react.development'
 import { removeBackStack } from '../../helpers'
-import { gameInstanceMock, GetAvatarColor } from '../GameMapComponents/CommonGameFunc'
+import { gameInstanceMock, GetAvatarColor, GetPenguinAvatarImage } from '../GameMapComponents/CommonGameFunc'
 
 export default function GameEndModal({ gameInstance = gameInstanceMock }) {
 
@@ -28,7 +28,7 @@ export default function GameEndModal({ gameInstance = gameInstanceMock }) {
                     <HStack justifyContent="space-around">
                         <Container bg="#fff" borderRadius={200} p={2}>
                             <Image
-                                source={require(`../../assets/${participant.avatarName}.svg`)}
+                                source={GetPenguinAvatarImage(participant.avatarName)}
                                 alt="Alternate Text"
                                 resizeMode="contain"
                                 size="xs"

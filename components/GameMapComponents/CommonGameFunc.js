@@ -33,6 +33,14 @@ function ReturnColor(avatarName) {
     }
 }
 
+export function GetPenguinAvatarImage(avatarName) {
+    return avatarName == "penguinAvatar"
+        ? require('../../assets/penguinAvatar.svg')
+        : avatarName == "penguinAvatar2"
+            ? require('../../assets/penguinAvatar2.svg')
+            : require('../../assets/penguinAvatar3.svg')
+}
+
 export function RoundAttackStage(attackStage) {
     switch (attackStage) {
         case 0:
