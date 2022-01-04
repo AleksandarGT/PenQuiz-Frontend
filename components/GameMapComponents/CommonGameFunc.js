@@ -1,3 +1,5 @@
+import { Platform } from 'react-native'
+
 export function GetAvatarColor(avatarName) {
     return ReturnColor(avatarName)
 }
@@ -34,11 +36,20 @@ function ReturnColor(avatarName) {
 }
 
 export function GetPenguinAvatarImage(avatarName) {
-    return avatarName == "penguinAvatar"
+    if(Platform.OS == "web") {
+        return avatarName == "penguinAvatar"
         ? require('../../assets/penguinAvatar.svg')
         : avatarName == "penguinAvatar2"
             ? require('../../assets/penguinAvatar2.svg')
             : require('../../assets/penguinAvatar3.svg')
+    }
+    else {
+        return avatarName == "penguinAvatar"
+        ? require('../../assets/penguinAvatar.png')
+        : avatarName == "penguinAvatar2"
+            ? require('../../assets/penguinAvatar2.png')
+            : require('../../assets/penguinAvatar3.png')
+    }
 }
 
 export function RoundAttackStage(attackStage) {

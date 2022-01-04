@@ -92,7 +92,7 @@ export function GameLobby({ route, navigation }) {
     }
 
     return (
-        <ImageBackground source={require('../assets/gameLobby.svg')} resizeMode="cover" style={styles.image}>
+        <ImageBackground source={Platform.OS === 'web' ? require('../assets/gameLobby.svg') : require('../assets/gameLobby.png')} resizeMode="cover" style={styles.image}>
             <Box position="absolute" top="0" left="0">
                 <Button onPress={() => {
                     setIsClosing(true)
