@@ -83,23 +83,28 @@ export function GetGameState(gameState) {
 export const gameSvgs = [
     {
         name: "penguinAvatar",
-        img: require(`../../assets/penguinAvatar.svg`)
+        img: require(`../../assets/penguinAvatar.svg`),
+        imgPng: require(`../../assets/penguinAvatar.png`)
     },
     {
         name: "penguinAvatar2",
-        img: require(`../../assets/penguinAvatar2.svg`)
+        img: require(`../../assets/penguinAvatar2.svg`),
+        imgPng: require(`../../assets/penguinAvatar2.png`)
     },
     {
         name: "penguinAvatar3",
-        img: require(`../../assets/penguinAvatar3.svg`)
+        img: require(`../../assets/penguinAvatar3.svg`),
+        imgPng: require(`../../assets/penguinAvatar3.png`)
     },
     {
         name: "shield",
-        img: require(`../../assets/shield.svg`)
+        img: require(`../../assets/shield.svg`),
+        imgPng: require(`../../assets/shield.png`),
     },
     {
         name: "sword",
-        img: require(`../../assets/sword.svg`)
+        img: require(`../../assets/sword.svg`),
+        imgPng: require(`../../assets/sword.png`)
     },
 ]
 

@@ -1,5 +1,6 @@
 import { Box, Center, VStack, Image } from 'native-base'
 import React from 'react'
+import { Platform } from 'react-native';
 import { gameSvgs, GetAvatarColor } from '../CommonGameFunc';
 
 export function MultipleAvatars({ avatarNames }) {
@@ -11,10 +12,10 @@ export function MultipleAvatars({ avatarNames }) {
                         <VStack>
                             <Center>
                                 <Image
-                                    source={gameSvgs.find(x => x.name == avatarNames[0]).img}
+                                    source={Platform.OS == "web" ? gameSvgs.find(x => x.name == avatarNames[0]).img : gameSvgs.find(x => x.name == avatarNames[0]).imgPng}
                                     alt="Alternate Text"
                                     resizeMode="contain"
-                                    size="md"
+                                    size={Platform.OS == "web" ? "md" : "xs"}
                                 />
                             </Center>
                         </VStack>
@@ -26,10 +27,10 @@ export function MultipleAvatars({ avatarNames }) {
                         <VStack>
                             <Center>
                                 <Image
-                                    source={gameSvgs.find(x => x.name == avatarNames[1]).img}
+                                    source={Platform.OS == "web" ? gameSvgs.find(x => x.name == avatarNames[1]).img : gameSvgs.find(x => x.name == avatarNames[1]).imgPng}
                                     alt="Alternate Text"
                                     resizeMode="contain"
-                                    size="md"
+                                    size={Platform.OS == "web" ? "md" : "xs"}
                                 />
                             </Center>
                         </VStack>

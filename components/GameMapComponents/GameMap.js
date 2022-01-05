@@ -1,6 +1,6 @@
 import { Box, Center, Container, HStack, Stack, VStack, ZStack, Text, Spacer, Button, Circle } from "native-base"
 import React, { useState } from "react"
-import { View, StyleSheet, ImageBackground } from 'react-native'
+import { View, StyleSheet, ImageBackground, Platform } from 'react-native'
 import { useRecoilValue } from "recoil"
 import { removeBackStack } from "../../helpers"
 import { useSignalR } from "../../hooks"
@@ -81,7 +81,8 @@ export default function GameMap() {
                                     onTerritoryClick={(ter) => OnTerritoryClick(ter)}
                                     playerAttackPossibilities={playerAttackPossibilities}
                                 />
-                                <GameRounding gameInstance={gameInstance} />
+                                {Platform.OS == "web" && <GameRounding gameInstance={gameInstance} />}
+
 
 
                             </VStack>
@@ -94,7 +95,7 @@ export default function GameMap() {
 
                         </HStack>
                 }
-
+                {Platform.OS != "web" && <GameRounding gameInstance={gameInstance} />}
 
 
             </ImageBackground>

@@ -1,6 +1,6 @@
 import { Center, Container, HStack, Text, Image, VStack, Box, ZStack } from "native-base";
 import React, { useState } from "react"
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Platform } from 'react-native';
 import { GetParticipantColor, RoundAttackStage, gameInstanceMock } from './CommonGameFunc'
 import { useRecoilValue } from 'recoil'
 import { gameInstanceAtom } from '../../state'
@@ -35,6 +35,9 @@ export default function GameRounding({ gameInstance = gameInstanceMock }) {
                                             flex: 1,
                                             backgroundColor: GetParticipantColor(gameInstance, pAttack.attackerId),
                                             margin: 10,
+                                            minHeight: 10,
+                                            alignSelf: "center",
+                                            height: "20%",
                                             borderRadius: 5,
                                             marginRight: index % 3 == 2 ? 10 : 0,
                                             marginVertical: 34,
@@ -62,6 +65,9 @@ export default function GameRounding({ gameInstance = gameInstanceMock }) {
                                     flex: 1,
                                     backgroundColor: GetParticipantColor(gameInstance, round.neutralRound.territoryAttackers.find(x => x.attackerWon)?.attackerId) ?? "#032157",
                                     margin: 10,
+                                    minHeight: 10,
+                                    alignSelf: "center",
+                                    height: "20%",
                                     borderRadius: 5,
                                     marginVertical: 34,
                                 }]} />
@@ -90,9 +96,11 @@ export default function GameRounding({ gameInstance = gameInstanceMock }) {
                                         flex: 1,
                                         backgroundColor: GetParticipantColor(gameInstance, round.pvpRound.attackerId),
                                         margin: 10,
+                                        minHeight: 10,
+                                        alignSelf: "center",
+                                        height: "20%",
                                         borderRadius: 5,
                                         marginRight: index % 3 == 2 ? 10 : 0,
-                                        marginVertical: 34,
                                     }]} />
                                 </React.Fragment>
                             )}
@@ -107,9 +115,10 @@ export default function GameRounding({ gameInstance = gameInstanceMock }) {
     return (
         <>
             <View style={{
-                flex: 1,
+                flex: 0.1,
                 backgroundColor: "#BFD2D4",
                 borderRadius: 25,
+                marginHorizontal: Platform.OS == "web" ? 0 : "10%",
                 justifyContent: "center",
             }}>
                 {/* In case we want to make every rounding stage (4 stages total) unique

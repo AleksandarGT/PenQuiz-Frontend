@@ -1,7 +1,7 @@
 import { Box, Center, Container, HStack, Text, VStack, Image, Divider, Pressable } from 'native-base'
 import React, { useEffect, useState } from 'react'
-import { ImageBackground, View } from 'react-native'
-import { gameInstanceMock, gameSvgs, GetAvatarColor, multipleChoicePvpQuestionMock, multipleChoiceQuestionMock, playerQuestionAnswersMock } from './CommonGameFunc'
+import { Dimensions, ImageBackground, Platform, View } from 'react-native'
+import { gameInstanceMock, gameSvgs, GetAvatarColor, multipleChoicePvpQuestionMock, multipleChoiceQuestionMock, playerQuestionAnswersMock, playerQuestionNumberAnswersMock } from './CommonGameFunc'
 import { authAtom, gameTimerAtom } from '../../state'
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import { PlayerAvatar, MultipleAvatars } from './QuestionScreens'
@@ -10,7 +10,7 @@ import MCQuestionTimer from './QuestionScreens/MCQuestionTimer'
 export default function MultipleChoiceScreen({
     question = multipleChoiceQuestionMock,
     AnswerMCQuestion = () => console.log("Default behavior"),
-    playerQuestionAnswers = playerQuestionAnswersMock
+    playerQuestionAnswers
 }) {
     const user = useRecoilValue(authAtom)
     const [answeredId, setAnsweredId] = useState()
@@ -24,6 +24,8 @@ export default function MultipleChoiceScreen({
     }
 
     function AnswerButton({ answer, playerAnswers, isDisabled }) {
+        const window = Dimensions.get('window')
+
         return (
             <Pressable onPress={() => {
                 if (answeredId) return
@@ -37,7 +39,7 @@ export default function MultipleChoiceScreen({
                                 isPressed ? "#06295A" :
                                     isHovered ? "#06326F" : "#000000"
                         } p={2} style={{
-                            background: playerAnswers?.length == 3 ? "linear-gradient(90deg, #5074FF 0%, #5074FF 33%, #8350FF 33%, #8350FF 66%, #FF5074 66%, #FF5074 100%)" :
+                            background: Platform.OS == "web" && playerAnswers?.length == 3 ? "linear-gradient(90deg, #5074FF 0%, #5074FF 33%, #8350FF 33%, #8350FF 66%, #FF5074 66%, #FF5074 100%)" :
                                 playerAnswers?.length == 2 ? `linear-gradient(90deg, ${GetAvatarColor(question.participants.find(x => x.playerId == playerAnswers[0].id).avatarName)} 0%, ${GetAvatarColor(question.participants.find(x => x.playerId == playerAnswers[0].id).avatarName)} 50%, ${GetAvatarColor(question.participants.find(x => x.playerId == playerAnswers[1].id).avatarName)} 50%, ${GetAvatarColor(question.participants.find(x => x.playerId == playerAnswers[1].id).avatarName)} 100%)` :
                                     playerAnswers?.length == 1 ? GetAvatarColor(question.participants.find(x => x.playerId == playerAnswers[0].id).avatarName) : null,
 
@@ -50,7 +52,7 @@ export default function MultipleChoiceScreen({
                             elevation: 5,
 
                         }} borderRadius={50}>
-                            <Box px={8} minWidth="20vw" py={2}>
+                            <Box px={8} minWidth={Platform.OS == "web" ? "20vw" : window.width * 0.2} py={2}>
                                 <Text style={{ textAlign: "center" }} fontSize={{ base: "md", md: "lg", lg: "xl", xl: "3xl" }}>
                                     {decodeURIComponent(answer.answer)}
                                 </Text>
@@ -66,7 +68,7 @@ export default function MultipleChoiceScreen({
 
     return (
         <>
-            <ImageBackground source={require('../../assets/gameLobby.svg')} resizeMode="cover" style={{
+            <ImageBackground source={Platform.OS === 'web' ? require('../../assets/gameLobby.svg') : require('../../assets/gameLobby.png')} resizeMode="cover" style={{
                 flex: 1,
                 backgroundColor: "#032157",
             }}>
@@ -98,11 +100,11 @@ export default function MultipleChoiceScreen({
                                 {/* Question */}
                                 <VStack flex={4} >
                                     <Box style={{
-                                        height: "100%",
+                                        height: Platform.OS == "web" ? "100%" : "0%",
                                         borderRadius: 30,
                                         backgroundColor: "#2F4887",
                                         justifyContent: "center"
-                                    }} p={10} shadow="5">
+                                    }} p={20} shadow="5">
                                         <Text fontWeight="bold" fontSize="4xl" style={{ textAlign: "center" }}>
                                             {decodeURIComponent(question.question)}
                                         </Text>

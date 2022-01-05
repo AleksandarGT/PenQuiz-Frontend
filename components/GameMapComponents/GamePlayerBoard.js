@@ -1,6 +1,6 @@
 import { Center, Container, HStack, Text, Image, VStack, Box } from "native-base"
 import React, { useState } from "react"
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, Platform } from 'react-native'
 import { GetAvatarColor, GetPenguinAvatarImage } from './CommonGameFunc'
 import { useRecoilValue } from 'recoil'
 import { gameInstanceAtom } from '../../state'
@@ -23,14 +23,14 @@ function GamePlayerBoard({ participant, hisTurn }) {
             <Box backgroundColor={GetAvatarColor(participant.avatarName)} style={hisTurn ? {
                 borderWidth: 5,
                 borderColor: "gold"
-            } : null} width={300} p={1} m={1} borderRadius={25}>
+            } : null} width={Platform.OS == "web" ? 300 : 250} p={1} m={1} borderRadius={25}>
                 <HStack>
                     <Container bg="#fff" borderRadius={200} p={2}>
                         <Image
                             source={GetPenguinAvatarImage(participant.avatarName)}
                             alt="Alternate Text"
                             resizeMode="contain"
-                            size="sm"
+                            size={Platform.OS == "web" ? "sm" : "xs"}
                         />
 
                     </Container>

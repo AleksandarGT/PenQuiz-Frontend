@@ -1,5 +1,6 @@
 import { Box, Image, Center, VStack } from 'native-base'
 import React from 'react'
+import { Platform } from 'react-native';
 import { gameSvgs, GetAvatarColor } from '../CommonGameFunc';
 
 export function PlayerAvatar({ supportIcon, avatarName }) {
@@ -11,10 +12,10 @@ export function PlayerAvatar({ supportIcon, avatarName }) {
                         <VStack>
                             <Center>
                                 <Image
-                                    source={gameSvgs.find(x => x.name == avatarName).img}
+                                    source={Platform.OS == "web" ? gameSvgs.find(x => x.name == avatarName).img : gameSvgs.find(x => x.name == avatarName).imgPng}
                                     alt="Alternate Text"
                                     resizeMode="contain"
-                                    size="lg"
+                                    size={Platform.OS == "web" ? "lg" : "sm"}
                                 />
                             </Center>
                         </VStack>
@@ -23,10 +24,10 @@ export function PlayerAvatar({ supportIcon, avatarName }) {
 
                 <Center style={{ borderColor: "black", borderWidth: 2, borderRadius: 15 }} mt={3} p={2}>
                     <Image
-                        source={gameSvgs.find(x => x.name == supportIcon).img}
+                        source={Platform.OS == "web" ? gameSvgs.find(x => x.name == supportIcon).img : gameSvgs.find(x => x.name == supportIcon).imgPng}
                         alt="Alternate Text"
                         resizeMode="contain"
-                        size="sm"
+                        size={Platform.OS == "web" ? "sm" : "xs"}
                     />
                 </Center>
             </Center>

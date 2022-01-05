@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Text, Button, Input, Center, Modal, Container, Box, Icon, HStack, Pressable, VStack, Image } from 'native-base'
-import { View, StyleSheet, ImageBackground, ActivityIndicator } from 'react-native'
+import { View, StyleSheet, ImageBackground, ActivityIndicator, Platform } from 'react-native'
 import { useSignalR, StatusCode } from '../hooks/'
 import { FontAwesome5 } from "@expo/vector-icons"
 import { useRecoilState, useRecoilValue } from "recoil"
@@ -61,7 +61,7 @@ export function GameLobby({ route, navigation }) {
                             source={GetPenguinAvatarImage(participant.avatarName)}
                             alt="Alternate Text"
                             resizeMode="contain"
-                            size="xl"
+                            size={Platform.OS === 'web' ? "xl" : "sm"}
                         />
 
                     </Center>

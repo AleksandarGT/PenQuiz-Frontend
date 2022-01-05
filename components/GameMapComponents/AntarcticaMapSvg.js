@@ -31,7 +31,7 @@ export default function AntarcticaMapSvg({ gameMapException, onTerritoryClick, g
     var jsx = []
     Object.keys(antarcticaSVGElements).forEach((k) => {
       jsx.push(
-        <G key={k} onClick={() => onTerritoryClick(k)}>
+        <G key={k} onClick={() => onTerritoryClick(k)} onPress={() => onTerritoryClick(k)}>
           {/* Territory path */}
           <Path
             d={antarcticaSVGElements[k].TerritoryPath}
@@ -112,7 +112,7 @@ export default function AntarcticaMapSvg({ gameMapException, onTerritoryClick, g
   }
 
   return (
-    <View style={{ height: windowHeight - 160, aspectRatio }}>
+    <View style={{ height: windowHeight - 160, aspectRatio, flex: 0.9 }}>
       {gameMapException ?
         <DefaultAlert message={gameMapException} />
         :

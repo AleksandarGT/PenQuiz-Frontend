@@ -38,7 +38,7 @@ export default function GameTimer({ gameState }) {
 
     return (
         <>
-            <Center style={{ flex: 1 }}>
+            <Center style={{ flex: 0.1 }}>
 
                 <View style={{
                     justifyContent: "center",

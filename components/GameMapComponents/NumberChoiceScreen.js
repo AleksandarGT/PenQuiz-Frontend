@@ -1,6 +1,6 @@
 import { Box, Center, Container, HStack, Text, VStack, Image, Divider, Pressable, Input, Button, IconButton } from 'native-base'
 import React, { useEffect, useState } from 'react'
-import { ImageBackground, View } from 'react-native'
+import { ImageBackground, Platform, View } from 'react-native'
 import { gameInstanceMock, gameSvgs, GetAvatarColor, multipleChoiceQuestionMock, numberChoicePvpQuestionMock, numberChoiceQuestionMock, playerQuestionAnswersMock, playerQuestionNumberAnswersMock } from './CommonGameFunc'
 import { authAtom, gameTimerAtom } from '../../state'
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
@@ -9,7 +9,7 @@ import MCQuestionTimer from './QuestionScreens/MCQuestionTimer'
 import { MaterialIcons } from '@expo/vector-icons'
 
 export default function NumberChoiceScreen({
-    question = numberChoicePvpQuestionMock,
+    question = numberChoiceQuestionMock,
     AnswerNumberQuestion = (e) => console.log("Default behavior" + e),
     playerQuestionAnswers
 }) {
@@ -54,7 +54,8 @@ export default function NumberChoiceScreen({
                                 bg="#D7D7D7"
                                 color="black"
                                 _hover={{ bg: "#C6C6C6" }}
-                                size="md"
+                                size="sm"
+                                width="50%"
                                 placeholder="" />
 
                             <IconButton
@@ -94,9 +95,9 @@ export default function NumberChoiceScreen({
                     {playerQuestionAnswers.playerAnswers.map(x =>
                         <Box style={{
                             elevation: 5,
-                            outlineColor: '#42FF00',
-                            outlineStyle: "solid",
-                            outlineWidth: x.winner ? 10 : 0,
+                            // Border for right answer
+                            borderColor: "#42FF00",
+                            borderWidth: x.winner ? 10 : 0,
                         }} width="25%" paddingY={2} borderRadius={25} bg={GetAvatarColor(question.participants.find(y => y.playerId == x.playerId).avatarName)}>
                             <Center alignItems="center" justifyContent="center">
                                 <Text fontSize={{ base: "md", md: "lg", lg: "xl", xl: 25 }}>{x.answer ?? "---"}</Text>
@@ -143,11 +144,11 @@ export default function NumberChoiceScreen({
                                 {/* Question */}
                                 <VStack flex={4} >
                                     <Box style={{
-                                        height: "100%",
+                                        height: Platform.OS == "web" ? "100%" : "0%",
                                         borderRadius: 30,
                                         backgroundColor: "#2F4887",
                                         justifyContent: "center"
-                                    }} p={10} shadow="5">
+                                    }} p={20} shadow="5">
                                         <Text fontWeight="bold" fontSize="4xl" style={{ textAlign: "center" }}>
                                             {decodeURIComponent(question.question)}
                                         </Text>
