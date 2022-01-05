@@ -64,38 +64,41 @@ export default function GameMap() {
                     roundQuestion?.type == "number" ?
                         <NumberChoiceScreen playerQuestionAnswers={playerQuestionAnswers} AnswerNumberQuestion={AnswerNumberQuestion} question={roundQuestion} />
                         :
-                        <HStack justifyContent="space-between" flexDirection="row" flex={1}>
-                            <VStack >
-                                <Container>
-                                    <GameBoards gameInstance={gameInstance} currentAttackerId={playerAttackPossibilities?.attackerId} />
-                                </Container>
-                                {/* <GameChat /> */}
-                            </VStack>
+                        <>
 
-                            <VStack>
+                            <HStack justifyContent="space-between" flexDirection="row" flex={1}>
+                                <VStack >
+                                    <Container>
+                                        <GameBoards gameInstance={gameInstance} currentAttackerId={playerAttackPossibilities?.attackerId} />
+                                    </Container>
+                                    {/* <GameChat /> */}
+                                </VStack>
 
-                                <GameTimer gameState={gameInstance.gameState} />
-                                <AntarcticaMapSvg
-                                    gameMapException={gameMapException}
-                                    gameInstance={gameInstance}
-                                    onTerritoryClick={(ter) => OnTerritoryClick(ter)}
-                                    playerAttackPossibilities={playerAttackPossibilities}
-                                />
-                                {Platform.OS == "web" && <GameRounding gameInstance={gameInstance} />}
+                                <VStack>
 
-
-
-                            </VStack>
-                            {
-                                GetGameState(gameInstance.gameState) == "FINISHED" &&
-                                <GameEndModal gameInstance={gameInstance} />
-                            }
-                            <View style={{ width: "10%" }}></View>
+                                    <GameTimer gameState={gameInstance.gameState} />
+                                    <AntarcticaMapSvg
+                                        gameMapException={gameMapException}
+                                        gameInstance={gameInstance}
+                                        onTerritoryClick={(ter) => OnTerritoryClick(ter)}
+                                        playerAttackPossibilities={playerAttackPossibilities}
+                                    />
+                                    {Platform.OS == "web" && <GameRounding gameInstance={gameInstance} />}
 
 
-                        </HStack>
+
+                                </VStack>
+                                {
+                                    GetGameState(gameInstance.gameState) == "FINISHED" &&
+                                    <GameEndModal gameInstance={gameInstance} />
+                                }
+                                <View style={{ width: "10%" }}></View>
+
+
+                            </HStack>
+                            {Platform.OS != "web" && <GameRounding gameInstance={gameInstance} />}
+                        </>
                 }
-                {Platform.OS != "web" && <GameRounding gameInstance={gameInstance} />}
 
 
             </ImageBackground>
