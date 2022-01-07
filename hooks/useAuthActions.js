@@ -19,6 +19,8 @@ function useAuthActions() {
     //const lobby = useSignalR();
     var timeout
 
+    
+
     function startRefreshTokenTimer(jwt) {
 
         // Calculate when to call refresh token refresh

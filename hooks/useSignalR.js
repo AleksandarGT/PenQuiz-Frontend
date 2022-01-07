@@ -15,7 +15,6 @@ export const StatusCode = {
 
 
 export function useSignalR() {
-
     const userJwt = useRecoilValue(authToken)
     const currentUser = useRecoilValue(authAtom)
     const [gameInstance, setGameInstance] = useRecoilState(gameInstanceAtom)
