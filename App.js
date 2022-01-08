@@ -26,6 +26,38 @@ export default function App() {
     'Before-Collapse': require('./assets/BeforeCollapse.ttf'),
   })
 
+  const Status = { 'INACTIVE': 1, 'ACTIVE': 2 }
+  const [servicesStatus, setServicesStatus] = useState({
+    Status: __DEV__ ? Status.ACTIVE : Status.INACTIVE,
+    Message: ""
+  })
+
+  // Pings all required services so they don't idle
+  useEffect(() => {
+    if(!__DEV__) return;
+
+    Promise.all([
+      fetch("https://conquiz-account-api.azurewebsites.net/api/account").then(res => {
+        if (!res.ok)
+          throw "Account Service Unavailable"
+      }),
+      fetch("https://conquiz-game-api.azurewebsites.net/api/game").then(res => {
+        if (!res.ok)
+          throw "Game Service Unavailable"
+      }),
+      fetch("https://conquiz-question-api.azurewebsites.net/api/question").then(res => {
+        if (!res.ok)
+          throw "Question Service Unavailable"
+      }),
+    ])
+      .then(() => {
+        setServicesStatus({ Status: Status.ACTIVE, Message: "" })
+      })
+      .catch((er) => {
+        setServicesStatus({ Status: Status.INACTIVE, Message: er })
+      })
+  }, [])
+
   // Handle orientation on mobile devices
   useEffect(() => {
     if (Platform.OS === 'web') return
@@ -36,7 +68,7 @@ export default function App() {
     <RecoilRoot>
       <NativeBaseProvider theme={theme}>
         <StatusBar hidden={true} />
-        {fontsLoaded ? <Routes /> : <LoadingComponent />}
+        {servicesStatus.Status == Status.INACTIVE || !fontsLoaded ? <LoadingComponent message={servicesStatus.Message} /> : <Routes />}
         {/* <Routes /> */}
       </NativeBaseProvider>
     </RecoilRoot>

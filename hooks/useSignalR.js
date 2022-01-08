@@ -114,7 +114,6 @@ export function useSignalR() {
         connection.on('ShowGameMap', (() => {
             setRoundQuestion("")
             setPlayerQuestionAnswers("")
-            setGameTimer(0)
         }))
 
         // Game events
