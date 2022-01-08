@@ -34,7 +34,7 @@ export default function App() {
 
   // Pings all required services so they don't idle
   useEffect(() => {
-    if(!__DEV__) return;
+    if(__DEV__) return;
 
     Promise.all([
       fetch("https://conquiz-account-api.azurewebsites.net/api/account").then(res => {
