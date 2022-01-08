@@ -112,7 +112,7 @@ export default function AntarcticaMapSvg({ gameMapException, onTerritoryClick, g
   }
 
   return (
-    <View style={{ height: windowHeight - 160, aspectRatio, flex: 0.9 }}>
+    <View style={{ height: windowHeight - 160, aspectRatio, flex: 0.8 }}>
       {gameMapException ?
         <DefaultAlert message={gameMapException} />
         :

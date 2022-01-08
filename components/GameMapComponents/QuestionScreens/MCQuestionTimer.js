@@ -2,20 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { ImageBackground, View } from 'react-native'
 import { authAtom, gameTimerAtom } from '../../../state';
 import { Box, Center, Container, HStack, Text, VStack, Image, Divider, Pressable } from 'native-base'
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { MaterialIcons } from '@expo/vector-icons';
 
 export default function MCQuestionTimer() {
     const globalDisplayTime = useRecoilValue(gameTimerAtom)
-    const [displayTime, setDisplayTime] = useState()
-
-    useEffect(() => {
-        setDisplayTime(globalDisplayTime)
-
-    }, [globalDisplayTime])
-    useEffect(() => {
-        displayTime > 0 && setTimeout(() => setDisplayTime(displayTime - 1), 1000);
-    }, [displayTime])
 
     return (
         <View style={{
@@ -30,7 +21,7 @@ export default function MCQuestionTimer() {
                 <HStack>
                     <MaterialIcons name="timer" size={32} color="white" />
                     <Text fontSize="xl" fontWeight="bold">
-                        {`${displayTime}s`}
+                        {`${globalDisplayTime}s`}
                     </Text>
                 </HStack>
             </Center>

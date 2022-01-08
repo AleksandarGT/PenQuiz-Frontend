@@ -111,10 +111,10 @@ export function useSignalR() {
             setJoiningGameException(er)
         }))
 
-        connection.on('ShowGameMap', ((msTimeForAction) => {
+        connection.on('ShowGameMap', (() => {
             setRoundQuestion("")
             setPlayerQuestionAnswers("")
-            setGameTimer((msTimeForAction ?? 1000 - 1000) / 1000)
+            setGameTimer(0)
         }))
 
         // Game events
@@ -122,7 +122,7 @@ export function useSignalR() {
             navigate("GameMap")
         }))
 
-        connection.on('ShowRoundingAttacker', ((attackerId, msTimeForAction, availableAttackTerritoriesNames) => {
+        connection.on('ShowRoundingAttacker', ((attackerId, availableAttackTerritoriesNames) => {
             // Set the preview of available attack territories for given playerid
 
             if (currentUser.id == attackerId) {
@@ -135,7 +135,6 @@ export function useSignalR() {
 
             setPlayerQuestionAnswers("")
             setRoundQuestion("")
-            setGameTimer((msTimeForAction - 1000) / 1000)
         }))
 
         connection.on('BorderSelectedGameException', ((msg) => {
@@ -143,11 +142,8 @@ export function useSignalR() {
         }))
 
         // Question events
-        connection.on('GetRoundQuestion', ((roundQuestion, msTimeForAction) => {
+        connection.on('GetRoundQuestion', ((roundQuestion) => {
             setPlayerQuestionAnswers("")
-
-            setGameTimer(0)
-            setGameTimer((msTimeForAction - 1000) / 1000)
             setRoundQuestion(roundQuestion)
         }))
 
@@ -163,6 +159,11 @@ export function useSignalR() {
 
             setPlayerQuestionAnswers(previewResult)
             setGameMapException("")
+        }))
+
+        // Timer event
+        connection.on('GameSendCountDownSeconds', ((secondsForAction) => {
+            setGameTimer(secondsForAction)
         }))
     }
 

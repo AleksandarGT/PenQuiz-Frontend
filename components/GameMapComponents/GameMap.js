@@ -59,10 +59,10 @@ export default function GameMap() {
                 backgroundColor: "#032157",
             }}>
                 {roundQuestion?.type == "multiple" ?
-                    <MultipleChoiceScreen playerQuestionAnswers={playerQuestionAnswers} AnswerMCQuestion={AnswerMcQuestion} question={roundQuestion} />
+                    <MultipleChoiceScreen key="mcScreen1" playerQuestionAnswers={playerQuestionAnswers} AnswerMCQuestion={AnswerMcQuestion} question={roundQuestion} />
                     :
                     roundQuestion?.type == "number" ?
-                        <NumberChoiceScreen playerQuestionAnswers={playerQuestionAnswers} AnswerNumberQuestion={AnswerNumberQuestion} question={roundQuestion} />
+                        <NumberChoiceScreen key="numberScreen1" playerQuestionAnswers={playerQuestionAnswers} AnswerNumberQuestion={AnswerNumberQuestion} question={roundQuestion} />
                         :
                         <>
 
