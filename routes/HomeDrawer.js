@@ -8,8 +8,10 @@ import {
 } from '@react-navigation/drawer'
 import { View, Button, Text, useWindowDimensions } from 'react-native'
 import { Center } from 'native-base'
-import { HomeGame } from '../components/HomeGame'
 import { AccountDetails } from '../components/AccountDetails'
+import { HomeGame } from '../components/HomeGame'
+import PublicGameDashboard from '../components/GameDashboardComponents/PublicGameDashboard'
+import PrivateGameDashboard from '../components/GameDashboardComponents/PrivateGameDashboard'
 const Drawer = createDrawerNavigator()
 
 export function HomeDrawer() {
@@ -49,7 +51,8 @@ export function HomeDrawer() {
             }}
             drawerContent={props => <CustomLogout {...props} />}
         >
-            <Drawer.Screen options={drawerScreenOptions} name="Game" component={HomeGame} />
+            <Drawer.Screen options={drawerScreenOptions} name="Public Game" component={PublicGameDashboard} />
+            <Drawer.Screen options={drawerScreenOptions} name="Private Game" component={PrivateGameDashboard} />
             <Drawer.Screen options={drawerScreenOptions} name="Account" component={AccountDetails} />
         </Drawer.Navigator>
     )

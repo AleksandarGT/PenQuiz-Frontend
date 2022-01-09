@@ -17,11 +17,11 @@ export function GameLobby({ route, navigation }) {
     const IsLobbyFull = () => lobby.gameInstance.participants?.length == RequiredPlayers ? true : false
     const IsGameHost = () => userId == lobby.gameInstance.gameCreatorId ? true : false
 
-
+    // Gametype - 0 public, 1 private
     function StartGameButton({ onPress }) {
         return (
             <Pressable disabled={!IsGameHost() || !IsLobbyFull()} onPress={() => {
-                onPress()
+                lobby.gameInstance.gameType == 1 && onPress()
             }}>
                 {({ isHovered, isFocused, isPressed }) => {
                     return (
@@ -118,7 +118,7 @@ export function GameLobby({ route, navigation }) {
                     onClose={() => {
                         setIsClosing(false)
                     }} />
-                <CodeCard />
+                {lobby.gameInstance.gameType == 1 && CodeCard()}
                 <StartGameButton onPress={() =>
                     lobby.StartGame()
                 } />

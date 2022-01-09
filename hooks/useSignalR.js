@@ -196,6 +196,10 @@ export function useSignalR() {
         connection?.invoke("StartGame")
     }
 
+    function FindPublicMatch() {
+        connection?.invoke("FindPublicMatch")
+    }
+
     return {
         // Game
         gameTimer,
@@ -216,6 +220,7 @@ export function useSignalR() {
         CreateGameLobby,
         JoinLobby,
         LeaveGameLobby,
-        StartGame
+        StartGame,
+        FindPublicMatch
     }
 }
