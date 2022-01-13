@@ -91,6 +91,15 @@ export function useSignalR() {
         connection.on('NavigateToGame', ((gi) => {
             navigate("GameMap")
         }))
+
+        connection.on('OnSelectedTerritory', (selectedTerritoryResponse) => {
+            setGameInstance(old => ({
+                ...old,
+                objectTerritory: old.objectTerritory.map(
+                    el => el.id === selectedTerritoryResponse.territoryId ? {...el, attackedBy: selectedTerritoryResponse.attackedById} : el
+                )
+            }))
+        })
         connection.on('GetGameInstance', ((gi) => {
             setGameInstance(gi)
 
