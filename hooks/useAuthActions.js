@@ -19,17 +19,21 @@ function useAuthActions() {
     //const lobby = useSignalR();
     var timeout
 
-    
+
 
     function startRefreshTokenTimer(jwt) {
-
-        // Calculate when to call refresh token refresh
-        // if(auth?.jwtToken) return
-        const tokenExp = JSON.parse(Buffer.from(jwt.split('.')[1], 'base64'))
-        const expires = new Date(tokenExp.exp * 1000)
-        const timeoutSec = expires.getTime() - Date.now() - (60 * 1000)
-        console.log(`${timeoutSec / 1000} s before next JWT fetch call`)
-        timeout = setTimeout(() => refreshToken(), timeoutSec)
+        try {
+            // Calculate when to call refresh token refresh
+            // if(auth?.jwtToken) return
+            const tokenExp = JSON.parse(Buffer.from(jwt.split('.')[1], 'base64'))
+            const expires = new Date(tokenExp.exp * 1000)
+            const timeoutSec = expires.getTime() - Date.now() - (60 * 1000)
+            console.log(`${timeoutSec / 1000} s before next JWT fetch call`)
+            timeout = setTimeout(() => refreshToken(), timeoutSec)
+        }
+        catch(error) {
+            console.log("Something went wrong with the JWT expiration date! Refresh token timer not started!")
+        }
     }
 
     const [request, googleResponse, googlePromptAsync] = Google.useIdTokenAuthRequest({
