@@ -33,7 +33,7 @@ export function AccountDetails() {
             <Center>
                 <Box bg="#071D56" p={5} borderRadius={25}>
                     <Text textAlign="center" color="#fff" fontSize={{ base: "md", md: "lg", lg: "xl", xl: "3xl" }} style={{ fontFamily: 'Before-Collapse', }}>
-                        {authValue.username}
+                        {authValue?.username}
                     </Text>
                     <Text mt={2} textAlign="center" color="#fff" fontSize={{ base: "md", md: "lg", lg: "xl", xl: "2xl" }} style={{ fontFamily: 'Before-Collapse', }}>
                         Total games: {userStatistics?.totalGames ?? 0}{"\n"}

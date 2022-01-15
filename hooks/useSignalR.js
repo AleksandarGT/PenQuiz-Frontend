@@ -177,14 +177,17 @@ export function useSignalR() {
 
     // Game map events
     function SelectTerritory(territoryName) {
+        if(gameTimer <= 0) return;
         connection?.invoke("SelectTerritory", territoryName)
     }
 
     function AnswerMCQuestion(answerId) {
+        if(gameTimer <= 0) return;
         connection?.invoke("AnswerQuestion", answerId)
     }
 
     function AnswerNumberQuestion(numberAnswer) {
+        if(gameTimer <= 0) return;
         connection?.invoke("AnswerQuestion", numberAnswer)
     }
 

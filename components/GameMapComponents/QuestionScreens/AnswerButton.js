@@ -1,18 +1,20 @@
 import { Box, Center, Container, HStack, Text, VStack, Image, Divider, Pressable } from 'native-base'
 import React from 'react'
 import { Dimensions, Platform } from 'react-native'
-import { useRecoilValue } from 'recoil'
-import { authAtom } from '../../../state'
+import { useRecoilState, useRecoilValue } from 'recoil'
+import { authAtom, gameTimerAtom } from '../../../state'
 import { GetAvatarColor } from '../CommonGameFunc'
 
 
 export default function AnswerButton({ answer, playerAnswers, isDisabled, answeredId, playerQuestionAnswers, question, AnswerMCQuestion, setAnsweredId }) {
     const window = Dimensions.get('window')
     const user = useRecoilValue(authAtom)
+    const gameTimer = useRecoilValue(gameTimerAtom)
 
     return (
         <Pressable onPress={() => {
             if (answeredId) return
+            if (gameTimer <= 0) return
             setAnsweredId(answer.id)
             AnswerMCQuestion(answer.id)
         }}>
