@@ -12,6 +12,8 @@ import { AccountDetails } from '../components/AccountDetails'
 import { HomeGame } from '../components/HomeGame'
 import PublicGameDashboard from '../components/GameDashboardComponents/PublicGameDashboard'
 import PrivateGameDashboard from '../components/GameDashboardComponents/PrivateGameDashboard'
+import { SubmitQuestionBase } from '../components/AddQuestionComponents/SubmitQuestionBase'
+
 const Drawer = createDrawerNavigator()
 
 export function HomeDrawer() {
@@ -50,10 +52,11 @@ export function HomeDrawer() {
                 },
             }}
             drawerContent={props => <CustomLogout {...props} />}
-        >
+            >
             <Drawer.Screen options={drawerScreenOptions} name="Public Game" component={PublicGameDashboard} />
             <Drawer.Screen options={drawerScreenOptions} name="Private Game" component={PrivateGameDashboard} />
             <Drawer.Screen options={drawerScreenOptions} name="Account" component={AccountDetails} />
+            <Drawer.Screen options={drawerScreenOptions} name="Submit Question" component={SubmitQuestionBase} />
         </Drawer.Navigator>
     )
 }

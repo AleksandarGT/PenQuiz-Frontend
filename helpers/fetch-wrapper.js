@@ -57,7 +57,7 @@ function useFetchWrapper() {
                     //history.push('/login');
                 }
 
-                const error = (data && data.message) || response.statusText
+                const error = (data && data.message) // || response.statusText
                 return Promise.reject(error)
             }
 
