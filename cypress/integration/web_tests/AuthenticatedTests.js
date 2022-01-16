@@ -1,4 +1,4 @@
-describe("login", () => {
+describe("AuthenticatedTests", () => {
     beforeEach(() => {
         cy.visit("http://localhost:19006/");
         cy.intercept('Post', 'https://localhost:5003/api/account/refresh-token', {
