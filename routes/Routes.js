@@ -8,13 +8,14 @@ import { NavigationContainer } from '@react-navigation/native'
 import { navigationRef } from '../helpers'
 import TestingSvg from '../components/Testing/TestingSvg'
 import * as Linking from 'expo-linking'
-import { authStatus } from '../state'
+import { authStatus, gameInstanceAtom } from '../state'
 import { HomeDrawer } from './HomeDrawer'
 import { LoadingComponent } from './LoadingComponent'
 import { GameLobby } from '../components/GameLobby'
 import GameMap from '../components/GameMapComponents/GameMap'
 import MultipleChoiceScreen from '../components/GameMapComponents/MultipleChoiceScreen'
 import NumberChoiceScreen from '../components/GameMapComponents/NumberChoiceScreen'
+import { GetGameState } from '../components/GameMapComponents/CommonGameFunc'
 
 export * from './LoadingComponent'
 
@@ -23,6 +24,7 @@ const Stack = createStackNavigator()
 const prefix = Linking.createURL('http://localhost:19006')
 export function Routes() {
   const localAuthStatus = useRecoilValue(authStatus)
+  const game = useRecoilValue(gameInstanceAtom)
 
   const useuseAuthActions = useAuthActions()
   useEffect(() => {
@@ -40,6 +42,29 @@ export function Routes() {
       }
     }
   }
+
+
+  useEffect(() => {
+    if (Platform.OS == 'web') {
+
+      function unloadEventHandler(e) {
+        // Cancel the event
+        e.preventDefault(); // If you prevent default behavior in Mozilla Firefox prompt will always be shown
+        // Chrome requires returnValue to be set
+        e.returnValue = '';
+      }
+
+      if (GetGameState(game?.gameState) == 'IN_PROGRESS') {
+        console.log(GetGameState(game.gameState))
+        window.addEventListener('beforeunload', unloadEventHandler);
+      }
+      else {
+        window.removeEventListener('beforeunload', unloadEventHandler)
+      }
+
+      return () => window.removeEventListener('beforeunload', unloadEventHandler)
+    }
+  }, [game?.gameState])
 
   function SwitchAuthState() {
 

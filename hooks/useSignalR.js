@@ -2,9 +2,10 @@ import { setupSignalRConnection } from './SignalRSetup'
 import { authToken, gameInstanceAtom, joiningGameExceptionAtom, connectionStatusAtom, gameTimerAtom, gameMapExceptionAtom, canUserAnswerQuestionAtom, showMultipleChoiceQuestionAtom, multipleChoiceQuestionAtom, authAtom, questionParticipantsAtom, roundQuestionAtom, playerQuestionAnswersAtom, playerAttackPossibilitiesAtom } from '../state'
 import { useRecoilValue, useRecoilState } from 'recoil'
 import { BACKEND_GAME_API_URL } from '@env'
-import { navigate } from '../helpers'
+import { navigate, removeBackStack } from '../helpers'
 import { getConnection } from './SignalRSetup'
 import { useEffect, useState } from 'react'
+import { GetGameState } from '../components/GameMapComponents/CommonGameFunc'
 
 const connectionHub = `${BACKEND_GAME_API_URL}/gamehubs`
 
@@ -67,14 +68,14 @@ export function useSignalR() {
         // Lobby events
         connection.on('LobbyCanceled', ((msg) => {
             setJoiningGameException(msg)
-            navigate("Home")
+            removeBackStack("Home")
         }))
         connection.on('TESTING', ((msg) => {
             console.log(msg)
         }))
 
         connection.on('CallerLeftGame', (() => {
-            navigate("Home")
+            removeBackStack("Home")
         }))
         connection.on('PersonLeftGame', ((disconnectedPersonId) => {
             setGameInstance(old => ({
@@ -86,17 +87,17 @@ export function useSignalR() {
             }))
         }))
         connection.on('NavigateToLobby', ((gi) => {
-            navigate("GameLobby")
+            removeBackStack("GameLobby")
         }))
         connection.on('NavigateToGame', ((gi) => {
-            navigate("GameMap")
+            removeBackStack("GameMap")
         }))
 
         connection.on('OnSelectedTerritory', (selectedTerritoryResponse) => {
             setGameInstance(old => ({
                 ...old,
                 objectTerritory: old.objectTerritory.map(
-                    el => el.id === selectedTerritoryResponse.territoryId ? {...el, attackedBy: selectedTerritoryResponse.attackedById} : el
+                    el => el.id === selectedTerritoryResponse.territoryId ? { ...el, attackedBy: selectedTerritoryResponse.attackedById } : el
                 )
             }))
         })
@@ -114,7 +115,7 @@ export function useSignalR() {
             }))
         }))
         connection.on('GameStarting', (() => {
-            navigate("GameMap")
+            removeBackStack("GameMap")
         }))
         connection.on('GameException', ((er) => {
             setJoiningGameException(er)
@@ -127,7 +128,7 @@ export function useSignalR() {
 
         // Game events
         connection.on('Game_Show_Main_Screen', ((msTimeForAction) => {
-            navigate("GameMap")
+            removeBackStack("GameMap")
         }))
 
         connection.on('ShowRoundingAttacker', ((attackerId, availableAttackTerritoriesNames) => {
@@ -177,22 +178,26 @@ export function useSignalR() {
 
     // Game map events
     function SelectTerritory(territoryName) {
-        if(gameTimer <= 0) return;
+        if (gameTimer <= 0) return;
         connection?.invoke("SelectTerritory", territoryName)
     }
 
     function AnswerMCQuestion(answerId) {
-        if(gameTimer <= 0) return;
+        if (gameTimer <= 0) return;
         connection?.invoke("AnswerQuestion", answerId)
     }
 
     function AnswerNumberQuestion(numberAnswer) {
-        if(gameTimer <= 0) return;
+        if (gameTimer <= 0) return;
         connection?.invoke("AnswerQuestion", numberAnswer)
     }
 
     // Send events to server
     function CreateGameLobby() {
+        // Remove reference from any previous game instances
+        if (gameInstance != null) {
+            setGameInstance(null)
+        }
         connection?.invoke("CreateGameLobby")
     }
 
@@ -209,6 +214,10 @@ export function useSignalR() {
     }
 
     function FindPublicMatch() {
+        // Remove reference from any previous game instances
+        if (gameInstance != null) {
+            setGameInstance(null)
+        }
         connection?.invoke("FindPublicMatch")
     }
 

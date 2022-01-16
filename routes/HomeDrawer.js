@@ -1,27 +1,35 @@
 
-import React from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { useAuthActions } from '../hooks'
 import {
     createDrawerNavigator, DrawerContentScrollView,
     DrawerItemList,
     DrawerItem,
 } from '@react-navigation/drawer'
-import { View, Button, Text, useWindowDimensions } from 'react-native'
+import { View, Button, Text, useWindowDimensions, InteractionManager } from 'react-native'
 import { Center } from 'native-base'
 import { AccountDetails } from '../components/AccountDetails'
 import { HomeGame } from '../components/HomeGame'
 import PublicGameDashboard from '../components/GameDashboardComponents/PublicGameDashboard'
 import PrivateGameDashboard from '../components/GameDashboardComponents/PrivateGameDashboard'
 import { SubmitQuestionBase } from '../components/AddQuestionComponents/SubmitQuestionBase'
+import { useFocusEffect, useIsFocused } from '@react-navigation/native'
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
+import { gameInstanceAtom } from '../state'
 
 const Drawer = createDrawerNavigator()
 
 export function HomeDrawer() {
 
+    const [gameInstance, setGameInstance] = useRecoilState(gameInstanceAtom)
     const actions = useAuthActions()
     const dimensions = useWindowDimensions()
 
     const isLargeScreen = dimensions.width >= 768
+
+
+
+
 
     function CustomLogout(props) {
         return (
@@ -31,6 +39,14 @@ export function HomeDrawer() {
             </DrawerContentScrollView>
         )
     }
+
+    // const isFocused = useIsFocused()
+
+    // useEffect(() => {
+    //     if (!isFocused || gameInstance == null) return
+    //     setGameInstance(null)
+    // }, [isFocused])
+
 
     const drawerScreenOptions = {
         drawerActiveTintColor: "white",
@@ -52,7 +68,7 @@ export function HomeDrawer() {
                 },
             }}
             drawerContent={props => <CustomLogout {...props} />}
-            >
+        >
             <Drawer.Screen options={drawerScreenOptions} name="Public Game" component={PublicGameDashboard} />
             <Drawer.Screen options={drawerScreenOptions} name="Private Game" component={PrivateGameDashboard} />
             <Drawer.Screen options={drawerScreenOptions} name="Account" component={AccountDetails} />

@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react/cjs/react.development'
 import { removeBackStack } from '../../helpers'
 import { gameInstanceMock, GetAvatarColor, GetPenguinAvatarImage } from '../GameMapComponents/CommonGameFunc'
 
-export default function GameEndModal({ gameInstance = gameInstanceMock }) {
-
+export default function GameEndModal({ gameInstance = gameInstanceMock, onExit }) {
+    const [isModalOpen, setIsModalOpen] = useState(true)
     function PlayerBoard({ participant, position }) {
         return (
             <HStack>
@@ -83,7 +83,8 @@ export default function GameEndModal({ gameInstance = gameInstanceMock }) {
     function ExitGame() {
         return (
             <Pressable mt={4} onPress={() => {
-                removeBackStack("Home")
+                setIsModalOpen(false)
+                onExit()
             }}>
                 {({ isHovered, isFocused, isPressed }) => {
                     return (
@@ -102,7 +103,7 @@ export default function GameEndModal({ gameInstance = gameInstanceMock }) {
 
     return (
         <>
-            <Modal defaultIsOpen={false} isOpen={true} closeOnOverlayClick={false} isKeyboardDismissable={false} size="full" px={8}>
+            <Modal defaultIsOpen={false} isOpen={isModalOpen} closeOnOverlayClick={false} isKeyboardDismissable={false} size="full" px={8}>
                 <Modal.Content borderRadius={25}>
                     <Modal.Body px={8} bg="#2F4887">
                         <RenderContent />

@@ -90,7 +90,9 @@ export default function GameMap() {
                                 </VStack>
                                 {
                                     GetGameState(gameInstance.gameState) == "FINISHED" &&
-                                    <GameEndModal gameInstance={gameInstance} />
+                                    <GameEndModal onExit={() => {
+                                        removeBackStack("Home")
+                                    }} gameInstance={gameInstance} />
                                 }
                                 <View style={{ width: "10%" }}></View>
 
