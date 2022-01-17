@@ -1,6 +1,5 @@
 import { Box, Container, HStack, Modal, Text, VStack, Image, Center, AspectRatio, Pressable } from 'native-base'
-import React from 'react'
-import { useEffect, useState } from 'react/cjs/react.development'
+import React, { useState } from 'react'
 import { removeBackStack } from '../../helpers'
 import { gameInstanceMock, GetAvatarColor, GetPenguinAvatarImage } from '../GameMapComponents/CommonGameFunc'
 

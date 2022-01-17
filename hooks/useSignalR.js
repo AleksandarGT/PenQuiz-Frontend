@@ -69,6 +69,14 @@ export function useSignalR() {
         connection.on('LobbyCanceled', ((msg) => {
             setJoiningGameException(msg)
             removeBackStack("Home")
+
+            // Game is canceled
+            if (gameInstance == null) return
+            
+            setGameInstance(old => ({
+                ...old,
+                gameState: 3
+            }))
         }))
         connection.on('TESTING', ((msg) => {
             console.log(msg)
