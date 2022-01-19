@@ -200,12 +200,20 @@ export function useSignalR() {
         connection?.invoke("AnswerQuestion", numberAnswer)
     }
 
+    function RemoveGameData() {
+        gameInstance && setGameInstance(null)
+        gameTimer && setGameTimer(0)
+        playerAttackPossibilities && setPlayerAttackPossibilities(null)
+        gameMapException && setGameMapException(null)
+        roundQuestion && setRoundQuestion(null)
+        playerQuestionAnswers && setPlayerQuestionAnswers(null)
+    }
     // Send events to server
     function CreateGameLobby() {
+
         // Remove reference from any previous game instances
-        if (gameInstance != null) {
-            setGameInstance(null)
-        }
+        RemoveGameData()
+
         connection?.invoke("CreateGameLobby")
     }
 
@@ -223,9 +231,8 @@ export function useSignalR() {
 
     function FindPublicMatch() {
         // Remove reference from any previous game instances
-        if (gameInstance != null) {
-            setGameInstance(null)
-        }
+        RemoveGameData()
+
         connection?.invoke("FindPublicMatch")
     }
 
