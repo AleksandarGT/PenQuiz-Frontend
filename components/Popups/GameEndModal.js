@@ -1,6 +1,5 @@
 import { Box, Container, HStack, Modal, Text, VStack, Image, Center, AspectRatio, Pressable } from 'native-base'
 import React, { useState } from 'react'
-import { removeBackStack } from '../../helpers'
 import { gameInstanceMock, GetAvatarColor, GetPenguinAvatarImage } from '../GameMapComponents/CommonGameFunc'
 
 export default function GameEndModal({ gameInstance = gameInstanceMock, onExit }) {

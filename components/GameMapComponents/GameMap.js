@@ -3,8 +3,8 @@ import React, { useState } from "react"
 import { View, StyleSheet, ImageBackground, Platform } from 'react-native'
 import { useRecoilValue } from "recoil"
 import { removeBackStack } from "../../helpers"
-import { useSignalR } from "../../hooks"
-import { authAtom, gameInstanceAtom } from "../../state"
+import { AnswerMCQuestion, AnswerNumberQuestion, SelectTerritory } from "../../hooks"
+import { authAtom, gameInstanceAtom, gameMapExceptionAtom, gameTimerAtom, playerAttackPossibilitiesAtom, playerQuestionAnswersAtom, roundQuestionAtom } from "../../state"
 import DefaultAlert from "../Popups/DefaultAlert"
 import GameEndModal from "../Popups/GameEndModal"
 import AntarcticaMapSvg from './AntarcticaMapSvg'
@@ -17,15 +17,13 @@ import MultipleChoiceScreen from "./MultipleChoiceScreen"
 import NumberChoiceScreen from "./NumberChoiceScreen"
 
 export default function GameMap() {
-    const lobby = useSignalR()
-    const roundQuestion = lobby.roundQuestion
+    const roundQuestion = useRecoilValue(roundQuestionAtom)
     const currentUser = useRecoilValue(authAtom)
-    const gameInstance = lobby.gameInstance
-    const playerAttackPossibilities = lobby.playerAttackPossibilities
-    const gameMapException = lobby.gameMapException
-    const AnswerMcQuestion = lobby.AnswerMCQuestion
-    const AnswerNumberQuestion = lobby.AnswerNumberQuestion
-    const playerQuestionAnswers = lobby.playerQuestionAnswers
+    const gameInstance = useRecoilValue(gameInstanceAtom)
+    const playerAttackPossibilities = useRecoilValue(playerAttackPossibilitiesAtom)
+    const gameMapException = useRecoilValue(gameMapExceptionAtom)
+    const playerQuestionAnswers = useRecoilValue(playerQuestionAnswersAtom)
+    const gameTimer = useRecoilValue(gameTimerAtom)
 
     // For testing purposes uncomment the lines below
     // const gameInstance = gameInstanceMock
@@ -39,15 +37,7 @@ export default function GameMap() {
         switch (RoundAttackStage(currentRound.attackStage)) {
             case "MULTIPLE_NEUTRAL":
             case "MULTIPLE_PVP":
-
-                // Check if the click was issued by a user who's turn is this one
-                // If it ain't drop the request
-                // const currentUserRound = currentRound.neutralRound.territoryAttackers.find(x => x.attackerId == currentUser.id)
-                // if (currentUserRound.attackOrderNumber == currentRound.neutralRound.attackOrderNumber) {
-                //     console.log("Its my round, so im sending my selected territory")
-                //     lobby.SelectTerritory(territoryName)
-                // }
-                lobby.SelectTerritory(territoryName)
+                SelectTerritory(territoryName, gameTimer)
                 break
         }
     }
@@ -59,7 +49,7 @@ export default function GameMap() {
                 backgroundColor: "#032157",
             }}>
                 {roundQuestion?.type == "multiple" ?
-                    <MultipleChoiceScreen key="mcScreen1" playerQuestionAnswers={playerQuestionAnswers} AnswerMCQuestion={AnswerMcQuestion} question={roundQuestion} />
+                    <MultipleChoiceScreen key="mcScreen1" playerQuestionAnswers={playerQuestionAnswers} AnswerMCQuestion={AnswerMCQuestion} question={roundQuestion} />
                     :
                     roundQuestion?.type == "number" ?
                         <NumberChoiceScreen key="numberScreen1" playerQuestionAnswers={playerQuestionAnswers} AnswerNumberQuestion={AnswerNumberQuestion} question={roundQuestion} />

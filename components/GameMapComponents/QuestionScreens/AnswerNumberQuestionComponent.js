@@ -10,6 +10,7 @@ export default function AnswerNumberQuestionComponent({question, AnswerNumberQue
     const [answer, setAnswer] = useState("")
     const [isAnswered, setisAnswered] = useState(false)
     const user = useRecoilValue(authAtom)
+    const timer = useRecoilValue(gameTimerAtom)
 
     return (
         <>
@@ -32,7 +33,7 @@ export default function AnswerNumberQuestionComponent({question, AnswerNumberQue
                             onSubmitEditing={() => {
                                 if (isAnswered) return
                                 setisAnswered(true)
-                                AnswerNumberQuestion(answer)
+                                AnswerNumberQuestion(answer, timer)
                             }}
                             value={answer}
                             maxLength={14}
@@ -50,7 +51,7 @@ export default function AnswerNumberQuestionComponent({question, AnswerNumberQue
                             onPress={() => {
                                 if (isAnswered) return
                                 setisAnswered(true)
-                                AnswerNumberQuestion(answer)
+                                AnswerNumberQuestion(answer, timer)
                             }}
                             size="md"
                             colorScheme="blue_button_bd"

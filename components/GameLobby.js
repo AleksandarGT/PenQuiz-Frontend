@@ -1,27 +1,29 @@
 import React, { useEffect, useState } from 'react'
 import { Text, Button, Input, Center, Modal, Container, Box, Icon, HStack, Pressable, VStack, Image } from 'native-base'
 import { View, StyleSheet, ImageBackground, ActivityIndicator, Platform } from 'react-native'
-import { useSignalR, StatusCode } from '../hooks/'
+import { StatusCode, LeaveGameLobby, StartGame } from '../hooks/'
 import { FontAwesome5 } from "@expo/vector-icons"
 import { useRecoilState, useRecoilValue } from "recoil"
-import { gameInstanceAtom, userIdSelector } from "../state"
+import { connectionStatusAtom, gameInstanceAtom, userIdSelector } from "../state"
 import ExitGameModal from './Popups/ExitGameModal'
 import { Heading } from 'native-base'
 import { GetPenguinAvatarImage } from './GameMapComponents/CommonGameFunc'
 
 export function GameLobby({ route, navigation }) {
-    const lobby = useSignalR()
+    const gameInstance = useRecoilValue(gameInstanceAtom)
+    const connectionStatus = useRecoilValue(connectionStatusAtom)
+
     const [isClosing, setIsClosing] = useState()
     const RequiredPlayers = 3
     const userId = useRecoilValue(userIdSelector)
-    const IsLobbyFull = () => lobby.gameInstance.participants?.length == RequiredPlayers ? true : false
-    const IsGameHost = () => userId == lobby.gameInstance.gameCreatorId ? true : false
+    const IsLobbyFull = () => gameInstance.participants?.length == RequiredPlayers ? true : false
+    const IsGameHost = () => userId == gameInstance.gameCreatorId ? true : false
 
     // Gametype - 0 public, 1 private
     function StartGameButton({ onPress }) {
         return (
             <Pressable disabled={!IsGameHost() || !IsLobbyFull()} onPress={() => {
-                lobby.gameInstance.gameType == 1 && onPress()
+                gameInstance.gameType == 1 && onPress()
             }}>
                 {({ isHovered, isFocused, isPressed }) => {
                     return (
@@ -31,7 +33,7 @@ export function GameLobby({ route, navigation }) {
                         } p={2} borderRadius={50}>
                             <Box px={4} pb={2} pt={2}>
                                 <Text fontSize={{ base: "md", md: "lg", lg: "xl", xl: 35 }}>
-                                    {!IsLobbyFull() ? `Waiting for ${RequiredPlayers - lobby.gameInstance.participants?.length} more players` : IsGameHost() ? "Start game" : "Waiting for host to start"}
+                                    {!IsLobbyFull() ? `Waiting for ${RequiredPlayers - gameInstance.participants?.length} more players` : IsGameHost() ? "Start game" : "Waiting for host to start"}
                                 </Text>
                             </Box>
                         </Box>
@@ -45,7 +47,7 @@ export function GameLobby({ route, navigation }) {
         return (
             <Container backgroundColor="#C8FBFF" py={6} style={{ paddingHorizontal: "10%" }} shadow={3} borderRadius={15}>
                 <Text color="black" fontWeight="bold" fontSize="3xl">
-                    Code: {lobby.gameInstance.invitationLink}
+                    Code: {gameInstance.invitationLink}
                 </Text>
             </Container>
         )
@@ -53,7 +55,7 @@ export function GameLobby({ route, navigation }) {
 
     function PlayerCard({ participant }) {
         return (
-            <Container style={{ borderWidth: participant.playerId == lobby.gameInstance.gameCreatorId ? 5 : 0, borderColor: "gold", }} m={5} p={3} backgroundColor="white" borderRadius={20}>
+            <Container style={{ borderWidth: participant.playerId == gameInstance.gameCreatorId ? 5 : 0, borderColor: "gold", }} m={5} p={3} backgroundColor="white" borderRadius={20}>
 
                 <VStack>
                     <Center>
@@ -70,7 +72,7 @@ export function GameLobby({ route, navigation }) {
                             {participant.player.username}
                         </Text>
 
-                        {participant.playerId == lobby.gameInstance.gameCreatorId ? (
+                        {participant.playerId == gameInstance.gameCreatorId ? (
                             <Text isTruncated maxWidth="90%" fontSize="md" color="black">
                                 (host)
                             </Text>
@@ -82,10 +84,10 @@ export function GameLobby({ route, navigation }) {
         )
     }
 
-    if (lobby.connectionStatus.StatusCode == StatusCode.DISCONNECTED) {
+    if (connectionStatus.StatusCode == StatusCode.DISCONNECTED) {
         return (
             <Center flex={1}>
-                <Text color="black">{lobby.connectionStatus.Error?.message}</Text>
+                <Text color="black">{connectionStatus.Error?.message}</Text>
                 <ActivityIndicator size="large" />
             </Center>
         )
@@ -102,7 +104,7 @@ export function GameLobby({ route, navigation }) {
             </Box>
             <Center>
                 <HStack>
-                    {lobby.gameInstance.participants?.map(x => {
+                    {gameInstance.participants?.map(x => {
                         return (
                             <PlayerCard key={x.playerId} participant={x} />
                         )
@@ -112,15 +114,15 @@ export function GameLobby({ route, navigation }) {
                 </HStack>
                 <ExitGameModal backAction={isClosing}
                     onAccept={() => {
-                        lobby.LeaveGameLobby()
+                        LeaveGameLobby()
                         setIsClosing(false)
                     }}
                     onClose={() => {
                         setIsClosing(false)
                     }} />
-                {lobby.gameInstance.gameType == 1 && CodeCard()}
+                {gameInstance.gameType == 1 && CodeCard()}
                 <StartGameButton onPress={() =>
-                    lobby.StartGame()
+                    StartGame()
                 } />
             </Center>
         </ImageBackground>

@@ -3,7 +3,7 @@ import { gameInstanceMock } from '../components/GameMapComponents/CommonGameFunc
 export const gameInstanceAtom = atom({
     key: "gameInstance",
     // Add default value of "" for production
-    default: gameInstanceMock,
+    default: "",
     // default: "",
     effects_UNSTABLE: [
         ({ onSet }) => {

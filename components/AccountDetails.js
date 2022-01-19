@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { View, ImageBackground, StyleSheet, ActivityIndicator, Platform } from 'react-native'
 import { Text, Button, Center, Box, Pressable, Input, Alert, VStack, HStack, IconButton, CloseIcon } from 'native-base'
-import { useSignalR, StatusCode } from '../hooks/'
 import DefaultAlert from './Popups/DefaultAlert'
 import { useRecoilValue } from 'recoil'
 import { authAtom } from '../state'

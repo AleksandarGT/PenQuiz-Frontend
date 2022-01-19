@@ -1,6 +1,6 @@
 import { useRecoilState, useSetRecoilState } from 'recoil'
 
-import { useFetchWrapper, navigate, removeBackStack } from '../helpers'
+import { useFetchWrapper } from '../helpers'
 import { authAtom } from '../state'
 import * as Google from 'expo-auth-session/providers/google'
 import { BACKEND_ACCOUNT_API_URL, GOOGLE_CLIENT_URL } from '@env'
@@ -16,7 +16,6 @@ function useAuthActions() {
     //TODO
     // This establishes the connection automatically and then you can destroy it
     // To prevent this behavior - have a custom class that doesn't try to establish a connection on create
-    //const lobby = useSignalR();
     var timeout
 
 
@@ -85,7 +84,6 @@ function useAuthActions() {
 
     function logout() {
         fetchWrapper.post(`${baseUrl}/revoke-cookie`).then(res => {
-            //lobby.connection?.stop()
             clearTimeout(timeout)
             closeConnection()
             setAuth(null)

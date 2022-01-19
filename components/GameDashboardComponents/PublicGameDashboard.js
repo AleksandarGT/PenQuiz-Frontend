@@ -1,16 +1,21 @@
 import React, { useState, useEffect } from 'react'
 import { View, ImageBackground, StyleSheet, ActivityIndicator, Platform } from 'react-native'
 import { Text, Button, Center, Box, Pressable, Input, Alert, VStack, HStack, IconButton, CloseIcon, Divider } from 'native-base'
-import { useSignalR, StatusCode } from '../../hooks/'
+import { StatusCode } from '../../hooks/'
 import DefaultAlert from '../Popups/DefaultAlert'
 import GameDashboardBase from './GameDashboardBase'
+import { useRecoilValue } from 'recoil'
+import { connectionStatusAtom, joiningGameExceptionAtom } from '../../state'
+import { FindPublicMatch } from '../../hooks/useSignalR'
 
 export default function PublicGameDashboard() {
-    const lobby = useSignalR()
+    const connectionStatus = useRecoilValue(connectionStatusAtom)
+    const joiningGameException = useRecoilValue(joiningGameExceptionAtom)
+
     function FindGameButton() {
         return (
             <Pressable onPress={() => {
-                lobby.FindPublicMatch()
+                FindPublicMatch()
             }}>
                 {({ isHovered, isFocused, isPressed }) => {
                     return (
@@ -28,10 +33,10 @@ export default function PublicGameDashboard() {
     }
 
 
-    if (lobby.connectionStatus?.StatusCode == StatusCode.DISCONNECTED) {
+    if (connectionStatus?.StatusCode == StatusCode.DISCONNECTED) {
         return (
             <Center flex={1}>
-                <Text color="black">{lobby.connectionStatus.Error?.message}</Text>
+                <Text color="black">{connectionStatus.Error?.message}</Text>
                 <ActivityIndicator size="large" />
             </Center>
         )
@@ -50,8 +55,8 @@ export default function PublicGameDashboard() {
                     </Text>
                 </Box>
 
-                {lobby.joiningGameException ? (
-                    <DefaultAlert message={lobby.joiningGameException} />
+                {joiningGameException ? (
+                    <DefaultAlert message={joiningGameException} />
                 ) : null}
 
 

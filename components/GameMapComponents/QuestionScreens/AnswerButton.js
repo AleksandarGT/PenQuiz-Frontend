@@ -16,7 +16,7 @@ export default function AnswerButton({ answer, playerAnswers, isDisabled, answer
             if (answeredId) return
             if (gameTimer <= 0) return
             setAnsweredId(answer.id)
-            AnswerMCQuestion(answer.id)
+            AnswerMCQuestion(answer.id, gameTimer)
         }}>
             {({ isHovered, isFocused, isPressed }) => {
                 return (

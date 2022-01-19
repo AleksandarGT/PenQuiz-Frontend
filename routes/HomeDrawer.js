@@ -1,6 +1,6 @@
 
 import React, { useCallback, useEffect } from 'react'
-import { useAuthActions } from '../hooks'
+import { useAuthActions, useSignalR } from '../hooks'
 import {
     createDrawerNavigator, DrawerContentScrollView,
     DrawerItemList,
@@ -9,7 +9,6 @@ import {
 import { View, Button, Text, useWindowDimensions, InteractionManager } from 'react-native'
 import { Center } from 'native-base'
 import { AccountDetails } from '../components/AccountDetails'
-import { HomeGame } from '../components/HomeGame'
 import PublicGameDashboard from '../components/GameDashboardComponents/PublicGameDashboard'
 import PrivateGameDashboard from '../components/GameDashboardComponents/PrivateGameDashboard'
 import { SubmitQuestionBase } from '../components/AddQuestionComponents/SubmitQuestionBase'
@@ -20,6 +19,7 @@ import { gameInstanceAtom } from '../state'
 const Drawer = createDrawerNavigator()
 
 export function HomeDrawer() {
+    useSignalR()
 
     const [gameInstance, setGameInstance] = useRecoilState(gameInstanceAtom)
     const actions = useAuthActions()

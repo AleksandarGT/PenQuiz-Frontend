@@ -14,7 +14,7 @@ export const StatusCode = {
     "DISCONNECTED": 0
 }
 
-
+let connection
 export function useSignalR() {
     const userJwt = useRecoilValue(authToken)
     const currentUser = useRecoilValue(authAtom)
@@ -26,7 +26,7 @@ export function useSignalR() {
     const [gameMapException, setGameMapException] = useRecoilState(gameMapExceptionAtom)
     const [roundQuestion, setRoundQuestion] = useRecoilState(roundQuestionAtom)
     const [playerQuestionAnswers, setPlayerQuestionAnswers] = useRecoilState(playerQuestionAnswersAtom)
-    let connection = getConnection()
+    connection = getConnection()
 
     useEffect(() => {
         if (!connection) {
@@ -36,10 +36,11 @@ export function useSignalR() {
                 StatusCode: StatusCode.CONNECTED,
                 Error: null,
             })
-        }
-        if (connection)
+            console.log("Setting events")
+
             setupEvents()
-    }, [])
+        }
+    }, [connection])
 
     function setupEvents() {
 
@@ -72,7 +73,7 @@ export function useSignalR() {
 
             // Game is canceled
             if (gameInstance == null) return
-            
+
             setGameInstance(old => ({
                 ...old,
                 gameState: 3
@@ -83,6 +84,7 @@ export function useSignalR() {
         }))
 
         connection.on('CallerLeftGame', (() => {
+            console.log("I will remove backstack now from CallerLeftGame")
             removeBackStack("Home")
         }))
         connection.on('PersonLeftGame', ((disconnectedPersonId) => {
@@ -95,6 +97,8 @@ export function useSignalR() {
             }))
         }))
         connection.on('NavigateToLobby', ((gi) => {
+            console.log("I will remove backstack now from NavigateToLobby")
+
             removeBackStack("GameLobby")
         }))
         connection.on('NavigateToGame', ((gi) => {
@@ -183,80 +187,57 @@ export function useSignalR() {
             setGameTimer(secondsForAction)
         }))
     }
+}
 
-    // Game map events
-    function SelectTerritory(territoryName) {
-        if (gameTimer <= 0) return;
-        connection?.invoke("SelectTerritory", territoryName)
-    }
+// Game map events
+export function SelectTerritory(territoryName, gameTimer = 0) {
+    if (gameTimer <= 0) return;
+    connection?.invoke("SelectTerritory", territoryName)
+}
 
-    function AnswerMCQuestion(answerId) {
-        if (gameTimer <= 0) return;
-        connection?.invoke("AnswerQuestion", answerId)
-    }
+export function AnswerMCQuestion(answerId, gameTimer = 0) {
+    if (gameTimer <= 0) return;
+    connection?.invoke("AnswerQuestion", answerId)
+}
 
-    function AnswerNumberQuestion(numberAnswer) {
-        if (gameTimer <= 0) return;
-        connection?.invoke("AnswerQuestion", numberAnswer)
-    }
+export function AnswerNumberQuestion(numberAnswer, gameTimer = 0) {
+    if (gameTimer <= 0) return;
+    connection?.invoke("AnswerQuestion", numberAnswer)
+}
 
-    function RemoveGameData() {
-        gameInstance && setGameInstance(null)
-        gameTimer && setGameTimer(0)
-        playerAttackPossibilities && setPlayerAttackPossibilities(null)
-        gameMapException && setGameMapException(null)
-        roundQuestion && setRoundQuestion(null)
-        playerQuestionAnswers && setPlayerQuestionAnswers(null)
-    }
-    // Send events to server
-    function CreateGameLobby() {
+export function RemoveGameData() {
+    gameInstance && setGameInstance(null)
+    gameTimer && setGameTimer(0)
+    playerAttackPossibilities && setPlayerAttackPossibilities(null)
+    gameMapException && setGameMapException(null)
+    roundQuestion && setRoundQuestion(null)
+    playerQuestionAnswers && setPlayerQuestionAnswers(null)
+}
 
-        // Remove reference from any previous game instances
-        RemoveGameData()
+// Send events to server
+export function CreateGameLobby() {
 
-        connection?.invoke("CreateGameLobby")
-    }
+    // Remove reference from any previous game instances
+    //RemoveGameData()
 
-    function LeaveGameLobby() {
-        connection?.invoke("LeaveGameLobby")
-    }
+    connection?.invoke("CreateGameLobby")
+}
 
-    function JoinLobby(code) {
-        connection?.invoke("JoinGameLobby", code)
-    }
+export function LeaveGameLobby() {
+    connection?.invoke("LeaveGameLobby")
+}
 
-    function StartGame() {
-        connection?.invoke("StartGame")
-    }
+export function JoinLobby(code) {
+    connection?.invoke("JoinGameLobby", code)
+}
 
-    function FindPublicMatch() {
-        // Remove reference from any previous game instances
-        RemoveGameData()
+export function StartGame() {
+    connection?.invoke("StartGame")
+}
 
-        connection?.invoke("FindPublicMatch")
-    }
+export function FindPublicMatch() {
+    // Remove reference from any previous game instances
+    //RemoveGameData()
 
-    return {
-        // Game
-        gameTimer,
-        gameMapException,
-        SelectTerritory,
-        playerAttackPossibilities,
-
-        // Question rounding
-        roundQuestion,
-        AnswerMCQuestion,
-        AnswerNumberQuestion,
-        playerQuestionAnswers,
-
-        connection,
-        gameInstance,
-        joiningGameException,
-        connectionStatus,
-        CreateGameLobby,
-        JoinLobby,
-        LeaveGameLobby,
-        StartGame,
-        FindPublicMatch
-    }
+    connection?.invoke("FindPublicMatch")
 }
