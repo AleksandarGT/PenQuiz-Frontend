@@ -2,12 +2,12 @@ import { Center, Container, HStack, Text, Image, VStack, Box, ZStack, Circle, us
 import React, { useEffect, useState } from "react"
 import { View, StyleSheet } from 'react-native'
 import { MaterialIcons } from '@expo/vector-icons'
-import { useRecoilState } from "recoil"
+import { useRecoilState, useRecoilValue } from "recoil"
 import { gameTimerAtom } from "../../state"
 import { GameState, GetGameState } from "./CommonGameFunc"
 
 export default function GameTimer({ gameState }) {
-    const [displayTime, setDisplayTime] = useRecoilState(gameTimerAtom)
+    const displayTime = useRecoilValue(gameTimerAtom)
 
     function DisplayTimeFunc() {
         switch (GetGameState(gameState)) {
@@ -19,22 +19,6 @@ export default function GameTimer({ gameState }) {
                 return 0
         }
     }
-    useEffect(() => {
-        // Update the display time value
-        const updatingTimeInterval = setInterval(() => {
-            setDisplayTime((prevValue) => {
-                if (prevValue <= 1) {
-                    clearInterval(updatingTimeInterval)
-                    return 0
-                }
-                return prevValue - 1
-            })
-        }, 1000)
-
-        return () => clearInterval(updatingTimeInterval)
-
-
-    }, [displayTime])
 
     return (
         <>
