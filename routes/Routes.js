@@ -46,7 +46,7 @@ export function Routes() {
 
   useEffect(() => {
     if (Platform.OS == 'web') {
-      if(__DEV__) return
+      if (__DEV__) return
       function unloadEventHandler(e) {
         // Cancel the event
         e.preventDefault(); // If you prevent default behavior in Mozilla Firefox prompt will always be shown

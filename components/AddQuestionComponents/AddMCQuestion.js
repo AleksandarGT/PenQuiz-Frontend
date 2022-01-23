@@ -12,7 +12,7 @@ import { useIsFocused } from '@react-navigation/native'
 
 function InputField({ answerPlaceholder, answer, onChangeText }) {
     return (
-        <VStack width="100%">
+        <VStack width={Platform.OS == "web" ? "100%" : "70%"}>
             <Text ml={2} fontSize="lg">Enter {answer.correct ? "correct" : "wrong"} answer:</Text>
 
             <Input onChangeText={(e) => {
@@ -27,7 +27,7 @@ function InputField({ answerPlaceholder, answer, onChangeText }) {
                 bg={answer.correct ? "#fff" : "#D7D7D7"}
                 color="black"
                 _hover={{ bg: "#E8E8E8" }}
-                size="full"
+                size="md"
                 placeholder={`eg: ${answerPlaceholder}`} />
         </VStack>
     )
@@ -117,8 +117,8 @@ export function AddMCQuestion({ backToBase }) {
 
     return (
         <Center>
-            <Text mb={9} textAlign="center" color="#fff" fontSize={{ base: 30, md: 40, lg: 50, xl: 60 }} style={{ fontFamily: 'Before-Collapse', }}>
-                Add your closed{"\n"}question
+            <Text mb={Platform.OS =="web" ? 9 : 0}  textAlign="center" color="#fff" fontSize={{ base: 30, md: Platform.OS == "web" ? 40 : 30, lg: 50, xl: 60 }} style={{ fontFamily: 'Before-Collapse', }}>
+                Add your closed question
             </Text>
 
             {serverError && <DefaultAlert message={serverError} />}
@@ -143,11 +143,10 @@ export function AddMCQuestion({ backToBase }) {
                     bg="#fff"
                     color="black"
                     _hover={{ bg: "#E8E8E8" }}
-                    size="full"
+                    size="md"
                     placeholder="eg: When was the first case of COVID19 found?" />
             </Box>
-
-            <Box mt={5} />
+            <Box mt={Platform.OS == "web" ? 5 : 0} />
             <Box maxWidth="300px">
                 <HStack justifyContent="center">
                     <InputField answerPlaceholder={2019} answer={answers[0]} onChangeText={(e) => {
@@ -176,7 +175,7 @@ export function AddMCQuestion({ backToBase }) {
                     }} />
                 </HStack>
             </Box>
-            <Box mt={6} />
+            <Box mt={Platform.OS == "web" ? 6 : 0} />
             {/* Submit */}
             <SubmitButton />
 

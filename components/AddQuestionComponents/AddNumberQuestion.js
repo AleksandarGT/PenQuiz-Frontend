@@ -73,7 +73,7 @@ export function AddNumberQuestion({ backToBase }) {
 
     return (
         <Center>
-            <Text mb={9} textAlign="center" color="#fff" fontSize={{ base: 30, md: 40, lg: 50, xl: 60 }} style={{ fontFamily: 'Before-Collapse', }}>
+            <Text mb={0} textAlign="center" color="#fff" fontSize={{ base: 30, md: 40, lg: 50, xl: 60 }} style={{ fontFamily: 'Before-Collapse', }}>
                 Add your number{"\n"}question
             </Text>
 
@@ -99,7 +99,7 @@ export function AddNumberQuestion({ backToBase }) {
                     bg="#fff"
                     color="black"
                     _hover={{ bg: "#E8E8E8" }}
-                    size="full"
+                    size="md"
                     placeholder="eg: When did World War 2 end?" />
             </Box>
 
@@ -129,7 +129,7 @@ export function AddNumberQuestion({ backToBase }) {
                     bg="#fff"
                     color="black"
                     _hover={{ bg: "#E8E8E8" }}
-                    size="full"
+                    size="md"
                     placeholder="eg: 1945" />
             </Box>
             <Box mt={6} />

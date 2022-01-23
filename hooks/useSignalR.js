@@ -42,6 +42,17 @@ export function useSignalR() {
         }
     }, [connection])
 
+    // Prevent question service from idling while in game. Makes sure the question service will respond with questions afterwards
+    function pingQuestionService() {
+        if(__DEV__) return
+
+        fetch("https://conquiz-question-api.azurewebsites.net/api/question").then(res => {
+            // Question service successfully pinged
+        }).catch(er => {
+            console.log("Question service down: " + er)
+        })
+    }
+
     function setupEvents() {
 
 
@@ -116,6 +127,7 @@ export function useSignalR() {
         connection.on('GetGameInstance', ((gi) => {
             setGameInstance(gi)
 
+            pingQuestionService()
             setJoiningGameException(null)
         }))
         connection.on('PlayerRejoined', ((participId) => {

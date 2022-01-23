@@ -25,12 +25,6 @@ export default function GameMap() {
     const playerQuestionAnswers = useRecoilValue(playerQuestionAnswersAtom)
     const gameTimer = useRecoilValue(gameTimerAtom)
 
-    // For testing purposes uncomment the lines below
-    // const gameInstance = gameInstanceMock
-    // const currentAttackerId = gameInstanceMock.participants[gameInstanceMock.participants.length - 2].playerId
-    // const gameMapException = ""
-    // const roundQuestion = multipleChoiceQuestionMock
-
     function OnTerritoryClick(territoryName) {
         const currentRound = gameInstance.rounds.find(x => x.gameRoundNumber == gameInstance.gameRoundNumber)
         if (!currentUser) return
