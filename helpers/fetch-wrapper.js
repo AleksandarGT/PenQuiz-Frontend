@@ -1,7 +1,7 @@
 import { useRecoilState } from 'recoil'
 //import { history } from './index';
 import { authAtom } from '../state'
-import { removeBackStack } from './index'
+import { removeBackStack } from './RootNavigation'
 
 export { useFetchWrapper, }
 

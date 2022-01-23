@@ -8,6 +8,8 @@ import { closeConnection } from './SignalRSetup'
 export { useAuthActions }
 global.Buffer = global.Buffer || require('buffer').Buffer
 
+
+
 function useAuthActions() {
 
     const baseUrl = `${BACKEND_ACCOUNT_API_URL}/api/account`
