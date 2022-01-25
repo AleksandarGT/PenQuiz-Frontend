@@ -9,6 +9,8 @@ import { GetGameState } from '../components/GameMapComponents/CommonGameFunc'
 
 const connectionHub = `${BACKEND_GAME_API_URL}/gamehubs`
 
+
+
 export const StatusCode = {
     "CONNECTED": 1,
     "DISCONNECTED": 0
