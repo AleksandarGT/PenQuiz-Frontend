@@ -33,112 +33,101 @@ export default function MultipleChoiceScreen({
             }}>
                 <Center flex={1}>
                     {!IsPlayerParticipating() ?
-                        <Box height="80%" minHeight="550" style={{ position: "absolute", zIndex: 150, backgroundColor: "rgba(0, 0, 0, 0.3)", borderRadius: 25, justifyContent: "center" }} width="90%" />
+                        <Box height="100%" style={{ position: "absolute", zIndex: 150, backgroundColor: "rgba(0, 0, 0, 0.3)", justifyContent: "center" }} width="100%" />
                         :
                         null
                     }
 
-                    <Box height="80%" minHeight="550" style={{ backgroundColor: "#D7FFFE", borderRadius: 25, justifyContent: "center" }} width="90%">
-                        <Box >
-                            <Center>
-                                {/* Top Timer */}
-                                <MCQuestionTimer key="gameTimer" />
-                            </Center>
+                    <Box style={{ justifyContent: "center" }} width="100%">
 
-                            {/* Question / Avatars */}
-                            <HStack style={{ margin: 10 }}>
+                        {/* Question / Avatars */}
+                        <HStack >
 
 
-                                {/* Attacker */}
-                                {question.isNeutral ?
-                                    <PlayerAvatar supportIcon={"sword"} avatarName={question.participants.find(x => x.playerId == user.id).avatarName} />
-                                    :
-                                    <PlayerAvatar supportIcon={"sword"} avatarName={question.participants.find(x => x.playerId == question.attackerId).avatarName} />
-                                }
+                            {/* Attacker */}
+                            {question.isNeutral ?
+                                <PlayerAvatar supportIcon={"sword"} avatarName={question.participants.find(x => x.playerId == user.id).avatarName} />
+                                :
+                                <PlayerAvatar supportIcon={"sword"} avatarName={question.participants.find(x => x.playerId == question.attackerId).avatarName} />
+                            }
 
-                                {/* Question */}
-                                <VStack flex={4} >
-                                    <Box style={{
-                                        height: Platform.OS == "web" ? "100%" : "0%",
-                                        borderRadius: 30,
-                                        backgroundColor: "#2F4887",
-                                        justifyContent: "center"
-                                    }} p={20} shadow="5">
-                                        <Text fontWeight="bold" fontSize="4xl" style={{ textAlign: "center" }}>
-                                            {decodeURIComponent(question.question)}
-                                        </Text>
-                                    </Box>
-                                </VStack>
+                            {/* Question */}
+                            <VStack flex={4} justifyContent="center">
+                                <Center mb={5}>
+                                    <MCQuestionTimer key="gameTimer" />
+                                </Center>
 
-                                {/* Defender */}
-                                {question.isNeutral ?
-                                    <MultipleAvatars avatarNames={question.participants.filter(x => x.playerId != user.id).map(e => e.avatarName)} />
-                                    :
-                                    <PlayerAvatar supportIcon={"shield"} avatarName={question.participants.find(x => x.playerId == question.defenderId).avatarName} />
-                                }
-                            </HStack>
+                                <Box style={{
+                                    borderRadius: 30,
+                                    backgroundColor: "#D4EDFD",
+                                    justifyContent: "center",
+                                    borderWidth: 1,
+                                }} p={Platform.OS == "web" ? 20 : 10} shadow="5">
+                                    <Text fontWeight="bold" color="black" fontSize={Platform.OS == "web" ? "4xl" : "2xl"} style={{ textAlign: "center" }}>
+                                        {decodeURIComponent(question.question)}
+                                    </Text>
+                                    
+                                </Box>
+                            </VStack>
 
-                            {/* Divider */}
-                            <Center my={1}>
-                                <Divider width="80%" height={1} bgColor="#25479D" />
-                            </Center>
-                        </Box>
-                        <Box >
-                            {/* Buttons */}
-                            <Box>
-                                <HStack justifyContent="space-evenly" >
-                                    <VStack>
-                                        <AnswerButton
-                                            setAnsweredId={setAnsweredId}
-                                            AnswerMCQuestion={AnswerMCQuestion}
-                                            answeredId={answeredId}
-                                            playerQuestionAnswers={playerQuestionAnswers}
-                                            question={question}
-                                            key="answerButton1"
-                                            isDisabled={!IsPlayerParticipating()}
-                                            answer={question.answers[0]}
-                                            playerAnswers={playerQuestionAnswers?.playerAnswers?.filter(x => x.answerId == question.answers[0].id)}
-                                        />
-                                        <AnswerButton
-                                            setAnsweredId={setAnsweredId}
-                                            AnswerMCQuestion={AnswerMCQuestion}
-                                            answeredId={answeredId}
-                                            playerQuestionAnswers={playerQuestionAnswers}
-                                            question={question}
-                                            key="answerButton2"
-                                            isDisabled={!IsPlayerParticipating()}
-                                            answer={question.answers[1]}
-                                            playerAnswers={playerQuestionAnswers?.playerAnswers?.filter(x => x.answerId == question.answers[1].id)}
-                                        />
-                                    </VStack>
-                                    <VStack>
-                                        <AnswerButton
-                                            setAnsweredId={setAnsweredId}
-                                            AnswerMCQuestion={AnswerMCQuestion}
-                                            answeredId={answeredId}
-                                            playerQuestionAnswers={playerQuestionAnswers}
-                                            question={question}
-                                            key="answerButton3"
-                                            isDisabled={!IsPlayerParticipating()}
-                                            answer={question.answers[2]}
-                                            playerAnswers={playerQuestionAnswers?.playerAnswers?.filter(x => x.answerId == question.answers[2].id)}
-                                        />
-                                        <AnswerButton
-                                            setAnsweredId={setAnsweredId}
-                                            AnswerMCQuestion={AnswerMCQuestion}
-                                            answeredId={answeredId}
-                                            playerQuestionAnswers={playerQuestionAnswers}
-                                            question={question}
-                                            key="answerButton4"
-                                            isDisabled={!IsPlayerParticipating()}
-                                            answer={question.answers[3]}
-                                            playerAnswers={playerQuestionAnswers?.playerAnswers?.filter(x => x.answerId == question.answers[3].id)}
-                                        />
-                                    </VStack>
-                                </HStack>
-                            </Box>
-                        </Box>
-
+                            {/* Defender */}
+                            {question.isNeutral ?
+                                <MultipleAvatars avatarNames={question.participants.filter(x => x.playerId != user.id).map(e => e.avatarName)} />
+                                :
+                                <PlayerAvatar supportIcon={"shield"} avatarName={question.participants.find(x => x.playerId == question.defenderId).avatarName} />
+                            }
+                        </HStack>
+                        {/* Buttons */}
+                        <HStack justifyContent="space-evenly" >
+                            <VStack >
+                                <AnswerButton
+                                    setAnsweredId={setAnsweredId}
+                                    AnswerMCQuestion={AnswerMCQuestion}
+                                    answeredId={answeredId}
+                                    playerQuestionAnswers={playerQuestionAnswers}
+                                    question={question}
+                                    key="answerButton1"
+                                    isDisabled={!IsPlayerParticipating()}
+                                    answer={question.answers[0]}
+                                    playerAnswers={playerQuestionAnswers?.playerAnswers?.filter(x => x.answerId == question.answers[0].id)}
+                                />
+                                <AnswerButton
+                                    setAnsweredId={setAnsweredId}
+                                    AnswerMCQuestion={AnswerMCQuestion}
+                                    answeredId={answeredId}
+                                    playerQuestionAnswers={playerQuestionAnswers}
+                                    question={question}
+                                    key="answerButton2"
+                                    isDisabled={!IsPlayerParticipating()}
+                                    answer={question.answers[1]}
+                                    playerAnswers={playerQuestionAnswers?.playerAnswers?.filter(x => x.answerId == question.answers[1].id)}
+                                />
+                            </VStack>
+                            <VStack>
+                                <AnswerButton
+                                    setAnsweredId={setAnsweredId}
+                                    AnswerMCQuestion={AnswerMCQuestion}
+                                    answeredId={answeredId}
+                                    playerQuestionAnswers={playerQuestionAnswers}
+                                    question={question}
+                                    key="answerButton3"
+                                    isDisabled={!IsPlayerParticipating()}
+                                    answer={question.answers[2]}
+                                    playerAnswers={playerQuestionAnswers?.playerAnswers?.filter(x => x.answerId == question.answers[2].id)}
+                                />
+                                <AnswerButton
+                                    setAnsweredId={setAnsweredId}
+                                    AnswerMCQuestion={AnswerMCQuestion}
+                                    answeredId={answeredId}
+                                    playerQuestionAnswers={playerQuestionAnswers}
+                                    question={question}
+                                    key="answerButton4"
+                                    isDisabled={!IsPlayerParticipating()}
+                                    answer={question.answers[3]}
+                                    playerAnswers={playerQuestionAnswers?.playerAnswers?.filter(x => x.answerId == question.answers[3].id)}
+                                />
+                            </VStack>
+                        </HStack>
                     </Box>
                 </Center>
             </ImageBackground>

@@ -56,6 +56,14 @@ export const gameMapExceptionAtom = atom({
     ] 
 })
 
+export const participantSelector = selector({
+    key: 'participantSelector',
+    get: ({get}) => {
+        const gameInstance = get(gameInstanceAtom)
+        return gameInstance.participants
+    }
+})
+
 export const connectionStatusAtom = atom({
     key: "connectionStatus",
     default: "",

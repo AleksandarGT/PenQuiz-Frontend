@@ -14,13 +14,14 @@ export default function MCQuestionTimer() {
             minWidth: 160,
             minHeight: 50,
             width: "30%",
-            backgroundColor: "#2B4A99",
+            backgroundColor: "#D4EDFD",
             borderRadius: 50,
+            borderWidth: 1,
         }}>
             <Center>
                 <HStack>
-                    <MaterialIcons name="timer" size={32} color="white" />
-                    <Text fontSize="xl" fontWeight="bold">
+                    <MaterialIcons name="timer" size={32} color="black" />
+                    <Text fontSize="xl" color="black" fontWeight="bold">
                         {`${globalDisplayTime}s`}
                     </Text>
                 </HStack>
