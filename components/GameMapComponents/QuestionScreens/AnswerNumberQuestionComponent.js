@@ -6,7 +6,7 @@ import { authAtom, gameTimerAtom } from '../../../state'
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import { MaterialIcons } from '@expo/vector-icons'
 
-export default function AnswerNumberQuestionComponent({question, AnswerNumberQuestion}) {
+export default function AnswerNumberQuestionComponent({ question, AnswerNumberQuestion }) {
     const [answer, setAnswer] = useState("")
     const [isAnswered, setisAnswered] = useState(false)
     const user = useRecoilValue(authAtom)
@@ -15,15 +15,17 @@ export default function AnswerNumberQuestionComponent({question, AnswerNumberQue
     return (
         <>
             {isAnswered ?
-                <HStack mt={9} mb={2} justifyContent="center">
-                    <Box width="33%" paddingY={6} borderRadius={25} bg={GetAvatarColor(question.participants.find(y => y.playerId == user.id).avatarName)}>
-                        <Center alignItems="center" justifyContent="center">
-                            <Text fontSize={{ base: "md", md: "lg", lg: "xl", xl: 26 }}>{answer}</Text>
-                        </Center>
-                    </Box>
-                </HStack>
+                <Box width="100%">
+                    <HStack mt={9} mb={2} justifyContent="center">
+                        <Box width="33%" paddingY={6} borderRadius={25} bg={GetAvatarColor(question.participants.find(y => y.playerId == user.id).avatarName)}>
+                            <Center alignItems="center" justifyContent="center">
+                                <Text fontSize={{ base: "md", md: "lg", lg: "xl", xl: 26 }}>{answer}</Text>
+                            </Center>
+                        </Box>
+                    </HStack>
+                </Box>
                 :
-                <Center mt={9} mb={2}>
+                <Center mt={Platform.OS == "web" ? 9 : 0} mb={2}>
                     <HStack>
                         <Input onChangeText={(e) => {
                             if (/^\d+$/.test(e) || !e) {
@@ -40,12 +42,17 @@ export default function AnswerNumberQuestionComponent({question, AnswerNumberQue
                             mr={2}
                             keyboardType="numeric"
                             variant="rounded"
-                            bg="#D7D7D7"
+                            bg="#D4EDFD"
                             color="black"
-                            _hover={{ bg: "#C6C6C6" }}
-                            size="sm"
-                            width="50%"
-                            placeholder="" />
+                            _hover={{ bg: "#A8CCE2" }}
+                            size="md"
+                            minWidth="250px"
+                            width={Platform.OS == "web" ? "40vw" : "40%"}
+                            placeholderTextColor="#737373"
+                            style={{
+                                fontStyle: "italic"
+                            }}
+                            placeholder="123" />
 
                         <IconButton
                             onPress={() => {
