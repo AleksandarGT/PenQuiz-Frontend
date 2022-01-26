@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { View, ImageBackground, StyleSheet, ActivityIndicator, Platform } from 'react-native'
-import { Text, Button, Center, Box, Pressable, Input, Alert, VStack, HStack, IconButton, CloseIcon } from 'native-base'
+import { Text, Button, Center, Box, Pressable, Input, Alert, VStack, HStack, IconButton, CloseIcon, Stack, Icon } from 'native-base'
 import { StatusCode } from '../../hooks'
 import DefaultAlert from '../Popups/DefaultAlert'
 import { useRecoilValue } from 'recoil'
@@ -10,6 +10,7 @@ import { BACKEND_QUESTION_API_URL } from '@env'
 import { useIsFocused } from '@react-navigation/native'
 import { AddNumberQuestion } from './AddNumberQuestion'
 import { AddMCQuestion } from './AddMCQuestion'
+import { MaterialIcons } from "@expo/vector-icons"
 
 export function SubmitQuestionBase() {
     const [currentScreen, setCurrentScreen] = useState("base")
@@ -45,7 +46,7 @@ export function SubmitQuestionBase() {
         )
     }
 
-    function SuccessAlert({message}) {
+    function SuccessAlert({ message }) {
         return (
             <Alert my={3} maxW="90%" status="success">
                 <VStack space={2} flexShrink={1} w="100%">
@@ -75,9 +76,11 @@ export function SubmitQuestionBase() {
             </Center>
         )
     }
-
     return (
         <ImageBackground source={Platform.OS === 'web' ? require('../../assets/homeBackground.svg') : require('../../assets/homeBackground.png')} resizeMode="cover" style={styles.image}>
+            {currentScreen != "base" && <Button onPress={() => setCurrentScreen("base")} colorScheme='white_bd' variant="outline" color="white" style={{ position: "absolute", top: 50, left: 50 }} leftIcon={<Icon as={MaterialIcons} name="arrow-back-ios" size="sm" />}>
+                Back
+            </Button>}
             {currentScreen == "base" ? <RenderBase /> : currentScreen == "number" ?
                 <AddNumberQuestion backToBase={(res) => {
                     setCurrentScreen("base")
