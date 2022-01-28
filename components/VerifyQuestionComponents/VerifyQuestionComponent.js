@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { View, ImageBackground, StyleSheet, ActivityIndicator, Platform } from 'react-native'
-import { Text, Button, Center, Box, Pressable, Input, Alert, VStack, HStack, IconButton, CloseIcon, AspectRatio, ScrollView } from 'native-base'
+import { Text, Button, Center, Box, Pressable, Input, Alert, VStack, HStack, IconButton, CloseIcon, AspectRatio, ScrollView, Icon } from 'native-base'
 import { useRecoilValue } from 'recoil'
 import { authAtom } from '../../state'
 import { useFetchWrapper } from '../../helpers'
@@ -8,13 +8,17 @@ import { BACKEND_QUESTION_API_URL } from '@env'
 import { useIsFocused } from '@react-navigation/native'
 import { MaterialIcons } from '@expo/vector-icons';
 import { Dimensions } from 'react-native';
+import { VerifyNumberQuestion } from './VerifyNumberQuestion'
 
 export function VerifyQuestionComponent() {
     const windowWidth = Dimensions.get('screen').width;
     const [questionsResponse, setQuestionsResponse] = useState()
-
+    const [onSuccess, setOnSuccess] = useState()
     const fetchWrapper = useFetchWrapper()
     const isFocused = useIsFocused()
+
+    const [selectedQuestion, setSelectedQuestion] = useState()
+    const [currentScreen, setCurrentScreen] = useState("base")
 
     useEffect(() => {
         if (!isFocused) return
@@ -22,10 +26,17 @@ export function VerifyQuestionComponent() {
 
     }, [isFocused])
 
+    useEffect(() => {
+        if (!isFocused) {
+            setCurrentScreen("base")
+        }
+    }, [isFocused])
+
     function fetchQuestions(pageIndex) {
         const baseUrl = `${BACKEND_QUESTION_API_URL}/api/questionadmin?pageNumber=${pageIndex}&pageEntries=${Platform.OS == "web" ? 8 : 4}`
         fetchWrapper.get(`${baseUrl}`)
             .then(response => {
+                console.log(response)
                 setQuestionsResponse(response)
             })
             .catch(er => {
@@ -33,7 +44,20 @@ export function VerifyQuestionComponent() {
             })
     }
 
-
+    function SuccessAlert({ message, status }) {
+        return (
+            <Alert my={3} maxW="90%" status={status}>
+                <VStack space={2} flexShrink={1} w="100%">
+                    <HStack flexShrink={1} space={2} >
+                        <Alert.Icon mt="1" />
+                        <Text fontSize="md" color="coolGray.800">
+                            {message}
+                        </Text>
+                    </HStack>
+                </VStack>
+            </Alert>
+        )
+    }
     const goPrevious = () => {
         if (!questionsResponse) return;
         fetchQuestions(questionsResponse.pageIndex - 1)
@@ -76,10 +100,10 @@ export function VerifyQuestionComponent() {
         )
     }
 
-    function QuestionRow({ type, question }) {
+    function QuestionRow({ type, question, onPress }) {
         return (
             <Pressable onPress={() => {
-
+                onPress()
             }}>
                 {({ isHovered, isFocused, isPressed }) => {
                     return (
@@ -112,22 +136,27 @@ export function VerifyQuestionComponent() {
         )
     }
 
-    return (
-        <ImageBackground source={Platform.OS === 'web' ? require('../../assets/homeBackground.svg') : require('../../assets/homeBackground.png')} resizeMode="cover" style={styles.image}>
-            <View style={{ alignItems: "center"}}>
+    function RenderBase() {
+        return (
+            <View style={{ alignItems: "center" }}>
 
-                <Box width="90%" minWidth="70%"  bg="#071D56" p={8} borderRadius={25}>
+                <Box width="90%" minWidth="70%" bg="#071D56" p={8} borderRadius={25}>
                     <Text mb={5} textAlign="center" color="#fff" fontSize={{ base: "md", md: "lg", lg: "xl", xl: "3xl" }} style={{ fontFamily: 'Before-Collapse', }}>
-                        User question submissions
+                        question submissions
                     </Text>
+
+                    {onSuccess && <SuccessAlert message={onSuccess.message} status={onSuccess.status} />}
 
                     <VStack >
                         {questionsResponse && questionsResponse.questions.map(e => {
                             return (
-                                <QuestionRow key={e.id} type={e.type} question={e.question} />
+                                <QuestionRow key={e.id} type={e.type} question={e.question} onPress={() => {
+                                    setCurrentScreen(e.type)
+                                    setSelectedQuestion(e)
+                                }} />
                             )
                         })}
-                        
+
                         {questionsResponse && questionsResponse.questions.length == 0 &&
                             <Text textAlign="center">No questions that require verification at this moment.{"\n"}Check back later.</Text>
                         }
@@ -146,6 +175,28 @@ export function VerifyQuestionComponent() {
 
                 </Box>
             </View>
+        )
+    }
+
+    return (
+        <ImageBackground source={Platform.OS === 'web' ? require('../../assets/homeBackground.svg') : require('../../assets/homeBackground.png')} resizeMode="cover" style={styles.image}>
+            {currentScreen != "base" && <Button onPress={() => {
+                setOnSuccess(null)
+                setCurrentScreen("base")
+            }} colorScheme='white_bd' variant="outline" color="white" style={{ position: "absolute", top: 50, left: 50 }} leftIcon={<Icon as={MaterialIcons} name="arrow-back-ios" size="sm" />}>
+                Back
+            </Button>}
+            {currentScreen == "multiple" ? <></> :
+                currentScreen == "number" ? <VerifyNumberQuestion
+                    questionProp={selectedQuestion.question}
+                    questionId={selectedQuestion.id}
+                    backToBase={(e) => {
+                        setOnSuccess(e ? e : null)
+                        fetchQuestions(questionsResponse.questions.length <= 1 ? questionsResponse.pageIndex - 1 : questionsResponse.pageIndex)
+                        setCurrentScreen("base")
+                    }}
+                    answerProp={selectedQuestion.answers[0].answer} /> :
+                    currentScreen == "base" ? <RenderBase /> : null}
 
         </ImageBackground>
     )

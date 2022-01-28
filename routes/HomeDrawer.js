@@ -71,12 +71,12 @@ export function HomeDrawer() {
                 },
             }}
             drawerContent={props => <CustomLogout {...props} />}
-        >
-            {isAdmin() && <Drawer.Screen options={drawerScreenOptions} name="Verify Questions" component={VerifyQuestionComponent} />}
+            >
             <Drawer.Screen options={drawerScreenOptions} name="Public Game" component={PublicGameDashboard} />
             <Drawer.Screen options={drawerScreenOptions} name="Private Game" component={PrivateGameDashboard} />
             <Drawer.Screen options={drawerScreenOptions} name="Account" component={AccountDetails} />
             <Drawer.Screen options={drawerScreenOptions} name="Submit Question" component={SubmitQuestionBase} />
+            {isAdmin() && <Drawer.Screen options={drawerScreenOptions} name="Verify Questions" component={VerifyQuestionComponent} />}
         </Drawer.Navigator>
     )
 }
