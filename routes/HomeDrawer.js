@@ -14,20 +14,23 @@ import PrivateGameDashboard from '../components/GameDashboardComponents/PrivateG
 import { SubmitQuestionBase } from '../components/AddQuestionComponents/SubmitQuestionBase'
 import { useFocusEffect, useIsFocused } from '@react-navigation/native'
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
-import { gameInstanceAtom } from '../state'
+import { authAtom, gameInstanceAtom } from '../state'
+import jwt_decode from "jwt-decode";
+import { VerifyQuestionComponent } from '../components/VerifyQuestionComponents/VerifyQuestionComponent'
 
 const Drawer = createDrawerNavigator()
 
 export function HomeDrawer() {
     useSignalR()
 
+    const auth = useRecoilValue(authAtom)
     const [gameInstance, setGameInstance] = useRecoilState(gameInstanceAtom)
     const actions = useAuthActions()
     const dimensions = useWindowDimensions()
 
     const isLargeScreen = dimensions.width >= 768
 
-
+    const isAdmin = () => auth && jwt_decode(auth.jwtToken).role == "admin" ? true : false
 
 
 
@@ -69,6 +72,7 @@ export function HomeDrawer() {
             }}
             drawerContent={props => <CustomLogout {...props} />}
         >
+            {isAdmin() && <Drawer.Screen options={drawerScreenOptions} name="Verify Questions" component={VerifyQuestionComponent} />}
             <Drawer.Screen options={drawerScreenOptions} name="Public Game" component={PublicGameDashboard} />
             <Drawer.Screen options={drawerScreenOptions} name="Private Game" component={PrivateGameDashboard} />
             <Drawer.Screen options={drawerScreenOptions} name="Account" component={AccountDetails} />
