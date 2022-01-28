@@ -23,8 +23,8 @@ export function VerifyQuestionComponent() {
     }, [isFocused])
 
     function fetchQuestions(pageIndex) {
-        const baseUrl = `${BACKEND_QUESTION_API_URL}/api/questionadmin`
-        fetchWrapper.get(`${baseUrl}/${pageIndex}`)
+        const baseUrl = `${BACKEND_QUESTION_API_URL}/api/questionadmin?pageNumber=${pageIndex}&pageEntries=${Platform.OS == "web" ? 8 : 4}`
+        fetchWrapper.get(`${baseUrl}`)
             .then(response => {
                 setQuestionsResponse(response)
             })
@@ -78,7 +78,9 @@ export function VerifyQuestionComponent() {
 
     function QuestionRow({ type, question }) {
         return (
-            <Pressable>
+            <Pressable onPress={() => {
+
+            }}>
                 {({ isHovered, isFocused, isPressed }) => {
                     return (
                         <Box width="100%" p={2} borderWidth={2} borderColor="#B6F6FF" bg={isPressed ? "#0C3958" : isHovered ? "#0E466D" : "#0F5688"}>
@@ -112,24 +114,23 @@ export function VerifyQuestionComponent() {
 
     return (
         <ImageBackground source={Platform.OS === 'web' ? require('../../assets/homeBackground.svg') : require('../../assets/homeBackground.png')} resizeMode="cover" style={styles.image}>
-            <View style={{ alignItems: "center", flex: 0.8 }}>
+            <View style={{ alignItems: "center"}}>
 
-                <Box width="90%" flex={1} minWidth="70%" bg="#071D56" p={8} borderRadius={25}>
+                <Box width="90%" minWidth="70%"  bg="#071D56" p={8} borderRadius={25}>
                     <Text mb={5} textAlign="center" color="#fff" fontSize={{ base: "md", md: "lg", lg: "xl", xl: "3xl" }} style={{ fontFamily: 'Before-Collapse', }}>
                         User question submissions
                     </Text>
 
-                    <VStack style={{ flex: 1 }}>
-                        <ScrollView flex={1}>
-                            {questionsResponse && questionsResponse.questions.map(e => {
-                                return (
-                                    <QuestionRow key={e.id} type={e.type} question={e.question} />
-                                )
-                            })}
-                            {questionsResponse && questionsResponse.questions.length == 0 &&
-                                <Text textAlign="center">No questions that require verification at this moment.{"\n"}Check back later.</Text>
-                            }
-                        </ScrollView>
+                    <VStack >
+                        {questionsResponse && questionsResponse.questions.map(e => {
+                            return (
+                                <QuestionRow key={e.id} type={e.type} question={e.question} />
+                            )
+                        })}
+                        
+                        {questionsResponse && questionsResponse.questions.length == 0 &&
+                            <Text textAlign="center">No questions that require verification at this moment.{"\n"}Check back later.</Text>
+                        }
 
                         {!questionsResponse && <ActivityIndicator size="large" />}
                     </VStack>
