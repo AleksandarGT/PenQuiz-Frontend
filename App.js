@@ -53,8 +53,8 @@ export default function App() {
       .then(() => {
         setServicesStatus({ Status: Status.ACTIVE, Message: "" })
       })
-      .catch((er) => {
-        setServicesStatus({ Status: Status.INACTIVE, Message: er })
+      .catch(() => {
+        setServicesStatus({ Status: Status.INACTIVE, Message: "Unknown error occurred. Please try again later." })
       })
   }, [])
 
