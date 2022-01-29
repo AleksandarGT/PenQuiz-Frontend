@@ -18,7 +18,7 @@ function InputField({ answerPlaceholder, answer, onChangeText }) {
             <Input onChangeText={(e) => {
                 onChangeText(e)
             }}
-                maxLength={12}
+                maxLength={50}
                 shadow={3}
                 value={answer.answer}
                 keyboardType="numeric"

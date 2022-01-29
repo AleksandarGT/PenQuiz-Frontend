@@ -8,100 +8,20 @@ import { authAtom } from '../../state'
 import { useFetchWrapper } from '../../helpers'
 import { BACKEND_QUESTION_API_URL } from '@env'
 import { MaterialIcons } from '@expo/vector-icons';
+import { useQuestionVerification } from '../../hooks/useQuestionVerification'
+import TemplateButton from './VerifyActionButton'
 
 export function VerifyNumberQuestion({ backToBase, questionProp, answerProp, questionId }) {
-    const fetchWrapper = useFetchWrapper()
-    const [isEditable, setIsEditable] = useState(false)
-    const [question, setQuestion] = useState({
-        question: questionProp,
-        error: "",
-    })
-    const [answer, setAnswer] = useState({
-        answer: answerProp,
-        error: "",
-    })
 
-    const [serverError, setServerError] = useState()
-
-    function RejectQuestion() {
-        const baseUrl = `${BACKEND_QUESTION_API_URL}/api/questionadmin/reject`
-        fetchWrapper.post(`${baseUrl}`, {
-            questionId: questionId
-        })
-            .then(response => {
-                setServerError("")
-                console.log(response)
-                backToBase({ message: response.message, status: "danger" })
-            })
-            .catch(er => {
-                setServerError(er)
-            })
-    }
-
-    function AcceptQuestion() {
-        if (!question.question) {
-            setQuestion(old => ({
-                ...old, error: "Question field can not be empty!"
-            }))
-        }
-        if (!answer.answer) {
-            setAnswer(old => ({
-                ...old, error: "Answer field can not be empty!"
-            }))
-        }
-
-        if (!question.question || !answer.answer) return;
-
-        if (isEditable) {
-            const baseUrl = `${BACKEND_QUESTION_API_URL}/api/questionadmin/changed-verify`
-            fetchWrapper.post(`${baseUrl}`, {
-                questionId: questionId,
-                question: question.question,
-                answer: answer.answer,
-            })
-                .then(response => {
-                    setServerError("")
-                    backToBase({ message: response.message, status: "success" })
-                })
-                .catch(er => {
-                    setServerError(er)
-                })
-        }
-        else {
-            const baseUrl = `${BACKEND_QUESTION_API_URL}/api/questionadmin/verify`
-            fetchWrapper.post(`${baseUrl}`, {
-                questionId: questionId
-            })
-                .then(response => {
-                    setServerError("")
-                    backToBase({ message: response.message, status: "success" })
-                })
-                .catch(er => {
-                    setServerError(er)
-                })
-        }
-    }
-
-    function TemplateButton({ onClick, accept, reject }) {
-        return (
-            <Pressable onPress={() => {
-                onClick()
-            }}>
-                {({ isHovered, isFocused, isPressed }) => {
-                    return (
-                        <Box borderColor="white" borderWidth={1} px={9} shadow={3} bg={accept && isPressed ? "green.700" : accept && isHovered ? "green.600" : accept ? "#00930F" : reject && isPressed ? "red.700" : reject && isHovered ? "red.600" : "#A01B1B"} borderRadius={50}>
-                            <Box pb={2} pt={2}>
-                                <Text fontSize={{ base: "md", md: "lg", lg: "xl", xl: "xl" }}>
-                                    {accept && "Accept"}
-                                    {reject && "Reject"}
-                                </Text>
-                            </Box>
-                        </Box>
-                    )
-                }}
-            </Pressable>
-        )
-    }
+    const { isEditable,
+        setIsEditable,
+        question,
+        setQuestion,
+        answer,
+        setAnswer,
+        serverError,
+        RejectQuestion,
+        AcceptQuestion } = useQuestionVerification(backToBase, questionProp, questionId, answerProp)
 
     return (
         <Center>
@@ -170,7 +90,7 @@ export function VerifyNumberQuestion({ backToBase, questionProp, answerProp, que
                     RejectQuestion()
                 }} />
                 <TemplateButton accept onClick={() => {
-                    AcceptQuestion()
+                    AcceptQuestion("number")
                 }} />
             </HStack>
 

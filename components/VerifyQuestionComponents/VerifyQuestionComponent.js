@@ -9,6 +9,7 @@ import { useIsFocused } from '@react-navigation/native'
 import { MaterialIcons } from '@expo/vector-icons';
 import { Dimensions } from 'react-native';
 import { VerifyNumberQuestion } from './VerifyNumberQuestion'
+import { VerifyMCQuestion } from './VerifyMCQuestion'
 
 export function VerifyQuestionComponent() {
     const windowWidth = Dimensions.get('screen').width;
@@ -187,8 +188,9 @@ export function VerifyQuestionComponent() {
             }} colorScheme='white_bd' variant="outline" color="white" style={{ position: "absolute", top: 50, left: 50 }} leftIcon={<Icon as={MaterialIcons} name="arrow-back-ios" size="sm" />}>
                 Back
             </Button>}
-            {currentScreen == "multiple" ? <></> :
-                currentScreen == "number" ? <VerifyNumberQuestion
+            {currentScreen == "multiple" ?
+
+                <VerifyMCQuestion
                     questionProp={selectedQuestion.question}
                     questionId={selectedQuestion.id}
                     backToBase={(e) => {
@@ -196,8 +198,23 @@ export function VerifyQuestionComponent() {
                         fetchQuestions(questionsResponse.pageIndex == 1 ? 1 : questionsResponse.questions.length <= 1 ? questionsResponse.pageIndex - 1 : questionsResponse.pageIndex)
                         setCurrentScreen("base")
                     }}
-                    answerProp={selectedQuestion.answers[0].answer} /> :
-                    currentScreen == "base" ? <RenderBase /> : null}
+                    answersProp={selectedQuestion.answers} /> :
+
+                currentScreen == "number" ?
+
+                    <VerifyNumberQuestion
+                        questionProp={selectedQuestion.question}
+                        questionId={selectedQuestion.id}
+                        backToBase={(e) => {
+                            setOnSuccess(e ? e : null)
+                            fetchQuestions(questionsResponse.pageIndex == 1 ? 1 : questionsResponse.questions.length <= 1 ? questionsResponse.pageIndex - 1 : questionsResponse.pageIndex)
+                            setCurrentScreen("base")
+                        }}
+                        answerProp={selectedQuestion.answers[0].answer} /> :
+
+                    currentScreen == "base" ?
+
+                        <RenderBase /> : null}
 
         </ImageBackground>
     )
