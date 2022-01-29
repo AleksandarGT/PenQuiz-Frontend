@@ -29,6 +29,7 @@ export function VerifyQuestionComponent() {
     useEffect(() => {
         if (!isFocused) {
             setCurrentScreen("base")
+            setOnSuccess(null)
         }
     }, [isFocused])
 
@@ -192,7 +193,7 @@ export function VerifyQuestionComponent() {
                     questionId={selectedQuestion.id}
                     backToBase={(e) => {
                         setOnSuccess(e ? e : null)
-                        fetchQuestions(questionsResponse.questions.length <= 1 ? questionsResponse.pageIndex - 1 : questionsResponse.pageIndex)
+                        fetchQuestions(questionsResponse.pageIndex == 1 ? 1 : questionsResponse.questions.length <= 1 ? questionsResponse.pageIndex - 1 : questionsResponse.pageIndex)
                         setCurrentScreen("base")
                     }}
                     answerProp={selectedQuestion.answers[0].answer} /> :
