@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { View, ImageBackground, StyleSheet, ActivityIndicator, Platform } from 'react-native'
-import { Text, Button, Center, Box, Pressable, Alert, VStack, HStack, AspectRatio, Icon } from 'native-base'
+import { Text, Button, Center, Box, Pressable, Alert, VStack, HStack, AspectRatio, Icon, ScrollView } from 'native-base'
 import { useFetchWrapper } from '../../../helpers'
 import { BACKEND_QUESTION_API_URL } from '@env'
 import { useIsFocused } from '@react-navigation/native'
@@ -9,7 +9,7 @@ import { Dimensions } from 'react-native';
 import { NumberQuestionTemplate } from './NumberQuestionTemplate'
 import { MCQuestionTemplate } from './MCQuestionTemplate'
 
-export function TableQuestionsTemplate() {
+export function TableQuestionsTemplate({ mode }) {
     const windowWidth = Dimensions.get('screen').width;
     const [questionsResponse, setQuestionsResponse] = useState()
     const [onSuccess, setOnSuccess] = useState()
@@ -33,7 +33,7 @@ export function TableQuestionsTemplate() {
     }, [isFocused])
 
     function fetchQuestions(pageIndex) {
-        const baseUrl = `${BACKEND_QUESTION_API_URL}/api/questionadmin?pageNumber=${pageIndex}&pageEntries=${Platform.OS == "web" ? 8 : 4}`
+        const baseUrl = `${BACKEND_QUESTION_API_URL}/api/questionadmin/${mode == "view" ? "verified" : "unverified"}?pageNumber=${pageIndex}&pageEntries=${Platform.OS == "web" ? 12 : 4}`
         fetchWrapper.get(`${baseUrl}`)
             .then(response => {
                 console.log(response)
@@ -138,27 +138,35 @@ export function TableQuestionsTemplate() {
 
     function RenderBase() {
         return (
-            <View style={{ alignItems: "center" }}>
+            <View style={{ alignItems: "center", flex: 0.9 }}>
 
-                <Box width="90%" minWidth="70%" bg="#071D56" p={8} borderRadius={25}>
+                <Box flex={0.9} width="90%" minWidth="70%" bg="#071D56" p={8} borderRadius={25}>
                     <Text mb={5} textAlign="center" color="#fff" fontSize={{ base: "md", md: "lg", lg: "xl", xl: "3xl" }} style={{ fontFamily: 'Before-Collapse', }}>
-                        question submissions
+                        {mode == "verify" ? "question submissions" : "game questions"}
                     </Text>
 
                     {onSuccess && <SuccessAlert message={onSuccess.message} status={onSuccess.status} />}
 
-                    <VStack >
-                        {questionsResponse && questionsResponse.questions.map(e => {
-                            return (
-                                <QuestionRow key={e.id} type={e.type} question={e.question} onPress={() => {
-                                    setCurrentScreen(e.type)
-                                    setSelectedQuestion(e)
-                                }} />
-                            )
-                        })}
+                    <VStack flex={1}>
+                        <ScrollView>
+                            {questionsResponse && questionsResponse.questions.map(e => {
+                                return (
+                                    <QuestionRow key={e.id} type={e.type} question={e.question} onPress={() => {
+                                        setCurrentScreen(e.type)
+                                        setSelectedQuestion(e)
+                                    }} />
+                                )
+                            })}
+                        </ScrollView>
+
 
                         {questionsResponse && questionsResponse.questions.length == 0 &&
-                            <Text textAlign="center">No questions that require verification at this moment.{"\n"}Check back later.</Text>
+                            <Text textAlign="center">
+                                {mode == "verify" ?
+                                    `No questions that require verification at this moment.${'\n'}Check back later.` :
+                                    `No additional questions available in the database.${'\n'}Warning! System will only be using the initial pre-defined questions!`
+                                }
+                            </Text>
                         }
 
                         {!questionsResponse && <ActivityIndicator size="large" />}
@@ -189,6 +197,7 @@ export function TableQuestionsTemplate() {
             {currentScreen == "multiple" ?
 
                 <MCQuestionTemplate
+                    mode={mode}
                     questionProp={selectedQuestion.question}
                     questionId={selectedQuestion.id}
                     backToBase={(e) => {
@@ -201,6 +210,7 @@ export function TableQuestionsTemplate() {
                 currentScreen == "number" ?
 
                     <NumberQuestionTemplate
+                        mode={mode}
                         questionProp={selectedQuestion.question}
                         questionId={selectedQuestion.id}
                         backToBase={(e) => {

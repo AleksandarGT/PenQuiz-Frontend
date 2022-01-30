@@ -34,7 +34,7 @@ function InputField({ answer, onChangeText, isEditable }) {
     )
 }
 
-export function MCQuestionTemplate({ backToBase, questionProp, answersProp, questionId }) {
+export function MCQuestionTemplate({ backToBase, questionProp, answersProp, questionId, mode }) {
 
     const { isEditable,
         setIsEditable,
@@ -48,7 +48,7 @@ export function MCQuestionTemplate({ backToBase, questionProp, answersProp, ques
 
         serverError,
         RejectQuestion,
-        AcceptQuestion } =
+        AcceptQuestion, EditQuestion } =
         useQuestionVerification(backToBase, questionProp, questionId, null, answersProp)
 
 
@@ -123,8 +123,8 @@ export function MCQuestionTemplate({ backToBase, questionProp, answersProp, ques
                 <TemplateButton reject onClick={() => {
                     RejectQuestion()
                 }} />
-                <TemplateButton accept onClick={() => {
-                    AcceptQuestion("multiple")
+                <TemplateButton isEditable={mode == "view" ? isEditable : true} accept mode={mode} onClick={() => {
+                    mode == "view" ? EditQuestion("multiple") : AcceptQuestion("multiple")
                 }} />
             </HStack>
 

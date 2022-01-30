@@ -136,7 +136,7 @@ export function useQuestionVerification(backToBase, questionProp, questionId, an
         SendAcceptedRequest("accept", type)
     }
 
-    function EditQuestion() {
+    function EditQuestion(type) {
         try {
             ValidateQuestion(type)
         }
@@ -167,6 +167,7 @@ export function useQuestionVerification(backToBase, questionProp, questionId, an
 
         serverError,
         RejectQuestion,
-        AcceptQuestion
+        AcceptQuestion,
+        EditQuestion
     }
 }

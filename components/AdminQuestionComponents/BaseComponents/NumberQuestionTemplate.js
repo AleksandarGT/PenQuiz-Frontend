@@ -5,7 +5,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { useQuestionVerification } from '../../../hooks/useQuestionVerification'
 import TemplateButton from './ActionButton'
 
-export function NumberQuestionTemplate({ backToBase, questionProp, answerProp, questionId }) {
+export function NumberQuestionTemplate({ backToBase, questionProp, answerProp, questionId, mode }) {
 
     const { isEditable,
         setIsEditable,
@@ -83,7 +83,7 @@ export function NumberQuestionTemplate({ backToBase, questionProp, answerProp, q
                 <TemplateButton reject onClick={() => {
                     RejectQuestion()
                 }} />
-                <TemplateButton accept onClick={() => {
+                <TemplateButton accept mode={mode} onClick={() => {
                     AcceptQuestion("number")
                 }} />
             </HStack>

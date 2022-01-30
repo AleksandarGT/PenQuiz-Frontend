@@ -1,8 +1,8 @@
 import { TableQuestionsTemplate } from "./BaseComponents/TableQuestionsTemplate";
 import React from 'react'
 
-export default function VerifyQuestionComponent() {
+export default function ViewQuestionComponent() {
     return (
-        <TableQuestionsTemplate mode="verify" />
+        <TableQuestionsTemplate mode="view" />
     )
 }
