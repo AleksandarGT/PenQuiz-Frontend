@@ -12,7 +12,6 @@ import { AccountDetails } from '../components/AccountDetails'
 import PublicGameDashboard from '../components/GameDashboardComponents/PublicGameDashboard'
 import PrivateGameDashboard from '../components/GameDashboardComponents/PrivateGameDashboard'
 import { SubmitQuestionBase } from '../components/AddQuestionComponents/SubmitQuestionBase'
-import { useFocusEffect, useIsFocused } from '@react-navigation/native'
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import { authAtom, gameInstanceAtom } from '../state'
 import jwt_decode from "jwt-decode";
@@ -25,7 +24,6 @@ export function HomeDrawer() {
     useSignalR()
 
     const auth = useRecoilValue(authAtom)
-    const [gameInstance, setGameInstance] = useRecoilState(gameInstanceAtom)
     const actions = useAuthActions()
     const dimensions = useWindowDimensions()
 

@@ -146,6 +146,18 @@ export function TableQuestionsTemplate({ mode }) {
                     </Text>
 
                     {onSuccess && <SuccessAlert message={onSuccess.message} status={onSuccess.status} />}
+                    
+                    
+                    {!questionsResponse && <ActivityIndicator size="large" />}
+
+                    {questionsResponse && questionsResponse.questions.length == 0 &&
+                            <Text textAlign="center">
+                                {mode == "verify" ?
+                                    `No questions that require verification at this moment.${'\n'}Check back later.` :
+                                    `No additional questions available in the database.${'\n'}Warning! System will only be using the initial pre-defined questions!`
+                                }
+                            </Text>
+                        }
 
                     <VStack flex={1}>
                         <ScrollView>
@@ -160,16 +172,8 @@ export function TableQuestionsTemplate({ mode }) {
                         </ScrollView>
 
 
-                        {questionsResponse && questionsResponse.questions.length == 0 &&
-                            <Text textAlign="center">
-                                {mode == "verify" ?
-                                    `No questions that require verification at this moment.${'\n'}Check back later.` :
-                                    `No additional questions available in the database.${'\n'}Warning! System will only be using the initial pre-defined questions!`
-                                }
-                            </Text>
-                        }
 
-                        {!questionsResponse && <ActivityIndicator size="large" />}
+
                     </VStack>
 
                     {questionsResponse && <HStack justifyContent={questionsResponse.hasPreviousPage && questionsResponse.hasNextPage ? "space-between" : questionsResponse.hasNextPage ? "flex-end" : "flex-start"} mt={5} mx={2}>
