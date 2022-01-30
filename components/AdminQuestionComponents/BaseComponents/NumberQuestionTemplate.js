@@ -15,7 +15,7 @@ export function NumberQuestionTemplate({ backToBase, questionProp, answerProp, q
         setAnswer,
         serverError,
         RejectQuestion,
-        AcceptQuestion } = useQuestionVerification(backToBase, questionProp, questionId, answerProp)
+        AcceptQuestion, EditQuestion } = useQuestionVerification(backToBase, questionProp, questionId, answerProp)
 
     return (
         <Center>
@@ -84,7 +84,7 @@ export function NumberQuestionTemplate({ backToBase, questionProp, answerProp, q
                     RejectQuestion()
                 }} />
                 <TemplateButton accept mode={mode} onClick={() => {
-                    AcceptQuestion("number")
+                    mode == "view" ? EditQuestion("number") : AcceptQuestion("number") 
                 }} />
             </HStack>
 
