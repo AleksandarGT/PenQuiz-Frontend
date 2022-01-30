@@ -1,17 +1,11 @@
-import React, { useState, useEffect } from 'react'
-import { View, ImageBackground, StyleSheet, ActivityIndicator, Platform } from 'react-native'
-import { Text, Button, Center, Box, Pressable, Input, Alert, VStack, HStack, IconButton, CloseIcon, Spacer, Icon } from 'native-base'
-import { StatusCode } from '../../hooks'
-import DefaultAlert from '../Popups/DefaultAlert'
-import { useRecoilValue } from 'recoil'
-import { authAtom } from '../../state'
-import { useFetchWrapper } from '../../helpers'
-import { BACKEND_QUESTION_API_URL } from '@env'
+import React from 'react'
+import { Text, Center, Box, Input, HStack, Icon } from 'native-base'
+import DefaultAlert from '../../Popups/DefaultAlert'
 import { MaterialIcons } from '@expo/vector-icons';
-import { useQuestionVerification } from '../../hooks/useQuestionVerification'
-import TemplateButton from './VerifyActionButton'
+import { useQuestionVerification } from '../../../hooks/useQuestionVerification'
+import TemplateButton from './ActionButton'
 
-export function VerifyNumberQuestion({ backToBase, questionProp, answerProp, questionId }) {
+export function NumberQuestionTemplate({ backToBase, questionProp, answerProp, questionId }) {
 
     const { isEditable,
         setIsEditable,

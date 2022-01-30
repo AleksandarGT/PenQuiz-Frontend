@@ -16,7 +16,7 @@ import { useFocusEffect, useIsFocused } from '@react-navigation/native'
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import { authAtom, gameInstanceAtom } from '../state'
 import jwt_decode from "jwt-decode";
-import { VerifyQuestionComponent } from '../components/VerifyQuestionComponents/VerifyQuestionComponent'
+import VerifyQuestionComponent from '../components/AdminQuestionComponents/VerifyQuestionComponent'
 
 const Drawer = createDrawerNavigator()
 
@@ -71,7 +71,7 @@ export function HomeDrawer() {
                 },
             }}
             drawerContent={props => <CustomLogout {...props} />}
-            >
+        >
             <Drawer.Screen options={drawerScreenOptions} name="Public Game" component={PublicGameDashboard} />
             <Drawer.Screen options={drawerScreenOptions} name="Private Game" component={PrivateGameDashboard} />
             <Drawer.Screen options={drawerScreenOptions} name="Account" component={AccountDetails} />

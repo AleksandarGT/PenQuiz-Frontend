@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { View, ImageBackground, StyleSheet, ActivityIndicator, Platform } from 'react-native'
-import { Text, Button, Center, Box, Pressable, Input, Alert, VStack, HStack, IconButton, CloseIcon, AspectRatio, ScrollView, Icon } from 'native-base'
-import { useRecoilValue } from 'recoil'
-import { authAtom } from '../../state'
-import { useFetchWrapper } from '../../helpers'
+import { Text, Button, Center, Box, Pressable, Alert, VStack, HStack, AspectRatio, Icon } from 'native-base'
+import { useFetchWrapper } from '../../../helpers'
 import { BACKEND_QUESTION_API_URL } from '@env'
 import { useIsFocused } from '@react-navigation/native'
 import { MaterialIcons } from '@expo/vector-icons';
 import { Dimensions } from 'react-native';
-import { VerifyNumberQuestion } from './VerifyNumberQuestion'
-import { VerifyMCQuestion } from './VerifyMCQuestion'
+import { NumberQuestionTemplate } from './NumberQuestionTemplate'
+import { MCQuestionTemplate } from './MCQuestionTemplate'
 
-export function VerifyQuestionComponent() {
+export function TableQuestionsTemplate() {
     const windowWidth = Dimensions.get('screen').width;
     const [questionsResponse, setQuestionsResponse] = useState()
     const [onSuccess, setOnSuccess] = useState()
@@ -181,7 +179,7 @@ export function VerifyQuestionComponent() {
     }
 
     return (
-        <ImageBackground source={Platform.OS === 'web' ? require('../../assets/homeBackground.svg') : require('../../assets/homeBackground.png')} resizeMode="cover" style={styles.image}>
+        <ImageBackground source={Platform.OS === 'web' ? require('../../../assets/homeBackground.svg') : require('../../../assets/homeBackground.png')} resizeMode="cover" style={styles.image}>
             {currentScreen != "base" && <Button onPress={() => {
                 setOnSuccess(null)
                 setCurrentScreen("base")
@@ -190,7 +188,7 @@ export function VerifyQuestionComponent() {
             </Button>}
             {currentScreen == "multiple" ?
 
-                <VerifyMCQuestion
+                <MCQuestionTemplate
                     questionProp={selectedQuestion.question}
                     questionId={selectedQuestion.id}
                     backToBase={(e) => {
@@ -202,7 +200,7 @@ export function VerifyQuestionComponent() {
 
                 currentScreen == "number" ?
 
-                    <VerifyNumberQuestion
+                    <NumberQuestionTemplate
                         questionProp={selectedQuestion.question}
                         questionId={selectedQuestion.id}
                         backToBase={(e) => {

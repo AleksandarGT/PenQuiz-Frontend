@@ -55,9 +55,9 @@ export function useQuestionVerification(backToBase, questionProp, questionId, an
             })
     }
 
-    function AcceptQuestion(type) {
+    function ValidateQuestion(type) {
         if (type != "multiple" && type != "number")
-            return
+            throw ""
 
         if (!question.question) {
             setQuestion(old => ({
@@ -72,7 +72,7 @@ export function useQuestionVerification(backToBase, questionProp, questionId, an
                 }))
             }
 
-            if (!question.question || !answer.answer) return;
+            if (!question.question || !answer.answer) throw "";
 
         }
         else {
@@ -81,16 +81,18 @@ export function useQuestionVerification(backToBase, questionProp, questionId, an
                     ...old, error: "Some answer fields are empty!"
                 }))
 
-                return
+                throw ""
             }
 
-            if (!question.question) return;
+            if (!question.question) throw "";
         }
+    }
 
-
+    function SendAcceptedRequest(endpoint, type) {
+        if (endpoint != "accept" && endpoint != "edit") throw "You can only provide 'edit' or 'accept'"
 
         if (isEditable) {
-            const baseUrl = `${BACKEND_QUESTION_API_URL}/api/questionadmin/changed-verify`
+            const baseUrl = `${BACKEND_QUESTION_API_URL}/api/questionadmin/${endpoint == "accept" ? "changed-verify" : "edit"}`
             fetchWrapper.post(`${baseUrl}`, {
                 questionId: questionId,
                 question: question.question,
@@ -107,7 +109,7 @@ export function useQuestionVerification(backToBase, questionProp, questionId, an
                 })
         }
         else {
-            const baseUrl = `${BACKEND_QUESTION_API_URL}/api/questionadmin/verify`
+            const baseUrl = `${BACKEND_QUESTION_API_URL}/api/questionadmin/${endpoint == "accept" ? "verify" : "edit"}`
             fetchWrapper.post(`${baseUrl}`, {
                 questionId: questionId
             })
@@ -119,6 +121,31 @@ export function useQuestionVerification(backToBase, questionProp, questionId, an
                     setServerError(er)
                 })
         }
+    }
+
+    function AcceptQuestion(type) {
+
+        try {
+            ValidateQuestion(type)
+        }
+        catch (ex) {
+            // Validation failed, message was already recorded in state.
+            return
+        }
+
+        SendAcceptedRequest("accept", type)
+    }
+
+    function EditQuestion() {
+        try {
+            ValidateQuestion(type)
+        }
+        catch (ex) {
+            // Validation failed, message was already recorded in state.
+            return
+        }
+
+        SendAcceptedRequest("edit", type)
     }
 
     return {
