@@ -55,7 +55,7 @@ export function AccountDetails() {
                     <HStack justifyContent="space-around">
                         <SquareStat topText={userStatistics?.totalGames ?? 0} bottomText="Games" />
                         <SquareStat topText={userStatistics?.gamesWon ?? 0} bottomText="Wins" />
-                        <SquareStat topText={userStatistics?.winPercentage ?? "0%"} bottomText="Win rate" />
+                        <SquareStat topText={`${userStatistics?.winPercentage}%` ?? "0%"} bottomText="Win rate" />
                     </HStack>
                 </Box>
             </Center>
