@@ -29,8 +29,14 @@ export function AccountDetails() {
 
     function SquareStat({ topText, bottomText }) {
         return (
-            <Box borderRadius={25} bg="#C8FBFF" p={8} minW={150} minH={150}>
-                <Center>
+            <Box borderRadius={25} bg="#C8FBFF" style={{
+                aspectRatio: 1,
+                flex: 0.2,
+                minWidth: 160,
+                minHeight: 160,
+                justifyContent: 'center'
+            }}>
+                <Center >
                     <Text color="black" fontWeight="bold" fontSize={{ base: "md", md: "lg", lg: "xl", xl: "4xl" }}>
                         {topText}
                     </Text>
@@ -39,13 +45,14 @@ export function AccountDetails() {
                     </Text>
                 </Center>
             </Box>
+
         )
     }
 
     return (
         <ImageBackground source={Platform.OS === 'web' ? require('../assets/homeBackground.svg') : require('../assets/homeBackground.png')} resizeMode="cover" style={styles.image}>
             <Center>
-                <Box bg="#071D56" p={8} borderRadius={35} width="40%" minW={600}>
+                <Box  bg="#071D56" p={8} borderRadius={35} width="40%" minW={600}>
                     <Text mb={5} textAlign="center" color="#fff" fontSize={{ base: "md", md: "lg", lg: "xl", xl: "4xl" }} style={{ fontFamily: 'Before-Collapse', }}>
                         {authValue?.username}
                         {"\n"}
@@ -55,7 +62,7 @@ export function AccountDetails() {
                     <HStack justifyContent="space-around">
                         <SquareStat topText={userStatistics?.totalGames ?? 0} bottomText="Games" />
                         <SquareStat topText={userStatistics?.gamesWon ?? 0} bottomText="Wins" />
-                        <SquareStat topText={`${userStatistics?.winPercentage}%` ?? "0%"} bottomText="Win rate" />
+                        <SquareStat topText={`${userStatistics?.winPercentage ?? 20.54}%`} bottomText="Win rate" />
                     </HStack>
                 </Box>
             </Center>

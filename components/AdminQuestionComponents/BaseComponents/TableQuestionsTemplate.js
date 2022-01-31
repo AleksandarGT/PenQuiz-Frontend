@@ -36,7 +36,6 @@ export function TableQuestionsTemplate({ mode }) {
         const baseUrl = `${BACKEND_QUESTION_API_URL}/api/questionadmin/${mode == "view" ? "verified" : "unverified"}?pageNumber=${pageIndex}&pageEntries=${Platform.OS == "web" ? 12 : 4}`
         fetchWrapper.get(`${baseUrl}`)
             .then(response => {
-                console.log(response)
                 setQuestionsResponse(response)
             })
             .catch(er => {

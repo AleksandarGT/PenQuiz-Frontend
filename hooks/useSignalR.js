@@ -40,7 +40,6 @@ export function useSignalR() {
                 StatusCode: StatusCode.CONNECTED,
                 Error: null,
             })
-            console.log("Setting events")
 
             setupEvents()
         }
@@ -99,7 +98,6 @@ export function useSignalR() {
         }))
 
         connection.on('CallerLeftGame', (() => {
-            console.log("I will remove backstack now from CallerLeftGame")
             removeBackStack("Home")
         }))
         connection.on('PersonLeftGame', ((disconnectedPersonId) => {
@@ -112,8 +110,6 @@ export function useSignalR() {
             }))
         }))
         connection.on('NavigateToLobby', ((gi) => {
-            console.log("I will remove backstack now from NavigateToLobby")
-
             removeBackStack("GameLobby")
         }))
         connection.on('NavigateToGame', ((gi) => {

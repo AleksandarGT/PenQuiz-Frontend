@@ -83,7 +83,7 @@ export function NumberQuestionTemplate({ backToBase, questionProp, answerProp, q
                 <TemplateButton reject onClick={() => {
                     RejectQuestion()
                 }} />
-                <TemplateButton accept mode={mode} onClick={() => {
+                <TemplateButton isEditable={mode == "view" ? isEditable : true} accept mode={mode} onClick={() => {
                     mode == "view" ? EditQuestion("number") : AcceptQuestion("number") 
                 }} />
             </HStack>
