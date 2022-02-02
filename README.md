@@ -1,8 +1,11 @@
 # ConQuiz
 Trivia PvP game set in Antarctica. Core concept of the game is to capture territories from other players during the game. The end score is based on the amount of territories and points you control.
 
+# Production
+Visit the fully working game at https://conquiz.netlify.app/
+
 # Architecture
-This repository contains all the frontend UI and logic for the ConQuiz project. The back-end React Native repository is located <a href="https://github.com/BoostedPenguin/ConQuiz-Backend">here</a>.
+This repository contains all the frontend UI and logic for the ConQuiz project. The back-end .NET 5 repository is located <a href="https://github.com/BoostedPenguin/ConQuiz-Backend">here</a>.
 <img src="https://i.imgur.com/kaaqNMW.png" />
 
 # Frontend stack:
