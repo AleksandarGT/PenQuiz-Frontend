@@ -19,7 +19,6 @@ function useAuthActions() {
     var timeout
 
 
-
     function startRefreshTokenTimer(jwt) {
         try {
             // Calculate when to call refresh token refresh
@@ -30,7 +29,7 @@ function useAuthActions() {
             console.log(`${timeoutSec / 1000} s before next JWT fetch call`)
             timeout = setTimeout(() => refreshToken(), timeoutSec)
         }
-        catch(error) {
+        catch (error) {
             console.log("Something went wrong with the JWT expiration date! Refresh token timer not started!")
         }
     }
@@ -63,9 +62,6 @@ function useAuthActions() {
                 // get return url from location state or default to home page
                 //const { from } = history.location.state || { from: { pathname: '/' } };
                 //history.push(from);
-            }).catch((ex) => {
-                console.log(ex)
-                setAuth(null)
             })
     }
 

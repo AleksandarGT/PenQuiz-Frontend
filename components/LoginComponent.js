@@ -8,6 +8,7 @@ import { useRecoilValue, useSetRecoilState } from 'recoil'
 import { useAuthActions } from '../hooks'
 import { justifyContent } from 'styled-system'
 import RulesModal from './Popups/RulesModal'
+import DefaultAlert from './Popups/DefaultAlert'
 
 export default function LoginComponent({ history }) {
     return (
@@ -45,6 +46,7 @@ function RenderCard() {
     const setAuth = useSetRecoilState(authAtom)
     const [isLoading, setIsLoading] = useState(false)
     const [showRulesModal, setShowRulesModal] = useState(false)
+    const [serverError, setServerError] = useState()
 
     useEffect(() => {
         if (userActions.googleResponse?.type === 'success') {
@@ -58,8 +60,10 @@ function RenderCard() {
     }, [userActions.googleResponse])
 
     function onLogin({ tokenId }) {
-        return userActions.login(tokenId).catch(error => {
+        return userActions.login(tokenId).then(res => setServerError(null)).catch(error => {
             console.log(error)
+            setAuth(null)
+            setServerError(error)
         })
     }
 
@@ -89,6 +93,12 @@ function RenderCard() {
 
                 </Box>
                 <Box px={4} pb={4} pt={4}>
+                    {serverError &&
+                        <Center >
+                            <DefaultAlert message={serverError} />
+                        </Center>
+                    }
+
                     <Button
                         py={3}
                         isDisabled={isLoading ? true : false}
