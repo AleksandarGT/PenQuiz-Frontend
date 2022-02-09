@@ -8,6 +8,7 @@ import { useRecoilValue, useSetRecoilState } from 'recoil'
 import { useAuthActions } from '../hooks'
 import { justifyContent } from 'styled-system'
 import RulesModal from './Popups/RulesModal'
+import AboutModal from './Popups/AboutModal'
 import DefaultAlert from './Popups/DefaultAlert'
 
 export default function LoginComponent({ history }) {
@@ -46,6 +47,7 @@ function RenderCard() {
     const setAuth = useSetRecoilState(authAtom)
     const [isLoading, setIsLoading] = useState(false)
     const [showRulesModal, setShowRulesModal] = useState(false)
+    const [showAboutModal, setShowAboutModal] = useState(false)
     const [serverError, setServerError] = useState()
 
     useEffect(() => {
@@ -75,11 +77,10 @@ function RenderCard() {
 
     return (
         <Box shadow={9} bg="#0E85A4" p={4} borderRadius={50}>
-
-
             <VStack space={4} >
                 {RenderAntarctica()}
                 <RulesModal showRulesModal={showRulesModal} setShowRulesModal={setShowRulesModal} />
+                <AboutModal showAboutModal={showAboutModal} setShowAboutModal={setShowAboutModal} />
                 <Box px={4} >
                     <Text textAlign="center" color="#fff" fontSize={{ base: 40, md: 60, lg: 80 }} style={{ fontFamily: 'Before-Collapse', }}>
                         ConQuiz
@@ -122,7 +123,7 @@ function RenderCard() {
                     justifyContent="space-around"
                 >
                     <Button px={7} size="lg" bg="#006078" style={{ alignSelf: 'flex-start' }} onPress={() => setShowRulesModal(true)}>Rules</Button>
-                    <Button px={7} size="lg" bg="#006078">About</Button>
+                    <Button px={7} size="lg" bg="#006078" onPress={() => setShowAboutModal(true)}>About</Button>
                 </Button.Group>
             </VStack>
         </Box>
