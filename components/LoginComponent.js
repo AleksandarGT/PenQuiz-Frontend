@@ -63,9 +63,9 @@ function RenderCard() {
 
     function onLogin({ tokenId }) {
         return userActions.login(tokenId).then(res => setServerError(null)).catch(error => {
-            console.log(error)
             setAuth(null)
-            setServerError(error)
+            console.log(error)
+            setServerError(error?.message ? error.message : "Unknown server error")
         })
     }
 

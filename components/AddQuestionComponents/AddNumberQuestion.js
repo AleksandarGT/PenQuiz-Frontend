@@ -24,6 +24,7 @@ export function AddNumberQuestion({ backToBase }) {
     const [serverError, setServerError] = useState()
 
     function OnSubmit() {
+        
         if (!question.question) {
             setQuestion(old => ({
                 ...old, error: "Question field can not be empty!"
@@ -38,6 +39,7 @@ export function AddNumberQuestion({ backToBase }) {
         if (!question.question || !answer.answer) return;
 
         const baseUrl = `${BACKEND_QUESTION_API_URL}/api/question`
+
         fetchWrapper.post(`${baseUrl}/number`, {
             question: question.question,
             answer: answer.answer
@@ -47,7 +49,7 @@ export function AddNumberQuestion({ backToBase }) {
                 backToBase(response.message)
             })
             .catch(er => {
-                setServerError(er)
+                setServerError(er?.message)
             })
     }
 

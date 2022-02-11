@@ -62,6 +62,7 @@ export function AddMCQuestion({ backToBase }) {
     const [serverError, setServerError] = useState()
 
     function OnSubmit() {
+        
         if (!question.question) {
             setQuestion(old => ({
                 ...old, error: "Question field can not be empty!"
@@ -89,7 +90,7 @@ export function AddMCQuestion({ backToBase }) {
                 backToBase(response.message)
             })
             .catch(er => {
-                setServerError(er)
+                setServerError(er?.message)
             })
     }
 

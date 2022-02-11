@@ -56,8 +56,11 @@ function useFetchWrapper() {
 
                     //history.push('/login');
                 }
+                const error = (data && data.message && {
+                    message: data.message,
+                    error: data
+                })
 
-                const error = (data && data.message) // || response.statusText
                 return Promise.reject(error)
             }
 

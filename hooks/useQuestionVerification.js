@@ -4,7 +4,6 @@ import { BACKEND_QUESTION_API_URL } from '@env'
 
 export function useQuestionVerification(backToBase, questionProp, questionId, answerProp, answersProp = []) {
     const fetchWrapper = useFetchWrapper()
-
     const [isEditable, setIsEditable] = useState(false)
     const [question, setQuestion] = useState({
         question: questionProp,
@@ -40,6 +39,7 @@ export function useQuestionVerification(backToBase, questionProp, questionId, an
     const [serverError, setServerError] = useState()
 
     function RejectQuestion() {
+
         console.log(questionId)
         const baseUrl = `${BACKEND_QUESTION_API_URL}/api/questionadmin/reject`
         fetchWrapper.post(`${baseUrl}`, {
@@ -51,11 +51,12 @@ export function useQuestionVerification(backToBase, questionProp, questionId, an
                 backToBase({ message: response.message, status: "danger" })
             })
             .catch(er => {
-                setServerError(er)
+                setServerError(er?.message)
             })
     }
 
     function ValidateQuestion(type) {
+
         if (type != "multiple" && type != "number")
             throw ""
 
@@ -89,6 +90,7 @@ export function useQuestionVerification(backToBase, questionProp, questionId, an
     }
 
     function SendAcceptedRequest(endpoint, type) {
+
         if (endpoint != "accept" && endpoint != "edit") throw "You can only provide 'edit' or 'accept'"
 
         if (isEditable) {
@@ -105,7 +107,7 @@ export function useQuestionVerification(backToBase, questionProp, questionId, an
                     backToBase({ message: response.message, status: "success" })
                 })
                 .catch(er => {
-                    setServerError(er)
+                    setServerError(er?.message)
                 })
         }
         else {
@@ -118,13 +120,12 @@ export function useQuestionVerification(backToBase, questionProp, questionId, an
                     backToBase({ message: response.message, status: "success" })
                 })
                 .catch(er => {
-                    setServerError(er)
+                    setServerError(er?.message)
                 })
         }
     }
 
     function AcceptQuestion(type) {
-
         try {
             ValidateQuestion(type)
         }
@@ -137,6 +138,7 @@ export function useQuestionVerification(backToBase, questionProp, questionId, an
     }
 
     function EditQuestion(type) {
+        
         try {
             ValidateQuestion(type)
         }

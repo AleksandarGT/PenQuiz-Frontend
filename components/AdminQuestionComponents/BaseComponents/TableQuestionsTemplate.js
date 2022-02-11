@@ -15,6 +15,7 @@ export function TableQuestionsTemplate({ mode }) {
     const [onSuccess, setOnSuccess] = useState()
     const fetchWrapper = useFetchWrapper()
     const isFocused = useIsFocused()
+    
 
     const [selectedQuestion, setSelectedQuestion] = useState()
     const [currentScreen, setCurrentScreen] = useState("base")
@@ -33,6 +34,7 @@ export function TableQuestionsTemplate({ mode }) {
     }, [isFocused])
 
     function fetchQuestions(pageIndex) {
+
         const baseUrl = `${BACKEND_QUESTION_API_URL}/api/questionadmin/${mode == "view" ? "verified" : "unverified"}?pageNumber=${pageIndex}&pageEntries=${Platform.OS == "web" ? 12 : 4}`
         fetchWrapper.get(`${baseUrl}`)
             .then(response => {
