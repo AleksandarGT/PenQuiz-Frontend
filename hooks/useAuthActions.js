@@ -3,14 +3,18 @@ import { useRecoilState, useSetRecoilState } from 'recoil'
 import { useFetchWrapper } from '../helpers'
 import { authAtom } from '../state'
 import * as Google from 'expo-auth-session/providers/google'
-import { BACKEND_ACCOUNT_API_URL, GOOGLE_CLIENT_URL } from '@env'
+import { GOOGLE_CLIENT_URL } from '@env'
+import { ACCOUNT_SERVICE_API_URL } from "../injectable"
 import { closeConnection } from './SignalRSetup'
+import { Platform } from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 export { useAuthActions }
 global.Buffer = global.Buffer || require('buffer').Buffer
 
 function useAuthActions() {
 
-    const baseUrl = `${BACKEND_ACCOUNT_API_URL}/api/account`
+    const baseUrl = `${ACCOUNT_SERVICE_API_URL}/api/account`
     const fetchWrapper = useFetchWrapper()
     const setAuth = useSetRecoilState(authAtom)
     //TODO
@@ -57,7 +61,14 @@ function useAuthActions() {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 //localStorage.setItem('user', JSON.stringify(user));
                 setAuth(user)
-                startRefreshTokenTimer(user.jwtToken)
+
+                if (Platform.OS != "web") {
+                    AsyncStorage.setItem("@user", JSON.stringify(user))
+                }
+                else {
+                    startRefreshTokenTimer(user.jwtToken)
+                }
+
 
                 // get return url from location state or default to home page
                 //const { from } = history.location.state || { from: { pathname: '/' } };
@@ -66,19 +77,33 @@ function useAuthActions() {
     }
 
     function refreshToken() {
-        //setAuth({ status: 'LOADING' })
-        return fetchWrapper.post(`${baseUrl}/refresh-token`).then(user => {
-            setAuth(user)
-            //removeBackStack('Home')
-            startRefreshTokenTimer(user.jwtToken)
-        }).catch(() => {
-            setAuth(null)
-            //removeBackStack('Login')
-            //navigate('Login')
-        })
+        if (Platform.OS != "web") {
+            AsyncStorage.getItem("@user").then(res => {
+                const jsonRes = JSON.parse(res)
+                setAuth(jsonRes)
+                return
+            })
+        }
+        else {
+            return fetchWrapper.post(`${baseUrl}/refresh-token`).then(user => {
+                setAuth(user)
+                //removeBackStack('Home')
+                startRefreshTokenTimer(user.jwtToken)
+            }).catch(() => {
+                setAuth(null)
+                //removeBackStack('Login')
+                //navigate('Login')
+            })
+        }
     }
 
     function logout() {
+        if (Platform.OS != "web") {
+            AsyncStorage.removeItem("@user").then(res => {
+                setAuth(null)
+                return
+            })
+        }
         fetchWrapper.post(`${baseUrl}/revoke-cookie`).then(res => {
             clearTimeout(timeout)
             closeConnection()

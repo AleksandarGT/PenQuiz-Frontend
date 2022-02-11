@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { View, ImageBackground, StyleSheet, ActivityIndicator, Platform } from 'react-native'
 import { Text, Button, Center, Box, Pressable, Alert, VStack, HStack, AspectRatio, Icon, ScrollView } from 'native-base'
 import { useFetchWrapper } from '../../../helpers'
-import { BACKEND_QUESTION_API_URL } from '@env'
+import { QUESTION_SERVICE_API_URL } from '../../../injectable'
 import { useIsFocused } from '@react-navigation/native'
 import { MaterialIcons } from '@expo/vector-icons';
 import { Dimensions } from 'react-native';
@@ -35,7 +35,7 @@ export function TableQuestionsTemplate({ mode }) {
 
     function fetchQuestions(pageIndex) {
 
-        const baseUrl = `${BACKEND_QUESTION_API_URL}/api/questionadmin/${mode == "view" ? "verified" : "unverified"}?pageNumber=${pageIndex}&pageEntries=${Platform.OS == "web" ? 12 : 4}`
+        const baseUrl = `${QUESTION_SERVICE_API_URL}/api/questionadmin/${mode == "view" ? "verified" : "unverified"}?pageNumber=${pageIndex}&pageEntries=${Platform.OS == "web" ? 12 : 4}`
         fetchWrapper.get(`${baseUrl}`)
             .then(response => {
                 setQuestionsResponse(response)

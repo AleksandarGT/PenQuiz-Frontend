@@ -5,7 +5,7 @@ import DefaultAlert from './Popups/DefaultAlert'
 import { useRecoilValue } from 'recoil'
 import { authAtom } from '../state'
 import { useFetchWrapper } from '../helpers'
-import { BACKEND_GAME_API_URL } from '@env'
+import { GAME_SERVICE_API_URL } from '../injectable'
 import { useIsFocused } from '@react-navigation/native'
 
 export function AccountDetails() {
@@ -16,7 +16,7 @@ export function AccountDetails() {
 
     useEffect(() => {
         if (!isFocused) return
-        const baseUrl = `${BACKEND_GAME_API_URL}/api/game`
+        const baseUrl = `${GAME_SERVICE_API_URL}/api/game`
 
         fetchWrapper.get(`${baseUrl}/statistics`)
             .then(response => {
@@ -52,7 +52,7 @@ export function AccountDetails() {
     return (
         <ImageBackground source={Platform.OS === 'web' ? require('../assets/homeBackground.svg') : require('../assets/homeBackground.png')} resizeMode="cover" style={styles.image}>
             <Center>
-                <Box  bg="#071D56" p={8} borderRadius={35} width="40%" minW={600}>
+                <Box bg="#071D56" p={8} borderRadius={35} width="40%" minW={600}>
                     <Text mb={5} textAlign="center" color="#fff" fontSize={{ base: "md", md: "lg", lg: "xl", xl: "4xl" }} style={{ fontFamily: 'Before-Collapse', }}>
                         {authValue?.username}
                         {"\n"}

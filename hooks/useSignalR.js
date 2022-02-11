@@ -1,15 +1,13 @@
 import { setupSignalRConnection } from './SignalRSetup'
 import { authToken, gameInstanceAtom, joiningGameExceptionAtom, connectionStatusAtom, gameTimerAtom, gameMapExceptionAtom, canUserAnswerQuestionAtom, showMultipleChoiceQuestionAtom, multipleChoiceQuestionAtom, authAtom, questionParticipantsAtom, roundQuestionAtom, playerQuestionAnswersAtom, playerAttackPossibilitiesAtom } from '../state'
 import { useRecoilValue, useRecoilState } from 'recoil'
-import { BACKEND_GAME_API_URL } from '@env'
+import { GAME_SERVICE_API_URL } from '../injectable'
 import { navigate, removeBackStack } from '../helpers'
 import { getConnection } from './SignalRSetup'
 import { useEffect, useState } from 'react'
 import { GetGameState } from '../components/GameMapComponents/CommonGameFunc'
 
-const connectionHub = `${BACKEND_GAME_API_URL}/gamehubs`
-
-
+const connectionHub = `${GAME_SERVICE_API_URL}/gamehubs`
 
 export const StatusCode = {
     "CONNECTED": 1,
@@ -47,7 +45,7 @@ export function useSignalR() {
 
     // Prevent question service from idling while in game. Makes sure the question service will respond with questions afterwards
     function pingQuestionService() {
-        if(__DEV__) return
+        if (__DEV__) return
 
         fetch("https://conquiz-question-api.azurewebsites.net/api/question").then(res => {
             // Question service successfully pinged

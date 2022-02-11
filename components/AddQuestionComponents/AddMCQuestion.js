@@ -6,7 +6,7 @@ import DefaultAlert from '../Popups/DefaultAlert'
 import { useRecoilValue } from 'recoil'
 import { authAtom } from '../../state'
 import { useFetchWrapper } from '../../helpers'
-import { BACKEND_QUESTION_API_URL } from '@env'
+import { QUESTION_SERVICE_API_URL } from '../../injectable'
 import { useIsFocused } from '@react-navigation/native'
 
 
@@ -62,7 +62,7 @@ export function AddMCQuestion({ backToBase }) {
     const [serverError, setServerError] = useState()
 
     function OnSubmit() {
-        
+
         if (!question.question) {
             setQuestion(old => ({
                 ...old, error: "Question field can not be empty!"
@@ -79,7 +79,7 @@ export function AddMCQuestion({ backToBase }) {
 
         if (!question.question) return;
 
-        const baseUrl = `${BACKEND_QUESTION_API_URL}/api/question`
+        const baseUrl = `${QUESTION_SERVICE_API_URL}/api/question`
         fetchWrapper.post(`${baseUrl}/multiple`, {
             question: question.question,
             answer: answers[0].answer,
@@ -118,7 +118,7 @@ export function AddMCQuestion({ backToBase }) {
 
     return (
         <Center>
-            <Text mb={Platform.OS =="web" ? 9 : 0}  textAlign="center" color="#fff" fontSize={{ base: 30, md: Platform.OS == "web" ? 40 : 30, lg: 50, xl: 60 }} style={{ fontFamily: 'Before-Collapse', }}>
+            <Text mb={Platform.OS == "web" ? 9 : 0} textAlign="center" color="#fff" fontSize={{ base: 30, md: Platform.OS == "web" ? 40 : 30, lg: 50, xl: 60 }} style={{ fontFamily: 'Before-Collapse', }}>
                 Add your closed question
             </Text>
 

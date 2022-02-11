@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useFetchWrapper } from "../helpers"
-import { BACKEND_QUESTION_API_URL } from '@env'
+import { QUESTION_SERVICE_API_URL } from '../injectable'
 
 export function useQuestionVerification(backToBase, questionProp, questionId, answerProp, answersProp = []) {
     const fetchWrapper = useFetchWrapper()
@@ -41,7 +41,7 @@ export function useQuestionVerification(backToBase, questionProp, questionId, an
     function RejectQuestion() {
 
         console.log(questionId)
-        const baseUrl = `${BACKEND_QUESTION_API_URL}/api/questionadmin/reject`
+        const baseUrl = `${QUESTION_SERVICE_API_URL}/api/questionadmin/reject`
         fetchWrapper.post(`${baseUrl}`, {
             questionId: questionId
         })
@@ -94,7 +94,7 @@ export function useQuestionVerification(backToBase, questionProp, questionId, an
         if (endpoint != "accept" && endpoint != "edit") throw "You can only provide 'edit' or 'accept'"
 
         if (isEditable) {
-            const baseUrl = `${BACKEND_QUESTION_API_URL}/api/questionadmin/${endpoint == "accept" ? "changed-verify" : "edit"}`
+            const baseUrl = `${QUESTION_SERVICE_API_URL}/api/questionadmin/${endpoint == "accept" ? "changed-verify" : "edit"}`
             fetchWrapper.post(`${baseUrl}`, {
                 questionId: questionId,
                 question: question.question,
@@ -111,7 +111,7 @@ export function useQuestionVerification(backToBase, questionProp, questionId, an
                 })
         }
         else {
-            const baseUrl = `${BACKEND_QUESTION_API_URL}/api/questionadmin/${endpoint == "accept" ? "verify" : "edit"}`
+            const baseUrl = `${QUESTION_SERVICE_API_URL}/api/questionadmin/${endpoint == "accept" ? "verify" : "edit"}`
             fetchWrapper.post(`${baseUrl}`, {
                 questionId: questionId
             })

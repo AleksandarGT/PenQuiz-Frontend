@@ -6,7 +6,8 @@ import DefaultAlert from '../Popups/DefaultAlert'
 import { useRecoilValue } from 'recoil'
 import { authAtom } from '../../state'
 import { useFetchWrapper } from '../../helpers'
-import { BACKEND_QUESTION_API_URL } from '@env'
+import { QUESTION_SERVICE_API_URL } from '../../injectable'
+
 import { useIsFocused } from '@react-navigation/native'
 
 export function AddNumberQuestion({ backToBase }) {
@@ -38,7 +39,7 @@ export function AddNumberQuestion({ backToBase }) {
 
         if (!question.question || !answer.answer) return;
 
-        const baseUrl = `${BACKEND_QUESTION_API_URL}/api/question`
+        const baseUrl = `${QUESTION_SERVICE_API_URL}/api/question`
 
         fetchWrapper.post(`${baseUrl}/number`, {
             question: question.question,
