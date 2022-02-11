@@ -72,7 +72,7 @@ export function SubmitQuestionBase() {
     }
     return (
         <ImageBackground source={Platform.OS === 'web' ? require('../../assets/homeBackground.svg') : require('../../assets/homeBackground.png')} resizeMode="cover" style={styles.image}>
-            {currentScreen != "base" && <Button onPress={() => setCurrentScreen("base")} colorScheme='white_bd' variant="outline" color="white" style={{ position: "absolute", top: 50, left: 50 }} leftIcon={<Icon as={MaterialIcons} name="arrow-back-ios" size="sm" />}>
+            {currentScreen != "base" && <Button onPress={() => setCurrentScreen("base")} colorScheme='white_bd' variant="outline" color="white" style={{ position: "absolute", top: 5, left: 5 }} leftIcon={<Icon as={MaterialIcons} name="arrow-back-ios" size="sm" />}>
                 Back
             </Button>}
             {currentScreen == "base" ? <RenderBase /> : currentScreen == "number" ?

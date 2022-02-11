@@ -77,7 +77,7 @@ function RenderCard() {
 
     return (
         <Box shadow={9} bg="#0E85A4" p={4} borderRadius={50}>
-            <VStack space={4} >
+            <VStack space={Platform.OS == "web" ? 4 : 1} >
                 {RenderAntarctica()}
                 <RulesModal showRulesModal={showRulesModal} setShowRulesModal={setShowRulesModal} />
                 <AboutModal showAboutModal={showAboutModal} setShowAboutModal={setShowAboutModal} />

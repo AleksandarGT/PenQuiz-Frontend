@@ -85,6 +85,7 @@ export default function PrivateGameDashboard() {
                     keyboardType="numeric"
                     mt={9}
                     mb={2}
+                    width="150"
                     variant="rounded"
                     bg="#D7D7D7"
                     color="black"

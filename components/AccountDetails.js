@@ -32,8 +32,8 @@ export function AccountDetails() {
             <Box borderRadius={25} bg="#C8FBFF" style={{
                 aspectRatio: 1,
                 flex: 0.2,
-                minWidth: 160,
-                minHeight: 160,
+                minWidth: Platform.OS == "web" ? 160 : 80,
+                minHeight: Platform.OS == "web" ? 160 : 80,
                 justifyContent: 'center'
             }}>
                 <Center >
@@ -52,7 +52,7 @@ export function AccountDetails() {
     return (
         <ImageBackground source={Platform.OS === 'web' ? require('../assets/homeBackground.svg') : require('../assets/homeBackground.png')} resizeMode="cover" style={styles.image}>
             <Center>
-                <Box bg="#071D56" p={8} borderRadius={35} width="40%" minW={600}>
+                <Box bg="#071D56" p={8} borderRadius={35} width="60%">
                     <Text mb={5} textAlign="center" color="#fff" fontSize={{ base: "md", md: "lg", lg: "xl", xl: "4xl" }} style={{ fontFamily: 'Before-Collapse', }}>
                         {authValue?.username}
                         {"\n"}
