@@ -4,7 +4,6 @@ import { Text, Button, Center, Box, Pressable, Input, Alert, VStack, HStack, Ico
 import { StatusCode } from '../../hooks'
 import DefaultAlert from '../Popups/DefaultAlert'
 import { useRecoilValue } from 'recoil'
-import { authAtom } from '../../state'
 import { useFetchWrapper } from '../../helpers'
 import { QUESTION_SERVICE_API_URL } from '../../injectable'
 import { useIsFocused } from '@react-navigation/native'

@@ -5,7 +5,7 @@ import { View, Button, StyleSheet, useWindowDimensions, Platform } from 'react-n
 import { useHeaderHeight } from '@react-navigation/elements';
 import { Center } from "native-base";
 import { useRecoilValue } from 'recoil'
-import { gameInstanceAtom } from '../../state'
+import { authAtom, gameInstanceAtom } from '../../state'
 import { GetParticipantColor, gameInstanceMock, playerAttackPossibilitiesMock, GetAttackTerritoryPossibilityColor } from './CommonGameFunc'
 import DefaultAlert from "../Popups/DefaultAlert";
 
@@ -17,11 +17,12 @@ export default function AntarcticaMapSvg({ gameMapException, onTerritoryClick, g
   const originalHeight = 587.02;
   // Calculated max height without header
   const windowHeight = useWindowDimensions().height
+  const currentUser = useRecoilValue(authAtom)
 
   const aspectRatio = originalWidth / originalHeight;
 
   function SetTerritoryColor(territoryName) {
-    if(playerAttackPossibilities?.availableAttackTerritories?.find(x => x == territoryName)) {
+    if(playerAttackPossibilities.attackerId == currentUser?.id && playerAttackPossibilities?.availableAttackTerritories?.find(x => x == territoryName)) {
       return GetAttackTerritoryPossibilityColor(gameInstance, playerAttackPossibilities.attackerId)
     }
     return GetParticipantColor(gameInstance, gameInstance.objectTerritory.find(x => x.mapTerritory.territoryName == territoryName).takenBy) ?? "#d7fffe"

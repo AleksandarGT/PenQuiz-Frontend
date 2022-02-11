@@ -19,7 +19,7 @@ export const StatusCode = {
 let connection
 export function useSignalR() {
     const userJwt = useRecoilValue(authToken)
-    const currentUser = useRecoilValue(authAtom)
+    const [currentUser, setCurrentUser] = useRecoilState(authAtom)
     const [gameInstance, setGameInstance] = useRecoilState(gameInstanceAtom)
     const [joiningGameException, setJoiningGameException] = useRecoilState(joiningGameExceptionAtom)
     const [connectionStatus, setConnectionStatus] = useRecoilState(connectionStatusAtom)
@@ -98,6 +98,14 @@ export function useSignalR() {
         connection.on('CallerLeftGame', (() => {
             removeBackStack("Home")
         }))
+
+        connection.on('GetGameUserId', ((userId) => {
+            setCurrentUser(old => ({
+                ...old,
+                id: userId
+            }))
+        }))
+
         connection.on('PersonLeftGame', ((disconnectedPersonId) => {
             setGameInstance(old => ({
                 ...old,
@@ -155,13 +163,8 @@ export function useSignalR() {
 
         connection.on('ShowRoundingAttacker', ((attackerId, availableAttackTerritoriesNames) => {
             // Set the preview of available attack territories for given playerid
+            setPlayerAttackPossibilities({ attackerId: attackerId, availableAttackTerritories: availableAttackTerritoriesNames })
 
-            if (currentUser.id == attackerId) {
-                setPlayerAttackPossibilities({ attackerId: attackerId, availableAttackTerritories: availableAttackTerritoriesNames })
-            }
-            else {
-                setPlayerAttackPossibilities({ attackerId: attackerId })
-            }
 
 
             setPlayerQuestionAnswers("")
