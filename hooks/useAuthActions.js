@@ -8,6 +8,7 @@ import { ACCOUNT_SERVICE_API_URL } from "../injectable"
 import { closeConnection } from './SignalRSetup'
 import { Platform } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import jwt_decode from "jwt-decode";
 
 export { useAuthActions }
 global.Buffer = global.Buffer || require('buffer').Buffer
@@ -79,7 +80,26 @@ function useAuthActions() {
     function refreshToken() {
         if (Platform.OS != "web") {
             AsyncStorage.getItem("@user").then(res => {
+                if(!res) {
+                    setAuth(null)
+                    return
+                }
                 const jsonRes = JSON.parse(res)
+
+                // If expired log out user
+                const expiry = jwt_decode(jsonRes.jwtToken).exp
+                if (Date.now() >= expiry * 1000) {
+
+                    console.log("JWT Token is expired")
+                    AsyncStorage.removeItem("@user").then(res => {
+                        setAuth(null)
+                        return
+                    })
+                    return
+                }
+
+
+
                 setAuth(jsonRes)
                 return
             })
