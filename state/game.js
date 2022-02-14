@@ -65,7 +65,7 @@ export const participantSelector = selector({
 })
 
 export const connectionStatusAtom = atom({
-    key: "connectionStatus",
+    key: "connectionStatusAtom",
     default: "",
     effects_UNSTABLE: [
         ({ onSet }) => {
