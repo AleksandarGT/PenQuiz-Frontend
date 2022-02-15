@@ -1,25 +1,36 @@
 import { Box, Container, HStack, Modal, Text, VStack, Image, Center, AspectRatio, Pressable } from 'native-base'
 import React, { useState } from 'react'
+import { Platform } from 'react-native'
 import { gameInstanceMock, GetAvatarColor, GetPenguinAvatarImage } from '../GameMapComponents/CommonGameFunc'
 
 export default function GameEndModal({ gameInstance = gameInstanceMock, onExit }) {
     const [isModalOpen, setIsModalOpen] = useState(true)
+
+    function GenerateScoreboardNumber({ participant, position }) {
+        return (
+            <Box backgroundColor={GetAvatarColor(participant.avatarName)} borderColor="white" borderWidth={3} p={1} m={1} borderRadius={15}>
+                <Center flex={1}>
+                    <Text color="white"
+                        fontWeight="bold"
+                        fontSize={{ base: "sm", md: "md", lg: "xl" }}>
+                        {position == 1 ? "1st" : position == 2 ? "2nd" : "3rd"}
+                    </Text>
+                </Center>
+            </Box>
+        )
+    }
     function PlayerBoard({ participant, position }) {
         return (
             <HStack>
-                <Center>
-                    <AspectRatio height="70%" ratio={1 / 1}>
-                        <Box backgroundColor={GetAvatarColor(participant.avatarName)} borderColor="white" borderWidth={3} p={1} m={1} borderRadius={15}>
-                            <Center flex={1}>
-                                <Text color="white"
-                                    fontWeight="bold"
-                                    fontSize={{ base: "sm", md: "md", lg: "xl" }}>
-                                    {position == 1 ? "1st" : position == 2 ? "2nd" : "3rd"}
-                                </Text>
-                            </Center>
-                        </Box>
-                    </AspectRatio>
-                </Center>
+                {Platform.OS == "web" ?
+                    <Center>
+                        <AspectRatio height="70%" ratio={1 / 1}>
+                            <GenerateScoreboardNumber participant={participant} position={position} />
+                        </AspectRatio>
+                    </Center> :
+                    <GenerateScoreboardNumber participant={participant} position={position} />
+                }
+
 
 
                 <Box width={500} backgroundColor={GetAvatarColor(participant.avatarName)} borderColor="white" borderWidth={3} p={1} m={1} borderRadius={25}>
