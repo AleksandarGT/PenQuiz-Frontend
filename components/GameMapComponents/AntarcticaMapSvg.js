@@ -84,6 +84,7 @@ export default function AntarcticaMapSvg({ gameMapException, onTerritoryClick, g
             <>
               {/* Attack Icon */}
               <Path
+              fill="black"
                 d={antarcticaSVGElements[k].AttackIcon}
               />
               {/* Attack Icon Color*/}
