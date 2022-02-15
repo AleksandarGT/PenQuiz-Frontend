@@ -29,6 +29,11 @@ export default function GameRounding({ gameInstance = gameInstanceMock }) {
                                         outlineStyle: "solid",
                                         outlineWidth: 4,
                                         elevation: 5,
+
+                                        // Outline doesn't work for mobile
+                                        paddingVertical: Platform.OS != "web" ? 5 : 0,
+                                        borderWidth: Platform.OS != "web" ? 4 : 0,
+                                        borderColor: 'rgba(6, 28, 83, 0.8)',
                                     } : null, {
                                         minWidth: 25,
                                         flex: 1,
@@ -57,6 +62,11 @@ export default function GameRounding({ gameInstance = gameInstanceMock }) {
                                 outlineStyle: "solid",
                                 outlineWidth: 4,
                                 elevation: 5,
+
+                                // Outline doesn't work for mobile
+                                paddingVertical: Platform.OS != "web" ? 5 : 0,
+                                borderWidth: Platform.OS != "web" ? 4 : 0,
+                                borderColor: 'rgba(6, 28, 83, 0.8)',
                             } : null, {
                                 minWidth: 25,
                                 flex: 1,
@@ -86,6 +96,11 @@ export default function GameRounding({ gameInstance = gameInstanceMock }) {
                                     outlineStyle: "solid",
                                     outlineWidth: 4,
                                     elevation: 5,
+
+                                    // Outline doesn't work for mobile
+                                    paddingVertical: Platform.OS != "web" ? 5 : 0,
+                                    borderWidth: Platform.OS != "web" ? 4 : 0,
+                                    borderColor: 'rgba(6, 28, 83, 0.8)',
                                 } : null, {
                                     minWidth: 25,
                                     flex: 1,

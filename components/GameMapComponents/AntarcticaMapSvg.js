@@ -22,7 +22,7 @@ export default function AntarcticaMapSvg({ gameMapException, onTerritoryClick, g
   const aspectRatio = originalWidth / originalHeight;
 
   function SetTerritoryColor(territoryName) {
-    if(playerAttackPossibilities.attackerId == currentUser?.id && playerAttackPossibilities?.availableAttackTerritories?.find(x => x == territoryName)) {
+    if (playerAttackPossibilities.attackerId == currentUser?.id && playerAttackPossibilities?.availableAttackTerritories?.find(x => x == territoryName)) {
       return GetAttackTerritoryPossibilityColor(gameInstance, playerAttackPossibilities.attackerId)
     }
     return GetParticipantColor(gameInstance, gameInstance.objectTerritory.find(x => x.mapTerritory.territoryName == territoryName).takenBy) ?? "#d7fffe"
@@ -84,7 +84,7 @@ export default function AntarcticaMapSvg({ gameMapException, onTerritoryClick, g
             <>
               {/* Attack Icon */}
               <Path
-              fill="black"
+                fill="black"
                 d={antarcticaSVGElements[k].AttackIcon}
               />
               {/* Attack Icon Color*/}

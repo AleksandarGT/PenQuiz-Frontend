@@ -35,7 +35,7 @@ export function PlayerAvatar({ supportIcon, avatarName }) {
                             </VStack>
                         </Box>
                     </Box>
-                    <Text color="black" textAlign="center" fontSize="lg" mt={1}>
+                    <Text color="black" isTruncated textAlign="center" fontSize="lg" mt={1}>
                         {participants?.find(x => x.avatarName == avatarName)?.player.username ?? "undefined"}
                     </Text>
                 </Box>

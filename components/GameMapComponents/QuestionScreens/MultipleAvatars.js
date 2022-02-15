@@ -26,7 +26,7 @@ export function MultipleAvatars({ avatarNames }) {
                             </VStack>
                         </Box>
                     </Box>
-                    <Text color="black" textAlign="center" fontSize="lg" mt={1}>
+                    <Text color="black" isTruncated textAlign="center" fontSize="lg" mt={1}>
                         {participants?.find(x => x.avatarName == avatarNames[0])?.player.username ?? "undefined"}
                     </Text>
                 </Box>
@@ -47,7 +47,7 @@ export function MultipleAvatars({ avatarNames }) {
                             </VStack>
                         </Box>
                     </Box>
-                    <Text color="black" textAlign="center" fontSize="lg" mt={1}>
+                    <Text color="black" isTruncated textAlign="center" fontSize="lg" mt={1}>
                         {participants?.find(x => x.avatarName == avatarNames[1])?.player.username ?? "undefined"}
                     </Text>
                 </Box>

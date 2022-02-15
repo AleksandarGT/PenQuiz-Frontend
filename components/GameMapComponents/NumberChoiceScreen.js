@@ -14,13 +14,12 @@ export default function NumberChoiceScreen({
     AnswerNumberQuestion = (e) => console.log("Default behavior" + e),
     playerQuestionAnswers
 }) {
+
     const user = useRecoilValue(authAtom)
 
     function IsPlayerParticipating() {
         return question.participants.find(x => x.playerId == user.id) ? true : false
     }
-
-
 
     function NumberQuestionResult() {
         return (
@@ -60,7 +59,7 @@ export default function NumberChoiceScreen({
             }}>
                 <Center flex={1}>
                     {!IsPlayerParticipating() ?
-                        <Box height="100%" style={{ position: "absolute", zIndex: 150, backgroundColor: "rgba(0, 0, 0, 0.3)", justifyContent: "center" }} width="100%" />
+                        <Box height="100%" style={{ position: "absolute", zIndex: 150, elevation: 10, backgroundColor: "rgba(0, 0, 0, 0.3)", justifyContent: "center" }} width="100%" />
                         :
                         null
                     }

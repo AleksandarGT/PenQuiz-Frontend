@@ -33,7 +33,7 @@ export default function MultipleChoiceScreen({
             }}>
                 <Center flex={1}>
                     {!IsPlayerParticipating() ?
-                        <Box height="100%" style={{ position: "absolute", zIndex: 150, backgroundColor: "rgba(0, 0, 0, 0.3)", justifyContent: "center" }} width="100%" />
+                        <Box height="100%" style={{ position: "absolute", zIndex: 150, elevation: 10, backgroundColor: "rgba(0, 0, 0, 0.3)", justifyContent: "center" }} width="100%" />
                         :
                         null
                     }
@@ -66,7 +66,7 @@ export default function MultipleChoiceScreen({
                                     <Text fontWeight="bold" color="black" fontSize={Platform.OS == "web" ? "4xl" : "2xl"} style={{ textAlign: "center" }}>
                                         {decodeURIComponent(question.question)}
                                     </Text>
-                                    
+
                                 </Box>
                             </VStack>
 

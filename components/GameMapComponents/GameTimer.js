@@ -26,7 +26,6 @@ export default function GameTimer({ gameState }) {
 
                 <View style={{
                     justifyContent: "center",
-                    flex: 0.5,
                     minWidth: 150,
                     width: "20%",
                     backgroundColor: "#A91C1C",

@@ -291,7 +291,7 @@ export const gameInstanceMock = {
     "mapid": 1,
     "participantsId": 0,
     "gameCreatorId": 1,
-    "gameState": 2,
+    "gameState": 1,
     "invitationLink": "3400",
     "gameRoundNumber": 42,
     "map": null,
