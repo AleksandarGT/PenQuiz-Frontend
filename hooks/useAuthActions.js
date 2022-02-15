@@ -4,7 +4,7 @@ import { useFetchWrapper } from '../helpers'
 import { authAtom } from '../state'
 import * as Google from 'expo-auth-session/providers/google'
 import { GOOGLE_CLIENT_URL } from '@env'
-import { ACCOUNT_SERVICE_API_URL } from "../injectable"
+import { ACCOUNT_SERVICE_API_URL, GET_ANDROID_GOOGLE_CLIENT_URL } from "../injectable"
 import { closeConnection } from './SignalRSetup'
 import { Platform } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -22,7 +22,6 @@ function useAuthActions() {
     // This establishes the connection automatically and then you can destroy it
     // To prevent this behavior - have a custom class that doesn't try to establish a connection on create
     var timeout
-
 
     function startRefreshTokenTimer(jwt) {
         try {
@@ -42,7 +41,7 @@ function useAuthActions() {
     const [request, googleResponse, googlePromptAsync] = Google.useIdTokenAuthRequest({
         expoClientId: GOOGLE_CLIENT_URL,
         iosClientId: 'GOOGLE_GUID.apps.googleusercontent.com',
-        androidClientId: 'GOOGLE_GUID.apps.googleusercontent.com',
+        androidClientId: GET_ANDROID_GOOGLE_CLIENT_URL,
         webClientId: GOOGLE_CLIENT_URL,
     })
 

@@ -39,7 +39,8 @@
     "styled-components": "^5.3.1",
     "styled-system": "^5.1.5",
     "@react-native-async-storage/async-storage": "~1.15.0",
-    "expo-linear-gradient": "~9.2.0"
+    "expo-linear-gradient": "~9.2.0",
+    "expo-updates": "~0.8.2"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
