@@ -38,18 +38,9 @@ function useAuthActions() {
         }
     }
 
-    const [request, googleResponse, googlePromptAsync] = Google.useIdTokenAuthRequest({
-        expoClientId: GOOGLE_CLIENT_URL,
-        iosClientId: 'GOOGLE_GUID.apps.googleusercontent.com',
-        androidClientId: GET_ANDROID_GOOGLE_CLIENT_URL,
-        webClientId: GOOGLE_CLIENT_URL,
-    })
-
     return {
         login,
         logout,
-        googleResponse,
-        googlePromptAsync,
         refreshToken,
     }
 

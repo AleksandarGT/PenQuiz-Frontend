@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "orientation": "landscape",
     "icon": "./assets/icon.png",
-    "scheme": "myapp",
+    "scheme": "conquiz",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -29,7 +29,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.boostedpenguin.ConQuizFrontend"
+      "package": "com.boostedpenguin.conquizfrontend"
     },
     "web": {
       "favicon": "./assets/favicon.png"

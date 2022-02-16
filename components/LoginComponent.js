@@ -10,6 +10,8 @@ import { justifyContent } from 'styled-system'
 import RulesModal from './Popups/RulesModal'
 import AboutModal from './Popups/AboutModal'
 import DefaultAlert from './Popups/DefaultAlert'
+import { useWebGoogleAuth } from '../hooks/useWebGoogleAuth'
+import { useAndroidGoogleAuth } from '../hooks/useAndroidGoogleAuth'
 
 export default function LoginComponent({ history }) {
     return (
@@ -44,23 +46,30 @@ function RenderAntarctica() {
 
 function RenderCard() {
     const userActions = useAuthActions()
+    const googleActions = Platform.select({
+        web: useWebGoogleAuth(),
+        android: useAndroidGoogleAuth(),
+    })
     const setAuth = useSetRecoilState(authAtom)
     const [isLoading, setIsLoading] = useState(false)
     const [showRulesModal, setShowRulesModal] = useState(false)
     const [showAboutModal, setShowAboutModal] = useState(false)
     const [serverError, setServerError] = useState()
 
+    // Monitor google response
     useEffect(() => {
-        if (userActions.googleResponse?.type === 'success') {
-            onLogin({ tokenId: userActions.googleResponse.params.id_token })
+        if (Platform.OS != "web") return
+        if (googleActions.googleResponse?.type === 'success') {
+            onLogin({ tokenId: googleActions.googleResponse.params.id_token })
             setIsLoading(false)
         }
-        else if (userActions.googleResponse?.type === 'dismiss') {
+        else if (googleActions.googleResponse?.type === 'dismiss') {
             setAuth(null)
             setIsLoading(false)
         }
-    }, [userActions.googleResponse])
+    }, [googleActions?.googleResponse])
 
+    // On resposne from google
     function onLogin({ tokenId }) {
         return userActions.login(tokenId).then(res => setServerError(null)).catch(error => {
             setAuth(null)
@@ -69,10 +78,22 @@ function RenderCard() {
         })
     }
 
-    function onLoginClick() {
+    // On button trigger
+    async function onLoginClick() {
         //setAuth({ status: 'LOADING' })
         setIsLoading(true)
-        userActions.googlePromptAsync()
+
+        if (Platform.OS == "android") {
+            const res = await googleActions.googlePromptAsync()
+            if (res.status == "success") {
+                onLogin({
+                    tokenId: res.idToken
+                })
+            }
+        }
+        else {
+            googleActions.googlePromptAsync()
+        }
     }
 
     return (
