@@ -4,7 +4,7 @@ import { useFetchWrapper } from '../helpers'
 import { authAtom } from '../state'
 import * as Google from 'expo-auth-session/providers/google'
 import { GOOGLE_CLIENT_URL } from '@env'
-import { ACCOUNT_SERVICE_API_URL, GET_ANDROID_GOOGLE_CLIENT_URL } from "../injectable"
+import { ACCOUNT_SERVICE_API_URL } from "../injectable"
 import { closeConnection } from './SignalRSetup'
 import { Platform } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';

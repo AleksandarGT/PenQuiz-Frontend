@@ -6,7 +6,7 @@ import {
     DrawerItemList,
     DrawerItem,
 } from '@react-navigation/drawer'
-import { View, Button, Text, useWindowDimensions, InteractionManager } from 'react-native'
+import { View, Button, Text, useWindowDimensions, InteractionManager, Platform } from 'react-native'
 import { Center } from 'native-base'
 import { AccountDetails } from '../components/AccountDetails'
 import PublicGameDashboard from '../components/GameDashboardComponents/PublicGameDashboard'
@@ -27,7 +27,7 @@ export function HomeDrawer() {
     const actions = useAuthActions()
     const dimensions = useWindowDimensions()
 
-    const isLargeScreen = dimensions.width >= 768
+    const isLargeScreen = dimensions.width >= 768 || Platform.OS != "web"
 
     const isAdmin = () => auth && jwt_decode(auth.jwtToken).role == "admin" ? true : false
 
