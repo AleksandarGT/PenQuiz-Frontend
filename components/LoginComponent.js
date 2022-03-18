@@ -12,6 +12,7 @@ import AboutModal from './Popups/AboutModal'
 import DefaultAlert from './Popups/DefaultAlert'
 import { useWebGoogleAuth } from '../hooks/useWebGoogleAuth'
 import { useAndroidGoogleAuth } from '../hooks/useAndroidGoogleAuth'
+import { Audio } from 'expo-av'
 
 export default function LoginComponent({ history }) {
     return (
@@ -24,6 +25,7 @@ export default function LoginComponent({ history }) {
         </View>
     )
 }
+
 
 function RenderAntarctica() {
     if (Platform.OS === 'web') {
@@ -96,6 +98,24 @@ function RenderCard() {
         }
     }
 
+    const [sound, setSound] = useState();
+
+    async function PlaySound() {
+        const { sound } = await Audio.Sound.createAsync(
+            require('./../assets/clock-ticking-3.wav')
+        )
+
+
+
+        await sound.setIsLoopingAsync(true)
+        setSound(sound)
+        await sound.playAsync()
+
+        setTimeout(() => {
+            sound.stopAsync()
+        }, 12000)
+    }
+
     return (
         <Box shadow={9} bg="#0E85A4" p={4} borderRadius={50}>
             <VStack space={Platform.OS == "web" ? 4 : 1} >
@@ -143,7 +163,7 @@ function RenderCard() {
                     }}
                     justifyContent="space-around"
                 >
-                    <Button px={7} size="lg" bg="#006078" style={{ alignSelf: 'flex-start' }} onPress={() => setShowRulesModal(true)}>Rules</Button>
+                    <Button px={7} size="lg" bg="#006078" style={{ alignSelf: 'flex-start' }} onPress={() => PlaySound()}>Rules</Button>
                     <Button px={7} size="lg" bg="#006078" onPress={() => setShowAboutModal(true)}>About</Button>
                 </Button.Group>
             </VStack>
