@@ -8,12 +8,22 @@ import { PlayerAvatar, MultipleAvatars, AnswerButton } from './QuestionScreens'
 import MCQuestionTimer from './QuestionScreens/MCQuestionTimer'
 import { MaterialIcons } from '@expo/vector-icons'
 import AnswerNumberQuestionComponent from './QuestionScreens/AnswerNumberQuestionComponent'
-
+import useGameSoundEffect from '../../hooks/useGameSoundEffect'
+import useDebugTimer from '../../hooks/useDebugTimer'
 export default function NumberChoiceScreen({
     question = numberChoicePvpQuestionMock,
     AnswerNumberQuestion = (e) => console.log("Default behavior" + e),
-    playerQuestionAnswers
+    playerQuestionAnswers,
+    isDebugMode = false
 }) {
+
+    // Run debug timer to simulate actual countdown
+    isDebugMode && useDebugTimer(6)
+
+    // Use game sounds for timer
+    useGameSoundEffect()
+    
+
 
     const user = useRecoilValue(authAtom)
 
