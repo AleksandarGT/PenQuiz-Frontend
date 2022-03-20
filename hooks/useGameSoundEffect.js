@@ -10,6 +10,34 @@ export default function useGameSoundEffect() {
     const displayTime = useRecoilValue(gameTimerAtom)
     const [isAudioLoaded, setIsAudioLoaded] = useState(false)
 
+    const [startCheck, setStartCheck] = useState(false)
+
+
+    // Perform audio cleanup on component removal
+    React.useEffect(() => {
+        return tickingSound
+            ? () => {
+                tickingSound.unloadAsync().catch(ex => {
+                    //console.log("Error dismounting sound file")
+                });
+            }
+            : undefined;
+    }, [tickingSound]);
+
+    // Perform audio cleanup on component removal
+    React.useEffect(() => {
+        return endSound
+            ? () => {
+                endSound.unloadAsync().catch(ex => {
+                    //console.log("Error dismounting sound file")
+                });
+            }
+            : undefined;
+    }, [endSound]);
+
+
+
+    // On component load load the sound files
     useEffect(() => {
         asyncLoadSoundFiles()
     }, [])
@@ -24,10 +52,21 @@ export default function useGameSoundEffect() {
         )).sound)
 
         setIsAudioLoaded(true)
-    } 
+    }
+
 
     useEffect(() => {
-        if (!isAudioLoaded) return
+
+        // State changes on next re-render, meanwhile we may need to update the audio instantly
+
+        let localStartCheck
+        // Initial load, when displaytime is 0 from previous load
+        if (displayTime > 0 && !startCheck) {
+            setStartCheck(true)
+            localStartCheck = true
+        }
+
+        if (!isAudioLoaded || (!startCheck && !localStartCheck)) return
 
         // If timer is 0 then play the end alarm
         if (displayTime == 0) {
@@ -36,12 +75,13 @@ export default function useGameSoundEffect() {
         }
         PlayTickingSound()
 
+
     }, [displayTime, isAudioLoaded])
 
     async function PlayEndAlarm() {
 
         const status = await endSound.getStatusAsync()
-        
+
         if (status.isPlaying) return
 
         await endSound.setVolumeAsync(0.4)

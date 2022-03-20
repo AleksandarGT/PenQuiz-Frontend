@@ -7,14 +7,24 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import { PlayerAvatar, MultipleAvatars } from './QuestionScreens'
 import MCQuestionTimer from './QuestionScreens/MCQuestionTimer'
 import AnswerButton from './QuestionScreens/AnswerButton'
+import useGameSoundEffect from '../../hooks/useGameSoundEffect'
+import useDebugTimer from '../../hooks/useDebugTimer'
 
 export default function MultipleChoiceScreen({
     question = multipleChoiceQuestionMock,
     AnswerMCQuestion = () => console.log("Default behavior"),
-    playerQuestionAnswers
+    playerQuestionAnswers,
+    isDebugMode = false
 }) {
     const user = useRecoilValue(authAtom)
     const [answeredId, setAnsweredId] = useState()
+
+
+    // Run debug timer to simulate actual countdown
+    isDebugMode && useDebugTimer(6)
+
+    // Use game sounds for timer
+    useGameSoundEffect()
 
     useEffect(() => {
         setAnsweredId(null)
