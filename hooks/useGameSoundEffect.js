@@ -15,7 +15,7 @@ export default function useGameSoundEffect() {
 
     const { sound, setSound } = useSoundService()
 
-
+    const [isEnabled, setIsEnabled] = useState(true)
 
 
     // Perform audio cleanup on component removal
@@ -71,6 +71,8 @@ export default function useGameSoundEffect() {
             localStartCheck = true
         }
 
+        if(!isEnabled) return
+
         if (!isAudioLoaded || (!startCheck && !localStartCheck)) return
 
         // If sound setting is disabled, do not play sound effects
@@ -117,6 +119,6 @@ export default function useGameSoundEffect() {
     }
 
     return {
-        sound, setSound
+        sound, setSound, setIsEnabled
     }
 }

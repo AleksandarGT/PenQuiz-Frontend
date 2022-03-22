@@ -1,5 +1,5 @@
 import { Box, Center, Container, HStack, Stack, VStack, ZStack, Text, Spacer, Button, Circle, IconButton } from "native-base"
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { View, StyleSheet, ImageBackground, Platform } from 'react-native'
 import { useRecoilValue } from "recoil"
 import { removeBackStack } from "../../helpers"
@@ -17,6 +17,7 @@ import MultipleChoiceScreen from "./MultipleChoiceScreen"
 import NumberChoiceScreen from "./NumberChoiceScreen"
 import { Ionicons } from '@expo/vector-icons'
 import useSoundService from "../../hooks/useSoundService"
+import useGameSoundEffect from "../../hooks/useGameSoundEffect"
 
 export default function GameMap() {
     const roundQuestion = useRecoilValue(roundQuestionAtom)
@@ -26,9 +27,13 @@ export default function GameMap() {
     const gameMapException = useRecoilValue(gameMapExceptionAtom)
     const playerQuestionAnswers = useRecoilValue(playerQuestionAnswersAtom)
     const gameTimer = useRecoilValue(gameTimerAtom)
+    const { sound, setSound, setIsEnabled } = useGameSoundEffect()
 
-    const { sound, setSound } = useSoundService()
-    
+
+    useEffect(() => {
+        setIsEnabled(playerAttackPossibilities?.attackerId == currentUser.id ? true : false)
+    }, [playerAttackPossibilities])
+
     function OnTerritoryClick(territoryName) {
         const currentRound = gameInstance.rounds.find(x => x.gameRoundNumber == gameInstance.gameRoundNumber)
         if (!currentUser) return
