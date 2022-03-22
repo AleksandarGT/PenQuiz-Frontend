@@ -2,6 +2,7 @@ import { Audio } from "expo-av";
 import React, { useState, useEffect } from "react"
 import { useRecoilValue } from "recoil";
 import { gameTimerAtom } from "../state";
+import useSoundService from "./useSoundService";
 
 export default function useGameSoundEffect() {
 
@@ -11,6 +12,10 @@ export default function useGameSoundEffect() {
     const [isAudioLoaded, setIsAudioLoaded] = useState(false)
 
     const [startCheck, setStartCheck] = useState(false)
+
+    const { sound, setSound } = useSoundService()
+
+
 
 
     // Perform audio cleanup on component removal
@@ -68,6 +73,13 @@ export default function useGameSoundEffect() {
 
         if (!isAudioLoaded || (!startCheck && !localStartCheck)) return
 
+        // If sound setting is disabled, do not play sound effects
+        if (!sound) {
+            tickingSound.stopAsync()
+            endSound.stopAsync()
+            return
+        }
+
         // If timer is 0 then play the end alarm
         if (displayTime == 0) {
             PlayEndAlarm()
@@ -86,6 +98,7 @@ export default function useGameSoundEffect() {
 
         await endSound.setVolumeAsync(0.4)
 
+
         await tickingSound.stopAsync()
 
         await endSound.playAsync()
@@ -101,5 +114,9 @@ export default function useGameSoundEffect() {
         //await sound.setIsLoopingAsync(true)
 
         await tickingSound.playAsync()
+    }
+
+    return {
+        sound, setSound
     }
 }

@@ -10,6 +10,8 @@ import { MaterialIcons } from '@expo/vector-icons'
 import AnswerNumberQuestionComponent from './QuestionScreens/AnswerNumberQuestionComponent'
 import useGameSoundEffect from '../../hooks/useGameSoundEffect'
 import useDebugTimer from '../../hooks/useDebugTimer'
+import { Ionicons } from '@expo/vector-icons'
+
 export default function NumberChoiceScreen({
     question = numberChoicePvpQuestionMock,
     AnswerNumberQuestion = (e) => console.log("Default behavior" + e),
@@ -18,11 +20,11 @@ export default function NumberChoiceScreen({
 }) {
 
     // Run debug timer to simulate actual countdown
-    isDebugMode && useDebugTimer(6)
+    isDebugMode && useDebugTimer(12)
 
     // Use game sounds for timer
-    useGameSoundEffect()
-    
+    const { sound, setSound } = useGameSoundEffect()
+
 
 
     const user = useRecoilValue(authAtom)
@@ -60,19 +62,39 @@ export default function NumberChoiceScreen({
             </Box>
         )
     }
-
     return (
         <>
             <ImageBackground source={Platform.OS === 'web' ? require('../../assets/gameLobby.svg') : require('../../assets/gameLobby.png')} resizeMode="cover" style={{
                 flex: 1,
                 backgroundColor: "#032157",
             }}>
+                {/* If debug mode, do not display overlay */}
+                {!isDebugMode && !IsPlayerParticipating() ?
+                    <Box height="100%" style={{ position: "absolute", zIndex: 150, elevation: 10, backgroundColor: "rgba(0, 0, 0, 0.3)", justifyContent: "center" }} width="100%" />
+                    :
+                    null
+                }
+
+                {/* Sound button */}
+                <Center zIndex={50} right={0} position={"absolute"}>
+                    <IconButton
+                        onPress={() => {
+                            setSound(!sound)
+                        }}
+                        size="md"
+                        mt={2}
+                        mr={2}
+                        variant="outline"
+                        _icon={{
+                            as: Ionicons,
+                            name: sound ? "volume-medium" : "volume-mute", // volume-medium // volume-mute
+                            color: "white"
+                        }}
+                    />
+                </Center>
+
                 <Center flex={1}>
-                    {!IsPlayerParticipating() ?
-                        <Box height="100%" style={{ position: "absolute", zIndex: 150, elevation: 10, backgroundColor: "rgba(0, 0, 0, 0.3)", justifyContent: "center" }} width="100%" />
-                        :
-                        null
-                    }
+
                     <Box style={{ justifyContent: "center" }} width="100%">
 
 

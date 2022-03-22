@@ -1,4 +1,4 @@
-import { Box, Center, Container, HStack, Stack, VStack, ZStack, Text, Spacer, Button, Circle } from "native-base"
+import { Box, Center, Container, HStack, Stack, VStack, ZStack, Text, Spacer, Button, Circle, IconButton } from "native-base"
 import React, { useState } from "react"
 import { View, StyleSheet, ImageBackground, Platform } from 'react-native'
 import { useRecoilValue } from "recoil"
@@ -15,6 +15,8 @@ import GameRounding from "./GameRounding"
 import GameTimer from "./GameTimer"
 import MultipleChoiceScreen from "./MultipleChoiceScreen"
 import NumberChoiceScreen from "./NumberChoiceScreen"
+import { Ionicons } from '@expo/vector-icons'
+import useSoundService from "../../hooks/useSoundService"
 
 export default function GameMap() {
     const roundQuestion = useRecoilValue(roundQuestionAtom)
@@ -25,6 +27,8 @@ export default function GameMap() {
     const playerQuestionAnswers = useRecoilValue(playerQuestionAnswersAtom)
     const gameTimer = useRecoilValue(gameTimerAtom)
 
+    const { sound, setSound } = useSoundService()
+    
     function OnTerritoryClick(territoryName) {
         const currentRound = gameInstance.rounds.find(x => x.gameRoundNumber == gameInstance.gameRoundNumber)
         if (!currentUser) return
@@ -78,8 +82,24 @@ export default function GameMap() {
                                         removeBackStack("Home")
                                     }} gameInstance={gameInstance} />
                                 }
-                                <View style={{ width: "10%" }}></View>
-
+                                <View style={{ width: "10%", alignItems: "flex-end" }}>
+                                    <Center>
+                                        <IconButton
+                                            onPress={() => {
+                                                setSound(!sound)
+                                            }}
+                                            size="md"
+                                            mt={2}
+                                            mr={2}
+                                            variant="outline"
+                                            _icon={{
+                                                as: Ionicons,
+                                                name: sound ? "volume-medium" : "volume-mute", // volume-medium // volume-mute
+                                                color: "white"
+                                            }}
+                                        />
+                                    </Center>
+                                </View>
 
                             </HStack>
                             {Platform.OS != "web" && <GameRounding gameInstance={gameInstance} />}

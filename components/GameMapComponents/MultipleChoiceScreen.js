@@ -1,4 +1,4 @@
-import { Box, Center, Container, HStack, Text, VStack, Image, Divider, Pressable } from 'native-base'
+import { Box, Center, Container, HStack, Text, VStack, Image, Divider, Pressable, IconButton } from 'native-base'
 import React, { useEffect, useState } from 'react'
 import { Dimensions, ImageBackground, Platform, View } from 'react-native'
 import { gameInstanceMock, gameSvgs, GetAvatarColor, multipleChoicePvpQuestionMock, multipleChoiceQuestionMock, playerQuestionAnswersMock, playerQuestionNumberAnswersMock } from './CommonGameFunc'
@@ -9,6 +9,7 @@ import MCQuestionTimer from './QuestionScreens/MCQuestionTimer'
 import AnswerButton from './QuestionScreens/AnswerButton'
 import useGameSoundEffect from '../../hooks/useGameSoundEffect'
 import useDebugTimer from '../../hooks/useDebugTimer'
+import { Ionicons } from '@expo/vector-icons'
 
 export default function MultipleChoiceScreen({
     question = multipleChoiceQuestionMock,
@@ -24,7 +25,7 @@ export default function MultipleChoiceScreen({
     isDebugMode && useDebugTimer(6)
 
     // Use game sounds for timer
-    useGameSoundEffect()
+    const { sound, setSound } = useGameSoundEffect()
 
     useEffect(() => {
         setAnsweredId(null)
@@ -41,12 +42,35 @@ export default function MultipleChoiceScreen({
                 flex: 1,
                 backgroundColor: "#032157",
             }}>
+
+                {/* If debug mode, do not display overlay */}
+                {!isDebugMode && !IsPlayerParticipating() ?
+                    <Box height="100%" style={{ position: "absolute", zIndex: 150, elevation: 10, backgroundColor: "rgba(0, 0, 0, 0.3)", justifyContent: "center" }} width="100%" />
+                    :
+                    null
+                }
+
+
+                {/* Sound button */}
+                <Center zIndex={50} right={0} position={"absolute"}>
+                    <IconButton
+                        onPress={() => {
+                            setSound(!sound)
+                        }}
+                        size="md"
+                        mt={2}
+                        mr={2}
+                        variant="outline"
+                        _icon={{
+                            as: Ionicons,
+                            name: sound ? "volume-medium" : "volume-mute", // volume-medium // volume-mute
+                            color: "white"
+                        }}
+                    />
+                </Center>
+
                 <Center flex={1}>
-                    {!IsPlayerParticipating() ?
-                        <Box height="100%" style={{ position: "absolute", zIndex: 150, elevation: 10, backgroundColor: "rgba(0, 0, 0, 0.3)", justifyContent: "center" }} width="100%" />
-                        :
-                        null
-                    }
+
 
                     <Box style={{ justifyContent: "center" }} width="100%">
 
@@ -55,7 +79,7 @@ export default function MultipleChoiceScreen({
 
 
                             {/* Attacker */}
-                            {question.isNeutral ?
+                            {!isDebugMode && question.isNeutral ?
                                 <PlayerAvatar supportIcon={"sword"} avatarName={question.participants.find(x => x.playerId == user.id).avatarName} />
                                 :
                                 <PlayerAvatar supportIcon={"sword"} avatarName={question.participants.find(x => x.playerId == question.attackerId).avatarName} />
