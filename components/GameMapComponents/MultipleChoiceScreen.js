@@ -52,7 +52,7 @@ export default function MultipleChoiceScreen({
 
 
                 {/* Sound button */}
-                <Center zIndex={50} right={0} position={"absolute"}>
+                {Platform.OS == "web" && <Center zIndex={50} right={0} position={"absolute"}>
                     <IconButton
                         onPress={() => {
                             setSound(!sound)
@@ -67,7 +67,7 @@ export default function MultipleChoiceScreen({
                             color: "white"
                         }}
                     />
-                </Center>
+                </Center>}
 
                 <Center flex={1}>
 
