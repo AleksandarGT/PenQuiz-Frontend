@@ -70,7 +70,9 @@ export function Routes() {
 
     if (localAuthStatus === 'LOADING') {
       return (
-        <Stack.Screen name="Loading" options={{ headerShown: false }} component={LoadingComponent} />
+        <Stack.Screen name="Loading" options={{ headerShown: false }} >
+          {() => <LoadingComponent message="Authenticating user..." />}
+        </Stack.Screen>
       )
     }
     else if (localAuthStatus === "LOGGED") {
