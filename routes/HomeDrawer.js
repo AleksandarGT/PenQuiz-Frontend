@@ -17,6 +17,7 @@ import { authAtom, gameInstanceAtom } from '../state'
 import jwt_decode from "jwt-decode";
 import VerifyQuestionComponent from '../components/AdminQuestionComponents/VerifyQuestionComponent'
 import ViewQuestionComponent from '../components/AdminQuestionComponents/ViewQuestionComponent'
+import BaseAdminAccountsComponent from '../components/AdminAccountsComponents/BaseAdminAccountsComponent'
 
 const Drawer = createDrawerNavigator()
 
@@ -75,6 +76,7 @@ export function HomeDrawer() {
             <Drawer.Screen options={drawerScreenOptions} name="Private Game" component={PrivateGameDashboard} />
             <Drawer.Screen options={drawerScreenOptions} name="Account" component={AccountDetails} />
             <Drawer.Screen options={drawerScreenOptions} name="Submit Question" component={SubmitQuestionBase} />
+            {isAdmin() && <Drawer.Screen options={drawerScreenOptions} name="View users" component={BaseAdminAccountsComponent} />}
             {isAdmin() && <Drawer.Screen options={drawerScreenOptions} name="Verify Questions" component={VerifyQuestionComponent} />}
             {isAdmin() && <Drawer.Screen options={drawerScreenOptions} name="View Questions" component={ViewQuestionComponent} />}
         </Drawer.Navigator>
