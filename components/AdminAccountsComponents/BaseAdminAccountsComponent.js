@@ -1,32 +1,18 @@
 import React, { useState, useEffect } from 'react'
 import { View, ImageBackground, StyleSheet, ActivityIndicator, Platform } from 'react-native'
-import { Text, Button, Center, Box, Pressable, Alert, VStack, HStack, AspectRatio, Icon, ScrollView } from 'native-base'
+import { Text, Button, Center, Box, Pressable, Alert, VStack, HStack, AspectRatio, Icon, ScrollView, Input } from 'native-base'
 import { useIsFocused } from '@react-navigation/native'
 import { MaterialIcons } from '@expo/vector-icons';
 import { Dimensions } from 'react-native';
 import useAdminUserAccounts from '../../hooks/useAdminUserAccounts';
 
+
 export default function BaseAdminAccountsComponent() {
     const windowWidth = Dimensions.get('screen').width;
-    const [onSuccess, setOnSuccess] = useState()
-    const isFocused = useIsFocused()
     const adminUserAccounts = useAdminUserAccounts()
 
     const [selectedUser, setSelectedUser] = useState()
     const [currentScreen, setCurrentScreen] = useState("base")
-
-    useEffect(() => {
-        if (!isFocused) return
-        adminUserAccounts.fetchUsers(1)
-
-    }, [isFocused])
-
-    useEffect(() => {
-        if (!isFocused) {
-            setCurrentScreen("base")
-            setOnSuccess(null)
-        }
-    }, [isFocused])
 
     function SuccessAlert({ message, status }) {
         return (
@@ -119,8 +105,14 @@ export default function BaseAdminAccountsComponent() {
         )
     }
 
-    function RenderBase() {
-        return (
+    return (
+        <ImageBackground source={Platform.OS === 'web' ? require('../../assets/homeBackground.svg') : require('../../assets/homeBackground.png')} resizeMode="cover" style={styles.image}>
+            {currentScreen != "base" && <Button onPress={() => {
+                setCurrentScreen("base")
+            }} colorScheme='white_bd' variant="outline" color="white" style={{ position: "absolute", top: 50, left: 50 }} leftIcon={<Icon as={MaterialIcons} name="arrow-back-ios" size="sm" />}>
+                Back
+            </Button>}
+
             <View style={{ alignItems: "center", flex: 0.9 }}>
 
                 <Box flex={0.9} width="90%" minWidth="70%" bg="#071D56" p={8} borderRadius={25}>
@@ -128,10 +120,24 @@ export default function BaseAdminAccountsComponent() {
                         Game users
                     </Text>
 
-                    {onSuccess && <SuccessAlert message={onSuccess.message} status={onSuccess.status} />}
+                    {/* Search field */}
+                    {/* <InputField setValue={adminUserAccounts.setSearchField} value={adminUserAccounts.searchField} /> */}
+                    <Input onChangeText={(e) => {
+                        adminUserAccounts.setSearchField(e)
+                    }}
+                        shadow={3}
+                        value={adminUserAccounts.searchField}
+                        mb={2}
+                        variant="rounded"
+                        bg="#fff"
+                        color="black"
+                        _hover={{ bg: "#E8E8E8" }}
+                        size="md"
+                        placeholder="Search field" />
+                    {/* {onSuccess && <SuccessAlert message={onSuccess.message} status={onSuccess.status} />} */}
 
 
-                    {!adminUserAccounts.userResponse && <ActivityIndicator size="large" />}
+                    {!adminUserAccounts.userResponse && <ActivityIndicator style={{marginTop: 20}} size="large" />}
 
                     {adminUserAccounts.userResponse && adminUserAccounts.userResponse.users.length == 0 &&
                         <Text textAlign="center">
@@ -154,9 +160,6 @@ export default function BaseAdminAccountsComponent() {
                             })}
                         </ScrollView>
 
-
-
-
                     </VStack>
 
                     {adminUserAccounts.userResponse && <HStack justifyContent={adminUserAccounts.userResponse.hasPreviousPage && adminUserAccounts.userResponse.hasNextPage ? "space-between" : adminUserAccounts.userResponse.hasNextPage ? "flex-end" : "flex-start"} mt={5} mx={2}>
@@ -170,20 +173,6 @@ export default function BaseAdminAccountsComponent() {
 
                 </Box>
             </View>
-        )
-    }
-
-    return (
-        <ImageBackground source={Platform.OS === 'web' ? require('../../assets/homeBackground.svg') : require('../../assets/homeBackground.png')} resizeMode="cover" style={styles.image}>
-            {currentScreen != "base" && <Button onPress={() => {
-                setOnSuccess(null)
-                setCurrentScreen("base")
-            }} colorScheme='white_bd' variant="outline" color="white" style={{ position: "absolute", top: 50, left: 50 }} leftIcon={<Icon as={MaterialIcons} name="arrow-back-ios" size="sm" />}>
-                Back
-            </Button>}
-
-            <RenderBase />
-
 
         </ImageBackground>
     )
