@@ -31,14 +31,14 @@ export default function DetailsUserComponent({ userData }) {
     async function OnBanActionClick() {
         if (isBanned) {
             const res = await adminActions.unBanUser()
-            if(res) {
+            if (res) {
                 setIsBanned(false)
             }
             return
         }
-        
+
         const res = await adminActions.banUser()
-        if(res) {
+        if (res) {
             setIsBanned(true)
         }
     }
@@ -159,7 +159,7 @@ export default function DetailsUserComponent({ userData }) {
             <Box mt={6} />
 
             <HStack width="50%" minWidth="250px" maxWidth="600px" justifyContent="space-between">
-                <TemplateButton isAdmin={userData.isAdmin} isBanned={isBanned} onClick={OnBanActionClick} />
+                <TemplateButton isAdmin={userData.role == "admin"} isBanned={isBanned} onClick={OnBanActionClick} />
             </HStack>
 
         </Center>
