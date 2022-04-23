@@ -31,6 +31,11 @@ export default function useAdminUserAccounts() {
         fetchUsers(userResponse.pageIndex + 1)
     }
 
+    const refreshPage = () => {
+        if(!userResponse) return;
+        fetchUsers(userResponse.pageIndex)
+    }
+
     async function fetchUsers(pageNumber) {
         const baseUrl = `${ACCOUNT_SERVICE_API_URL}/api/accountadmin?pageNumber=${pageNumber}&pageEntries=${Platform.OS == "web" ? 12 : 4}${searchField ? `&searchQuery=${searchField}` : ``}`
         const res = await fetchWrapper.get(`${baseUrl}`).catch(er => {
@@ -47,5 +52,6 @@ export default function useAdminUserAccounts() {
         userResponse,
         searchField,
         setSearchField,
+        refreshPage
     }
 }

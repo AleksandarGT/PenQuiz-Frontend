@@ -5,6 +5,7 @@ import { useIsFocused } from '@react-navigation/native'
 import { MaterialIcons } from '@expo/vector-icons';
 import { Dimensions } from 'react-native';
 import useAdminUserAccounts from '../../hooks/useAdminUserAccounts';
+import DetailsUserComponent from './DetailsUserComponent';
 
 
 export default function BaseAdminAccountsComponent() {
@@ -109,11 +110,12 @@ export default function BaseAdminAccountsComponent() {
         <ImageBackground source={Platform.OS === 'web' ? require('../../assets/homeBackground.svg') : require('../../assets/homeBackground.png')} resizeMode="cover" style={styles.image}>
             {currentScreen != "base" && <Button onPress={() => {
                 setCurrentScreen("base")
+                adminUserAccounts.refreshPage()
             }} colorScheme='white_bd' variant="outline" color="white" style={{ position: "absolute", top: 50, left: 50 }} leftIcon={<Icon as={MaterialIcons} name="arrow-back-ios" size="sm" />}>
                 Back
             </Button>}
 
-            <View style={{ alignItems: "center", flex: 0.9 }}>
+            {currentScreen == "base" ? <View style={{ alignItems: "center", flex: 0.9 }}>
 
                 <Box flex={0.9} width="90%" minWidth="70%" bg="#071D56" p={8} borderRadius={25}>
                     <Text mb={5} textAlign="center" color="#fff" fontSize={{ base: "md", md: "lg", lg: "xl", xl: "3xl" }} style={{ fontFamily: 'Before-Collapse', }}>
@@ -137,7 +139,7 @@ export default function BaseAdminAccountsComponent() {
                     {/* {onSuccess && <SuccessAlert message={onSuccess.message} status={onSuccess.status} />} */}
 
 
-                    {!adminUserAccounts.userResponse && <ActivityIndicator style={{marginTop: 20}} size="large" />}
+                    {!adminUserAccounts.userResponse && <ActivityIndicator style={{ marginTop: 20 }} size="large" />}
 
                     {adminUserAccounts.userResponse && adminUserAccounts.userResponse.users.length == 0 &&
                         <Text textAlign="center">
@@ -151,10 +153,7 @@ export default function BaseAdminAccountsComponent() {
                                 return (
                                     <AccountRow key={e.id} user={e} onPress={() => {
                                         setSelectedUser(e)
-                                        // Call the details panel here 
-                                        ///
-                                        ///
-                                        ///
+                                        setCurrentScreen("details")
                                     }} />
                                 )
                             })}
@@ -173,6 +172,9 @@ export default function BaseAdminAccountsComponent() {
 
                 </Box>
             </View>
+                :
+                <DetailsUserComponent userData={selectedUser} />
+            }
 
         </ImageBackground>
     )
