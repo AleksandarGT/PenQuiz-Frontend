@@ -6,11 +6,29 @@ import { authAtom, gameTimerAtom } from '../../../state'
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import { MaterialIcons } from '@expo/vector-icons'
 
+
 export default function AnswerNumberQuestionComponent({ question, AnswerNumberQuestion }) {
     const [answer, setAnswer] = useState("")
     const [isAnswered, setisAnswered] = useState(false)
     const user = useRecoilValue(authAtom)
     const timer = useRecoilValue(gameTimerAtom)
+
+    const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, "backspace"]
+
+    function OnMobileButtonClick(number) {
+        if (/^\d+$/.test(number) || !number) {
+
+            setAnswer(old => `${old}${number}`)
+            return
+        }
+
+        if (number == "backspace") {
+            setAnswer(old => old.substring(0, old.length - 1))
+            return
+        }
+    }
+
+
 
     return (
         <>
@@ -27,7 +45,7 @@ export default function AnswerNumberQuestionComponent({ question, AnswerNumberQu
                 :
                 <Center mt={Platform.OS == "web" ? 9 : 0} mb={2}>
                     <HStack>
-                        <Input onChangeText={(e) => {
+                        <Input editable={Platform.OS == "web" ? true : false} onChangeText={(e) => {
                             if (/^\d+$/.test(e) || !e) {
                                 setAnswer(e)
                             }
@@ -61,7 +79,9 @@ export default function AnswerNumberQuestionComponent({ question, AnswerNumberQu
                                 AnswerNumberQuestion(answer, timer)
                             }}
                             size="md"
-                            colorScheme="blue_button_bd"
+                            colorScheme={Platform.OS == "web" ? "blue_button_bd" : "success"}
+                            borderWidth={1}
+                            borderRadius={10}
                             variant="solid"
                             _icon={{
                                 as: MaterialIcons,
@@ -69,7 +89,25 @@ export default function AnswerNumberQuestionComponent({ question, AnswerNumberQu
                                 color: "white"
                             }}
                         />
+
+
                     </HStack>
+                    {Platform.OS != "web" && <HStack mt={3}>
+
+                        {numbers.map(e => {
+
+
+                            return (
+                                <Button px={4} colorScheme={"blue_button_bd"} m={1} borderRadius={10} onPress={() => OnMobileButtonClick(e)}>
+                                    {e == "backspace" ? <MaterialIcons name="backspace" size={24} color="white" /> :
+                                        <Text userSelect={'none'}>
+                                            {e || `0`}
+                                        </Text>}
+                                </Button>
+                            )
+                        })}
+
+                    </HStack>}
                 </Center>
             }
         </>

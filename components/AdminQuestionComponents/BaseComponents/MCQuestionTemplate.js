@@ -27,8 +27,6 @@ function InputField({ answer, onChangeText, isEditable }) {
                 editable={isEditable}
                 color="black"
                 _hover={{ bg: isEditable ? "#E8E8E8" : "#CDCDCD" }}
-
-                color="black"
                 size="md" />
         </VStack>
     )
