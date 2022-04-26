@@ -111,7 +111,7 @@ export default function BaseAdminAccountsComponent() {
             {currentScreen != "base" && <Button onPress={() => {
                 setCurrentScreen("base")
                 adminUserAccounts.refreshPage()
-            }} colorScheme='white_bd' variant="outline" color="white" style={{ position: "absolute", top: 50, left: 50 }} leftIcon={<Icon as={MaterialIcons} name="arrow-back-ios" size="sm" />}>
+            }} borderColor="white" borderWidth={2} colorScheme='white_bd' variant="outline" color="white" style={{ position: "absolute", top: 5, left: 5 }} leftIcon={<Icon as={MaterialIcons} name="arrow-back-ios" size="sm" />}>
                 Back
             </Button>}
 
@@ -134,6 +134,7 @@ export default function BaseAdminAccountsComponent() {
                         bg="#fff"
                         color="black"
                         _hover={{ bg: "#E8E8E8" }}
+                        placeholderTextColor="#A4A4A4"
                         size="md"
                         placeholder="Search field" />
                     {/* {onSuccess && <SuccessAlert message={onSuccess.message} status={onSuccess.status} />} */}

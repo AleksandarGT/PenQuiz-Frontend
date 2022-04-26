@@ -19,6 +19,7 @@ export default function GameDashboardBase(props) {
                         variant="outline"
                         _icon={{
                             as: Ionicons,
+                            size: "2xl",
                             name: "game-controller",
                             color: "white"
                         }}

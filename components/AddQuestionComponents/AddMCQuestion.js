@@ -25,6 +25,7 @@ function InputField({ answerPlaceholder, answer, onChangeText }) {
                 variant="rounded"
                 bg={answer.correct ? "#fff" : "#D7D7D7"}
                 color="black"
+                placeholderTextColor="#A4A4A4"
                 _hover={{ bg: "#E8E8E8" }}
                 size="md"
                 placeholder={`eg: ${answerPlaceholder}`} />
@@ -142,6 +143,7 @@ export function AddMCQuestion({ backToBase }) {
                     variant="rounded"
                     bg="#fff"
                     color="black"
+                    placeholderTextColor="#A4A4A4"
                     _hover={{ bg: "#E8E8E8" }}
                     size="md"
                     placeholder="eg: When was the first case of COVID19 found?" />

@@ -102,6 +102,7 @@ export function AddNumberQuestion({ backToBase }) {
                     color="black"
                     _hover={{ bg: "#E8E8E8" }}
                     size="md"
+                    placeholderTextColor="#A4A4A4"
                     placeholder="eg: When did World War 2 end?" />
             </Box>
 
@@ -131,6 +132,7 @@ export function AddNumberQuestion({ backToBase }) {
                     bg="#fff"
                     color="black"
                     _hover={{ bg: "#E8E8E8" }}
+                    placeholderTextColor="#A4A4A4"
                     size="md"
                     placeholder="eg: 1945" />
             </Box>

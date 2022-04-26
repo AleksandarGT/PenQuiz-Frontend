@@ -91,6 +91,7 @@ export default function PrivateGameDashboard() {
                     color="black"
                     _hover={{ bg: "#C6C6C6" }}
                     size="md"
+                    placeholderTextColor="#A4A4A4"
                     placeholder="Enter code" />
                 <JoinGameButton />
             </Center>

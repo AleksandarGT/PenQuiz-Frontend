@@ -25,7 +25,7 @@ function InputField({ answer, onChangeText, isEditable }) {
 
                 bg={answer.correct && isEditable ? "#fff" : isEditable ? "#DEDEDE" : "#CDCDCD"}
                 editable={isEditable}
-                color="black"
+                color={isEditable ? "#000" : "#505050"}
                 _hover={{ bg: isEditable ? "#E8E8E8" : "#CDCDCD" }}
                 size="md" />
         </VStack>
@@ -70,13 +70,13 @@ export function MCQuestionTemplate({ backToBase, questionProp, answersProp, ques
                         error: "",
                     })
                 }}
+                    color={isEditable ? "#000" : "#505050"}
                     shadow={3}
                     value={question.question}
                     mb={2}
                     variant="rounded"
                     bg={isEditable ? "#fff" : "#CDCDCD"}
                     editable={isEditable}
-                    color="black"
                     _hover={{ bg: isEditable ? "#E8E8E8" : "#CDCDCD" }}
                     size="md"
                     InputRightElement={<Icon onPress={() => {

@@ -125,14 +125,17 @@ function RenderCard() {
 
                     <Button
                         py={3}
-                        isDisabled={isLoading ? true : false}
-                        isLoading={isLoading ? true : false}
-                        colorScheme="white_bd"
+                        isDisabled={isLoading}
+                        isLoading={isLoading}
                         size="lg"
+                        colorScheme={"white_bd"}
                         onPress={() => onLoginClick()}
-                        leftIcon={<Icon as={FontAwesome5} name="google" size="sm" />}
+                        leftIcon={<Icon color="black" as={FontAwesome5} name="google" size="sm" />}
                     >
-                        Sign in with Google
+                        <Text fontSize="md" fontWeight={"bold"} color="black">
+                            Sign in with Google
+
+                        </Text>
 
                     </Button>
                 </Box>
