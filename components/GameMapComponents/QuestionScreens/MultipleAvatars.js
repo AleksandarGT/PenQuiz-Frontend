@@ -32,7 +32,7 @@ export function MultipleAvatars({ avatarNames }) {
                 </Box>
 
 
-                <Box mt={2} shadow={5} borderWidth={1} p={2} bg="white" borderRadius={25} mt={3}>
+                <Box mt={2} shadow={5} borderWidth={1} p={2} bg="white" borderRadius={25}>
                     <Box style={{ backgroundColor: GetAvatarColor(avatarNames[1]), borderRadius: 20 }} shadow={7}>
                         <Box m={2} p={2} backgroundColor="white" borderRadius={2000} shadow={5}>
                             <VStack>

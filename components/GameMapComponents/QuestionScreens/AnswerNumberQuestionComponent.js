@@ -60,9 +60,9 @@ export default function AnswerNumberQuestionComponent({ question, AnswerNumberQu
                             mr={2}
                             keyboardType="numeric"
                             variant="rounded"
-                            bg="#D4EDFD"
+                            backgroundColor="#D4EDFD"
                             color="black"
-                            _hover={{ bg: "#A8CCE2" }}
+                            _hover={{ backgroundColor: "#A8CCE2" }}
                             size="md"
                             minWidth="250px"
                             width={Platform.OS == "web" ? "40vw" : "40%"}

@@ -1,4 +1,4 @@
-import { Box, Center, Container, HStack, Text, VStack, Image, Divider, Pressable, Input, Button, IconButton } from 'native-base'
+import { Box, Center, Container, HStack, Text, VStack, IconButton } from 'native-base'
 import React, { useEffect, useState } from 'react'
 import { ImageBackground, Platform, View } from 'react-native'
 import { gameInstanceMock, gameSvgs, GetAvatarColor, multipleChoiceQuestionMock, numberChoicePvpQuestionMock, numberChoiceQuestionMock, playerQuestionAnswersMock, playerQuestionNumberAnswersMock } from './CommonGameFunc'
@@ -50,7 +50,7 @@ export default function NumberChoiceScreen({
                             // Border for right answer
                             borderColor: x.winner ? "#42FF00" : "transparent",
                             borderWidth: 10,
-                        }} width="25%" p={1} borderRadius={25} bg={GetAvatarColor(question.participants.find(y => y.playerId == x.playerId).avatarName)}>
+                        }} key={x.playerId} width="25%" p={1} borderRadius={25} bg={GetAvatarColor(question.participants.find(y => y.playerId == x.playerId).avatarName)}>
                             <Center>
                                 <Text style={{ textAlign: "center" }} fontSize={{ base: "md", md: "lg", lg: "xl", xl: 25 }}>{x.answer ?? "---"}</Text>
                                 <Text style={{ textAlign: "center" }} fontSize={{ base: "md", md: "lg", lg: "xl", xl: 20 }}>{x.timeElapsed ?? "---"}</Text>

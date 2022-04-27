@@ -87,9 +87,9 @@ export default function PrivateGameDashboard() {
                     mb={2}
                     width="150"
                     variant="rounded"
-                    bg="#D7D7D7"
+                    backgroundColor="#D7D7D7"
                     color="black"
-                    _hover={{ bg: "#C6C6C6" }}
+                    _hover={{ backgroundColor: "#C6C6C6" }}
                     size="md"
                     placeholderTextColor="#A4A4A4"
                     placeholder="Enter code" />
