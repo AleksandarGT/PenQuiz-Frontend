@@ -45,7 +45,7 @@ export function GameLobby({ route, navigation }) {
 
     function CodeCard() {
         return (
-            <Container backgroundColor="#C8FBFF" py={6} style={{ paddingHorizontal: "10%" }} shadow={3} borderRadius={15}>
+            <Container backgroundColor="#C8FBFF" py={Platform.OS == "web" ? 6 : 2} style={{ paddingHorizontal: "10%" }} shadow={3} borderRadius={15}>
                 <Text color="black" fontWeight="bold" fontSize="3xl">
                     Code: {gameInstance.invitationLink}
                 </Text>
@@ -56,8 +56,7 @@ export function GameLobby({ route, navigation }) {
     function PlayerCard({ participant }) {
         return (
             <Container style={{ borderWidth: participant.playerId == gameInstance.gameCreatorId ? 5 : 0, borderColor: "gold", }} m={5} p={3} backgroundColor="white" borderRadius={20}>
-
-                <VStack>
+                <VStack >
                     <Center>
                         <Image
                             source={GetPenguinAvatarImage(participant.avatarName)}
@@ -68,7 +67,7 @@ export function GameLobby({ route, navigation }) {
 
                     </Center>
                     <Center>
-                        <Text isTruncated maxWidth="90%" fontSize="xl" color="black">
+                        <Text isTruncated maxWidth="250" fontSize="xl" color="black">
                             {participant.player.username}
                         </Text>
 
@@ -95,6 +94,15 @@ export function GameLobby({ route, navigation }) {
 
     return (
         <ImageBackground source={Platform.OS === 'web' ? require('../assets/gameLobby.svg') : require('../assets/gameLobby.png')} resizeMode="cover" style={styles.image}>
+            {isClosing && <ExitGameModal backAction={isClosing}
+                onAccept={() => {
+                    LeaveGameLobby()
+                    setIsClosing(false)
+                }}
+                onClose={() => {
+                    setIsClosing(false)
+                }} />}
+
             <Box position="absolute" top="0" left="0">
                 <Button onPress={() => {
                     setIsClosing(true)
@@ -102,6 +110,8 @@ export function GameLobby({ route, navigation }) {
                     <Text fontSize="lg" >Exit game lobby</Text>
                 </Button>
             </Box>
+
+
             <Center>
                 <HStack>
                     {gameInstance.participants?.map(x => {
@@ -112,14 +122,7 @@ export function GameLobby({ route, navigation }) {
 
 
                 </HStack>
-                <ExitGameModal backAction={isClosing}
-                    onAccept={() => {
-                        LeaveGameLobby()
-                        setIsClosing(false)
-                    }}
-                    onClose={() => {
-                        setIsClosing(false)
-                    }} />
+
                 {gameInstance.gameType == 1 && CodeCard()}
                 <StartGameButton onPress={() =>
                     StartGame()

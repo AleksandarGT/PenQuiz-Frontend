@@ -98,9 +98,9 @@ export default function AnswerNumberQuestionComponent({ question, AnswerNumberQu
 
 
                             return (
-                                <Button px={4} colorScheme={"blue_button_bd"} m={1} borderRadius={10} onPress={() => OnMobileButtonClick(e)}>
+                                <Button key={e} px={4} colorScheme={"blue_button_bd"} m={1} borderRadius={10} onPress={() => OnMobileButtonClick(e)}>
                                     {e == "backspace" ? <MaterialIcons name="backspace" size={24} color="white" /> :
-                                        <Text userSelect={'none'}>
+                                        <Text >
                                             {e || `0`}
                                         </Text>}
                                 </Button>

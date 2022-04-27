@@ -1,7 +1,6 @@
 import { Box, Center, Image, Text } from 'native-base';
 import React from 'react';
-import { View, ActivityIndicator } from 'react-native';
-import { ImageBackground } from 'react-native-web';
+import { View, ActivityIndicator, ImageBackground } from 'react-native';
 
 export function LoadingComponent({ message }) {
   return (
