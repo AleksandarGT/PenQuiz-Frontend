@@ -40,14 +40,12 @@ export function useQuestionVerification(backToBase, questionProp, questionId, an
 
     function RejectQuestion() {
 
-        console.log(questionId)
         const baseUrl = `${QUESTION_SERVICE_API_URL}/api/questionadmin/reject`
         fetchWrapper.post(`${baseUrl}`, {
             questionId: questionId
         })
             .then(response => {
                 setServerError("")
-                console.log(response)
                 backToBase({ message: response.message, status: "danger" })
             })
             .catch(er => {

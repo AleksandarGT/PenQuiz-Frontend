@@ -38,10 +38,10 @@ export function NumberQuestionTemplate({ backToBase, questionProp, answerProp, q
                     value={question.question}
                     mb={2}
                     variant="rounded"
-                    bg={isEditable ? "#fff" : "#CDCDCD"}
+                    backgroundColor={isEditable ? "#fff" : "#CDCDCD"}
+                    _hover={{ backgroundColor: isEditable ? "#E8E8E8" : "#CDCDCD" }}
                     editable={isEditable}
                     color="black"
-                    _hover={{ bg: isEditable ? "#E8E8E8" : "#CDCDCD" }}
                     size="md"
                     InputRightElement={<Icon onPress={() => {
                         setIsEditable(!isEditable)
@@ -71,10 +71,10 @@ export function NumberQuestionTemplate({ backToBase, questionProp, answerProp, q
                     keyboardType="numeric"
                     mb={2}
                     variant="rounded"
-                    bg={isEditable ? "#fff" : "#CDCDCD"}
+                    backgroundColor={isEditable ? "#fff" : "#CDCDCD"}
                     editable={isEditable}
                     color="black"
-                    _hover={{ bg: isEditable ? "#E8E8E8" : "#CDCDCD" }}
+                    _hover={{ backgroundColor: isEditable ? "#E8E8E8" : "#CDCDCD" }}
                     size="md" />
             </Box>
             <Box mt={6} />

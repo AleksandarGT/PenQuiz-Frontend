@@ -23,10 +23,10 @@ function InputField({ answerPlaceholder, answer, onChangeText }) {
                 keyboardType="numeric"
                 mb={2}
                 variant="rounded"
-                bg={answer.correct ? "#fff" : "#D7D7D7"}
+                backgroundColor={answer.correct ? "#fff" : "#D7D7D7"}
+                _hover={{ backgroundColor: "#E8E8E8" }}
                 color="black"
                 placeholderTextColor="#A4A4A4"
-                _hover={{ bg: "#E8E8E8" }}
                 size="md"
                 placeholder={`eg: ${answerPlaceholder}`} />
         </VStack>
@@ -141,10 +141,10 @@ export function AddMCQuestion({ backToBase }) {
                     value={question.question}
                     mb={2}
                     variant="rounded"
-                    bg="#fff"
                     color="black"
                     placeholderTextColor="#A4A4A4"
-                    _hover={{ bg: "#E8E8E8" }}
+                    backgroundColor={"#fff"}
+                    _hover={{ backgroundColor: "#E8E8E8" }}
                     size="md"
                     placeholder="eg: When was the first case of COVID19 found?" />
             </Box>

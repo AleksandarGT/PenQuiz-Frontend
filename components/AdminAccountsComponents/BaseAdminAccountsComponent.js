@@ -131,9 +131,9 @@ export default function BaseAdminAccountsComponent() {
                         value={adminUserAccounts.searchField}
                         mb={2}
                         variant="rounded"
-                        bg="#fff"
+                        backgroundColor="#fff"
+                        _hover={{ backgroundColor: "#E8E8E8" }}
                         color="black"
-                        _hover={{ bg: "#E8E8E8" }}
                         placeholderTextColor="#A4A4A4"
                         size="md"
                         placeholder="Search field" />

@@ -196,7 +196,7 @@ export function TableQuestionsTemplate({ mode }) {
             {currentScreen != "base" && <Button onPress={() => {
                 setOnSuccess(null)
                 setCurrentScreen("base")
-            }} colorScheme='white_bd' variant="outline" color="white" style={{ position: "absolute", top: 50, left: 50 }} leftIcon={<Icon as={MaterialIcons} name="arrow-back-ios" size="sm" />}>
+            }} borderColor="white" borderWidth={2} colorScheme='white_bd' variant="outline" color="white" style={{ position: "absolute", top: 5, left: 5 }} leftIcon={<Icon as={MaterialIcons} name="arrow-back-ios" size="sm" />}>
                 Back
             </Button>}
             {currentScreen == "multiple" ?

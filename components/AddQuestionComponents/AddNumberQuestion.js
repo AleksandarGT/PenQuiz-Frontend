@@ -98,9 +98,9 @@ export function AddNumberQuestion({ backToBase }) {
                     value={question.question}
                     mb={2}
                     variant="rounded"
-                    bg="#fff"
+                    backgroundColor="#fff"
                     color="black"
-                    _hover={{ bg: "#E8E8E8" }}
+                    _hover={{ backgroundColor: "#E8E8E8" }}
                     size="md"
                     placeholderTextColor="#A4A4A4"
                     placeholder="eg: When did World War 2 end?" />
@@ -129,9 +129,9 @@ export function AddNumberQuestion({ backToBase }) {
                     keyboardType="numeric"
                     mb={2}
                     variant="rounded"
-                    bg="#fff"
+                    backgroundColor="#fff"
+                    _hover={{ backgroundColor: "#E8E8E8" }}
                     color="black"
-                    _hover={{ bg: "#E8E8E8" }}
                     placeholderTextColor="#A4A4A4"
                     size="md"
                     placeholder="eg: 1945" />

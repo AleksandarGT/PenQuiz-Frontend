@@ -67,12 +67,9 @@ export default function DetailsUserComponent({ userData }) {
                     value={userData.id}
                     mb={2}
                     variant="rounded"
-                    bg={"#CDCDCD"}
+                    backgroundColor="#CDCDCD"
                     editable={false}
                     color="black"
-                    _hover={{
-                        bg: "#CDCDCD"
-                    }}
                     size="md"
                 />
             </Box>
@@ -86,12 +83,9 @@ export default function DetailsUserComponent({ userData }) {
                     value={userData.userGlobalIdentifier}
                     mb={2}
                     variant="rounded"
-                    bg={"#CDCDCD"}
                     editable={false}
                     color="black"
-                    _hover={{
-                        bg: "#CDCDCD"
-                    }}
+                    backgroundColor="#CDCDCD"
                     size="md"
                 />
             </Box>
@@ -106,12 +100,9 @@ export default function DetailsUserComponent({ userData }) {
                     value={userData.email}
                     mb={2}
                     variant="rounded"
-                    bg={"#CDCDCD"}
                     editable={false}
                     color="black"
-                    _hover={{
-                        bg: "#CDCDCD"
-                    }}
+                    backgroundColor="#CDCDCD"
                     size="md"
                 />
             </Box>
@@ -126,12 +117,9 @@ export default function DetailsUserComponent({ userData }) {
                     value={userData.username}
                     mb={2}
                     variant="rounded"
-                    bg={"#CDCDCD"}
                     editable={false}
                     color="black"
-                    _hover={{
-                        bg: "#CDCDCD"
-                    }}
+                    backgroundColor="#CDCDCD"
                     size="md"
                 />
             </Box>
@@ -145,12 +133,9 @@ export default function DetailsUserComponent({ userData }) {
                     value={userData.lastLoggedAt}
                     mb={2}
                     variant="rounded"
-                    bg={"#CDCDCD"}
                     editable={false}
                     color="black"
-                    _hover={{
-                        bg: "#CDCDCD"
-                    }}
+                    backgroundColor="#CDCDCD"
                     size="md"
                 />
             </Box>

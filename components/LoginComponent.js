@@ -127,6 +127,12 @@ function RenderCard() {
                         py={3}
                         isDisabled={isLoading}
                         isLoading={isLoading}
+                        _loading={{
+                            bg: "#fff:alpha.100",
+                        }}
+                        _spinner={{
+                            color: "#000"
+                        }}
                         size="lg"
                         colorScheme={"white_bd"}
                         onPress={() => onLoginClick()}
