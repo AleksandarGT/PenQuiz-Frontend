@@ -11,7 +11,7 @@ export default function MCQuestionTimer() {
     return (
         <View style={{
             justifyContent: "center",
-            minWidth: 160,
+            minWidth: 240,
             minHeight: 50,
             width: "30%",
             backgroundColor: "#073C72",

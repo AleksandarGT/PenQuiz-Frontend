@@ -11,6 +11,7 @@ import AnswerNumberQuestionComponent from './QuestionScreens/AnswerNumberQuestio
 import useGameSoundEffect from '../../hooks/useGameSoundEffect'
 import useDebugTimer from '../../hooks/useDebugTimer'
 import { Ionicons } from '@expo/vector-icons'
+import TowerSvg from './TowerSvg'
 
 export default function NumberChoiceScreen({
     question = numberChoicePvpQuestionMock,
@@ -87,6 +88,7 @@ export default function NumberChoiceScreen({
                         variant="outline"
                         _icon={{
                             as: Ionicons,
+                            size: "2xl",
                             name: sound ? "volume-medium" : "volume-mute", // volume-medium // volume-mute
                             color: "white"
                         }}
@@ -112,10 +114,35 @@ export default function NumberChoiceScreen({
 
                             {/* Question */}
                             <VStack justifyContent="center" flex={4} >
-                                <Center mb={5}>
-                                    {/* Top Timer */}
+
+                                {/* Timer */}
+                                <HStack mb={5} justifyContent={question.capitalRoundsRemaining ? "space-between" : "center"} >
+
+                                    {/* 
+                                        This copies the right sidebar and hides it,
+                                        Centers timer perfectly
+                                     */}
+
+                                    {question.capitalRoundsRemaining && <HStack style={{
+                                        opacity: 0
+                                    }}>
+                                        {Array(question.capitalRoundsRemaining).fill(0).map((_, i) => <TowerSvg key={`upper_${i}`} />)}
+                                    </HStack>}
+
+
                                     <MCQuestionTimer key="gameTimer" />
-                                </Center>
+
+                                    {question.capitalRoundsRemaining && <HStack>
+                                        <Center>
+
+                                            <Box p={1} backgroundColor={"cyan.800"} borderRadius={10}>
+                                                <Text fontSize={{ sm: "md", md: "lg", lg: "xl" }} p={1} px={3} fontWeight="bold" color="#fff" >Capital</Text>
+                                            </Box>
+                                        </Center>
+                                        {Array(question.capitalRoundsRemaining).fill(0).map((_, i) => <TowerSvg key={`under_${i}`} />)}
+                                    </HStack>}
+                                </HStack>
+
 
                                 <Box style={{
                                     borderRadius: 30,

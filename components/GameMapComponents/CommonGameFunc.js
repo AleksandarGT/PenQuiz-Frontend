@@ -161,6 +161,7 @@ export const numberChoicePvpQuestionMock = {
     "question": "When was Bulgaria founded?",
     "type": "number",
     "attackerId": 1,
+    "capitalRoundsRemaining" : 2,
     "defenderId": 2,
     "participants": [
         {
@@ -200,6 +201,7 @@ export const multipleChoiceQuestionMock = {
     "isNeutral": true,
     "question": "When was Bulgaria founded?",
     "type": "multiple",
+    "capitalRoundsRemaining" : 4,
     "answers": [
         {
             "id": 1,
