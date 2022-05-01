@@ -18,6 +18,8 @@ import jwt_decode from "jwt-decode";
 import VerifyQuestionComponent from '../components/AdminQuestionComponents/VerifyQuestionComponent'
 import ViewQuestionComponent from '../components/AdminQuestionComponents/ViewQuestionComponent'
 import BaseAdminAccountsComponent from '../components/AdminAccountsComponents/BaseAdminAccountsComponent'
+import BaseCharacterComponent from '../components/CharacterComponents/BaseCharacterComponent'
+import { isDebugRunning } from './Routes'
 
 const Drawer = createDrawerNavigator()
 
@@ -30,7 +32,7 @@ export function HomeDrawer() {
 
     const isLargeScreen = dimensions.width >= 768 || Platform.OS != "web"
 
-    const isAdmin = () => auth && jwt_decode(auth.jwtToken).role == "admin" ? true : false
+    const isAdmin = () => isDebugRunning || (auth && jwt_decode(auth.jwtToken).role == "admin") ? true : false
 
 
 
@@ -74,6 +76,7 @@ export function HomeDrawer() {
         >
             <Drawer.Screen options={drawerScreenOptions} name="Public Game" component={PublicGameDashboard} />
             <Drawer.Screen options={drawerScreenOptions} name="Private Game" component={PrivateGameDashboard} />
+            <Drawer.Screen options={drawerScreenOptions} name="Characters" component={BaseCharacterComponent} />
             <Drawer.Screen options={drawerScreenOptions} name="Account" component={AccountDetails} />
             <Drawer.Screen options={drawerScreenOptions} name="Submit Question" component={SubmitQuestionBase} />
             {isAdmin() && <Drawer.Screen options={drawerScreenOptions} name="View users" component={BaseAdminAccountsComponent} />}
