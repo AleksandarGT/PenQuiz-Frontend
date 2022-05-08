@@ -10,7 +10,7 @@ import AnswerButton from './QuestionScreens/AnswerButton'
 import useGameSoundEffect from '../../hooks/useGameSoundEffect'
 import useDebugTimer from '../../hooks/useDebugTimer'
 import { Ionicons } from '@expo/vector-icons'
-import TowerSvg from './TowerSvg'
+import { TowerSvg } from './TimerSuffixElements'
 
 export default function MultipleChoiceScreen({
     question = multipleChoiceQuestionMock,

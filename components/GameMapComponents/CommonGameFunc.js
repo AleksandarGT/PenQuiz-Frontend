@@ -161,6 +161,7 @@ export const numberChoicePvpQuestionMock = {
     "question": "When was Bulgaria founded?",
     "type": "number",
     "attackerId": 1,
+    "isLastQuestion" : true,
     "capitalRoundsRemaining" : 2,
     "defenderId": 2,
     "participants": [
