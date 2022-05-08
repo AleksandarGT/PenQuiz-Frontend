@@ -73,7 +73,7 @@ export function LastRoundIndicator() {
                 }}>
                     <Center>
                         <Box p={1} backgroundColor={"cyan.800"} borderRadius={10}>
-                            <Text fontSize={{ sm: "md", md: "lg", lg: "xl" }} p={1} px={3} fontWeight="bold" color="#fff" >Final determinant round</Text>
+                            <Text fontSize={{ sm: "md", md: "lg", lg: "xl" }} p={1} px={3} fontWeight="bold" color="#fff" >Determinant round</Text>
                         </Box>
                     </Center>
                 </HStack>
@@ -84,7 +84,7 @@ export function LastRoundIndicator() {
                     <Center>
 
                         <Box p={1} backgroundColor={"cyan.800"} borderRadius={10}>
-                            <Text fontSize={{ sm: "md", md: "lg", lg: "xl" }} p={1} px={3} fontWeight="bold" color="#fff" >Final determinant round</Text>
+                            <Text fontSize={{ sm: "md", md: "lg", lg: "xl" }} p={1} px={3} fontWeight="bold" color="#fff" >Determinant round</Text>
                         </Box>
                     </Center>
                 </HStack>
