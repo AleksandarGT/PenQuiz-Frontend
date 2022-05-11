@@ -35,7 +35,7 @@ export default function AnswerNumberQuestionComponent({ question, AnswerNumberQu
             {isAnswered ?
                 <Box width="100%">
                     <HStack mt={9} mb={2} justifyContent="center">
-                        <Box width="33%" paddingY={6} borderRadius={25} bg={GetAvatarColor(question.participants.find(y => y.playerId == user.id).avatarName)}>
+                        <Box width="33%" paddingY={6} borderRadius={25} bg={GetAvatarColor(question.participants.find(y => y.playerId == user.id).inGameParticipantNumber)}>
                             <Center alignItems="center" justifyContent="center">
                                 <Text fontSize={{ base: "md", md: "lg", lg: "xl", xl: 26 }}>{answer}</Text>
                             </Center>

@@ -1,54 +1,54 @@
 import { Platform } from 'react-native'
 
-export function GetAvatarColor(avatarName) {
-    return ReturnColor(avatarName)
+export function GetAvatarColor(inGameParticipantNumber) {
+    return ReturnColor(inGameParticipantNumber)
 }
 
 
 export function GetParticipantColor(gameInstance, playerId) {
-    let particip = gameInstance.participants.find(x => x.playerId == playerId)
+    const particip = gameInstance.participants.find(x => x.playerId == playerId)
 
-    return ReturnColor(particip?.avatarName)
+    return ReturnColor(particip?.inGameParticipantNumber)
 }
 
 export function GetAttackTerritoryPossibilityColor(gameInstance, playerId) {
-    let particip = gameInstance.participants.find(x => x.playerId == playerId)
+    const particip = gameInstance.participants.find(x => x.playerId == playerId)
 
-    switch (particip?.avatarName) {
-        case "penguinAvatar":
+    switch (particip.inGameParticipantNumber) {
+        case 1:
             return "#90A7FF"
-        case "penguinAvatar2":
+        case 2:
             return "#BCA0FF"
-        case "penguinAvatar3":
+        case 3:
             return "#FF98AD"
     }
 }
 
-function ReturnColor(avatarName) {
-    switch (avatarName) {
-        case "penguinAvatar":
+function ReturnColor(inGameParticipantNumber) {
+    switch (inGameParticipantNumber) {
+        case 1:
             return "#5074FF"
-        case "penguinAvatar2":
+        case 2:
             return "#8350FF"
-        case "penguinAvatar3":
+        case 3:
             return "#FF5074"
     }
 }
 
 export function GetPenguinAvatarImage(avatarName) {
-    if(Platform.OS == "web") {
-        return avatarName == "penguinAvatar"
-        ? require('../../assets/penguinAvatar.svg')
-        : avatarName == "penguinAvatar2"
-            ? require('../../assets/penguinAvatar2.svg')
-            : require('../../assets/penguinAvatar3.svg')
+    if (Platform.OS == "web") {
+        return avatarName == "penguinAvatarViking"
+            ? require('../../assets/penguinAvatarViking.svg')
+            : avatarName == "penguinAvatarKing"
+                ? require('../../assets/penguinAvatarKing.svg')
+                : require('../../assets/penguinAvatarWizard.svg')
     }
     else {
-        return avatarName == "penguinAvatar"
-        ? require('../../assets/penguinAvatar.png')
-        : avatarName == "penguinAvatar2"
-            ? require('../../assets/penguinAvatar2.png')
-            : require('../../assets/penguinAvatar3.png')
+        return avatarName == "penguinAvatarViking"
+            ? require('../../assets/penguinAvatarViking.png')
+            : avatarName == "penguinAvatarKing"
+                ? require('../../assets/penguinAvatarKing.png')
+                : require('../../assets/penguinAvatarWizard.png')
     }
 }
 
@@ -82,19 +82,19 @@ export function GetGameState(gameState) {
 
 export const gameSvgs = [
     {
-        name: "penguinAvatar",
-        img: require(`../../assets/penguinAvatar.svg`),
-        imgPng: require(`../../assets/penguinAvatar.png`)
+        name: "penguinAvatarWizard",
+        img: require(`../../assets/penguinAvatarWizard.svg`),
+        imgPng: require(`../../assets/penguinAvatarWizard.png`)
     },
     {
-        name: "penguinAvatar2",
-        img: require(`../../assets/penguinAvatar2.svg`),
-        imgPng: require(`../../assets/penguinAvatar2.png`)
+        name: "penguinAvatarKing",
+        img: require(`../../assets/penguinAvatarKing.svg`),
+        imgPng: require(`../../assets/penguinAvatarKing.png`)
     },
     {
-        name: "penguinAvatar3",
-        img: require(`../../assets/penguinAvatar3.svg`),
-        imgPng: require(`../../assets/penguinAvatar3.png`)
+        name: "penguinAvatarViking",
+        img: require(`../../assets/penguinAvatarViking.svg`),
+        imgPng: require(`../../assets/penguinAvatarViking.png`)
     },
     {
         name: "shield",
@@ -161,8 +161,8 @@ export const numberChoicePvpQuestionMock = {
     "question": "When was Bulgaria founded?",
     "type": "number",
     "attackerId": 1,
-    "isLastQuestion" : true,
-    "capitalRoundsRemaining" : 2,
+    "isLastQuestion": true,
+    "capitalRoundsRemaining": 2,
     "defenderId": 2,
     "participants": [
         {
@@ -202,7 +202,7 @@ export const multipleChoiceQuestionMock = {
     "isNeutral": true,
     "question": "When was Bulgaria founded?",
     "type": "multiple",
-    "capitalRoundsRemaining" : 4,
+    "capitalRoundsRemaining": 4,
     "answers": [
         {
             "id": 1,

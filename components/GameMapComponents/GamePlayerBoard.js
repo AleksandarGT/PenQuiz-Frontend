@@ -20,7 +20,7 @@ function GamePlayerBoard({ participant, hisTurn }) {
 
     return (
         <>
-            <Box backgroundColor={GetAvatarColor(participant.avatarName)} style={hisTurn ? {
+            <Box backgroundColor={GetAvatarColor(participant.inGameParticipantNumber)} style={hisTurn ? {
                 borderWidth: 5,
                 borderColor: "gold"
             } : null} width={Platform.OS == "web" ? 300 : 250} p={1} m={1} borderRadius={25}>
@@ -43,7 +43,7 @@ function GamePlayerBoard({ participant, hisTurn }) {
 
                             <Box ml={2} width="150" bg="#fff" borderRadius={15}>
                                 <Center>
-                                    <Text color={GetAvatarColor(participant.avatarName)}
+                                    <Text color={GetAvatarColor(participant.inGameParticipantNumber)}
                                         fontSize={{ base: "sm", md: "md", lg: "xl" }}>
                                         {participant.score}
                                     </Text>

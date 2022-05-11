@@ -8,7 +8,7 @@ export default function GameEndModal({ gameInstance = gameInstanceMock, onExit }
 
     function GenerateScoreboardNumber({ participant, position }) {
         return (
-            <Box backgroundColor={GetAvatarColor(participant.avatarName)} borderColor="white" borderWidth={3} p={1} m={1} borderRadius={15}>
+            <Box backgroundColor={GetAvatarColor(participant.inGameParticipantNumbers)} borderColor="white" borderWidth={3} p={1} m={1} borderRadius={15}>
                 <Center flex={1}>
                     <Text color="white"
                         fontWeight="bold"
@@ -33,7 +33,7 @@ export default function GameEndModal({ gameInstance = gameInstanceMock, onExit }
 
 
 
-                <Box width={500} backgroundColor={GetAvatarColor(participant.avatarName)} borderColor="white" borderWidth={3} p={1} m={1} borderRadius={25}>
+                <Box width={500} backgroundColor={GetAvatarColor(participant.inGameParticipantNumbers)} borderColor="white" borderWidth={3} p={1} m={1} borderRadius={25}>
                     <HStack justifyContent="space-around">
                         <Container bg="#fff" borderRadius={200} p={2}>
                             <Image

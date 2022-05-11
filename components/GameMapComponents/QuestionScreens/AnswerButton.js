@@ -33,9 +33,9 @@ export default function AnswerButton({ answer, playerAnswers, isDisabled, answer
                         <LinearGradient
                             // Button Linear Gradient
                             colors={playerAnswers?.length == 3 ? ["#5074FF", "#8350FF", "#8350FF", "#FF5074"] :
-                                playerAnswers?.length == 2 ? [GetAvatarColor(question.participants.find(x => x.playerId == playerAnswers[0].id).avatarName), GetAvatarColor(question.participants.find(x => x.playerId == playerAnswers[1].id).avatarName)] :
-                                    playerAnswers?.length == 1 ? [GetAvatarColor(question.participants.find(x => x.playerId == playerAnswers[0].id).avatarName), GetAvatarColor(question.participants.find(x => x.playerId == playerAnswers[0].id).avatarName)] :
-                                        answeredId == answer.id ? [GetAvatarColor(question.participants.find(x => x.playerId == user.id).avatarName), GetAvatarColor(question.participants.find(x => x.playerId == user.id).avatarName)] :
+                                playerAnswers?.length == 2 ? [GetAvatarColor(question.participants.find(x => x.playerId == playerAnswers[0].id).inGameParticipantNumber), GetAvatarColor(question.participants.find(x => x.playerId == playerAnswers[1].id).inGameParticipantNumber)] :
+                                    playerAnswers?.length == 1 ? [GetAvatarColor(question.participants.find(x => x.playerId == playerAnswers[0].id).inGameParticipantNumber), GetAvatarColor(question.participants.find(x => x.playerId == playerAnswers[0].id).inGameParticipantNumber)] :
+                                        answeredId == answer.id ? [GetAvatarColor(question.participants.find(x => x.playerId == user.id).inGameParticipantNumber), GetAvatarColor(question.participants.find(x => x.playerId == user.id).inGameParticipantNumber)] :
                                             isPressed ? ["#96BAD0", "#96BAD0"] :
                                                 isHovered ? ["#A8CCE2", "#A8CCE2"] : ["#D4EDFD", "#D4EDFD"]
                             }

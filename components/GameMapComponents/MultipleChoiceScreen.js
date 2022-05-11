@@ -1,7 +1,7 @@
 import { Box, Center, Container, HStack, Text, VStack, Image, Divider, Pressable, IconButton, Button } from 'native-base'
 import React, { useEffect, useState } from 'react'
 import { Dimensions, ImageBackground, Platform, View } from 'react-native'
-import { gameInstanceMock, gameSvgs, GetAvatarColor, multipleChoicePvpQuestionMock, multipleChoiceQuestionMock, playerQuestionAnswersMock, playerQuestionNumberAnswersMock } from './CommonGameFunc'
+import { gameInstanceMock, gameSvgs, multipleChoicePvpQuestionMock, multipleChoiceQuestionMock, playerQuestionAnswersMock, playerQuestionNumberAnswersMock } from './CommonGameFunc'
 import { authAtom, gameTimerAtom } from '../../state'
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import { PlayerAvatar, MultipleAvatars } from './QuestionScreens'
