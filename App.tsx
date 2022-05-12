@@ -15,7 +15,21 @@ import { LoadingComponent } from './routes/LoadingComponent'
 LogBox.ignoreLogs(['Setting a timer'])
 WebBrowser.maybeCompleteAuthSession()
 
+
+
+
+enum Status {
+  INACTIVE,
+  ACTIVE,
+}
+
+interface IServicesStatus {
+  Status: Status,
+  Message: string,
+}
+
 export default function App() {
+
   function changeScreenOrientation() {
     ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE)
       .then(() => console.log("Successfully locked screen to landscape"))
@@ -26,8 +40,9 @@ export default function App() {
     'Before-Collapse': require('./assets/BeforeCollapse.ttf'),
   })
 
-  const Status = { 'INACTIVE': 1, 'ACTIVE': 2 }
-  const [servicesStatus, setServicesStatus] = useState({
+
+
+  const [servicesStatus, setServicesStatus] = useState<IServicesStatus>({
     Status: __DEV__ ? Status.ACTIVE : Status.INACTIVE,
     Message: ""
   })

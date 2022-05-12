@@ -1,9 +1,12 @@
 import { atom, selector } from 'recoil';
+import { authStatusType, IAuthData } from '../types/authTypes';
 
-const authAtom = atom({
+
+const authAtom = atom<IAuthData | null>({
     key: "auth",
     default: {
-        status: "LOADING"
+        id: null,
+        status: authStatusType.LOADING,
     },
     effects_UNSTABLE: [
         ({ onSet }) => {
@@ -15,25 +18,13 @@ const authAtom = atom({
     ]
 })
 
-const userIdSelector = selector({
-    key: 'userId',
-    get: ({get}) => {
-        const auth = get(authAtom)
-        return auth.id
-    }
-})
 
 const authToken = selector({
     key: 'authToken',
     get: ({get}) => {
         const auth = get(authAtom)
 
-        if(auth?.jwtToken) {
-            return auth.jwtToken
-        }
-        else {
-            return null
-        }
+        return auth?.jwtToken ? auth.jwtToken : null
     }
 })
 
@@ -43,16 +34,20 @@ const authStatus = selector({
     get: ({ get }) => {
         const auth = get(authAtom);
 
-        if (auth?.status == 'LOADING') {
-            return 'LOADING'
-        }
-        else if (auth) {
-            return 'LOGGED'
-        }
-        else {
-            return 'NOT_LOGGED'
-        }
+        if(auth?.status == authStatusType.LOADING) return auth.status
+
+        if(auth) return authStatusType.LOGGED
+
+        return authStatusType.NOT_LOGGED
     },
+})
+
+const userIdSelector = selector({
+    key: 'userId',
+    get: ({get}) => {
+        const auth = get(authAtom)
+        return auth.id
+    }
 })
 
 export { authAtom, authStatus, authToken, userIdSelector }

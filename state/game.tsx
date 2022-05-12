@@ -1,10 +1,11 @@
 import { atom, selector } from 'recoil'
 import { gameInstanceMock } from '../components/GameMapComponents/CommonGameFunc'
-export const gameInstanceAtom = atom({
+import { GameInstanceResponse } from '../types/gameInstanceTypes';
+
+export const gameInstanceAtom = atom<GameInstanceResponse | null>({
     key: "gameInstance",
-    // Add default value of "" for production
-    default: "",
-    // default: "",
+    default: null,
+    
     effects_UNSTABLE: [
         ({ onSet }) => {
             onSet(newContent => {

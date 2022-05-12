@@ -2,7 +2,12 @@ import { Box, Center, Image, Text } from 'native-base';
 import React from 'react';
 import { View, ActivityIndicator, ImageBackground } from 'react-native';
 
-export function LoadingComponent({ message }) {
+
+interface IProps {
+  message: string
+}
+
+export function LoadingComponent(props: IProps) {
   return (
     <View style={{
       flex: 1,
@@ -23,7 +28,7 @@ export function LoadingComponent({ message }) {
                 alt="Alternate Text"
                 size="xl"
               />
-              <Text color="black" fontWeight="semibold" fontSize={{ base: "md", md: "lg", lg: "xl" }}>{message}</Text>
+              <Text color="black" fontWeight="semibold" fontSize={{ base: "md", md: "lg", lg: "xl" }}>{props.message}</Text>
 
               {/* Spacer */}
               <Box my={2} />
