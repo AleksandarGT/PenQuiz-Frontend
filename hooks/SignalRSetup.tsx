@@ -2,11 +2,12 @@ import {
     JsonHubProtocol,
     HubConnectionState,
     HubConnectionBuilder,
-    LogLevel
+    LogLevel,
+    HubConnection
 } from '@microsoft/signalr';
-let client;
+let client: HubConnection;
 
-const startSignalRConnection = async connection => {
+const startSignalRConnection = async (connection: HubConnection) => {
     try {
         await connection.start();
     } catch (err) {
@@ -53,6 +54,7 @@ export const getConnection = () => {
     return client
 }
 
-export const closeConnection = () => {
-    client.stop().then(() => client = null);
+export async function closeConnection() {
+    await client.stop()
+    client = null;
 }

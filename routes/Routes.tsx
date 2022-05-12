@@ -16,8 +16,6 @@ import GameMap from '../components/GameMapComponents/GameMap'
 import MultipleChoiceScreen from '../components/GameMapComponents/MultipleChoiceScreen'
 import NumberChoiceScreen from '../components/GameMapComponents/NumberChoiceScreen'
 import { GetGameState } from '../components/GameMapComponents/CommonGameFunc'
-import CharacterCard from '../components/CharacterComponents/CharacterCard'
-import BaseCharacterComponent from '../components/CharacterComponents/BaseCharacterComponent'
 import { authStatusType } from '../types/authTypes'
 
 export * from './LoadingComponent'
@@ -80,7 +78,7 @@ export function Routes() {
     }
   }, [game?.gameState])
 
-  
+
 
   function SwitchAuthState() {
 

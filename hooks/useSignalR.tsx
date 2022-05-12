@@ -1,22 +1,19 @@
 import { setupSignalRConnection } from './SignalRSetup'
-import { authToken, gameInstanceAtom, joiningGameExceptionAtom, connectionStatusAtom, gameTimerAtom, gameMapExceptionAtom, canUserAnswerQuestionAtom, showMultipleChoiceQuestionAtom, multipleChoiceQuestionAtom, authAtom, questionParticipantsAtom, roundQuestionAtom, playerQuestionAnswersAtom, playerAttackPossibilitiesAtom } from '../state'
+import { authToken, gameInstanceAtom, joiningGameExceptionAtom, connectionStatusAtom, gameTimerAtom, gameMapExceptionAtom, authAtom, roundQuestionAtom, playerQuestionAnswersAtom, playerAttackPossibilitiesAtom } from '../state'
 import { useRecoilValue, useRecoilState } from 'recoil'
 import { GAME_SERVICE_API_URL } from '../injectable'
-import { navigate, removeBackStack } from '../helpers'
+import { removeBackStack } from '../helpers'
 import { getConnection } from './SignalRSetup'
-import { useEffect, useState } from 'react'
-import { GetGameState } from '../components/GameMapComponents/CommonGameFunc'
+import { useEffect } from 'react'
+import { MCPlayerQuestionAnswers, QuestionClientResponse, SelectedTerritoryResponse } from '../types/gameResponseTypes'
+import { HubConnection } from '@microsoft/signalr'
+import { GameHubStatusCode } from '../types/hubTypes'
+import { GameState } from '../types/gameInstanceTypes'
 
 const connectionHub = `${GAME_SERVICE_API_URL}/gamehubs`
 
-export const StatusCode = {
-    "CONNECTED": 1,
-    "DISCONNECTED": 0
-}
 
-
-
-let connection
+let connection: HubConnection
 export function useSignalR() {
     const userJwt = useRecoilValue(authToken)
     const [currentUser, setCurrentUser] = useRecoilState(authAtom)
@@ -35,8 +32,7 @@ export function useSignalR() {
 
             connection = setupSignalRConnection(connectionHub, userJwt)
             setConnectionStatus({
-                StatusCode: StatusCode.CONNECTED,
-                Error: null,
+                StatusCode: GameHubStatusCode.CONNECTED,
             })
 
             setupEvents()
@@ -59,27 +55,26 @@ export function useSignalR() {
 
         connection.onreconnecting((error) => {
             setConnectionStatus({
-                StatusCode: StatusCode.DISCONNECTED,
-                Error: error,
+                StatusCode: GameHubStatusCode.DISCONNECTED,
+                Error: error.message,
             })
         })
         connection.onreconnected(() => {
             setConnectionStatus({
-                StatusCode: StatusCode.CONNECTED,
-                Error: {},
+                StatusCode: GameHubStatusCode.CONNECTED,
             })
         })
 
         connection.onclose(error => {
             setConnectionStatus({
-                StatusCode: StatusCode.DISCONNECTED,
-                Error: error ? error : { message: "Connection to the server lost. Please try again later." },
+                StatusCode: GameHubStatusCode.DISCONNECTED,
+                Error: error.message ? error.message : "Connection to the server lost. Please try again later.",
             })
         })
 
         // On server event handler
         // Lobby events
-        connection.on('LobbyCanceled', ((msg) => {
+        connection.on('LobbyCanceled', ((msg: string) => {
             setJoiningGameException(msg)
             removeBackStack("Home")
 
@@ -88,7 +83,7 @@ export function useSignalR() {
 
             setGameInstance(old => ({
                 ...old,
-                gameState: 3
+                gameState: GameState.CANCELED
             }))
         }))
         connection.on('TESTING', ((msg) => {
@@ -106,7 +101,7 @@ export function useSignalR() {
             }))
         }))
 
-        connection.on('PersonLeftGame', ((disconnectedPersonId) => {
+        connection.on('PersonLeftGame', ((disconnectedPersonId: number) => {
             setGameInstance(old => ({
                 ...old,
                 participants: old.gameState == 0 ? old.participants.filter(
@@ -122,7 +117,7 @@ export function useSignalR() {
             removeBackStack("GameMap")
         }))
 
-        connection.on('OnSelectedTerritory', (selectedTerritoryResponse) => {
+        connection.on('OnSelectedTerritory', (selectedTerritoryResponse: SelectedTerritoryResponse) => {
             setGameInstance(old => ({
                 ...old,
                 objectTerritory: old.objectTerritory.map(
@@ -136,7 +131,7 @@ export function useSignalR() {
             pingQuestionService()
             setJoiningGameException(null)
         }))
-        connection.on('PlayerRejoined', ((participId) => {
+        connection.on('PlayerRejoined', ((participId: number) => {
             setGameInstance(old => ({
                 ...old,
                 participants: old.participants.map(
@@ -147,13 +142,13 @@ export function useSignalR() {
         connection.on('GameStarting', (() => {
             removeBackStack("GameMap")
         }))
-        connection.on('GameException', ((er) => {
+        connection.on('GameException', ((er: string) => {
             setJoiningGameException(er)
         }))
 
         connection.on('ShowGameMap', (() => {
-            setRoundQuestion("")
-            setPlayerQuestionAnswers("")
+            setRoundQuestion(null)
+            setPlayerQuestionAnswers(null)
         }))
 
         // Game events
@@ -161,35 +156,38 @@ export function useSignalR() {
             removeBackStack("GameMap")
         }))
 
-        connection.on('ShowRoundingAttacker', ((attackerId, availableAttackTerritoriesNames) => {
+        connection.on('ShowRoundingAttacker', ((attackerId: number, availableAttackTerritoriesNames: string[]) => {
             // Set the preview of available attack territories for given playerid
-            setPlayerAttackPossibilities({ attackerId: attackerId, availableAttackTerritories: availableAttackTerritoriesNames })
+            setPlayerAttackPossibilities({
+                attackerId: attackerId,
+                availableAttackTerritories: availableAttackTerritoriesNames
+            })
 
 
 
-            setPlayerQuestionAnswers("")
-            setRoundQuestion("")
+            setPlayerQuestionAnswers(null)
+            setRoundQuestion(null)
         }))
 
-        connection.on('BorderSelectedGameException', ((msg) => {
+        connection.on('BorderSelectedGameException', ((msg: string) => {
             setGameMapException(msg)
         }))
 
         // Question events
-        connection.on('GetRoundQuestion', ((roundQuestion) => {
-            setPlayerQuestionAnswers("")
+        connection.on('GetRoundQuestion', ((roundQuestion: QuestionClientResponse) => {
+            setPlayerQuestionAnswers(null)
             setRoundQuestion(roundQuestion)
         }))
 
-        connection.on('MCQuestionPreviewResult', ((previewResult) => {
-            setPlayerAttackPossibilities("")
+        connection.on('MCQuestionPreviewResult', ((previewResult: MCPlayerQuestionAnswers) => {
+            setPlayerAttackPossibilities(null)
 
             setPlayerQuestionAnswers(previewResult)
             setGameMapException("")
         }))
 
-        connection.on('NumberQuestionPreviewResult', ((previewResult) => {
-            setPlayerAttackPossibilities("")
+        connection.on('NumberQuestionPreviewResult', ((previewResult: MCPlayerQuestionAnswers) => {
+            setPlayerAttackPossibilities(null)
 
             setPlayerQuestionAnswers(previewResult)
             setGameMapException("")
@@ -218,14 +216,14 @@ export function AnswerNumberQuestion(numberAnswer, gameTimer = 0) {
     connection?.invoke("AnswerQuestion", numberAnswer)
 }
 
-export function RemoveGameData() {
-    gameInstance && setGameInstance(null)
-    gameTimer && setGameTimer(0)
-    playerAttackPossibilities && setPlayerAttackPossibilities(null)
-    gameMapException && setGameMapException(null)
-    roundQuestion && setRoundQuestion(null)
-    playerQuestionAnswers && setPlayerQuestionAnswers(null)
-}
+// export function RemoveGameData() {
+//     gameInstance && setGameInstance(null)
+//     gameTimer && setGameTimer(0)
+//     playerAttackPossibilities && setPlayerAttackPossibilities(null)
+//     gameMapException && setGameMapException(null)
+//     roundQuestion && setRoundQuestion(null)
+//     playerQuestionAnswers && setPlayerQuestionAnswers(null)
+// }
 
 // Send events to server
 export function CreateGameLobby() {

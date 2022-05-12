@@ -111,7 +111,7 @@ function useAuthActions() {
         await fetchWrapper.post(`${baseUrl}/revoke-cookie`)
         
         clearTimeout(timeout)
-        closeConnection()
+        await closeConnection()
         setAuth(null)
 
         //removeBackStack('Login');

@@ -7,6 +7,7 @@ import GameDashboardBase from './GameDashboardBase'
 import { useRecoilValue } from 'recoil'
 import { connectionStatusAtom, joiningGameExceptionAtom } from '../../state'
 import { FindPublicMatch } from '../../hooks/useSignalR'
+import { GameHubStatusCode } from '../../types/hubTypes'
 
 export default function PublicGameDashboard() {
     const connectionStatus = useRecoilValue(connectionStatusAtom)
@@ -33,7 +34,7 @@ export default function PublicGameDashboard() {
     }
 
 
-    if (connectionStatus?.StatusCode == StatusCode.DISCONNECTED) {
+    if (connectionStatus?.StatusCode == GameHubStatusCode.DISCONNECTED) {
         return (
             <Center flex={1}>
                 <Text color="black">{connectionStatus.Error?.message}</Text>

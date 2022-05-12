@@ -1,11 +1,13 @@
 import { atom, selector } from 'recoil'
 import { gameInstanceMock } from '../components/GameMapComponents/CommonGameFunc'
 import { GameInstanceResponse } from '../types/gameInstanceTypes';
+import { IPlayerAttackPossibilities, MCPlayerQuestionAnswers, QuestionClientResponse } from '../types/gameResponseTypes';
+import { IHubConnectionStatus } from '../types/hubTypes';
 
 export const gameInstanceAtom = atom<GameInstanceResponse | null>({
     key: "gameInstance",
     default: null,
-    
+
     effects_UNSTABLE: [
         ({ onSet }) => {
             onSet(newContent => {
@@ -16,22 +18,22 @@ export const gameInstanceAtom = atom<GameInstanceResponse | null>({
     ]
 });
 
-export const playerAttackPossibilitiesAtom = atom({
+export const playerAttackPossibilitiesAtom = atom<IPlayerAttackPossibilities>({
     key: "playerAttackPossibilities",
-    default: "",
+    default: null,
 })
 
-export const roundQuestionAtom = atom({
+export const roundQuestionAtom = atom<QuestionClientResponse>({
     key: "roundQuestion",
-    default: "",
+    default: null,
 })
 
-export const playerQuestionAnswersAtom = atom({
+export const playerQuestionAnswersAtom = atom<MCPlayerQuestionAnswers>({
     key: "playerQuestionAnswers",
-    default: "",
+    default: null,
 })
 
-export const joiningGameExceptionAtom = atom({
+export const joiningGameExceptionAtom = atom<string>({
     key: "joiningGameException",
     default: "",
     effects_UNSTABLE: [
@@ -44,7 +46,7 @@ export const joiningGameExceptionAtom = atom({
     ] 
 })
 
-export const gameMapExceptionAtom = atom({
+export const gameMapExceptionAtom = atom<string>({
     key: "gameMapExceptionAtom",
     default: "",
     effects_UNSTABLE: [
@@ -65,9 +67,9 @@ export const participantSelector = selector({
     }
 })
 
-export const connectionStatusAtom = atom({
+export const connectionStatusAtom = atom<IHubConnectionStatus>({
     key: "connectionStatusAtom",
-    default: "",
+    default: null,
     effects_UNSTABLE: [
         ({ onSet }) => {
             onSet(newContent => {
