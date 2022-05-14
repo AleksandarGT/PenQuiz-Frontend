@@ -12,7 +12,7 @@ export default function useAdminUserAccounts() {
     // How much entries per fetchUser request
     const [serverError, setServerError] = useState<string>()
     const [userResponse, setuserResponse] = useState<PaginatedAccountsResponse>()
-    const [searchField, setSearchField] = useState<string>()
+    const [searchField, setSearchField] = useState<string>("")
 
 
     useEffect(() => {

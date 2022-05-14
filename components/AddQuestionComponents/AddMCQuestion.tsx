@@ -1,12 +1,9 @@
-import React, { useState, useEffect } from 'react'
-import { View, ImageBackground, StyleSheet, ActivityIndicator, Platform } from 'react-native'
-import { Text, Button, Center, Box, Pressable, Input, Alert, VStack, HStack, IconButton, CloseIcon } from 'native-base'
-import { StatusCode } from '../../hooks'
+import React, { useState } from 'react'
+import { Platform } from 'react-native'
+import { Text, Center, Box, Pressable, Input, VStack, HStack } from 'native-base'
 import DefaultAlert from '../Popups/DefaultAlert'
-import { useRecoilValue } from 'recoil'
 import { useFetchWrapper } from '../../helpers'
 import { QUESTION_SERVICE_API_URL } from '../../injectable'
-import { useIsFocused } from '@react-navigation/native'
 
 
 function InputField({ answerPlaceholder, answer, onChangeText }) {
@@ -33,7 +30,7 @@ function InputField({ answerPlaceholder, answer, onChangeText }) {
     )
 }
 
-export function AddMCQuestion({ backToBase }) {
+export function AddMCQuestion({ backToBase }: { backToBase: (msg: string) => void }) {
     const fetchWrapper = useFetchWrapper()
 
     const [question, setQuestion] = useState({
@@ -59,7 +56,7 @@ export function AddMCQuestion({ backToBase }) {
         },
     ])
 
-    const [serverError, setServerError] = useState()
+    const [serverError, setServerError] = useState<string>()
 
     function OnSubmit() {
 
@@ -85,7 +82,7 @@ export function AddMCQuestion({ backToBase }) {
             answer: answers[0].answer,
             wrongAnswers: answers.filter(e => !e.correct).map(e => e.answer)
         })
-            .then(response => {
+            .then((response: { message: string }) => {
                 setServerError("")
                 backToBase(response.message)
             })

@@ -1,15 +1,11 @@
-import React, { useState, useEffect } from 'react'
-import { View, ImageBackground, StyleSheet, ActivityIndicator, Platform } from 'react-native'
-import { Text, Button, Center, Box, Pressable, Input, Alert, VStack, HStack, IconButton, CloseIcon } from 'native-base'
-import { StatusCode } from '../../hooks'
+import React, { useState } from 'react'
+import { Text, Center, Box, Pressable, Input } from 'native-base'
 import DefaultAlert from '../Popups/DefaultAlert'
-import { useRecoilValue } from 'recoil'
 import { useFetchWrapper } from '../../helpers'
 import { QUESTION_SERVICE_API_URL } from '../../injectable'
 
-import { useIsFocused } from '@react-navigation/native'
 
-export function AddNumberQuestion({ backToBase }) {
+export function AddNumberQuestion({ backToBase }: { backToBase: (msg: string) => void }) {
     const fetchWrapper = useFetchWrapper()
 
     const [question, setQuestion] = useState({
@@ -21,10 +17,10 @@ export function AddNumberQuestion({ backToBase }) {
         error: "",
     })
 
-    const [serverError, setServerError] = useState()
+    const [serverError, setServerError] = useState<string>()
 
     function OnSubmit() {
-        
+
         if (!question.question) {
             setQuestion(old => ({
                 ...old, error: "Question field can not be empty!"
@@ -44,7 +40,7 @@ export function AddNumberQuestion({ backToBase }) {
             question: question.question,
             answer: answer.answer
         })
-            .then(response => {
+            .then((response: { message: string }) => {
                 setServerError("")
                 backToBase(response.message)
             })

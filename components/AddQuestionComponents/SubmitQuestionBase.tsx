@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import { View, ImageBackground, StyleSheet, ActivityIndicator, Platform } from 'react-native'
-import { Text, Button, Center, Box, Pressable, Input, Alert, VStack, HStack, IconButton, CloseIcon, Stack, Icon } from 'native-base'
+import { ImageBackground, StyleSheet, Platform } from 'react-native'
+import { Text, Button, Center, Box, Pressable, Alert, VStack, HStack, Icon } from 'native-base'
 import { useIsFocused } from '@react-navigation/native'
 import { AddNumberQuestion } from './AddNumberQuestion'
 import { AddMCQuestion } from './AddMCQuestion'
 import { MaterialIcons } from "@expo/vector-icons"
 
 export function SubmitQuestionBase() {
-    const [currentScreen, setCurrentScreen] = useState("base")
-    const [successMessage, setSuccessMessage] = useState()
+    const [currentScreen, setCurrentScreen] = useState<"base" | "number" | "multiple">("base")
+    const [successMessage, setSuccessMessage] = useState<string>()
 
     const isFocused = useIsFocused()
 
@@ -20,7 +20,7 @@ export function SubmitQuestionBase() {
     }, [isFocused])
 
 
-    function ButtonTemplate({ onPressEvent, buttonText }) {
+    function ButtonTemplate({ onPressEvent, buttonText }: { onPressEvent: () => void, buttonText: string }) {
         return (
             <Pressable onPress={() => {
                 onPressEvent()
@@ -40,7 +40,7 @@ export function SubmitQuestionBase() {
         )
     }
 
-    function SuccessAlert({ message }) {
+    function SuccessAlert({ message }: { message: string }) {
         return (
             <Alert my={3} maxW="90%" status="success">
                 <VStack space={2} flexShrink={1} w="100%">

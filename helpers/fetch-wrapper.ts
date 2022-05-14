@@ -21,19 +21,28 @@ function useFetchWrapper() {
 
             const requestOptions: RequestInit = {
                 method,
-                headers: auth?.jwtToken ? { Authorization: `Bearer ${auth.jwtToken}` } : {},
+                headers: authHeader(),
                 credentials: 'include',
             }
-
-            const headersInit: HeadersInit  = {};
-            requestOptions.headers = headersInit;
-
             if (body) {
                 requestOptions.headers['Content-Type'] = 'application/json'
                 requestOptions.body = JSON.stringify(body)
             }
             const response = await fetch(url, requestOptions)
             return handleResponse(response)
+        }
+    }
+
+    function authHeader() {
+        const token = auth?.jwtToken
+
+        const isLoggedIn = !!token
+
+        if (isLoggedIn) {
+            return { Authorization: `Bearer ${token}` }
+        }
+        else {
+            return {  }
         }
     }
 
