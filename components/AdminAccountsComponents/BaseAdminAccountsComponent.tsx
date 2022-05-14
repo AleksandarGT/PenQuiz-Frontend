@@ -6,32 +6,19 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { Dimensions } from 'react-native';
 import useAdminUserAccounts from '../../hooks/useAdminUserAccounts';
 import DetailsUserComponent from './DetailsUserComponent';
+import { UsersResponse } from '../../types/gameInstanceTypes';
+import { DetailedUserResponse } from '../../types/adminAccountTypes';
 
 
 export default function BaseAdminAccountsComponent() {
     const windowWidth = Dimensions.get('screen').width;
     const adminUserAccounts = useAdminUserAccounts()
 
-    const [selectedUser, setSelectedUser] = useState()
-    const [currentScreen, setCurrentScreen] = useState("base")
-
-    function SuccessAlert({ message, status }) {
-        return (
-            <Alert my={3} maxW="90%" status={status}>
-                <VStack space={2} flexShrink={1} w="100%">
-                    <HStack flexShrink={1} space={2} >
-                        <Alert.Icon mt="1" />
-                        <Text fontSize="md" color="coolGray.800">
-                            {message}
-                        </Text>
-                    </HStack>
-                </VStack>
-            </Alert>
-        )
-    }
+    const [selectedUser, setSelectedUser] = useState<DetailedUserResponse | null>()
+    const [currentScreen, setCurrentScreen] = useState<"base" | "details">("base")
 
 
-    function ButtonTemplate({ onPressEvent, buttonText, left, right }) {
+    function ButtonTemplate({ onPressEvent, buttonText, left, right }: { onPressEvent: () => void, buttonText: string, left?: boolean, right?: boolean }) {
         return (
             <Pressable onPress={() => {
                 onPressEvent()
@@ -62,7 +49,7 @@ export default function BaseAdminAccountsComponent() {
         )
     }
 
-    function AccountRow({ user, onPress }) {
+    function AccountRow({ user, onPress }: { user: DetailedUserResponse, onPress: () => void }) {
         return (
             <Pressable onPress={() => {
                 onPress()

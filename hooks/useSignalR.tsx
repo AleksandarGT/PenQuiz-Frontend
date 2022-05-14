@@ -13,7 +13,7 @@ import { GameState } from '../types/gameInstanceTypes'
 const connectionHub = `${GAME_SERVICE_API_URL}/gamehubs`
 
 
-let connection: HubConnection
+let connection: HubConnection | null
 export function useSignalR() {
     const userJwt = useRecoilValue(authToken)
     const [currentUser, setCurrentUser] = useRecoilState(authAtom)
@@ -29,6 +29,11 @@ export function useSignalR() {
 
     useEffect(() => {
         if (!connection) {
+
+            if(!userJwt) {
+                console.log("User JWT token is missing. Abort connection to game hub")
+                return
+            }
 
             connection = setupSignalRConnection(connectionHub, userJwt)
             setConnectionStatus({
@@ -51,7 +56,7 @@ export function useSignalR() {
     }
 
     function setupEvents() {
-
+        if(connection == null) return;
 
         connection.onreconnecting((error) => {
             setConnectionStatus({

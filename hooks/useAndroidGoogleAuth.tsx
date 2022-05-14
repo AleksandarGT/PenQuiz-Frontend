@@ -8,14 +8,15 @@ global.Buffer = global.Buffer || require('buffer').Buffer
 export interface IGoogleAndroidAuth {
     googlePromptAsync(): Promise<{
         status: string;
-        idToken?: string;
-    }>
+        idToken: string | null;
+    } | {
+        status: string;
+        idToken?: undefined;
+    } | undefined>
 }
 
-export function useAndroidGoogleAuth() : IGoogleAndroidAuth {
+export function useAndroidGoogleAuth(): IGoogleAndroidAuth {
 
-    if (Platform.OS != "android")
-        return
     // Android
     async function googlePromptAsync() {
         try {

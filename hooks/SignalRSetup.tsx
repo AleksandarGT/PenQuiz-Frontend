@@ -5,7 +5,7 @@ import {
     LogLevel,
     HubConnection
 } from '@microsoft/signalr';
-let client: HubConnection;
+let client: HubConnection | null;
 
 const startSignalRConnection = async (connection: HubConnection) => {
     try {
@@ -20,7 +20,7 @@ const startSignalRConnection = async (connection: HubConnection) => {
 // Set up a SignalR connection to the specified hub URL, and actionEventMap.
 // actionEventMap should be an object mapping event names, to eventHandlers that will
 // be dispatched with the message body.
-export const setupSignalRConnection = (connectionHub, accessToken) => {
+export const setupSignalRConnection = (connectionHub: string, accessToken: string) => {
     const options = {
         logMessageContent: true,
         logger: LogLevel.Warning,
@@ -55,6 +55,6 @@ export const getConnection = () => {
 }
 
 export async function closeConnection() {
-    await client.stop()
+    await client?.stop()
     client = null;
 }

@@ -64,21 +64,21 @@ export default function useGameSoundEffect() {
 
         // State changes on next re-render, meanwhile we may need to update the audio instantly
 
-        let localStartCheck: boolean
+        let localStartCheck: boolean = false
         // Initial load, when displaytime is 0 from previous load
         if (displayTime > 0 && !startCheck) {
             setStartCheck(true)
             localStartCheck = true
         }
 
-        if(!isEnabled) return
+        if (!isEnabled) return
 
         if (!isAudioLoaded || (!startCheck && !localStartCheck)) return
 
         // If sound setting is disabled, do not play sound effects
         if (!sound) {
-            tickingSound.stopAsync()
-            endSound.stopAsync()
+            tickingSound?.stopAsync()
+            endSound?.stopAsync()
             return
         }
 
@@ -94,13 +94,15 @@ export default function useGameSoundEffect() {
 
     async function PlayEndAlarm() {
 
+        if (!endSound || !tickingSound) return;
+
         const status = await endSound.getStatusAsync()
 
-        if(!status.isLoaded) {
+        if (!status.isLoaded) {
             // The end alarm is not loaded
             return
         }
-        
+
         if (status.isPlaying) return
 
         await endSound.setVolumeAsync(0.4)
@@ -112,14 +114,15 @@ export default function useGameSoundEffect() {
     }
 
     async function PlayTickingSound() {
+        if (!endSound || !tickingSound) return;
 
         const status = await tickingSound.getStatusAsync()
 
-        if(!status.isLoaded) {
+        if (!status.isLoaded) {
             // The end alarm is not loaded
             return
         }
-        
+
         if (status.isPlaying) return
 
         // Song itself is 16s, max server-side timer is 12s

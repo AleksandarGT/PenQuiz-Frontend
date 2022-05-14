@@ -30,7 +30,7 @@ export function HomeDrawer() {
 
     const isLargeScreen = dimensions.width >= 768 || Platform.OS != "web"
 
-    const isAdmin = () => auth && jwt_decode<AuthJWTToken>(auth.jwtToken).role == "admin" ? true : false
+    const isAdmin = () => auth && jwt_decode<AuthJWTToken>(auth.jwtToken as string).role == "admin" ? true : false
 
 
     function CustomLogout(props: any) {

@@ -9,14 +9,10 @@ global.Buffer = global.Buffer || require('buffer').Buffer
 
 export interface IWebGoogleAuth {
     googlePromptAsync(): Promise<AuthSessionResult>
-    googleResponse: AuthSessionResult
+    googleResponse: AuthSessionResult | null
 }
 
 export function useWebGoogleAuth() : IWebGoogleAuth {
-
-
-    if (Platform.OS != "web")
-        return
 
     // web
     const [request, googleResponse, googlePromptAsync] = Google.useIdTokenAuthRequest({

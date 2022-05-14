@@ -3,8 +3,9 @@ import { Text, Center, Box, Input, HStack, Icon, Pressable } from 'native-base'
 import DefaultAlert from '../Popups/DefaultAlert'
 import { MaterialIcons } from '@expo/vector-icons';
 import useAdminAccountActions from '../../hooks/useAdminAccountActions';
+import { DetailedUserResponse } from '../../types/adminAccountTypes';
 
-function TemplateButton({ onClick, isAdmin, isBanned }) {
+function TemplateButton({ onClick, isAdmin, isBanned }: { onClick: () => void, isAdmin: boolean, isBanned: boolean }) {
     return (
         <Pressable disabled={isAdmin} onPress={() => {
             onClick()
@@ -23,10 +24,10 @@ function TemplateButton({ onClick, isAdmin, isBanned }) {
         </Pressable>
     )
 }
-export default function DetailsUserComponent({ userData }) {
-    const adminActions = useAdminAccountActions(userData)
+export default function DetailsUserComponent({ userData }: { userData: DetailedUserResponse }) {
+    const adminActions = useAdminAccountActions(userData.id)
 
-    const [isBanned, setIsBanned] = useState(userData.isBanned)
+    const [isBanned, setIsBanned] = useState<boolean>(userData.isBanned)
 
     async function OnBanActionClick() {
         if (isBanned) {
@@ -64,7 +65,7 @@ export default function DetailsUserComponent({ userData }) {
                 }
                 <Input
                     shadow={3}
-                    value={userData.id}
+                    value={userData.id.toString()}
                     mb={2}
                     variant="rounded"
                     backgroundColor="#CDCDCD"

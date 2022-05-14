@@ -46,7 +46,7 @@ const userIdSelector = selector({
     key: 'userId',
     get: ({get}) => {
         const auth = get(authAtom)
-        return auth.id
+        return auth?.id
     }
 })
 

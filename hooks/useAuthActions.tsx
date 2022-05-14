@@ -57,6 +57,7 @@ function useAuthActions() {
             AsyncStorage.setItem("@user", JSON.stringify(user))
         }
         else {
+            if(user.jwtToken)
             startRefreshTokenTimer(user.jwtToken)
         }
     }

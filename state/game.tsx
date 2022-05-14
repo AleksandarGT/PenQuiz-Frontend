@@ -18,17 +18,17 @@ export const gameInstanceAtom = atom<GameInstanceResponse | null>({
     ]
 });
 
-export const playerAttackPossibilitiesAtom = atom<IPlayerAttackPossibilities>({
+export const playerAttackPossibilitiesAtom = atom<IPlayerAttackPossibilities | null>({
     key: "playerAttackPossibilities",
     default: null,
 })
 
-export const roundQuestionAtom = atom<QuestionClientResponse>({
+export const roundQuestionAtom = atom<QuestionClientResponse | null>({
     key: "roundQuestion",
     default: null,
 })
 
-export const playerQuestionAnswersAtom = atom<MCPlayerQuestionAnswers>({
+export const playerQuestionAnswersAtom = atom<MCPlayerQuestionAnswers | null>({
     key: "playerQuestionAnswers",
     default: null,
 })
@@ -63,11 +63,11 @@ export const participantSelector = selector({
     key: 'participantSelector',
     get: ({get}) => {
         const gameInstance = get(gameInstanceAtom)
-        return gameInstance.participants
+        return gameInstance?.participants
     }
 })
 
-export const connectionStatusAtom = atom<IHubConnectionStatus>({
+export const connectionStatusAtom = atom<IHubConnectionStatus | null>({
     key: "connectionStatusAtom",
     default: null,
     effects_UNSTABLE: [

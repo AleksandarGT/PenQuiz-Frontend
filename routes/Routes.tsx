@@ -67,7 +67,6 @@ export function Routes() {
       }
 
       if (GetGameState(game?.gameState) == 'IN_PROGRESS') {
-        console.log(GetGameState(game.gameState))
         window.addEventListener('beforeunload', unloadEventHandler);
       }
       else {

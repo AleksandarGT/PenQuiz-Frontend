@@ -1,8 +1,13 @@
 import React from 'react'
-import { VStack, Text, HStack, Modal, useBreakpointValue } from 'native-base'
+import { VStack, Text, HStack, Modal, useBreakpointValue, View } from 'native-base'
 
-export default function RulesModal({ showRulesModal, setShowRulesModal }) {
-    const fullWidth = useBreakpointValue({
+interface RulesModalParams {
+    setShowRulesModal: (value: boolean) => void,
+    showRulesModal: boolean;
+}
+
+export default function RulesModal({ showRulesModal, setShowRulesModal }: RulesModalParams) {
+    const fullWidth: boolean = useBreakpointValue({
         base: true,
         lg: false,
     })
@@ -10,7 +15,7 @@ export default function RulesModal({ showRulesModal, setShowRulesModal }) {
     function RenderContent({ maxW = "40%" }) {
         return (
             <>
-                <VStack style={{ textAlign: "left", maxWidth: maxW }}>
+                <VStack textAlign={"left"} style={{ maxWidth: maxW }}>
                     <Text color="#fff" fontSize={{ base: 40, lg: 50 }} style={{ fontFamily: 'Before-Collapse', }}>
                         Game Rules
                     </Text>
@@ -40,7 +45,7 @@ export default function RulesModal({ showRulesModal, setShowRulesModal }) {
                     </Text>
                 </VStack>
 
-                <VStack style={{ textAlign: "left", maxWidth: maxW }}>
+                <VStack textAlign={"left"} style={{ maxWidth: maxW }}>
                     <Text fontWeight="bold" fontSize={{ base: "lg", lg: "3xl" }}>
                         PvP stage
                     </Text>

@@ -1,7 +1,12 @@
 import React from 'react';
 import { Text, Button, Modal, } from 'native-base';
 
-export default function ExitGameModal({backAction, onClose, onAccept}) {
+interface ExitGameModalParams {
+    onClose: () => void,
+    onAccept: () => void,
+    backAction: boolean;
+}
+export default function ExitGameModal({ backAction, onClose, onAccept }: ExitGameModalParams) {
     return (
         <Modal isOpen={backAction} onClose={() => onClose()}>
             <Modal.Content maxWidth="400px">

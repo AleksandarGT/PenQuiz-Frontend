@@ -1,12 +1,18 @@
 import { Box, Container, HStack, Modal, Text, VStack, Image, Center, AspectRatio, Pressable } from 'native-base'
 import React, { useState } from 'react'
 import { Platform } from 'react-native'
-import { gameInstanceMock, GetAvatarColor, GetPenguinAvatarImage } from '../GameMapComponents/CommonGameFunc'
+import { GameInstanceResponse, ParticipantsResponse } from '../../types/gameInstanceTypes';
+import { GetAvatarColor, GetPenguinAvatarImage } from '../GameMapComponents/CommonGameFunc'
 
-export default function GameEndModal({ gameInstance = gameInstanceMock, onExit }) {
-    const [isModalOpen, setIsModalOpen] = useState(true)
+interface GameEndModalParams {
+    onExit: () => void,
+    gameInstance: GameInstanceResponse;
+}
 
-    function GenerateScoreboardNumber({ participant, position }) {
+export default function GameEndModal({ gameInstance, onExit }: GameEndModalParams) {
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(true)
+
+    function GenerateScoreboardNumber({ participant, position }: { participant: ParticipantsResponse, position: number }) {
         return (
             <Box backgroundColor={GetAvatarColor(participant.avatarName)} borderColor="white" borderWidth={3} p={1} m={1} borderRadius={15}>
                 <Center flex={1}>
@@ -19,7 +25,7 @@ export default function GameEndModal({ gameInstance = gameInstanceMock, onExit }
             </Box>
         )
     }
-    function PlayerBoard({ participant, position }) {
+    function PlayerBoard({ participant, position }: { participant: ParticipantsResponse, position: number }) {
         return (
             <HStack>
                 {Platform.OS == "web" ?
@@ -66,28 +72,6 @@ export default function GameEndModal({ gameInstance = gameInstanceMock, onExit }
         )
     }
 
-    function RenderContent() {
-        return (
-            <>
-                <VStack alignItems="center">
-                    <Text color="#fff" fontSize={{ base: 40, lg: 50 }} style={{ fontFamily: 'Before-Collapse', }}>
-                        Game Over
-                    </Text>
-
-                    {[...gameInstance.participants].sort((first, second) => {
-                        if (first.score < second.score)
-                            return 1
-                        if (first.score > second.score)
-                            return -1
-                        return 0
-                    }).map((x, index) =>
-                        <PlayerBoard key={x.id} participant={x} position={index + 1} />
-                    )}
-                    <ExitGame />
-                </VStack >
-            </>
-        )
-    }
 
     function ExitGame() {
         return (
@@ -115,7 +99,24 @@ export default function GameEndModal({ gameInstance = gameInstanceMock, onExit }
             <Modal defaultIsOpen={false} isOpen={isModalOpen} closeOnOverlayClick={false} isKeyboardDismissable={false} size="full" px={8}>
                 <Modal.Content borderRadius={25}>
                     <Modal.Body px={8} bg="#2F4887">
-                        <RenderContent />
+
+                        <VStack alignItems="center">
+                            <Text color="#fff" fontSize={{ base: 40, lg: 50 }} style={{ fontFamily: 'Before-Collapse', }}>
+                                Game Over
+                            </Text>
+
+                            {[...gameInstance.participants].sort((first, second) => {
+                                if (first.score < second.score)
+                                    return 1
+                                if (first.score > second.score)
+                                    return -1
+                                return 0
+                            }).map((x, index) =>
+                                <PlayerBoard key={x.id} participant={x} position={index + 1} />
+                            )}
+                            <ExitGame />
+                        </VStack >
+
                     </Modal.Body>
                 </Modal.Content>
             </Modal>
