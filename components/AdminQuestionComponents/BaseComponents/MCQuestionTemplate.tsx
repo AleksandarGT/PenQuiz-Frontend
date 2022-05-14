@@ -3,9 +3,10 @@ import { Platform } from 'react-native'
 import { Text, Center, Box, Input, VStack, HStack, Icon } from 'native-base'
 import DefaultAlert from '../../Popups/DefaultAlert'
 import { MaterialIcons } from '@expo/vector-icons';
-import { useQuestionVerification } from '../../../hooks/useQuestionVerification'
+import { QuestionType, useQuestionVerification, useQuestionVerificationParams } from '../../../hooks/useQuestionVerification'
 import TemplateButton from './ActionButton'
 
+import { QuestionsTemplateMode } from './TableQuestionsTemplate';
 
 function InputField({ answer, onChangeText, isEditable }) {
     return (
@@ -32,7 +33,7 @@ function InputField({ answer, onChangeText, isEditable }) {
     )
 }
 
-export function MCQuestionTemplate({ backToBase, questionProp, answersProp, questionId, mode }) {
+export function MCQuestionTemplate(stateParameters: useQuestionVerificationParams) {
 
     const { isEditable,
         setIsEditable,
@@ -47,9 +48,7 @@ export function MCQuestionTemplate({ backToBase, questionProp, answersProp, ques
         serverError,
         RejectQuestion,
         AcceptQuestion, EditQuestion } =
-        useQuestionVerification({ backToBase, questionProp, questionId, answerProp: null, answersProp })
-
-
+        useQuestionVerification(stateParameters)
 
 
 
@@ -118,11 +117,11 @@ export function MCQuestionTemplate({ backToBase, questionProp, answersProp, ques
             <Box mt={6} />
 
             <HStack width="50%" minWidth="250px" maxWidth="600px" justifyContent="space-between">
-                <TemplateButton reject onClick={() => {
+                <TemplateButton mode={stateParameters.mode} reject onClick={() => {
                     RejectQuestion()
                 }} />
-                <TemplateButton isEditable={mode == "view" ? isEditable : true} accept mode={mode} onClick={() => {
-                    mode == "view" ? EditQuestion("multiple") : AcceptQuestion("multiple")
+                <TemplateButton isEditable={stateParameters.mode == QuestionsTemplateMode.VIEW ? isEditable : true} accept mode={stateParameters.mode} onClick={() => {
+                    stateParameters.mode == QuestionsTemplateMode.VIEW ? EditQuestion(QuestionType.MULTIPLE) : AcceptQuestion(QuestionType.MULTIPLE)
                 }} />
             </HStack>
 

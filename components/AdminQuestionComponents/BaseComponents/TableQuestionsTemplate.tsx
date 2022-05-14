@@ -8,17 +8,25 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { Dimensions } from 'react-native';
 import { NumberQuestionTemplate } from './NumberQuestionTemplate'
 import { MCQuestionTemplate } from './MCQuestionTemplate'
+import { PaginatedQuestionsResponse, Questions } from '../../../types/adminQuestionTypes'
 
-export function TableQuestionsTemplate({ mode }) {
+export enum QuestionsTemplateMode {
+    VIEW,
+    VERIFY
+}
+export function TableQuestionsTemplate({ mode }: { mode: QuestionsTemplateMode }) {
     const windowWidth = Dimensions.get('screen').width;
-    const [questionsResponse, setQuestionsResponse] = useState()
-    const [onSuccess, setOnSuccess] = useState()
+    const [questionsResponse, setQuestionsResponse] = useState<PaginatedQuestionsResponse>()
+    const [onSuccess, setOnSuccess] = useState<{
+        message: string;
+        status: string;
+    }>()
     const fetchWrapper = useFetchWrapper()
     const isFocused = useIsFocused()
-    
 
-    const [selectedQuestion, setSelectedQuestion] = useState()
-    const [currentScreen, setCurrentScreen] = useState("base")
+
+    const [selectedQuestion, setSelectedQuestion] = useState<Questions>()
+    const [currentScreen, setCurrentScreen] = useState<"number" | "multiple" | "base">("base")
 
     useEffect(() => {
         if (!isFocused) return
@@ -33,11 +41,11 @@ export function TableQuestionsTemplate({ mode }) {
         }
     }, [isFocused])
 
-    function fetchQuestions(pageIndex) {
+    function fetchQuestions(pageIndex: number) {
 
-        const baseUrl = `${QUESTION_SERVICE_API_URL}/api/questionadmin/${mode == "view" ? "verified" : "unverified"}?pageNumber=${pageIndex}&pageEntries=${Platform.OS == "web" ? 12 : 4}`
+        const baseUrl = `${QUESTION_SERVICE_API_URL}/api/questionadmin/${mode == QuestionsTemplateMode.VIEW ? "verified" : "unverified"}?pageNumber=${pageIndex}&pageEntries=${Platform.OS == "web" ? 12 : 4}`
         fetchWrapper.get(`${baseUrl}`)
-            .then(response => {
+            .then((response: PaginatedQuestionsResponse) => {
                 setQuestionsResponse(response)
             })
             .catch(er => {
@@ -45,7 +53,7 @@ export function TableQuestionsTemplate({ mode }) {
             })
     }
 
-    function SuccessAlert({ message, status }) {
+    function SuccessAlert({ message, status }: { message: string, status: string }) {
         return (
             <Alert my={3} maxW="90%" status={status}>
                 <VStack space={2} flexShrink={1} w="100%">
@@ -70,7 +78,7 @@ export function TableQuestionsTemplate({ mode }) {
     }
 
 
-    function ButtonTemplate({ onPressEvent, buttonText, left, right }) {
+    function ButtonTemplate({ onPressEvent, buttonText, left = false, right = false }) {
         return (
             <Pressable onPress={() => {
                 onPressEvent()
@@ -143,22 +151,22 @@ export function TableQuestionsTemplate({ mode }) {
 
                 <Box flex={0.9} width="90%" minWidth="70%" bg="#071D56" p={8} borderRadius={25}>
                     <Text mb={5} textAlign="center" color="#fff" fontSize={{ base: "md", md: "lg", lg: "xl", xl: "3xl" }} style={{ fontFamily: 'Before-Collapse', }}>
-                        {mode == "verify" ? "question submissions" : "game questions"}
+                        {mode == QuestionsTemplateMode.VERIFY ? "question submissions" : "game questions"}
                     </Text>
 
                     {onSuccess && <SuccessAlert message={onSuccess.message} status={onSuccess.status} />}
-                    
-                    
+
+
                     {!questionsResponse && <ActivityIndicator size="large" />}
 
                     {questionsResponse && questionsResponse.questions.length == 0 &&
-                            <Text textAlign="center">
-                                {mode == "verify" ?
-                                    `No questions that require verification at this moment.${'\n'}Check back later.` :
-                                    `No additional questions available in the database.${'\n'}Warning! System will only be using the initial pre-defined questions!`
-                                }
-                            </Text>
-                        }
+                        <Text textAlign="center">
+                            {mode == QuestionsTemplateMode.VERIFY ?
+                                `No questions that require verification at this moment.${'\n'}Check back later.` :
+                                `No additional questions available in the database.${'\n'}Warning! System will only be using the initial pre-defined questions!`
+                            }
+                        </Text>
+                    }
 
                     <VStack flex={1}>
                         <ScrollView>

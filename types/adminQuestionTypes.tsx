@@ -24,7 +24,7 @@ export interface Answers {
 export interface Questions {
     id: number;
     question: string;
-    type: string;
+    type: "multiple" | "number";
     difficulty: string;
     category: string;
     submittedByUsername: string;

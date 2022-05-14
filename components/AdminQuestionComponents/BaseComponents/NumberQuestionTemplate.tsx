@@ -2,10 +2,11 @@ import React from 'react'
 import { Text, Center, Box, Input, HStack, Icon } from 'native-base'
 import DefaultAlert from '../../Popups/DefaultAlert'
 import { MaterialIcons } from '@expo/vector-icons';
-import { useQuestionVerification } from '../../../hooks/useQuestionVerification'
+import { QuestionType, useQuestionVerification, useQuestionVerificationParams } from '../../../hooks/useQuestionVerification'
 import TemplateButton from './ActionButton'
+import { QuestionsTemplateMode } from './TableQuestionsTemplate';
 
-export function NumberQuestionTemplate({ backToBase, questionProp, answerProp, questionId, mode }) {
+export function NumberQuestionTemplate(stateParameters: useQuestionVerificationParams) {
 
     const { isEditable,
         setIsEditable,
@@ -15,7 +16,7 @@ export function NumberQuestionTemplate({ backToBase, questionProp, answerProp, q
         setAnswer,
         serverError,
         RejectQuestion,
-        AcceptQuestion, EditQuestion } = useQuestionVerification(backToBase, questionProp, questionId, answerProp)
+        AcceptQuestion, EditQuestion } = useQuestionVerification(stateParameters)
 
     return (
         <Center>
@@ -80,11 +81,11 @@ export function NumberQuestionTemplate({ backToBase, questionProp, answerProp, q
             <Box mt={6} />
 
             <HStack width="50%" minWidth="250px" maxWidth="600px" justifyContent="space-between">
-                <TemplateButton reject onClick={() => {
+                <TemplateButton mode={stateParameters.mode} reject onClick={() => {
                     RejectQuestion()
                 }} />
-                <TemplateButton isEditable={mode == "view" ? isEditable : true} accept mode={mode} onClick={() => {
-                    mode == "view" ? EditQuestion("number") : AcceptQuestion("number") 
+                <TemplateButton isEditable={stateParameters.mode == QuestionsTemplateMode.VIEW ? isEditable : true} accept mode={stateParameters.mode} onClick={() => {
+                    stateParameters.mode == QuestionsTemplateMode.VIEW ? EditQuestion(QuestionType.NUMBER) : AcceptQuestion(QuestionType.NUMBER)
                 }} />
             </HStack>
 

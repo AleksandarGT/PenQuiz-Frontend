@@ -1,8 +1,8 @@
 import { Box, Text } from "native-base"
 import React from "react"
-import { Pressable } from "react-native"
+import { Pressable } from "native-base"
 
-export default function TemplateButton({ onClick, accept, reject, mode, isEditable = true }) {
+export default function TemplateButton({ onClick, mode, accept = false, reject = false, isEditable = true }) {
     return (
         <Pressable disabled={!isEditable} onPress={() => {
             onClick()

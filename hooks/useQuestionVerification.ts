@@ -1,9 +1,24 @@
 import { useState } from "react"
+import { QuestionsTemplateMode } from "../components/AdminQuestionComponents/BaseComponents/TableQuestionsTemplate"
 import { useFetchWrapper } from "../helpers"
 import { QUESTION_SERVICE_API_URL } from '../injectable'
 import { Answers, Questions } from "../types/adminQuestionTypes"
 
-export function useQuestionVerification(backToBase: Function, questionProp: Questions, questionId: number, answerProp: Answers, answersProp: Answers[] = []) {
+export interface useQuestionVerificationParams {
+    backToBase: ({ message, status }: { message: string, status: string }) => void,
+    questionProp: string,
+    questionId: number,
+    answerProp?: string,
+    answersProp?: Answers[]
+    mode: QuestionsTemplateMode,
+}
+
+export enum QuestionType {
+    MULTIPLE,
+    NUMBER
+}
+
+export function useQuestionVerification({ backToBase, questionProp, questionId, answerProp, answersProp }: useQuestionVerificationParams) {
     const fetchWrapper = useFetchWrapper()
     const [isEditable, setIsEditable] = useState(false)
     const [question, setQuestion] = useState({
@@ -54,10 +69,7 @@ export function useQuestionVerification(backToBase: Function, questionProp: Ques
             })
     }
 
-    enum QuestionType {
-        MULTIPLE,
-        NUMBER
-    }
+
 
     function ValidateQuestion(type: QuestionType) {
 
