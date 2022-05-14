@@ -218,6 +218,7 @@ export function TableQuestionsTemplate({ mode }: { mode: QuestionsTemplateMode }
                         fetchQuestions(questionsResponse.pageIndex == 1 ? 1 : questionsResponse.questions.length <= 1 ? questionsResponse.pageIndex - 1 : questionsResponse.pageIndex)
                         setCurrentScreen("base")
                     }}
+                    answerProp={null}
                     answersProp={selectedQuestion.answers} /> :
 
                 currentScreen == "number" ?
@@ -231,6 +232,7 @@ export function TableQuestionsTemplate({ mode }: { mode: QuestionsTemplateMode }
                             fetchQuestions(questionsResponse.pageIndex == 1 ? 1 : questionsResponse.questions.length <= 1 ? questionsResponse.pageIndex - 1 : questionsResponse.pageIndex)
                             setCurrentScreen("base")
                         }}
+                        answersProp={[]}
                         answerProp={selectedQuestion.answers[0].answer} /> :
 
                     currentScreen == "base" ?

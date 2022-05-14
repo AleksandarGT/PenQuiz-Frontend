@@ -14,6 +14,8 @@ export interface IGoogleAndroidAuth {
 
 export function useAndroidGoogleAuth() : IGoogleAndroidAuth {
 
+    if (Platform.OS != "android")
+        return
     // Android
     async function googlePromptAsync() {
         try {

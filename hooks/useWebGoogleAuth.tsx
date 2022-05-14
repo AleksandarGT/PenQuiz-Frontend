@@ -15,7 +15,7 @@ export interface IWebGoogleAuth {
 export function useWebGoogleAuth() : IWebGoogleAuth {
 
 
-    if (Platform.OS != "android")
+    if (Platform.OS != "web")
         return
 
     // web
