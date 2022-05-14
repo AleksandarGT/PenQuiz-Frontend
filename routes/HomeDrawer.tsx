@@ -1,23 +1,23 @@
 
-import React, { useCallback, useEffect } from 'react'
+import React, {  } from 'react'
 import { useAuthActions, useSignalR } from '../hooks'
 import {
     createDrawerNavigator, DrawerContentScrollView,
     DrawerItemList,
     DrawerItem,
 } from '@react-navigation/drawer'
-import { View, Button, Text, useWindowDimensions, InteractionManager, Platform } from 'react-native'
-import { Center } from 'native-base'
+import { useWindowDimensions, Platform } from 'react-native'
 import { AccountDetails } from '../components/AccountDetails'
 import PublicGameDashboard from '../components/GameDashboardComponents/PublicGameDashboard'
 import PrivateGameDashboard from '../components/GameDashboardComponents/PrivateGameDashboard'
 import { SubmitQuestionBase } from '../components/AddQuestionComponents/SubmitQuestionBase'
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
-import { authAtom, gameInstanceAtom } from '../state'
+import { useRecoilValue } from 'recoil'
+import { authAtom } from '../state'
 import jwt_decode from "jwt-decode";
 import VerifyQuestionComponent from '../components/AdminQuestionComponents/VerifyQuestionComponent'
 import ViewQuestionComponent from '../components/AdminQuestionComponents/ViewQuestionComponent'
 import BaseAdminAccountsComponent from '../components/AdminAccountsComponents/BaseAdminAccountsComponent'
+import { AuthJWTToken } from '../types/authTypes'
 
 const Drawer = createDrawerNavigator()
 
@@ -30,11 +30,10 @@ export function HomeDrawer() {
 
     const isLargeScreen = dimensions.width >= 768 || Platform.OS != "web"
 
-    const isAdmin = () => auth && jwt_decode(auth.jwtToken).role == "admin" ? true : false
+    const isAdmin = () => auth && jwt_decode<AuthJWTToken>(auth.jwtToken).role == "admin" ? true : false
 
 
-
-    function CustomLogout(props) {
+    function CustomLogout(props: any) {
         return (
             <DrawerContentScrollView {...props}>
                 <DrawerItemList {...props} />
@@ -42,14 +41,6 @@ export function HomeDrawer() {
             </DrawerContentScrollView>
         )
     }
-
-    // const isFocused = useIsFocused()
-
-    // useEffect(() => {
-    //     if (!isFocused || gameInstance == null) return
-    //     setGameInstance(null)
-    // }, [isFocused])
-
 
     const drawerScreenOptions = {
         drawerActiveTintColor: "white",

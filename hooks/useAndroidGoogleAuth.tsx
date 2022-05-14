@@ -1,13 +1,26 @@
 import { EXPO_GO_ANDROID_GOOGLE_CLIENT_URL, NATIVE_ANDROID_GOOGLE_CLIENT_URL } from "../injectable"
 import * as GoogleAndroid from 'expo-google-app-auth';
+import { Platform } from "react-native";
 
 global.Buffer = global.Buffer || require('buffer').Buffer
 
-export function useAndroidGoogleAuth() {
+
+export interface IGoogleAndroidAuth {
+    googlePromptAsync(): Promise<{
+        status: string;
+        idToken?: string;
+    }>
+}
+
+export function useAndroidGoogleAuth() : IGoogleAndroidAuth {
 
     // Android
     async function googlePromptAsync() {
         try {
+
+            if (Platform.OS != "android")
+                return
+
             const result = await GoogleAndroid.logInAsync({
                 // Expo go - dev
                 androidClientId: EXPO_GO_ANDROID_GOOGLE_CLIENT_URL,

@@ -56,7 +56,7 @@ export function useSignalR() {
         connection.onreconnecting((error) => {
             setConnectionStatus({
                 StatusCode: GameHubStatusCode.DISCONNECTED,
-                Error: error.message,
+                Error: error?.message || "Trying to reconnect to server",
             })
         })
         connection.onreconnected(() => {
@@ -68,7 +68,7 @@ export function useSignalR() {
         connection.onclose(error => {
             setConnectionStatus({
                 StatusCode: GameHubStatusCode.DISCONNECTED,
-                Error: error.message ? error.message : "Connection to the server lost. Please try again later.",
+                Error: error?.message ? error.message : "Connection to the server lost. Please try again later.",
             })
         })
 
@@ -201,17 +201,17 @@ export function useSignalR() {
 }
 
 // Game map events
-export function SelectTerritory(territoryName, gameTimer = 0) {
+export function SelectTerritory(territoryName: string, gameTimer = 0) {
     if (gameTimer <= 0) return;
     connection?.invoke("SelectTerritory", territoryName)
 }
 
-export function AnswerMCQuestion(answerId, gameTimer = 0) {
+export function AnswerMCQuestion(answerId: string, gameTimer = 0) {
     if (gameTimer <= 0) return;
     connection?.invoke("AnswerQuestion", answerId)
 }
 
-export function AnswerNumberQuestion(numberAnswer, gameTimer = 0) {
+export function AnswerNumberQuestion(numberAnswer: string, gameTimer = 0) {
     if (gameTimer <= 0) return;
     connection?.invoke("AnswerQuestion", numberAnswer)
 }
@@ -238,7 +238,7 @@ export function LeaveGameLobby() {
     connection?.invoke("LeaveGameLobby")
 }
 
-export function JoinLobby(code) {
+export function JoinLobby(code: string) {
     connection?.invoke("JoinGameLobby", code)
 }
 

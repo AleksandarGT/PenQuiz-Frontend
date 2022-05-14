@@ -1,10 +1,11 @@
-import React, { useState, useEffect, Children } from 'react'
-import { View, ImageBackground, StyleSheet, ActivityIndicator, Platform } from 'react-native'
-import { Text, Button, Center, Box, Pressable, Input, Alert, VStack, HStack, IconButton, CloseIcon } from 'native-base'
+import React, { useState } from 'react'
+import { ImageBackground, StyleSheet, Platform } from 'react-native'
+import { Center, Box, IconButton } from 'native-base'
 import { Ionicons } from '@expo/vector-icons'
 import RulesModal from '../Popups/RulesModal'
 
-export default function GameDashboardBase(props) {
+
+export default function GameDashboardBase(props: { children: boolean | React.ReactChild | React.ReactFragment | React.ReactPortal }) {
     const [showRulesModal, setShowRulesModal] = useState(false)
 
     return (

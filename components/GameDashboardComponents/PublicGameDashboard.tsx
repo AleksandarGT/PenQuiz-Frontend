@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react'
-import { View, ImageBackground, StyleSheet, ActivityIndicator, Platform } from 'react-native'
-import { Text, Button, Center, Box, Pressable, Input, Alert, VStack, HStack, IconButton, CloseIcon, Divider } from 'native-base'
-import { StatusCode } from '../../hooks/'
+import React, { } from 'react'
+import { ActivityIndicator } from 'react-native'
+import { Text, Center, Box, Pressable } from 'native-base'
 import DefaultAlert from '../Popups/DefaultAlert'
 import GameDashboardBase from './GameDashboardBase'
 import { useRecoilValue } from 'recoil'
@@ -9,35 +8,36 @@ import { connectionStatusAtom, joiningGameExceptionAtom } from '../../state'
 import { FindPublicMatch } from '../../hooks/useSignalR'
 import { GameHubStatusCode } from '../../types/hubTypes'
 
+
+function FindGameButton({ onPress }) {
+    return (
+        <Pressable onPress={onPress}>
+            {({ isHovered, isFocused, isPressed }) => {
+                return (
+                    <Box px={9} shadow={3} bg={isPressed ? "#0D569B" : isHovered ? "#06326F" : "#071D56"} p={2} borderRadius={50}>
+                        <Box px={4} pb={2} pt={2}>
+                            <Text fontSize={{ base: "md", md: "lg", lg: "xl", xl: 35 }} >
+                                Find Game
+                            </Text>
+                        </Box>
+                    </Box>
+                )
+            }}
+        </Pressable>
+    )
+}
+
 export default function PublicGameDashboard() {
     const connectionStatus = useRecoilValue(connectionStatusAtom)
     const joiningGameException = useRecoilValue(joiningGameExceptionAtom)
 
-    function FindGameButton() {
-        return (
-            <Pressable onPress={() => {
-                FindPublicMatch()
-            }}>
-                {({ isHovered, isFocused, isPressed }) => {
-                    return (
-                        <Box px={9} shadow={3} bg={isPressed ? "#0D569B" : isHovered ? "#06326F" : "#071D56"} p={2} borderRadius={50}>
-                            <Box px={4} pb={2} pt={2}>
-                                <Text fontSize={{ base: "md", md: "lg", lg: "xl", xl: 35 }} >
-                                    Find Game
-                                </Text>
-                            </Box>
-                        </Box>
-                    )
-                }}
-            </Pressable>
-        )
-    }
+
 
 
     if (connectionStatus?.StatusCode == GameHubStatusCode.DISCONNECTED) {
         return (
             <Center flex={1}>
-                <Text color="black">{connectionStatus.Error?.message}</Text>
+                <Text color="black">{connectionStatus.Error}</Text>
                 <ActivityIndicator size="large" />
             </Center>
         )
@@ -61,7 +61,7 @@ export default function PublicGameDashboard() {
                 ) : null}
 
 
-                <FindGameButton />
+                <FindGameButton onPress={FindGameButton}/>
             </Center>
         </GameDashboardBase>
     )

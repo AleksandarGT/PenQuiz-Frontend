@@ -1,20 +1,18 @@
 import React, { useEffect, useState } from 'react'
 
 import { ImageBackground, Platform, StyleSheet, View } from "react-native"
-import { VStack, Box, Divider, Text, Center, Heading, Button, Icon, Image, Pressable, HStack, Modal, Container } from 'native-base'
+import { VStack, Box, Divider, Text, Center, Button, Icon, Image } from 'native-base'
 import { FontAwesome5 } from "@expo/vector-icons"
-import { authStatus, authAtom } from '../state'
-import { useRecoilValue, useSetRecoilState } from 'recoil'
+import { authAtom } from '../state'
+import { useSetRecoilState } from 'recoil'
 import { useAuthActions } from '../hooks'
-import { justifyContent } from 'styled-system'
 import RulesModal from './Popups/RulesModal'
 import AboutModal from './Popups/AboutModal'
 import DefaultAlert from './Popups/DefaultAlert'
-import { useWebGoogleAuth } from '../hooks/useWebGoogleAuth'
+import { IWebGoogleAuth, useWebGoogleAuth } from '../hooks/useWebGoogleAuth'
 import { useAndroidGoogleAuth } from '../hooks/useAndroidGoogleAuth'
-import { Audio } from 'expo-av'
 
-export default function LoginComponent({ history }) {
+export default function LoginComponent() {
     return (
         <View style={styles.container}>
             <ImageBackground source={require('../assets/crackbd.jpg')} resizeMode="cover" style={styles.image}>
@@ -48,10 +46,11 @@ function RenderAntarctica() {
 
 function RenderCard() {
     const userActions = useAuthActions()
-    const googleActions = Platform.select({
-        web: useWebGoogleAuth(),
-        android: useAndroidGoogleAuth(),
-    })
+
+    const androidGoogleActions = useAndroidGoogleAuth()
+    const webGoogleActions = useWebGoogleAuth()
+
+
     const setAuth = useSetRecoilState(authAtom)
     const [isLoading, setIsLoading] = useState(false)
     const [showRulesModal, setShowRulesModal] = useState(false)
@@ -61,41 +60,48 @@ function RenderCard() {
     // Monitor google response
     useEffect(() => {
         if (Platform.OS != "web") return
-        if (googleActions.googleResponse?.type === 'success') {
-            onLogin({ tokenId: googleActions.googleResponse.params.id_token })
+
+        if (webGoogleActions.googleResponse?.type === 'success') {
+            onLogin({ tokenId: webGoogleActions.googleResponse.params.id_token })
             setIsLoading(false)
         }
-        else if (googleActions.googleResponse?.type === 'dismiss') {
+        else if (webGoogleActions.googleResponse?.type === 'dismiss') {
             setAuth(null)
             setIsLoading(false)
         }
-    }, [googleActions?.googleResponse])
+    }, [webGoogleActions?.googleResponse])
 
     // On resposne from google
-    function onLogin({ tokenId }) {
-        return userActions.login(tokenId).then(res => setServerError(null)).catch(error => {
+    async function onLogin({ tokenId }) {
+
+        try {
+            const res = await userActions.login(tokenId)
+            return setServerError(null)
+        } catch (error) {
             setAuth(null)
             console.log(error)
             setServerError(error?.message ? error.message : "Unknown server error")
-        })
+        }
+
     }
 
     // On button trigger
     async function onLoginClick() {
-        //setAuth({ status: 'LOADING' })
         setIsLoading(true)
 
         if (Platform.OS == "android") {
-            const res = await googleActions.googlePromptAsync()
+            const res = await androidGoogleActions.googlePromptAsync()
             if (res.status == "success") {
                 onLogin({
                     tokenId: res.idToken
                 })
             }
+
+            return
         }
-        else {
-            googleActions.googlePromptAsync()
-        }
+        
+        // On web login
+        webGoogleActions.googlePromptAsync()
     }
 
     return (

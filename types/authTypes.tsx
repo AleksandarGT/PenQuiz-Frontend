@@ -14,4 +14,5 @@ export enum authStatusType {
 
 export interface AuthJWTToken {
     exp: number,
+    role: string,
 }
