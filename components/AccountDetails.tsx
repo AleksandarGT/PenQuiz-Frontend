@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react'
-import { View, ImageBackground, StyleSheet, ActivityIndicator, Platform } from 'react-native'
-import { Text, Button, Center, Box, Pressable, Input, Alert, VStack, HStack, IconButton, CloseIcon, AspectRatio, Container } from 'native-base'
-import DefaultAlert from './Popups/DefaultAlert'
+import { ImageBackground, StyleSheet, Platform } from 'react-native'
+import { Text, Center, Box, HStack } from 'native-base'
 import { useRecoilValue } from 'recoil'
 import { authAtom } from '../state'
 import { useFetchWrapper } from '../helpers'
 import { GAME_SERVICE_API_URL } from '../injectable'
 import { useIsFocused } from '@react-navigation/native'
+import { UserStatisticsResponse } from '../types/statisticsTypes'
 
 export function AccountDetails() {
-    var authValue = useRecoilValue(authAtom)
-    const [userStatistics, setUserStatistics] = useState()
+    const authValue = useRecoilValue(authAtom)
+    const [userStatistics, setUserStatistics] = useState<UserStatisticsResponse>()
     const fetchWrapper = useFetchWrapper()
     const isFocused = useIsFocused()
 
@@ -19,7 +19,7 @@ export function AccountDetails() {
         const baseUrl = `${GAME_SERVICE_API_URL}/api/game`
 
         fetchWrapper.get(`${baseUrl}/statistics`)
-            .then(response => {
+            .then((response: UserStatisticsResponse) => {
                 setUserStatistics(response)
             })
             .catch(er => {
@@ -27,7 +27,7 @@ export function AccountDetails() {
             })
     }, [isFocused])
 
-    function SquareStat({ topText, bottomText }) {
+    function SquareStat({ topText, bottomText }: { topText: string, bottomText: string }) {
         return (
             <Box borderRadius={25} bg="#C8FBFF" style={{
                 aspectRatio: 1,
@@ -60,9 +60,9 @@ export function AccountDetails() {
                     </Text>
 
                     <HStack justifyContent="space-around">
-                        <SquareStat topText={userStatistics?.totalGames ?? 0} bottomText="Games" />
-                        <SquareStat topText={userStatistics?.gamesWon ?? 0} bottomText="Wins" />
-                        <SquareStat topText={`${userStatistics?.winPercentage ?? 20.54}%`} bottomText="Win rate" />
+                        <SquareStat topText={userStatistics?.totalGames.toString() ?? "0"} bottomText="Games" />
+                        <SquareStat topText={userStatistics?.gamesWon.toString() ?? "0"} bottomText="Wins" />
+                        <SquareStat topText={`${userStatistics?.winPercentage.toString() ?? "0"}%`} bottomText="Win rate" />
                     </HStack>
                 </Box>
             </Center>

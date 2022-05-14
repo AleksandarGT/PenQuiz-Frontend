@@ -3,7 +3,7 @@ import { useRecoilState } from 'recoil'
 import { authAtom } from '../state'
 import { removeBackStack } from './RootNavigation'
 
-export { useFetchWrapper, }
+export { useFetchWrapper }
 
 function useFetchWrapper() {
     const [auth, setAuth] = useRecoilState(authAtom)
@@ -15,9 +15,11 @@ function useFetchWrapper() {
         delete: request('DELETE')
     }
 
-    function request(method) {
-        return (url, body) => {
-            const requestOptions = {
+    function request(method: string) {
+        
+        return async (url: string, body?: any) => {
+
+            const requestOptions: RequestInit = {
                 method,
                 headers: authHeader(),
                 credentials: 'include',
@@ -26,7 +28,8 @@ function useFetchWrapper() {
                 requestOptions.headers['Content-Type'] = 'application/json'
                 requestOptions.body = JSON.stringify(body)
             }
-            return fetch(url, requestOptions).then(handleResponse)
+            const response = await fetch(url, requestOptions)
+            return handleResponse(response)
         }
     }
 
@@ -43,12 +46,12 @@ function useFetchWrapper() {
         }
     }
 
-    function handleResponse(response) {
-        return response.text().then(text => {
+    function handleResponse(response: any): any {
+        return response.text().then((text: string) => {
             const data = text && JSON.parse(text)
 
             if (!response.ok) {
-                if ([401, 403].includes(response.status) && auth?.token) {
+                if ([401, 403].includes(response.status) && auth?.jwtToken) {
                     // auto logout if 401 Unauthorized or 403 Forbidden response returned from api
                     //localStorage.removeItem('user');
                     setAuth(null)

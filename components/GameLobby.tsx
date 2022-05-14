@@ -1,19 +1,20 @@
-import React, { useEffect, useState } from 'react'
-import { Text, Button, Input, Center, Modal, Container, Box, Icon, HStack, Pressable, VStack, Image } from 'native-base'
-import { View, StyleSheet, ImageBackground, ActivityIndicator, Platform } from 'react-native'
-import { StatusCode, LeaveGameLobby, StartGame } from '../hooks/'
+import React, { useState } from 'react'
+import { Text, Button, Center, Container, Box, Icon, HStack, Pressable, VStack, Image } from 'native-base'
+import { StyleSheet, ImageBackground, ActivityIndicator, Platform } from 'react-native'
+import { LeaveGameLobby, StartGame } from '../hooks'
 import { FontAwesome5 } from "@expo/vector-icons"
-import { useRecoilState, useRecoilValue } from "recoil"
+import { useRecoilValue } from "recoil"
 import { connectionStatusAtom, gameInstanceAtom, userIdSelector } from "../state"
 import ExitGameModal from './Popups/ExitGameModal'
-import { Heading } from 'native-base'
 import { GetPenguinAvatarImage } from './GameMapComponents/CommonGameFunc'
+import { ParticipantsResponse } from '../types/gameInstanceTypes'
+import { GameHubStatusCode } from '../types/hubTypes'
 
-export function GameLobby({ route, navigation }) {
+export function GameLobby() {
     const gameInstance = useRecoilValue(gameInstanceAtom)
     const connectionStatus = useRecoilValue(connectionStatusAtom)
 
-    const [isClosing, setIsClosing] = useState()
+    const [isClosing, setIsClosing] = useState(false)
     const RequiredPlayers = 3
     const userId = useRecoilValue(userIdSelector)
     const IsLobbyFull = () => gameInstance.participants?.length == RequiredPlayers ? true : false
@@ -53,7 +54,7 @@ export function GameLobby({ route, navigation }) {
         )
     }
 
-    function PlayerCard({ participant }) {
+    function PlayerCard({ participant }: { participant: ParticipantsResponse }) {
         return (
             <Container style={{ borderWidth: participant.playerId == gameInstance.gameCreatorId ? 5 : 0, borderColor: "gold", }} m={5} p={3} backgroundColor="white" borderRadius={20}>
                 <VStack >
@@ -83,10 +84,10 @@ export function GameLobby({ route, navigation }) {
         )
     }
 
-    if (connectionStatus.StatusCode == StatusCode.DISCONNECTED) {
+    if (connectionStatus.StatusCode == GameHubStatusCode.DISCONNECTED) {
         return (
             <Center flex={1}>
-                <Text color="black">{connectionStatus.Error?.message}</Text>
+                <Text color="black">{connectionStatus.Error}</Text>
                 <ActivityIndicator size="large" />
             </Center>
         )
@@ -116,7 +117,7 @@ export function GameLobby({ route, navigation }) {
                 <HStack>
                     {gameInstance.participants?.map(x => {
                         return (
-                            <PlayerCard key={x.playerId} participant={x} />
+                            <PlayerCard key={x.playerId} participant={x}/>
                         )
                     })}
 

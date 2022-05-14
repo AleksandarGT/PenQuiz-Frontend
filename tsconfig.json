@@ -1,5 +1,7 @@
 {
-  "compilerOptions": {},
+  "compilerOptions": {
+    "strict": false
+  },
   "extends": "expo/tsconfig.base",
   "typeRoots": ["./types"] 
 }
