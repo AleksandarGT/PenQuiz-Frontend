@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function useSoundService() {
-    const [sound, setSound] = useState()
+    const [sound, setSound] = useState<boolean>()
 
     useEffect(() => {
         getGlobalSoundEffects().then(ex => {
@@ -24,7 +24,7 @@ export default function useSoundService() {
     }, [sound])
 
 
-    async function setGlobalSoundEffects(state) {
+    async function setGlobalSoundEffects(state: string) {
         await AsyncStorage.setItem("globalSoundEffects", state).catch(ex => {
             console.log(ex)
         })

@@ -6,7 +6,7 @@ import { gameTimerAtom } from "../state"
  * Sets the gameTimerAtom state to the given value and 
  * decreases it's time by 1 every second until it reaches 0
  */
-export default function useDebugTimer(startTime ) {
+export default function useDebugTimer(startTime: number ) {
     const [globalDisplayTime, setGlobalDisplayTime] = useRecoilState(gameTimerAtom)
 
     useEffect(() => {

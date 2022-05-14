@@ -47,7 +47,7 @@ export function MCQuestionTemplate({ backToBase, questionProp, answersProp, ques
         serverError,
         RejectQuestion,
         AcceptQuestion, EditQuestion } =
-        useQuestionVerification(backToBase, questionProp, questionId, null, answersProp)
+        useQuestionVerification({ backToBase, questionProp, questionId, answerProp: null, answersProp })
 
 
 

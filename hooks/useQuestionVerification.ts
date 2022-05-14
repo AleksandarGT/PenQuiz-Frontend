@@ -1,14 +1,16 @@
 import { useState } from "react"
 import { useFetchWrapper } from "../helpers"
 import { QUESTION_SERVICE_API_URL } from '../injectable'
+import { Answers, Questions } from "../types/adminQuestionTypes"
 
-export function useQuestionVerification(backToBase, questionProp, questionId, answerProp, answersProp = []) {
+export function useQuestionVerification(backToBase: Function, questionProp: Questions, questionId: number, answerProp: Answers, answersProp: Answers[] = []) {
     const fetchWrapper = useFetchWrapper()
     const [isEditable, setIsEditable] = useState(false)
     const [question, setQuestion] = useState({
         question: questionProp,
         error: "",
     })
+    const [serverError, setServerError] = useState<string>()
 
     // Number questions
     const [answer, setAnswer] = useState(answerProp && {
@@ -36,7 +38,6 @@ export function useQuestionVerification(backToBase, questionProp, questionId, an
         },
     ])
 
-    const [serverError, setServerError] = useState()
 
     function RejectQuestion() {
 
@@ -44,7 +45,7 @@ export function useQuestionVerification(backToBase, questionProp, questionId, an
         fetchWrapper.post(`${baseUrl}`, {
             questionId: questionId
         })
-            .then(response => {
+            .then((response: { message: string }) => {
                 setServerError("")
                 backToBase({ message: response.message, status: "danger" })
             })
@@ -53,10 +54,12 @@ export function useQuestionVerification(backToBase, questionProp, questionId, an
             })
     }
 
-    function ValidateQuestion(type) {
+    enum QuestionType {
+        MULTIPLE,
+        NUMBER
+    }
 
-        if (type != "multiple" && type != "number")
-            throw ""
+    function ValidateQuestion(type: QuestionType) {
 
         if (!question.question) {
             setQuestion(old => ({
@@ -64,7 +67,7 @@ export function useQuestionVerification(backToBase, questionProp, questionId, an
             }))
         }
 
-        if (type == "number") {
+        if (type == QuestionType.NUMBER) {
             if (!answer.answer) {
                 setAnswer(old => ({
                     ...old, error: "Answer field can not be empty!"
@@ -87,20 +90,24 @@ export function useQuestionVerification(backToBase, questionProp, questionId, an
         }
     }
 
-    function SendAcceptedRequest(endpoint, type) {
+    enum EndpointType {
+        ACCEPT,
+        EDIT
+    }
 
-        if (endpoint != "accept" && endpoint != "edit") throw "You can only provide 'edit' or 'accept'"
+    function SendAcceptedRequest(endpoint: EndpointType, type: QuestionType) {
 
         if (isEditable) {
-            const baseUrl = `${QUESTION_SERVICE_API_URL}/api/questionadmin/${endpoint == "accept" ? "changed-verify" : "edit"}`
+            const baseUrl = `${QUESTION_SERVICE_API_URL}/api/questionadmin/${endpoint == EndpointType.ACCEPT ? "changed-verify" : "edit"}`
+
             fetchWrapper.post(`${baseUrl}`, {
                 questionId: questionId,
                 question: question.question,
 
-                answer: type == "multiple" ? answers[0].answer : answer.answer,
-                wrongAnswers: type == "multiple" ? answers.filter(e => !e.correct).map(e => e.answer) : null
+                answer: type == QuestionType.MULTIPLE ? answers[0].answer : answer.answer,
+                wrongAnswers: type == QuestionType.MULTIPLE ? answers.filter(e => !e.correct).map(e => e.answer) : null
             })
-                .then(response => {
+                .then((response: { message: string }) => {
                     setServerError("")
                     backToBase({ message: response.message, status: "success" })
                 })
@@ -109,11 +116,11 @@ export function useQuestionVerification(backToBase, questionProp, questionId, an
                 })
         }
         else {
-            const baseUrl = `${QUESTION_SERVICE_API_URL}/api/questionadmin/${endpoint == "accept" ? "verify" : "edit"}`
+            const baseUrl = `${QUESTION_SERVICE_API_URL}/api/questionadmin/${endpoint == EndpointType.ACCEPT ? "verify" : "edit"}`
             fetchWrapper.post(`${baseUrl}`, {
                 questionId: questionId
             })
-                .then(response => {
+                .then((response: { message: string }) => {
                     setServerError("")
                     backToBase({ message: response.message, status: "success" })
                 })
@@ -123,7 +130,7 @@ export function useQuestionVerification(backToBase, questionProp, questionId, an
         }
     }
 
-    function AcceptQuestion(type) {
+    function AcceptQuestion(type: QuestionType) {
         try {
             ValidateQuestion(type)
         }
@@ -132,11 +139,11 @@ export function useQuestionVerification(backToBase, questionProp, questionId, an
             return
         }
 
-        SendAcceptedRequest("accept", type)
+        SendAcceptedRequest(EndpointType.ACCEPT, type)
     }
 
-    function EditQuestion(type) {
-        
+    function EditQuestion(type: QuestionType) {
+
         try {
             ValidateQuestion(type)
         }
@@ -145,7 +152,7 @@ export function useQuestionVerification(backToBase, questionProp, questionId, an
             return
         }
 
-        SendAcceptedRequest("edit", type)
+        SendAcceptedRequest(EndpointType.EDIT, type)
     }
 
     return {

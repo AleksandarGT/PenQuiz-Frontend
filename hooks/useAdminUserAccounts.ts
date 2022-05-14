@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { useFetchWrapper } from "../helpers"
 import { Platform } from 'react-native'
 import { ACCOUNT_SERVICE_API_URL } from '../injectable'
 import { useIsFocused } from '@react-navigation/native'
+import { PaginatedAccountsResponse } from "../types/adminAccountTypes"
 
 export default function useAdminUserAccounts() {
     const fetchWrapper = useFetchWrapper()
     const isFocused = useIsFocused()
 
     // How much entries per fetchUser request
-    const [serverError, setServerError] = useState()
-    const [userResponse, setuserResponse] = useState()
-    const [searchField, setSearchField] = useState()
+    const [serverError, setServerError] = useState<string>()
+    const [userResponse, setuserResponse] = useState<PaginatedAccountsResponse>()
+    const [searchField, setSearchField] = useState<string>()
 
 
     useEffect(() => {
@@ -36,9 +37,9 @@ export default function useAdminUserAccounts() {
         fetchUsers(userResponse.pageIndex)
     }
 
-    async function fetchUsers(pageNumber) {
+    async function fetchUsers(pageNumber: number) {
         const baseUrl = `${ACCOUNT_SERVICE_API_URL}/api/accountadmin?pageNumber=${pageNumber}&pageEntries=${Platform.OS == "web" ? 12 : 4}${searchField ? `&searchQuery=${searchField}` : ``}`
-        const res = await fetchWrapper.get(`${baseUrl}`).catch(er => {
+        const res: PaginatedAccountsResponse = await fetchWrapper.get(`${baseUrl}`).catch(er => {
             setServerError(er?.message)
         })
         setuserResponse(res)

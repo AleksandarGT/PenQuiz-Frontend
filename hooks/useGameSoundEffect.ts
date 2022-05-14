@@ -6,8 +6,8 @@ import useSoundService from "./useSoundService";
 
 export default function useGameSoundEffect() {
 
-    const [tickingSound, setTickingSound] = useState();
-    const [endSound, setEndSound] = useState();
+    const [tickingSound, setTickingSound] = useState<Audio.Sound>();
+    const [endSound, setEndSound] = useState<Audio.Sound>();
     const displayTime = useRecoilValue(gameTimerAtom)
     const [isAudioLoaded, setIsAudioLoaded] = useState(false)
 
@@ -64,7 +64,7 @@ export default function useGameSoundEffect() {
 
         // State changes on next re-render, meanwhile we may need to update the audio instantly
 
-        let localStartCheck
+        let localStartCheck: boolean
         // Initial load, when displaytime is 0 from previous load
         if (displayTime > 0 && !startCheck) {
             setStartCheck(true)
@@ -96,6 +96,11 @@ export default function useGameSoundEffect() {
 
         const status = await endSound.getStatusAsync()
 
+        if(!status.isLoaded) {
+            // The end alarm is not loaded
+            return
+        }
+        
         if (status.isPlaying) return
 
         await endSound.setVolumeAsync(0.4)
@@ -110,6 +115,11 @@ export default function useGameSoundEffect() {
 
         const status = await tickingSound.getStatusAsync()
 
+        if(!status.isLoaded) {
+            // The end alarm is not loaded
+            return
+        }
+        
         if (status.isPlaying) return
 
         // Song itself is 16s, max server-side timer is 12s
