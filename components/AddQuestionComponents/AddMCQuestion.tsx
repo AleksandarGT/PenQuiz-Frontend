@@ -6,7 +6,12 @@ import { useFetchWrapper } from '../../helpers'
 import { QUESTION_SERVICE_API_URL } from '../../injectable'
 
 
-function InputField({ answerPlaceholder, answer, onChangeText }) {
+function InputField({ answerPlaceholder, answer, onChangeText }: {
+    answerPlaceholder: string, answer: {
+        answer: string;
+        correct: boolean;
+    }, onChangeText: (value: string) => void
+}) {
     return (
         <VStack width={Platform.OS == "web" ? "100%" : "70%"}>
             <Text ml={2} fontSize="lg">Enter {answer.correct ? "correct" : "wrong"} answer:</Text>
@@ -148,26 +153,26 @@ export function AddMCQuestion({ backToBase }: { backToBase: (msg: string) => voi
             <Box mt={Platform.OS == "web" ? 5 : 0} />
             <Box maxWidth="300px">
                 <HStack justifyContent="center">
-                    <InputField answerPlaceholder={2019} answer={answers[0]} onChangeText={(e) => {
+                    <InputField answerPlaceholder={"2019"} answer={answers[0]} onChangeText={(e) => {
                         setAnswers(old => old.map(
                             el => el == answers[0] ? { ...el, answer: e } : el
                         ))
                     }} />
                     <Box mx={1} />
-                    <InputField answerPlaceholder={2020} answer={answers[1]} onChangeText={(e) => {
+                    <InputField answerPlaceholder={"2020"} answer={answers[1]} onChangeText={(e) => {
                         setAnswers(old => old.map(
                             el => el == answers[1] ? { ...el, answer: e } : el
                         ))
                     }} />
                 </HStack>
                 <HStack justifyContent="center">
-                    <InputField answerPlaceholder={2018} answer={answers[2]} onChangeText={(e) => {
+                    <InputField answerPlaceholder={"2018"} answer={answers[2]} onChangeText={(e) => {
                         setAnswers(old => old.map(
                             el => el == answers[2] ? { ...el, answer: e } : el
                         ))
                     }} />
                     <Box mx={1} />
-                    <InputField answerPlaceholder={2014} answer={answers[3]} onChangeText={(e) => {
+                    <InputField answerPlaceholder={"2014"} answer={answers[3]} onChangeText={(e) => {
                         setAnswers(old => old.map(
                             el => el == answers[3] ? { ...el, answer: e } : el
                         ))

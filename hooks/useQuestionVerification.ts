@@ -33,10 +33,11 @@ export function useQuestionVerification({ backToBase, questionProp, questionId, 
         error: "",
     })
 
+
     // Multiple Choice questions
-    const [answers, setAnswers] = useState(answersProp.length == 4 && [
+    const [answers, setAnswers] = useState(answersProp && answersProp.length == 4 && [
         {
-            answer: answersProp.find(x => x.correct).answer,
+            answer: answersProp.find(x => x.correct)!.answer,
             correct: true
         },
         {

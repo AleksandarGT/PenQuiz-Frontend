@@ -8,7 +8,14 @@ import TemplateButton from './ActionButton'
 
 import { QuestionsTemplateMode } from './TableQuestionsTemplate';
 
-function InputField({ answer, onChangeText, isEditable }) {
+function InputField({ answer, onChangeText, isEditable }: {
+    answer: {
+        answer: string;
+        correct: boolean;
+    },
+    onChangeText: (value: string) => void,
+    isEditable: boolean
+}) {
     return (
         <VStack width={Platform.OS == "web" ? "100%" : "70%"}>
             <Text ml={2} fontSize="lg">Enter {answer.correct ? "correct" : "wrong"} answer:</Text>

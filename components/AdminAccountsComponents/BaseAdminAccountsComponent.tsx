@@ -14,7 +14,7 @@ export default function BaseAdminAccountsComponent() {
     const windowWidth = Dimensions.get('screen').width;
     const adminUserAccounts = useAdminUserAccounts()
 
-    const [selectedUser, setSelectedUser] = useState<DetailedUserResponse | null>()
+    const [selectedUser, setSelectedUser] = useState<DetailedUserResponse>()
     const [currentScreen, setCurrentScreen] = useState<"base" | "details">("base")
 
 
@@ -161,7 +161,7 @@ export default function BaseAdminAccountsComponent() {
                 </Box>
             </View>
                 :
-                <DetailsUserComponent userData={selectedUser} />
+                <DetailsUserComponent userData={selectedUser!} />
             }
 
         </ImageBackground>

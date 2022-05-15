@@ -9,7 +9,7 @@ import { FindPublicMatch } from '../../hooks/useSignalR'
 import { GameHubStatusCode } from '../../types/hubTypes'
 
 
-function FindGameButton({ onPress }) {
+function FindGameButton({ onPress }: {onPress: () => void}) {
     return (
         <Pressable onPress={onPress}>
             {({ isHovered, isFocused, isPressed }) => {
@@ -61,7 +61,7 @@ export default function PublicGameDashboard() {
                 ) : null}
 
 
-                <FindGameButton onPress={FindGameButton}/>
+                <FindGameButton onPress={FindPublicMatch}/>
             </Center>
         </GameDashboardBase>
     )
