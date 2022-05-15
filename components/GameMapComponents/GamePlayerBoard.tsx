@@ -1,22 +1,20 @@
 import { Center, Container, HStack, Text, Image, VStack, Box } from "native-base"
-import React, { useState } from "react"
-import { View, StyleSheet, Platform } from 'react-native'
+import React from "react"
+import { Platform } from 'react-native'
 import { GetAvatarColor, GetPenguinAvatarImage } from './CommonGameFunc'
-import { useRecoilValue } from 'recoil'
-import { gameInstanceAtom } from '../../state'
-import { GetParticipantColor, gameInstanceMock } from './CommonGameFunc'
+import { GameInstanceResponse, ParticipantsResponse } from "../../types/gameInstanceTypes"
 
-export default function GameBoards({ gameInstance = gameInstanceMock, currentAttackerId }) {
+export default function GameBoards({ gameInstance, currentAttackerId }: { gameInstance: GameInstanceResponse, currentAttackerId: number }) {
     return (
         <>
             {gameInstance.participants.map(x =>
-                <GamePlayerBoard key={x.id} hisTurn={x.playerId == currentAttackerId ? true : false} participant={x} />
+                <GamePlayerBoard key={x.id} hisTurn={x.playerId == currentAttackerId} participant={x} />
             )}
         </>
     )
 }
 
-function GamePlayerBoard({ participant, hisTurn }) {
+function GamePlayerBoard({ participant, hisTurn }: { participant: ParticipantsResponse, hisTurn: boolean }) {
 
     return (
         <>

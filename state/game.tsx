@@ -1,7 +1,7 @@
 import { atom, selector } from 'recoil'
 import { gameInstanceMock } from '../components/GameMapComponents/CommonGameFunc'
 import { GameInstanceResponse } from '../types/gameInstanceTypes';
-import { IPlayerAttackPossibilities, MCPlayerQuestionAnswers, QuestionClientResponse } from '../types/gameResponseTypes';
+import { IPlayerAttackPossibilities, MCPlayerQuestionAnswers, NumberPlayerQuestionAnswers, QuestionClientResponse } from '../types/gameResponseTypes';
 import { IHubConnectionStatus } from '../types/hubTypes';
 
 export const gameInstanceAtom = atom<GameInstanceResponse | null>({
@@ -28,7 +28,7 @@ export const roundQuestionAtom = atom<QuestionClientResponse | null>({
     default: null,
 })
 
-export const playerQuestionAnswersAtom = atom<MCPlayerQuestionAnswers | null>({
+export const playerQuestionAnswersAtom = atom<MCPlayerQuestionAnswers | NumberPlayerQuestionAnswers | null>({
     key: "playerQuestionAnswers",
     default: null,
 })

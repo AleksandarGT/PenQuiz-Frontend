@@ -1,18 +1,19 @@
 import { Platform } from 'react-native'
+import { AttackStage, GameInstanceResponse } from '../../types/gameInstanceTypes'
 
-export function GetAvatarColor(avatarName) {
+export function GetAvatarColor(avatarName: string) {
     return ReturnColor(avatarName)
 }
 
 
-export function GetParticipantColor(gameInstance, playerId) {
-    let particip = gameInstance.participants.find(x => x.playerId == playerId)
+export function GetParticipantColor(gameInstance: GameInstanceResponse, playerId: number) {
+    const particip = gameInstance.participants.find(x => x.playerId == playerId)
 
     return ReturnColor(particip?.avatarName)
 }
 
-export function GetAttackTerritoryPossibilityColor(gameInstance, playerId) {
-    let particip = gameInstance.participants.find(x => x.playerId == playerId)
+export function GetAttackTerritoryPossibilityColor(gameInstance: GameInstanceResponse, playerId: number) {
+    const particip = gameInstance.participants.find(x => x.playerId == playerId)
 
     switch (particip?.avatarName) {
         case "penguinAvatar":
@@ -24,7 +25,7 @@ export function GetAttackTerritoryPossibilityColor(gameInstance, playerId) {
     }
 }
 
-function ReturnColor(avatarName) {
+function ReturnColor(avatarName: string) {
     switch (avatarName) {
         case "penguinAvatar":
             return "#5074FF"
@@ -35,7 +36,7 @@ function ReturnColor(avatarName) {
     }
 }
 
-export function GetPenguinAvatarImage(avatarName) {
+export function GetPenguinAvatarImage(avatarName: string) {
     if(Platform.OS == "web") {
         return avatarName == "penguinAvatar"
         ? require('../../assets/penguinAvatar.svg')
@@ -52,7 +53,7 @@ export function GetPenguinAvatarImage(avatarName) {
     }
 }
 
-export function RoundAttackStage(attackStage) {
+export function RoundAttackStage(attackStage: AttackStage) {
     switch (attackStage) {
         case 0:
             return "MULTIPLE_NEUTRAL"

@@ -1,13 +1,34 @@
-import { Box, Center, Container, HStack, Text, VStack, Image, Divider, Pressable, View } from 'native-base'
+import { Box, Text, Pressable, View } from 'native-base'
 import React from 'react'
 import { Dimensions, Platform } from 'react-native'
-import { useRecoilState, useRecoilValue } from 'recoil'
+import { useRecoilValue } from 'recoil'
 import { authAtom, gameTimerAtom } from '../../../state'
 import { GetAvatarColor } from '../CommonGameFunc'
 import { LinearGradient } from 'expo-linear-gradient';
+import { MCPlayerQuestionAnswers, QuestionClientResponse } from '../../../types/gameResponseTypes'
+import { AnswerMCQuestion } from '../../../hooks/useSignalR'
+interface AnswerButtonParams {
+    isDisabled: boolean,
+    answeredId: number,
+    playerQuestionAnswers: MCPlayerQuestionAnswers,
+    setAnsweredId: (value: number) => void,
+    question: QuestionClientResponse,
+    playerAnswers: { id: number, answerId: number }[]
+    answer: {
+        id: number;
+        answer: string;
+    }
+}
 
+export default function AnswerButton({ answer,
+    playerAnswers,
+    isDisabled,
+    answeredId,
+    playerQuestionAnswers,
+    question,
+    setAnsweredId
+}: AnswerButtonParams) {
 
-export default function AnswerButton({ answer, playerAnswers, isDisabled, answeredId, playerQuestionAnswers, question, AnswerMCQuestion, setAnsweredId }) {
     const window = Dimensions.get('window')
     const user = useRecoilValue(authAtom)
     const gameTimer = useRecoilValue(gameTimerAtom)
@@ -30,6 +51,7 @@ export default function AnswerButton({ answer, playerAnswers, isDisabled, answer
 
 
 
+
                         <LinearGradient
                             // Button Linear Gradient
                             colors={playerAnswers?.length == 3 ? ["#5074FF", "#8350FF", "#8350FF", "#FF5074"] :
@@ -42,7 +64,7 @@ export default function AnswerButton({ answer, playerAnswers, isDisabled, answer
 
                             locations={playerAnswers?.length == 3 ? [0.33, 0.33, 0.66, 0.66] :
                                 playerAnswers?.length == 2 ? [0.5, 0.5] :
-                                [0.5, 0.5]
+                                    [0.5, 0.5]
                             }
                             start={{ x: 1, y: 1 }} style={{
                                 padding: 10,

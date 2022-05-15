@@ -5,13 +5,13 @@ import { useRecoilValue } from 'recoil';
 import { participantSelector } from '../../../state';
 import { gameSvgs, GetAvatarColor } from '../CommonGameFunc';
 
-export function PlayerAvatar({ supportIcon, avatarName }) {
+export function PlayerAvatar({ supportIcon, avatarName }: { supportIcon: string, avatarName: string }) {
     const participants = useRecoilValue(participantSelector)
 
     return (
         <VStack justifyContent="center" flex={1}>
             <Center>
-                <Center  style={{ borderColor: "white", borderWidth: 5, borderRadius: 15 }} p={2}>
+                <Center style={{ borderColor: "white", borderWidth: 5, borderRadius: 15 }} p={2}>
                     <Image
                         source={Platform.OS == "web" ? gameSvgs.find(x => x.name == supportIcon).img : gameSvgs.find(x => x.name == supportIcon).imgPng}
                         alt="Alternate Text"

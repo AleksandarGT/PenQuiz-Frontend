@@ -5,7 +5,7 @@ import { GAME_SERVICE_API_URL } from '../injectable'
 import { removeBackStack } from '../helpers'
 import { getConnection } from './SignalRSetup'
 import { useEffect } from 'react'
-import { MCPlayerQuestionAnswers, QuestionClientResponse, SelectedTerritoryResponse } from '../types/gameResponseTypes'
+import { MCPlayerQuestionAnswers, NumberPlayerQuestionAnswers, QuestionClientResponse, SelectedTerritoryResponse } from '../types/gameResponseTypes'
 import { HubConnection } from '@microsoft/signalr'
 import { GameHubStatusCode } from '../types/hubTypes'
 import { GameState } from '../types/gameInstanceTypes'
@@ -191,7 +191,7 @@ export function useSignalR() {
             setGameMapException("")
         }))
 
-        connection.on('NumberQuestionPreviewResult', ((previewResult: MCPlayerQuestionAnswers) => {
+        connection.on('NumberQuestionPreviewResult', ((previewResult: NumberPlayerQuestionAnswers) => {
             setPlayerAttackPossibilities(null)
 
             setPlayerQuestionAnswers(previewResult)

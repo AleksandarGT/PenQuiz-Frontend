@@ -1,24 +1,23 @@
-import { Box, Center, Container, HStack, Text, VStack, IconButton } from 'native-base'
-import React, { useEffect, useState } from 'react'
-import { ImageBackground, Platform, View } from 'react-native'
-import { gameInstanceMock, gameSvgs, GetAvatarColor, multipleChoiceQuestionMock, numberChoicePvpQuestionMock, numberChoiceQuestionMock, playerQuestionAnswersMock, playerQuestionNumberAnswersMock } from './CommonGameFunc'
-import { authAtom, gameTimerAtom } from '../../state'
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
-import { PlayerAvatar, MultipleAvatars, AnswerButton } from './QuestionScreens'
+import { Box, Center, HStack, Text, VStack, IconButton } from 'native-base'
+import React, {  } from 'react'
+import { ImageBackground, Platform } from 'react-native'
+import { GetAvatarColor } from './CommonGameFunc'
+import { authAtom } from '../../state'
+import { useRecoilValue } from 'recoil'
+import { PlayerAvatar, MultipleAvatars } from './QuestionScreens'
 import MCQuestionTimer from './QuestionScreens/MCQuestionTimer'
-import { MaterialIcons } from '@expo/vector-icons'
 import AnswerNumberQuestionComponent from './QuestionScreens/AnswerNumberQuestionComponent'
 import useGameSoundEffect from '../../hooks/useGameSoundEffect'
 import useDebugTimer from '../../hooks/useDebugTimer'
 import { Ionicons } from '@expo/vector-icons'
-import { CapitalRoundTimer, LastRoundIndicator, TowerSvg } from './TimerSuffixElements'
+import { CapitalRoundTimer, LastRoundIndicator } from './TimerSuffixElements'
+import { NumberPlayerQuestionAnswers, QuestionClientResponse } from '../../types/gameResponseTypes'
 
 export default function NumberChoiceScreen({
-    question = numberChoicePvpQuestionMock,
-    AnswerNumberQuestion = (e) => console.log("Default behavior" + e),
+    question,
     playerQuestionAnswers,
-    isDebugMode = false
-}) {
+    isDebugMode = false,
+}: { question: QuestionClientResponse, playerQuestionAnswers: NumberPlayerQuestionAnswers, isDebugMode?: boolean }) {
 
     // Run debug timer to simulate actual countdown
     isDebugMode && useDebugTimer(12)
@@ -154,7 +153,7 @@ export default function NumberChoiceScreen({
                     {playerQuestionAnswers ?
                         <NumberQuestionResult key="numQResult" />
                         :
-                        <AnswerNumberQuestionComponent AnswerNumberQuestion={AnswerNumberQuestion} question={question} key="answerNQComp" />
+                        <AnswerNumberQuestionComponent question={question} key="answerNQComp" />
                     }
                 </Center>
             </ImageBackground>

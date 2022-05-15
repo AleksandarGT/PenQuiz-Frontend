@@ -5,9 +5,10 @@ import { gameInstanceMock, gameSvgs, GetAvatarColor, multipleChoiceQuestionMock,
 import { authAtom, gameTimerAtom } from '../../../state'
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import { MaterialIcons } from '@expo/vector-icons'
+import { AnswerNumberQuestion } from '../../../hooks'
 
 
-export default function AnswerNumberQuestionComponent({ question, AnswerNumberQuestion }) {
+export default function AnswerNumberQuestionComponent({ question }) {
     const [answer, setAnswer] = useState("")
     const [isAnswered, setisAnswered] = useState(false)
     const user = useRecoilValue(authAtom)

@@ -1,11 +1,12 @@
 import { Box, Center, HStack, Icon, Text } from "native-base";
 import * as React from "react"
-import Svg, { SvgProps, Path } from "react-native-svg"
+import { Path } from "react-native-svg"
+import { QuestionClientResponse } from "../../types/gameResponseTypes";
 import MCQuestionTimer from "./QuestionScreens/MCQuestionTimer";
 /* SVGR has dropped some elements not supported by react-native-svg: title */
 
 
-export function CapitalRoundTimer({ question }) {
+export function CapitalRoundTimer({ question }: { question: QuestionClientResponse }) {
     return (
         <>
             {/* Timer */}

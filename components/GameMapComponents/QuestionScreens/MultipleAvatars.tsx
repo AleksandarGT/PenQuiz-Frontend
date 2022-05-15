@@ -5,7 +5,7 @@ import { useRecoilValue } from 'recoil';
 import { participantSelector } from '../../../state';
 import { gameSvgs, GetAvatarColor } from '../CommonGameFunc';
 
-export function MultipleAvatars({ avatarNames }) {
+export function MultipleAvatars({ avatarNames }: { avatarNames: string[] }) {
     const participants = useRecoilValue(participantSelector)
 
     return (

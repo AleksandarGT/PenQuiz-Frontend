@@ -1,23 +1,22 @@
-import { Box, Center, Container, HStack, Stack, VStack, ZStack, Text, Spacer, Button, Circle, IconButton } from "native-base"
-import React, { useState, useEffect } from "react"
-import { View, StyleSheet, ImageBackground, Platform } from 'react-native'
+import { Center, Container, HStack, VStack, IconButton } from "native-base"
+import React, { useEffect } from "react"
+import { View, ImageBackground, Platform } from 'react-native'
 import { useRecoilValue } from "recoil"
 import { removeBackStack } from "../../helpers"
-import { AnswerMCQuestion, AnswerNumberQuestion, SelectTerritory } from "../../hooks"
+import { SelectTerritory } from "../../hooks"
 import { authAtom, gameInstanceAtom, gameMapExceptionAtom, gameTimerAtom, playerAttackPossibilitiesAtom, playerQuestionAnswersAtom, roundQuestionAtom } from "../../state"
-import DefaultAlert from "../Popups/DefaultAlert"
 import GameEndModal from "../Popups/GameEndModal"
 import AntarcticaMapSvg from './AntarcticaMapSvg'
-import { gameInstanceMock, GetGameState, multipleChoiceQuestionMock, RoundAttackStage } from "./CommonGameFunc"
-import GameChat from "./GameChat"
+import { GetGameState } from "./CommonGameFunc"
 import GameBoards from "./GamePlayerBoard"
 import GameRounding from "./GameRounding"
 import GameTimer from "./GameTimer"
 import MultipleChoiceScreen from "./MultipleChoiceScreen"
 import NumberChoiceScreen from "./NumberChoiceScreen"
 import { Ionicons } from '@expo/vector-icons'
-import useSoundService from "../../hooks/useSoundService"
 import useGameSoundEffect from "../../hooks/useGameSoundEffect"
+import { AttackStage } from "../../types/gameInstanceTypes"
+import { MCPlayerQuestionAnswers, NumberPlayerQuestionAnswers } from "../../types/gameResponseTypes"
 
 export default function GameMap() {
     const roundQuestion = useRecoilValue(roundQuestionAtom)
@@ -34,14 +33,15 @@ export default function GameMap() {
         setIsEnabled(playerAttackPossibilities?.attackerId == currentUser.id ? true : false)
     }, [playerAttackPossibilities])
 
-    function OnTerritoryClick(territoryName) {
+    function OnTerritoryClick(territoryName: string) {
         const currentRound = gameInstance.rounds.find(x => x.gameRoundNumber == gameInstance.gameRoundNumber)
         if (!currentUser) return
-        switch (RoundAttackStage(currentRound.attackStage)) {
-            case "MULTIPLE_NEUTRAL":
-            case "MULTIPLE_PVP":
+
+        switch (currentRound.attackStage) {
+            case AttackStage.MULTIPLE_NEUTRAL:
+            case AttackStage.MULTIPLE_PVP:
                 SelectTerritory(territoryName, gameTimer)
-                break
+                break;
         }
     }
 
@@ -52,10 +52,10 @@ export default function GameMap() {
                 backgroundColor: "#032157",
             }}>
                 {roundQuestion?.type == "multiple" ?
-                    <MultipleChoiceScreen key="mcScreen1" playerQuestionAnswers={playerQuestionAnswers} AnswerMCQuestion={AnswerMCQuestion} question={roundQuestion} />
+                    <MultipleChoiceScreen key="mcScreen1" playerQuestionAnswers={playerQuestionAnswers as MCPlayerQuestionAnswers} question={roundQuestion} />
                     :
                     roundQuestion?.type == "number" ?
-                        <NumberChoiceScreen key="numberScreen1" playerQuestionAnswers={playerQuestionAnswers} AnswerNumberQuestion={AnswerNumberQuestion} question={roundQuestion} />
+                        <NumberChoiceScreen key="numberScreen1" playerQuestionAnswers={playerQuestionAnswers as NumberPlayerQuestionAnswers} question={roundQuestion} />
                         :
                         <>
 

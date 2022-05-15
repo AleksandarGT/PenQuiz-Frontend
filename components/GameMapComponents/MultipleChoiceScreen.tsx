@@ -11,15 +11,16 @@ import useGameSoundEffect from '../../hooks/useGameSoundEffect'
 import useDebugTimer from '../../hooks/useDebugTimer'
 import { Ionicons } from '@expo/vector-icons'
 import { TowerSvg } from './TimerSuffixElements'
+import { MCPlayerQuestionAnswers, QuestionClientResponse } from '../../types/gameResponseTypes'
 
 export default function MultipleChoiceScreen({
-    question = multipleChoiceQuestionMock,
-    AnswerMCQuestion = () => console.log("Default behavior"),
+    question,
     playerQuestionAnswers,
     isDebugMode = false,
-}) {
+}: { question: QuestionClientResponse, playerQuestionAnswers: MCPlayerQuestionAnswers, isDebugMode?: boolean }) {
+
     const user = useRecoilValue(authAtom)
-    const [answeredId, setAnsweredId] = useState()
+    const [answeredId, setAnsweredId] = useState<number>()
 
 
     // Run debug timer to simulate actual countdown
@@ -143,7 +144,6 @@ export default function MultipleChoiceScreen({
                             <VStack >
                                 <AnswerButton
                                     setAnsweredId={setAnsweredId}
-                                    AnswerMCQuestion={AnswerMCQuestion}
                                     answeredId={answeredId}
                                     playerQuestionAnswers={playerQuestionAnswers}
                                     question={question}
@@ -154,7 +154,6 @@ export default function MultipleChoiceScreen({
                                 />
                                 <AnswerButton
                                     setAnsweredId={setAnsweredId}
-                                    AnswerMCQuestion={AnswerMCQuestion}
                                     answeredId={answeredId}
                                     playerQuestionAnswers={playerQuestionAnswers}
                                     question={question}
@@ -167,7 +166,6 @@ export default function MultipleChoiceScreen({
                             <VStack>
                                 <AnswerButton
                                     setAnsweredId={setAnsweredId}
-                                    AnswerMCQuestion={AnswerMCQuestion}
                                     answeredId={answeredId}
                                     playerQuestionAnswers={playerQuestionAnswers}
                                     question={question}
@@ -178,7 +176,6 @@ export default function MultipleChoiceScreen({
                                 />
                                 <AnswerButton
                                     setAnsweredId={setAnsweredId}
-                                    AnswerMCQuestion={AnswerMCQuestion}
                                     answeredId={answeredId}
                                     playerQuestionAnswers={playerQuestionAnswers}
                                     question={question}

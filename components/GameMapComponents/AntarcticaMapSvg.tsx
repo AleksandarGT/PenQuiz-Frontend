@@ -1,16 +1,27 @@
-import React, { useState } from "react"
-import Svg, { Defs, Path, G, Text, TSpan } from "react-native-svg"
-import { View, Button, StyleSheet, useWindowDimensions, Platform } from 'react-native';
+import React from "react"
+import Svg, { Path, G, Text } from "react-native-svg"
+import { View, useWindowDimensions } from 'react-native';
 /* SVGR has dropped some elements not supported by react-native-svg: style */
-import { useHeaderHeight } from '@react-navigation/elements';
-import { Center } from "native-base";
 import { useRecoilValue } from 'recoil'
-import { authAtom, gameInstanceAtom } from '../../state'
-import { GetParticipantColor, gameInstanceMock, playerAttackPossibilitiesMock, GetAttackTerritoryPossibilityColor } from './CommonGameFunc'
+import { authAtom } from '../../state'
+import { GetParticipantColor, GetAttackTerritoryPossibilityColor } from './CommonGameFunc'
 import DefaultAlert from "../Popups/DefaultAlert";
+import { GameInstanceResponse } from "../../types/gameInstanceTypes";
+import { IPlayerAttackPossibilities } from "../../types/gameResponseTypes";
 
-export default function AntarcticaMapSvg({ gameMapException, onTerritoryClick, gameInstance = gameInstanceMock, playerAttackPossibilities = playerAttackPossibilitiesMock }) {
-  const antarcticaBorders = require('../../assets/Antarctica.json')
+interface AntarcticaMapSvgParams {
+  onTerritoryClick: (territoryName: string) => void
+  gameMapException: string,
+  gameInstance: GameInstanceResponse,
+  playerAttackPossibilities: IPlayerAttackPossibilities
+}
+export default function AntarcticaMapSvg({ gameMapException,
+  onTerritoryClick,
+  gameInstance,
+  playerAttackPossibilities
+}: AntarcticaMapSvgParams) {
+
+  //const antarcticaBorders = require('../../assets/Antarctica.json')
   const antarcticaSVGElements = require('../../assets/AntarcticaSvgElements.json')
   // Original map dimensions
   const originalWidth = 694.3;
@@ -21,7 +32,7 @@ export default function AntarcticaMapSvg({ gameMapException, onTerritoryClick, g
 
   const aspectRatio = originalWidth / originalHeight;
 
-  function SetTerritoryColor(territoryName) {
+  function SetTerritoryColor(territoryName: string) {
     if (playerAttackPossibilities.attackerId == currentUser?.id && playerAttackPossibilities?.availableAttackTerritories?.find(x => x == territoryName)) {
       return GetAttackTerritoryPossibilityColor(gameInstance, playerAttackPossibilities.attackerId)
     }
@@ -32,6 +43,8 @@ export default function AntarcticaMapSvg({ gameMapException, onTerritoryClick, g
     var jsx = []
     Object.keys(antarcticaSVGElements).forEach((k) => {
       jsx.push(
+
+        // @ts-ignore
         <G key={k} onClick={() => onTerritoryClick(k)} onPress={() => onTerritoryClick(k)}>
           {/* Territory path */}
           <Path
@@ -121,7 +134,6 @@ export default function AntarcticaMapSvg({ gameMapException, onTerritoryClick, g
         null
       }
       <Svg
-        xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 694.3 587.02"
       >
         <G data-name="Layer 2">

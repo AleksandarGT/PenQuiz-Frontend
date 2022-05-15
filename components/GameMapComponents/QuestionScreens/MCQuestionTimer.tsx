@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import { ImageBackground, View } from 'react-native'
-import { authAtom, gameTimerAtom } from '../../../state';
-import { Box, Center, Container, HStack, Text, VStack, Image, Divider, Pressable } from 'native-base'
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import React, {  } from 'react'
+import { View } from 'react-native'
+import { gameTimerAtom } from '../../../state';
+import { Center, HStack, Text } from 'native-base'
+import { useRecoilValue } from 'recoil';
 import { MaterialIcons } from '@expo/vector-icons';
 
 export default function MCQuestionTimer() {

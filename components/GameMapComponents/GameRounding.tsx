@@ -1,30 +1,29 @@
-import { Center, Container, HStack, Text, Image, VStack, Box, ZStack } from "native-base";
-import React, { useState } from "react"
-import { View, StyleSheet, Platform } from 'react-native';
-import { GetParticipantColor, RoundAttackStage, gameInstanceMock } from './CommonGameFunc'
-import { useRecoilValue } from 'recoil'
-import { gameInstanceAtom } from '../../state'
+import { HStack } from "native-base";
+import React from "react"
+import { View, Platform } from 'react-native';
+import { GetParticipantColor } from './CommonGameFunc'
+import { AttackStage, GameInstanceResponse } from "../../types/gameInstanceTypes";
 
-export default function GameRounding({ gameInstance = gameInstanceMock }) {
+export default function GameRounding({ gameInstance }: { gameInstance: GameInstanceResponse }) {
     if (!gameInstance) {
         return null
     }
 
 
     function RenderRound() {
-        let ENUM_ID
-        switch (RoundAttackStage(gameInstance.rounds.find(x => x.gameRoundNumber == gameInstance.gameRoundNumber)?.attackStage)) {
-            case "MULTIPLE_NEUTRAL":
-                ENUM_ID = 0;
+        switch (gameInstance.rounds.find(x => x.gameRoundNumber == gameInstance.gameRoundNumber)?.attackStage) {
+            case AttackStage.MULTIPLE_NEUTRAL:
 
                 // Rounds hold a single round question // Contain 3 territory attackers
                 return (
                     <>
-                        {gameInstance.rounds.filter(x => x.attackStage == ENUM_ID).map(round =>
+                        {gameInstance.rounds.filter(x => x.attackStage == AttackStage.MULTIPLE_NEUTRAL).map(round =>
                             <React.Fragment key={round.id}>
                                 {round.neutralRound.territoryAttackers.map((pAttack, index) =>
                                     <View key={pAttack.id} style={[round.gameRoundNumber == gameInstance.gameRoundNumber
                                         && pAttack.attackOrderNumber == round.neutralRound.attackOrderNumber ? {
+
+                                        // @ts-ignore
                                         outlineColor: 'rgba(6, 28, 83, 0.8)',
                                         outlineStyle: "solid",
                                         outlineWidth: 4,
@@ -51,13 +50,13 @@ export default function GameRounding({ gameInstance = gameInstanceMock }) {
                         )}
                     </>
                 )
-            case "NUMBER_NEUTRAL":
-                ENUM_ID = 1;
-
+            case AttackStage.NUMBER_NEUTRAL:
                 return (
                     <>
-                        {gameInstance.rounds.filter(x => x.attackStage == ENUM_ID).map(round =>
+                        {gameInstance.rounds.filter(x => x.attackStage == AttackStage.NUMBER_NEUTRAL).map(round =>
                             <View key={round.id} style={[round.gameRoundNumber == gameInstance.gameRoundNumber ? {
+                                
+                                // @ts-ignore
                                 outlineColor: 'rgba(6, 28, 83, 0.8)',
                                 outlineStyle: "solid",
                                 outlineWidth: 4,
@@ -82,16 +81,17 @@ export default function GameRounding({ gameInstance = gameInstanceMock }) {
                     </>
                 )
 
-            case "MULTIPLE_PVP":
-                ENUM_ID = 2;
+            case AttackStage.MULTIPLE_PVP:
                 const NUMBER_PVP_ID = 3;
 
                 // Rounds hold a single round question // Contain 3 territory attackers
                 return (
                     <>
-                        {gameInstance.rounds.filter(x => x.attackStage == ENUM_ID || x.attackStage == NUMBER_PVP_ID).map((round, index) =>
+                        {gameInstance.rounds.filter(x => x.attackStage == AttackStage.MULTIPLE_PVP || x.attackStage == NUMBER_PVP_ID).map((round, index) =>
                             <React.Fragment key={round.id}>
                                 <View key={round.pvpRound.id} style={[round.gameRoundNumber == gameInstance.gameRoundNumber ? {
+                                    
+                                    // @ts-ignore
                                     outlineColor: 'rgba(6, 28, 83, 0.8)',
                                     outlineStyle: "solid",
                                     outlineWidth: 4,

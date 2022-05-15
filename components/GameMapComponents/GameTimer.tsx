@@ -1,10 +1,10 @@
-import { Center, Container, HStack, Text, Image, VStack, Box, ZStack, Circle, useBreakpointValue } from "native-base"
-import React, { useEffect, useState } from "react"
-import { View, StyleSheet } from 'react-native'
+import { Center, HStack, Text } from "native-base"
+import React, {  } from "react"
+import { View } from 'react-native'
 import { MaterialIcons } from '@expo/vector-icons'
-import { useRecoilState, useRecoilValue } from "recoil"
+import { useRecoilValue } from "recoil"
 import { gameTimerAtom } from "../../state"
-import { GameState, GetGameState } from "./CommonGameFunc"
+import { GetGameState } from "./CommonGameFunc"
 
 export default function GameTimer({ gameState }) {
     const displayTime = useRecoilValue(gameTimerAtom)
@@ -25,7 +25,6 @@ export default function GameTimer({ gameState }) {
             <Center style={{ flex: 0.1 }}>
 
                 <View style={{
-                    justifyContent: "center",
                     minWidth: 150,
                     width: "20%",
                     backgroundColor: "#A91C1C",

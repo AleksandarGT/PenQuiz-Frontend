@@ -41,3 +41,17 @@ export interface SelectedTerritoryResponse {
     territoryId: number;
     attackedById: number;
 }
+
+
+export interface NumberPlayerQuestionAnswers {
+    correctAnswer: string;
+    playerAnswers: NumberPlayerIdAnswer[];
+}
+
+export interface NumberPlayerIdAnswer {
+    playerId: number;
+    answer: string;
+    differenceWithCorrect: string;
+    timeElapsed: string;
+    winner: boolean;
+}
