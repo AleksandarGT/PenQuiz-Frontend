@@ -15,8 +15,8 @@ import { GameLobby } from '../components/GameLobby'
 import GameMap from '../components/GameMapComponents/GameMap'
 import MultipleChoiceScreen from '../components/GameMapComponents/MultipleChoiceScreen'
 import NumberChoiceScreen from '../components/GameMapComponents/NumberChoiceScreen'
-import { GetGameState } from '../components/GameMapComponents/CommonGameFunc'
 import { authStatusType } from '../types/authTypes'
+import { GameState } from '../types/gameInstanceTypes'
 
 export * from './LoadingComponent'
 
@@ -66,7 +66,7 @@ export function Routes() {
         e.returnValue = '';
       }
 
-      if (GetGameState(game?.gameState) == 'IN_PROGRESS') {
+      if (game?.gameState == GameState.IN_PROGRESS) {
         window.addEventListener('beforeunload', unloadEventHandler);
       }
       else {

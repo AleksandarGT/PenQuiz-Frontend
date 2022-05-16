@@ -17,7 +17,7 @@ export function MultipleAvatars({ avatarNames }: { avatarNames: string[] }) {
                             <VStack>
                                 <Center>
                                     <Image
-                                        source={Platform.OS == "web" ? gameSvgs.find(x => x.name == avatarNames[0]).img : gameSvgs.find(x => x.name == avatarNames[0]).imgPng}
+                                        source={Platform.OS == "web" ? gameSvgs.find(x => x.name == avatarNames[0])!.img : gameSvgs.find(x => x.name == avatarNames[0])!.imgPng}
                                         alt="Alternate Text"
                                         resizeMode="contain"
                                         size={Platform.OS == "web" ? "md" : "xs"}
@@ -27,7 +27,7 @@ export function MultipleAvatars({ avatarNames }: { avatarNames: string[] }) {
                         </Box>
                     </Box>
                     <Text color="black" isTruncated textAlign="center" fontSize="lg" mt={1}>
-                        {participants?.find(x => x.avatarName == avatarNames[0])?.player.username ?? "undefined"}
+                        {participants?.find(x => x.avatarName == avatarNames[0])?.player?.username ?? "undefined"}
                     </Text>
                 </Box>
 
@@ -38,7 +38,7 @@ export function MultipleAvatars({ avatarNames }: { avatarNames: string[] }) {
                             <VStack>
                                 <Center>
                                     <Image
-                                        source={Platform.OS == "web" ? gameSvgs.find(x => x.name == avatarNames[1]).img : gameSvgs.find(x => x.name == avatarNames[1]).imgPng}
+                                        source={Platform.OS == "web" ? gameSvgs.find(x => x.name == avatarNames[1])!.img : gameSvgs.find(x => x.name == avatarNames[1])!.imgPng}
                                         alt="Alternate Text"
                                         resizeMode="contain"
                                         size={Platform.OS == "web" ? "md" : "xs"}
@@ -48,7 +48,7 @@ export function MultipleAvatars({ avatarNames }: { avatarNames: string[] }) {
                         </Box>
                     </Box>
                     <Text color="black" isTruncated textAlign="center" fontSize="lg" mt={1}>
-                        {participants?.find(x => x.avatarName == avatarNames[1])?.player.username ?? "undefined"}
+                        {participants?.find(x => x.avatarName == avatarNames[1])?.player?.username ?? "undefined"}
                     </Text>
                 </Box>
             </Center>

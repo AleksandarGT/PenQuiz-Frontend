@@ -13,7 +13,7 @@ export function PlayerAvatar({ supportIcon, avatarName }: { supportIcon: string,
             <Center>
                 <Center style={{ borderColor: "white", borderWidth: 5, borderRadius: 15 }} p={2}>
                     <Image
-                        source={Platform.OS == "web" ? gameSvgs.find(x => x.name == supportIcon).img : gameSvgs.find(x => x.name == supportIcon).imgPng}
+                        source={Platform.OS == "web" ? gameSvgs.find(x => x.name == supportIcon)!.img : gameSvgs.find(x => x.name == supportIcon)!.imgPng}
                         alt="Alternate Text"
                         resizeMode="contain"
                         size={Platform.OS == "web" ? "sm" : "xs"}
@@ -26,7 +26,7 @@ export function PlayerAvatar({ supportIcon, avatarName }: { supportIcon: string,
                             <VStack>
                                 <Center>
                                     <Image
-                                        source={Platform.OS == "web" ? gameSvgs.find(x => x.name == avatarName).img : gameSvgs.find(x => x.name == avatarName).imgPng}
+                                        source={Platform.OS == "web" ? gameSvgs.find(x => x.name == avatarName)!.img : gameSvgs.find(x => x.name == avatarName)!.imgPng}
                                         alt="Alternate Text"
                                         resizeMode="contain"
                                         size={Platform.OS == "web" ? "md" : "xs"}
@@ -36,7 +36,7 @@ export function PlayerAvatar({ supportIcon, avatarName }: { supportIcon: string,
                         </Box>
                     </Box>
                     <Text color="black" isTruncated textAlign="center" fontSize="lg" mt={1}>
-                        {participants?.find(x => x.avatarName == avatarName)?.player.username ?? "undefined"}
+                        {participants?.find(x => x.avatarName == avatarName)?.player!.username ?? "undefined"}
                     </Text>
                 </Box>
             </Center>

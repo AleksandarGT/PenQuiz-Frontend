@@ -58,6 +58,21 @@ export function MCQuestionTemplate(stateParameters: useQuestionVerificationParam
         useQuestionVerification(stateParameters)
 
 
+    function setInputTextState(text: string, answerIndexPosition: number) {
+        setAnswers(old => {
+
+            if (!old || !answers)
+                return undefined
+
+            const newValue = old.map(
+                el => el == answers[answerIndexPosition] ? { ...el, answer: text } : el
+            )
+
+            return newValue
+        })
+    }
+
+
 
     return (
         <Center>
@@ -93,30 +108,14 @@ export function MCQuestionTemplate(stateParameters: useQuestionVerificationParam
 
                 <VStack>
                     <HStack width="50%">
-                        <InputField isEditable={isEditable} answer={answers[0]} onChangeText={(e) => {
-                            setAnswers(old => old.map(
-                                el => el == answers[0] ? { ...el, answer: e } : el
-                            ))
-                        }} />
+                        <InputField isEditable={isEditable} answer={answers![0]} onChangeText={(e) => setInputTextState(e, 0)} />
                         <Box mx={1} />
-                        <InputField isEditable={isEditable} answer={answers[1]} onChangeText={(e) => {
-                            setAnswers(old => old.map(
-                                el => el == answers[1] ? { ...el, answer: e } : el
-                            ))
-                        }} />
+                        <InputField isEditable={isEditable} answer={answers![1]} onChangeText={(e) => setInputTextState(e, 1)} />
                     </HStack>
                     <HStack width="50%">
-                        <InputField isEditable={isEditable} answer={answers[2]} onChangeText={(e) => {
-                            setAnswers(old => old.map(
-                                el => el == answers[2] ? { ...el, answer: e } : el
-                            ))
-                        }} />
+                        <InputField isEditable={isEditable} answer={answers![2]} onChangeText={(e) => setInputTextState(e, 2)} />
                         <Box mx={1} />
-                        <InputField isEditable={isEditable} answer={answers[3]} onChangeText={(e) => {
-                            setAnswers(old => old.map(
-                                el => el == answers[3] ? { ...el, answer: e } : el
-                            ))
-                        }} />
+                        <InputField isEditable={isEditable} answer={answers![3]} onChangeText={(e) => setInputTextState(e, 3)} />
                     </HStack>
                 </VStack>
             </Box>

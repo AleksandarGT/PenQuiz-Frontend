@@ -7,21 +7,23 @@ import { useRecoilValue } from "recoil"
 import { connectionStatusAtom, gameInstanceAtom, userIdSelector } from "../state"
 import ExitGameModal from './Popups/ExitGameModal'
 import { GetPenguinAvatarImage } from './GameMapComponents/CommonGameFunc'
-import { ParticipantsResponse } from '../types/gameInstanceTypes'
+import { GameInstanceResponse, ParticipantsResponse } from '../types/gameInstanceTypes'
 import { GameHubStatusCode } from '../types/hubTypes'
 
 export function GameLobby() {
-    const gameInstance = useRecoilValue(gameInstanceAtom)
+    // There is no condition where the game instanec is null at this point
+    const gameInstance = useRecoilValue(gameInstanceAtom) as GameInstanceResponse
     const connectionStatus = useRecoilValue(connectionStatusAtom)
 
     const [isClosing, setIsClosing] = useState(false)
     const RequiredPlayers = 3
     const userId = useRecoilValue(userIdSelector)
+
     const IsLobbyFull = () => gameInstance.participants?.length == RequiredPlayers ? true : false
     const IsGameHost = () => userId == gameInstance.gameCreatorId ? true : false
 
     // Gametype - 0 public, 1 private
-    function StartGameButton({ onPress }) {
+    function StartGameButton({ onPress }: { onPress: () => void }) {
         return (
             <Pressable disabled={!IsGameHost() || !IsLobbyFull()} onPress={() => {
                 gameInstance.gameType == 1 && onPress()
@@ -69,7 +71,7 @@ export function GameLobby() {
                     </Center>
                     <Center>
                         <Text isTruncated maxWidth="250" fontSize="xl" color="black">
-                            {participant.player.username}
+                            {participant.player?.username}
                         </Text>
 
                         {participant.playerId == gameInstance.gameCreatorId ? (
@@ -84,7 +86,7 @@ export function GameLobby() {
         )
     }
 
-    if (connectionStatus.StatusCode == GameHubStatusCode.DISCONNECTED) {
+    if (connectionStatus && connectionStatus.StatusCode == GameHubStatusCode.DISCONNECTED) {
         return (
             <Center flex={1}>
                 <Text color="black">{connectionStatus.Error}</Text>
@@ -117,7 +119,7 @@ export function GameLobby() {
                 <HStack>
                     {gameInstance.participants?.map(x => {
                         return (
-                            <PlayerCard key={x.playerId} participant={x}/>
+                            <PlayerCard key={x.playerId} participant={x} />
                         )
                     })}
 

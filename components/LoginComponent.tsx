@@ -55,7 +55,7 @@ function RenderCard() {
     const [isLoading, setIsLoading] = useState(false)
     const [showRulesModal, setShowRulesModal] = useState(false)
     const [showAboutModal, setShowAboutModal] = useState(false)
-    const [serverError, setServerError] = useState()
+    const [serverError, setServerError] = useState<string>()
 
     // Monitor google response
     useEffect(() => {
@@ -72,15 +72,15 @@ function RenderCard() {
     }, [webGoogleActions?.googleResponse])
 
     // On resposne from google
-    async function onLogin({ tokenId }) {
+    async function onLogin({ tokenId }: { tokenId: string }) {
 
         try {
             const res = await userActions.login(tokenId)
-            return setServerError(null)
+            return setServerError("")
         } catch (error) {
             setAuth(null)
             console.log(error)
-            setServerError(error?.message ? error.message : "Unknown server error")
+            setServerError("Unknown server error")
         }
 
     }
@@ -91,15 +91,17 @@ function RenderCard() {
 
         if (Platform.OS == "android") {
             const res = await androidGoogleActions.googlePromptAsync()
-            if (res.status == "success") {
+            if (res?.status == "success") {
+                
                 onLogin({
-                    tokenId: res.idToken
+                    tokenId: res.idToken as string
                 })
+
             }
 
             return
         }
-        
+
         // On web login
         webGoogleActions.googlePromptAsync()
     }

@@ -36,11 +36,16 @@ export default function AntarcticaMapSvg({ gameMapException,
     if (playerAttackPossibilities && playerAttackPossibilities.attackerId == currentUser?.id && playerAttackPossibilities?.availableAttackTerritories?.find(x => x == territoryName)) {
       return GetAttackTerritoryPossibilityColor(gameInstance, playerAttackPossibilities.attackerId)
     }
-    return GetParticipantColor(gameInstance, gameInstance.objectTerritory.find(x => x.mapTerritory.territoryName == territoryName).takenBy) ?? "#d7fffe"
+    const takenBy = gameInstance.objectTerritory.find(x => x.mapTerritory?.territoryName == territoryName)?.takenBy
+
+    if (takenBy)
+      return GetParticipantColor(gameInstance, takenBy);
+      
+    return "#d7fffe"
   }
 
   function SVGTerritories() {
-    var jsx = []
+    const jsx: JSX.Element[] = []
     Object.keys(antarcticaSVGElements).forEach((k) => {
       jsx.push(
 
@@ -58,7 +63,7 @@ export default function AntarcticaMapSvg({ gameMapException,
 
 
           {/* Conditionally rendering the capital  */}
-          {gameInstance.objectTerritory.find(x => x.mapTerritory.territoryName == k).isCapital ? (
+          {gameInstance.objectTerritory.find(x => x.mapTerritory?.territoryName == k)?.isCapital ? (
             <>
               {/* Line between score and igloo */}
               <Path
@@ -93,7 +98,7 @@ export default function AntarcticaMapSvg({ gameMapException,
 
 
 
-          {gameInstance.objectTerritory.find(x => x.mapTerritory.territoryName == k).attackedBy ?
+          {gameInstance.objectTerritory.find(x => x.mapTerritory?.territoryName == k)?.attackedBy ?
             <>
               {/* Attack Icon */}
               <Path
@@ -101,7 +106,7 @@ export default function AntarcticaMapSvg({ gameMapException,
                 d={antarcticaSVGElements[k].AttackIcon}
               />
               {/* Attack Icon Color*/}
-              <Path fill={GetParticipantColor(gameInstance, gameInstance.objectTerritory.find(x => x.mapTerritory.territoryName == k).attackedBy)} d={antarcticaSVGElements[k].AttackIconFill} />
+              <Path fill={GetParticipantColor(gameInstance, gameInstance.objectTerritory.find(x => x.mapTerritory!.territoryName == k)!.attackedBy!)} d={antarcticaSVGElements[k].AttackIconFill} />
             </>
             : null}
 
@@ -118,7 +123,7 @@ export default function AntarcticaMapSvg({ gameMapException,
             fontFamily="Arial-BoldMT,Arial"
             fontWeight={700}
           >
-            {gameInstance.objectTerritory.find(x => x.mapTerritory.territoryName == k)?.territoryScore ?? 0}
+            {gameInstance.objectTerritory.find(x => x.mapTerritory!.territoryName == k)?.territoryScore ?? 0}
           </Text>
         </G>
       )

@@ -12,6 +12,7 @@ import useDebugTimer from '../../hooks/useDebugTimer'
 import { Ionicons } from '@expo/vector-icons'
 import { TowerSvg } from './TimerSuffixElements'
 import { MCPlayerQuestionAnswers, QuestionClientResponse } from '../../types/gameResponseTypes'
+import { IAuthData } from '../../types/authTypes'
 
 export default function MultipleChoiceScreen({
     question,
@@ -19,7 +20,7 @@ export default function MultipleChoiceScreen({
     isDebugMode = false,
 }: { question: QuestionClientResponse, playerQuestionAnswers: MCPlayerQuestionAnswers, isDebugMode?: boolean }) {
 
-    const user = useRecoilValue(authAtom)
+    const user = useRecoilValue(authAtom) as IAuthData
     const [answeredId, setAnsweredId] = useState<number>()
 
 
@@ -30,7 +31,7 @@ export default function MultipleChoiceScreen({
     const { sound, setSound } = useGameSoundEffect()
 
     useEffect(() => {
-        setAnsweredId(null)
+        setAnsweredId(undefined)
     }, [question])
 
     function IsPlayerParticipating() {
@@ -83,9 +84,9 @@ export default function MultipleChoiceScreen({
 
                             {/* Attacker */}
                             {!isDebugMode && question.isNeutral ?
-                                <PlayerAvatar supportIcon={"sword"} avatarName={question.participants.find(x => x.playerId == user.id).avatarName} />
+                                <PlayerAvatar supportIcon={"sword"} avatarName={question.participants.find(x => x.playerId == user.id)!.avatarName} />
                                 :
-                                <PlayerAvatar supportIcon={"sword"} avatarName={question.participants.find(x => x.playerId == question.attackerId).avatarName} />
+                                <PlayerAvatar supportIcon={"sword"} avatarName={question.participants.find(x => x.playerId == question.attackerId)!.avatarName} />
                             }
 
                             {/* Question */}
@@ -136,7 +137,7 @@ export default function MultipleChoiceScreen({
                             {question.isNeutral ?
                                 <MultipleAvatars avatarNames={question.participants.filter(x => x.playerId != user.id).map(e => e.avatarName)} />
                                 :
-                                <PlayerAvatar supportIcon={"shield"} avatarName={question.participants.find(x => x.playerId == question.defenderId).avatarName} />
+                                <PlayerAvatar supportIcon={"shield"} avatarName={question.participants.find(x => x.playerId == question.defenderId)!.avatarName} />
                             }
                         </HStack>
                         {/* Buttons */}
@@ -144,7 +145,7 @@ export default function MultipleChoiceScreen({
                             <VStack >
                                 <AnswerButton
                                     setAnsweredId={setAnsweredId}
-                                    answeredId={answeredId}
+                                    answeredId={answeredId as number}
                                     playerQuestionAnswers={playerQuestionAnswers}
                                     question={question}
                                     key="answerButton1"
@@ -154,7 +155,7 @@ export default function MultipleChoiceScreen({
                                 />
                                 <AnswerButton
                                     setAnsweredId={setAnsweredId}
-                                    answeredId={answeredId}
+                                    answeredId={answeredId as number}
                                     playerQuestionAnswers={playerQuestionAnswers}
                                     question={question}
                                     key="answerButton2"
@@ -166,7 +167,7 @@ export default function MultipleChoiceScreen({
                             <VStack>
                                 <AnswerButton
                                     setAnsweredId={setAnsweredId}
-                                    answeredId={answeredId}
+                                    answeredId={answeredId as number}
                                     playerQuestionAnswers={playerQuestionAnswers}
                                     question={question}
                                     key="answerButton3"
@@ -176,7 +177,7 @@ export default function MultipleChoiceScreen({
                                 />
                                 <AnswerButton
                                     setAnsweredId={setAnsweredId}
-                                    answeredId={answeredId}
+                                    answeredId={answeredId as number}
                                     playerQuestionAnswers={playerQuestionAnswers}
                                     question={question}
                                     key="answerButton4"

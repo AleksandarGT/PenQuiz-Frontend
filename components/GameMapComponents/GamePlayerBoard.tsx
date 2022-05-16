@@ -4,7 +4,7 @@ import { Platform } from 'react-native'
 import { GetAvatarColor, GetPenguinAvatarImage } from './CommonGameFunc'
 import { GameInstanceResponse, ParticipantsResponse } from "../../types/gameInstanceTypes"
 
-export default function GameBoards({ gameInstance, currentAttackerId }: { gameInstance: GameInstanceResponse, currentAttackerId: number }) {
+export default function GameBoards({ gameInstance, currentAttackerId }: { gameInstance: GameInstanceResponse, currentAttackerId?: number }) {
     return (
         <>
             {gameInstance.participants.map(x =>
@@ -14,7 +14,7 @@ export default function GameBoards({ gameInstance, currentAttackerId }: { gameIn
     )
 }
 
-function GamePlayerBoard({ participant, hisTurn }: { participant: ParticipantsResponse, hisTurn: boolean }) {
+function GamePlayerBoard({ participant, hisTurn }: { participant: ParticipantsResponse, hisTurn?: boolean }) {
 
     return (
         <>
@@ -36,7 +36,7 @@ function GamePlayerBoard({ participant, hisTurn }: { participant: ParticipantsRe
                         <VStack>
 
                             <Text ml={2} isTruncated maxWidth={180} fontSize={{ base: "sm", md: "md", lg: "xl" }}>
-                                {`${participant.isBot ? "[BOT]" : ""} ${participant.player.username}`}
+                                {`${participant.isBot ? "[BOT]" : ""} ${participant.player?.username}`}
                             </Text>
 
                             <Box ml={2} width="150" bg="#fff" borderRadius={15}>

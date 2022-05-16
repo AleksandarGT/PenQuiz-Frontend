@@ -7,6 +7,7 @@ import { GetAvatarColor } from '../CommonGameFunc'
 import { LinearGradient } from 'expo-linear-gradient';
 import { MCPlayerQuestionAnswers, QuestionClientResponse } from '../../../types/gameResponseTypes'
 import { AnswerMCQuestion } from '../../../hooks/useSignalR'
+import { IAuthData } from '../../../types/authTypes'
 interface AnswerButtonParams {
     isDisabled: boolean,
     answeredId: number,
@@ -30,7 +31,7 @@ export default function AnswerButton({ answer,
 }: AnswerButtonParams) {
 
     const window = Dimensions.get('window')
-    const user = useRecoilValue(authAtom)
+    const user = useRecoilValue(authAtom) as IAuthData
     const gameTimer = useRecoilValue(gameTimerAtom)
 
     return (
@@ -55,9 +56,9 @@ export default function AnswerButton({ answer,
                         <LinearGradient
                             // Button Linear Gradient
                             colors={playerAnswers?.length == 3 ? ["#5074FF", "#8350FF", "#8350FF", "#FF5074"] :
-                                playerAnswers?.length == 2 ? [GetAvatarColor(question.participants.find(x => x.playerId == playerAnswers[0].id).avatarName), GetAvatarColor(question.participants.find(x => x.playerId == playerAnswers[1].id).avatarName)] :
-                                    playerAnswers?.length == 1 ? [GetAvatarColor(question.participants.find(x => x.playerId == playerAnswers[0].id).avatarName), GetAvatarColor(question.participants.find(x => x.playerId == playerAnswers[0].id).avatarName)] :
-                                        answeredId == answer.id ? [GetAvatarColor(question.participants.find(x => x.playerId == user.id).avatarName), GetAvatarColor(question.participants.find(x => x.playerId == user.id).avatarName)] :
+                                playerAnswers?.length == 2 ? [GetAvatarColor(question.participants.find(x => x.playerId == playerAnswers[0].id)!.avatarName)!, GetAvatarColor(question.participants.find(x => x.playerId == playerAnswers[1].id)!.avatarName)!] :
+                                    playerAnswers?.length == 1 ? [GetAvatarColor(question.participants.find(x => x.playerId == playerAnswers[0].id)!.avatarName)!, GetAvatarColor(question.participants.find(x => x.playerId == playerAnswers[0].id)!.avatarName)!] :
+                                        answeredId == answer.id ? [GetAvatarColor(question.participants.find(x => x.playerId == user.id)!.avatarName)!, GetAvatarColor(question.participants.find(x => x.playerId == user.id)!.avatarName)!] :
                                             isPressed ? ["#96BAD0", "#96BAD0"] :
                                                 isHovered ? ["#A8CCE2", "#A8CCE2"] : ["#D4EDFD", "#D4EDFD"]
                             }

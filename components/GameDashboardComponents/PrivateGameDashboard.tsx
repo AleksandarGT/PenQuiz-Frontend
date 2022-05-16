@@ -8,7 +8,7 @@ import { useRecoilValue } from 'recoil'
 import { connectionStatusAtom, joiningGameExceptionAtom } from '../../state'
 import { GameHubStatusCode } from '../../types/hubTypes'
 
-function CreateGameButton({ onPress }) {
+function CreateGameButton({ onPress }: { onPress: () => void }) {
     return (
         <Pressable onPress={onPress}>
             {({ isHovered, isFocused, isPressed }) => {
@@ -26,7 +26,7 @@ function CreateGameButton({ onPress }) {
     )
 }
 
-function JoinGameButton({ onPress }) {
+function JoinGameButton({ onPress }: { onPress: () => void }) {
     return (
         <Pressable onPress={onPress}>
             {({ isHovered, isFocused, isPressed }) => {

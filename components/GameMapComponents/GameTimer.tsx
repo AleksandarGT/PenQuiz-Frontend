@@ -1,19 +1,19 @@
 import { Center, HStack, Text } from "native-base"
-import React, {  } from "react"
+import React, { } from "react"
 import { View } from 'react-native'
 import { MaterialIcons } from '@expo/vector-icons'
 import { useRecoilValue } from "recoil"
 import { gameTimerAtom } from "../../state"
-import { GetGameState } from "./CommonGameFunc"
+import { GameState } from "../../types/gameInstanceTypes"
 
-export default function GameTimer({ gameState }) {
+export default function GameTimer({ gameState }: { gameState: GameState }) {
     const displayTime = useRecoilValue(gameTimerAtom)
 
     function DisplayTimeFunc() {
-        switch (GetGameState(gameState)) {
-            case "IN_PROGRESS":
+        switch (gameState) {
+            case GameState.IN_PROGRESS:
                 return displayTime ? `${displayTime}s` : `Preview`
-            case "FINISHED":
+            case GameState.FINISHED:
                 return "Game Over"
             default:
                 return 0

@@ -7,7 +7,6 @@ import { SelectTerritory } from "../../hooks"
 import { authAtom, gameInstanceAtom, gameMapExceptionAtom, gameTimerAtom, playerAttackPossibilitiesAtom, playerQuestionAnswersAtom, roundQuestionAtom } from "../../state"
 import GameEndModal from "../Popups/GameEndModal"
 import AntarcticaMapSvg from './AntarcticaMapSvg'
-import { GetGameState } from "./CommonGameFunc"
 import GameBoards from "./GamePlayerBoard"
 import GameRounding from "./GameRounding"
 import GameTimer from "./GameTimer"
@@ -15,13 +14,14 @@ import MultipleChoiceScreen from "./MultipleChoiceScreen"
 import NumberChoiceScreen from "./NumberChoiceScreen"
 import { Ionicons } from '@expo/vector-icons'
 import useGameSoundEffect from "../../hooks/useGameSoundEffect"
-import { AttackStage } from "../../types/gameInstanceTypes"
+import { AttackStage, GameInstanceResponse, GameState } from "../../types/gameInstanceTypes"
 import { MCPlayerQuestionAnswers, NumberPlayerQuestionAnswers } from "../../types/gameResponseTypes"
+import { IAuthData } from "../../types/authTypes"
 
 export default function GameMap() {
     const roundQuestion = useRecoilValue(roundQuestionAtom)
-    const currentUser = useRecoilValue(authAtom)
-    const gameInstance = useRecoilValue(gameInstanceAtom)
+    const currentUser = useRecoilValue(authAtom) as IAuthData
+    const gameInstance = useRecoilValue(gameInstanceAtom) as GameInstanceResponse
     const playerAttackPossibilities = useRecoilValue(playerAttackPossibilitiesAtom)
     const gameMapException = useRecoilValue(gameMapExceptionAtom)
     const playerQuestionAnswers = useRecoilValue(playerQuestionAnswersAtom)
@@ -35,7 +35,7 @@ export default function GameMap() {
 
     function OnTerritoryClick(territoryName: string) {
         const currentRound = gameInstance.rounds.find(x => x.gameRoundNumber == gameInstance.gameRoundNumber)
-        if (!currentUser) return
+        if (!currentUser || !currentRound) return
 
         switch (currentRound.attackStage) {
             case AttackStage.MULTIPLE_NEUTRAL:
@@ -74,7 +74,7 @@ export default function GameMap() {
                                         gameMapException={gameMapException}
                                         gameInstance={gameInstance}
                                         onTerritoryClick={(ter) => OnTerritoryClick(ter)}
-                                        playerAttackPossibilities={playerAttackPossibilities}
+                                        playerAttackPossibilities={playerAttackPossibilities!}
                                     />
                                     {Platform.OS == "web" && <GameRounding gameInstance={gameInstance} />}
 
@@ -82,7 +82,7 @@ export default function GameMap() {
 
                                 </VStack>
                                 {
-                                    GetGameState(gameInstance.gameState) == "FINISHED" &&
+                                    gameInstance.gameState == GameState.FINISHED &&
                                     <GameEndModal onExit={() => {
                                         removeBackStack("Home")
                                     }} gameInstance={gameInstance} />

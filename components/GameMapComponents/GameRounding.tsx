@@ -19,9 +19,9 @@ export default function GameRounding({ gameInstance }: { gameInstance: GameInsta
                     <>
                         {gameInstance.rounds.filter(x => x.attackStage == AttackStage.MULTIPLE_NEUTRAL).map(round =>
                             <React.Fragment key={round.id}>
-                                {round.neutralRound.territoryAttackers.map((pAttack, index) =>
+                                {round.neutralRound!.territoryAttackers.map((pAttack, index) =>
                                     <View key={pAttack.id} style={[round.gameRoundNumber == gameInstance.gameRoundNumber
-                                        && pAttack.attackOrderNumber == round.neutralRound.attackOrderNumber ? {
+                                        && pAttack.attackOrderNumber == round.neutralRound!.attackOrderNumber ? {
 
                                         // @ts-ignore
                                         outlineColor: 'rgba(6, 28, 83, 0.8)',
@@ -69,7 +69,7 @@ export default function GameRounding({ gameInstance }: { gameInstance: GameInsta
                             } : null, {
                                 minWidth: 25,
                                 flex: 1,
-                                backgroundColor: GetParticipantColor(gameInstance, round.neutralRound.territoryAttackers.find(x => x.attackerWon)?.attackerId) ?? "#032157",
+                                backgroundColor: GetParticipantColor(gameInstance, round.neutralRound!.territoryAttackers.find(x => x.attackerWon)?.attackerId!) ?? "#032157",
                                 margin: 10,
                                 minHeight: 10,
                                 alignSelf: "center",
@@ -89,7 +89,7 @@ export default function GameRounding({ gameInstance }: { gameInstance: GameInsta
                     <>
                         {gameInstance.rounds.filter(x => x.attackStage == AttackStage.MULTIPLE_PVP || x.attackStage == NUMBER_PVP_ID).map((round, index) =>
                             <React.Fragment key={round.id}>
-                                <View key={round.pvpRound.id} style={[round.gameRoundNumber == gameInstance.gameRoundNumber ? {
+                                <View key={round.pvpRound!.id} style={[round.gameRoundNumber == gameInstance.gameRoundNumber ? {
                                     
                                     // @ts-ignore
                                     outlineColor: 'rgba(6, 28, 83, 0.8)',
@@ -104,7 +104,7 @@ export default function GameRounding({ gameInstance }: { gameInstance: GameInsta
                                 } : null, {
                                     minWidth: 25,
                                     flex: 1,
-                                    backgroundColor: GetParticipantColor(gameInstance, round.pvpRound.attackerId),
+                                    backgroundColor: GetParticipantColor(gameInstance, round.pvpRound!.attackerId),
                                     margin: 10,
                                     minHeight: 10,
                                     alignSelf: "center",

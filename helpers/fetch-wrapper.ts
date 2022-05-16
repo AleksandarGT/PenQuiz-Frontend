@@ -21,10 +21,14 @@ function useFetchWrapper() {
 
             const requestOptions: RequestInit = {
                 method,
+
+                // @ts-ignore
                 headers: authHeader(),
                 credentials: 'include',
             }
             if (body) {
+                
+                // @ts-ignore
                 requestOptions.headers['Content-Type'] = 'application/json'
                 requestOptions.body = JSON.stringify(body)
             }
@@ -42,7 +46,7 @@ function useFetchWrapper() {
             return { Authorization: `Bearer ${token}` }
         }
         else {
-            return {  }
+            return {}
         }
     }
 

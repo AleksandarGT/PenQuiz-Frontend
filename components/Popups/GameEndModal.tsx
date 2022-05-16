@@ -52,7 +52,7 @@ export default function GameEndModal({ gameInstance, onExit }: GameEndModalParam
                         </Container>
                         <Center>
                             <Text ml={2} isTruncated maxWidth={180} fontSize={{ base: "sm", md: "md", lg: "2xl" }}>
-                                {participant.player.username}
+                                {participant.player?.username}
                             </Text>
                         </Center>
                         <Center>

@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { QuestionsTemplateMode } from "../components/AdminQuestionComponents/BaseComponents/TableQuestionsTemplate"
 import { useFetchWrapper } from "../helpers"
 import { QUESTION_SERVICE_API_URL } from '../injectable'
@@ -27,32 +27,47 @@ export function useQuestionVerification({ backToBase, questionProp, questionId, 
     })
     const [serverError, setServerError] = useState<string>()
 
+    interface AnswerType {
+        answer: string | undefined,
+        error: string,
+    }
     // Number questions
-    const [answer, setAnswer] = useState(answerProp && {
+    const [answer, setAnswer] = useState<AnswerType>({
         answer: answerProp,
         error: "",
     })
 
 
+
+    useEffect(() => {
+
+        if (!answersProp || answersProp.length != 4) return;
+        setAnswers([
+            {
+                answer: answersProp.find(x => x.correct)!.answer,
+                correct: true
+            },
+            {
+                answer: answersProp.filter(e => !e.correct)[0].answer,
+                correct: false
+            },
+            {
+                answer: answersProp.filter(e => !e.correct)[1].answer,
+                correct: false
+            },
+            {
+                answer: answersProp.filter(e => !e.correct)[2].answer,
+                correct: false
+            },
+        ])
+    }, [])
+
+    interface AnswersType {
+        answer: string,
+        correct: boolean
+    }
     // Multiple Choice questions
-    const [answers, setAnswers] = useState(answersProp && answersProp.length == 4 && [
-        {
-            answer: answersProp.find(x => x.correct)!.answer,
-            correct: true
-        },
-        {
-            answer: answersProp.filter(e => !e.correct)[0].answer,
-            correct: false
-        },
-        {
-            answer: answersProp.filter(e => !e.correct)[1].answer,
-            correct: false
-        },
-        {
-            answer: answersProp.filter(e => !e.correct)[2].answer,
-            correct: false
-        },
-    ])
+    const [answers, setAnswers] = useState<AnswersType[]>()
 
 
     function RejectQuestion() {
@@ -91,7 +106,7 @@ export function useQuestionVerification({ backToBase, questionProp, questionId, 
 
         }
         else {
-            if (!answers.every(e => e.answer)) {
+            if (!answers?.every(e => e.answer)) {
                 setQuestion(old => ({
                     ...old, error: "Some answer fields are empty!"
                 }))
@@ -117,8 +132,8 @@ export function useQuestionVerification({ backToBase, questionProp, questionId, 
                 questionId: questionId,
                 question: question.question,
 
-                answer: type == QuestionType.MULTIPLE ? answers[0].answer : answer.answer,
-                wrongAnswers: type == QuestionType.MULTIPLE ? answers.filter(e => !e.correct).map(e => e.answer) : null
+                answer: type == QuestionType.MULTIPLE ? answers![0].answer : answer.answer,
+                wrongAnswers: type == QuestionType.MULTIPLE ? answers!.filter(e => !e.correct).map(e => e.answer) : null
             })
                 .then((response: { message: string }) => {
                     setServerError("")

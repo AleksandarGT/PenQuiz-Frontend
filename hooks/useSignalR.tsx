@@ -8,7 +8,8 @@ import { useEffect } from 'react'
 import { MCPlayerQuestionAnswers, NumberPlayerQuestionAnswers, QuestionClientResponse, SelectedTerritoryResponse } from '../types/gameResponseTypes'
 import { HubConnection } from '@microsoft/signalr'
 import { GameHubStatusCode } from '../types/hubTypes'
-import { GameState } from '../types/gameInstanceTypes'
+import { GameInstanceResponse, GameState } from '../types/gameInstanceTypes'
+import { IAuthData } from '../types/authTypes'
 
 const connectionHub = `${GAME_SERVICE_API_URL}/gamehubs`
 
@@ -30,7 +31,7 @@ export function useSignalR() {
     useEffect(() => {
         if (!connection) {
 
-            if(!userJwt) {
+            if (!userJwt) {
                 console.log("User JWT token is missing. Abort connection to game hub")
                 return
             }
@@ -56,7 +57,7 @@ export function useSignalR() {
     }
 
     function setupEvents() {
-        if(connection == null) return;
+        if (connection == null) return;
 
         connection.onreconnecting((error) => {
             setConnectionStatus({
@@ -86,10 +87,18 @@ export function useSignalR() {
             // Game is canceled
             if (gameInstance == null) return
 
-            setGameInstance(old => ({
-                ...old,
-                gameState: GameState.CANCELED
-            }))
+
+            setGameInstance(old => {
+                if (old == null)
+                    return null
+
+                const newValue: GameInstanceResponse = {
+                    ...old,
+                    gameState: GameState.CANCELED
+                }
+
+                return newValue
+            })
         }))
         connection.on('TESTING', ((msg) => {
             console.log(msg)
@@ -100,20 +109,32 @@ export function useSignalR() {
         }))
 
         connection.on('GetGameUserId', ((userId) => {
-            setCurrentUser(old => ({
-                ...old,
-                id: userId
-            }))
+            setCurrentUser(old => {
+
+                if (old == null)
+                    return null
+
+                const newValue: IAuthData = { ...old, id: userId }
+
+                return newValue
+            })
         }))
 
         connection.on('PersonLeftGame', ((disconnectedPersonId: number) => {
-            setGameInstance(old => ({
-                ...old,
-                participants: old.gameState == 0 ? old.participants.filter(
-                    el => el.playerId != disconnectedPersonId) : old.participants.map(
-                        y => y.playerId == disconnectedPersonId ? { ...y, isBot: true } : y
-                    )
-            }))
+            setGameInstance(old => {
+                if (old == null)
+                    return null
+
+                const newValue: GameInstanceResponse = {
+                    ...old,
+                    participants: old.gameState == 0 ? old.participants.filter(
+                        el => el.playerId != disconnectedPersonId) : old.participants.map(
+                            y => y.playerId == disconnectedPersonId ? { ...y, isBot: true } : y
+                        )
+                }
+
+                return newValue
+            })
         }))
         connection.on('NavigateToLobby', ((gi) => {
             removeBackStack("GameLobby")
@@ -123,26 +144,44 @@ export function useSignalR() {
         }))
 
         connection.on('OnSelectedTerritory', (selectedTerritoryResponse: SelectedTerritoryResponse) => {
-            setGameInstance(old => ({
-                ...old,
-                objectTerritory: old.objectTerritory.map(
-                    el => el.id === selectedTerritoryResponse.territoryId ? { ...el, attackedBy: selectedTerritoryResponse.attackedById } : el
-                )
-            }))
+            setGameInstance(old => {
+
+                if (old == null)
+                    return null
+
+                const newValue: GameInstanceResponse = {
+                    ...old,
+                    objectTerritory: old.objectTerritory.map(
+                        el => el.id === selectedTerritoryResponse.territoryId ? { ...el, attackedBy: selectedTerritoryResponse.attackedById } : el
+                    )
+                }
+
+
+
+                return newValue
+            })
         })
         connection.on('GetGameInstance', ((gi) => {
             setGameInstance(gi)
 
             pingQuestionService()
-            setJoiningGameException(null)
+            setJoiningGameException("")
         }))
         connection.on('PlayerRejoined', ((participId: number) => {
-            setGameInstance(old => ({
-                ...old,
-                participants: old.participants.map(
-                    el => el.playerId === participId ? { ...el, isBot: false } : el
-                )
-            }))
+            setGameInstance(old => {
+
+                if (old == null)
+                    return null
+
+                const newValue: GameInstanceResponse = {
+                    ...old,
+                    participants: old.participants.map(
+                        el => el.playerId === participId ? { ...el, isBot: false } : el
+                    )
+                }
+
+                return newValue
+            })
         }))
         connection.on('GameStarting', (() => {
             removeBackStack("GameMap")

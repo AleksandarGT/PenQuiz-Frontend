@@ -6,27 +6,30 @@ import { authAtom, gameTimerAtom } from '../../../state'
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import { MaterialIcons } from '@expo/vector-icons'
 import { AnswerNumberQuestion } from '../../../hooks'
+import { QuestionClientResponse } from '../../../types/gameResponseTypes'
+import { IAuthData } from '../../../types/authTypes'
 
 
-export default function AnswerNumberQuestionComponent({ question }) {
+export default function AnswerNumberQuestionComponent({ question }: { question: QuestionClientResponse }) {
     const [answer, setAnswer] = useState("")
     const [isAnswered, setisAnswered] = useState(false)
-    const user = useRecoilValue(authAtom)
+    const user = useRecoilValue(authAtom) as IAuthData
     const timer = useRecoilValue(gameTimerAtom)
 
     const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, "backspace"]
 
-    function OnMobileButtonClick(number) {
-        if (/^\d+$/.test(number) || !number) {
+    function OnMobileButtonClick(number: string | number) {
+        if (number == "backspace") {
+            setAnswer(old => old.substring(0, old.length - 1))
+            return
+        }
+
+        if (/^\d+$/.test(number as string) || !number) {
 
             setAnswer(old => `${old}${number}`)
             return
         }
 
-        if (number == "backspace") {
-            setAnswer(old => old.substring(0, old.length - 1))
-            return
-        }
     }
 
 
@@ -36,7 +39,7 @@ export default function AnswerNumberQuestionComponent({ question }) {
             {isAnswered ?
                 <Box width="100%">
                     <HStack mt={9} mb={2} justifyContent="center">
-                        <Box width="33%" paddingY={6} borderRadius={25} bg={GetAvatarColor(question.participants.find(y => y.playerId == user.id).avatarName)}>
+                        <Box width="33%" paddingY={6} borderRadius={25} bg={GetAvatarColor(question.participants.find(y => y.playerId == user.id)!.avatarName)}>
                             <Center alignItems="center" justifyContent="center">
                                 <Text fontSize={{ base: "md", md: "lg", lg: "xl", xl: 26 }}>{answer}</Text>
                             </Center>

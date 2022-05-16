@@ -1,5 +1,5 @@
 import { Platform } from 'react-native'
-import { AttackStage, GameInstanceResponse } from '../../types/gameInstanceTypes'
+import { AttackStage, GameInstanceResponse, GameState } from '../../types/gameInstanceTypes'
 
 export function GetAvatarColor(avatarName: string) {
     return ReturnColor(avatarName)
@@ -9,7 +9,9 @@ export function GetAvatarColor(avatarName: string) {
 export function GetParticipantColor(gameInstance: GameInstanceResponse, playerId: number) {
     const particip = gameInstance.participants.find(x => x.playerId == playerId)
 
-    return ReturnColor(particip?.avatarName)
+    if (!particip) return undefined;
+    
+    return ReturnColor(particip!.avatarName)
 }
 
 export function GetAttackTerritoryPossibilityColor(gameInstance: GameInstanceResponse, playerId: number) {
@@ -37,19 +39,19 @@ function ReturnColor(avatarName: string) {
 }
 
 export function GetPenguinAvatarImage(avatarName: string) {
-    if(Platform.OS == "web") {
+    if (Platform.OS == "web") {
         return avatarName == "penguinAvatar"
-        ? require('../../assets/penguinAvatar.svg')
-        : avatarName == "penguinAvatar2"
-            ? require('../../assets/penguinAvatar2.svg')
-            : require('../../assets/penguinAvatar3.svg')
+            ? require('../../assets/penguinAvatar.svg')
+            : avatarName == "penguinAvatar2"
+                ? require('../../assets/penguinAvatar2.svg')
+                : require('../../assets/penguinAvatar3.svg')
     }
     else {
         return avatarName == "penguinAvatar"
-        ? require('../../assets/penguinAvatar.png')
-        : avatarName == "penguinAvatar2"
-            ? require('../../assets/penguinAvatar2.png')
-            : require('../../assets/penguinAvatar3.png')
+            ? require('../../assets/penguinAvatar.png')
+            : avatarName == "penguinAvatar2"
+                ? require('../../assets/penguinAvatar2.png')
+                : require('../../assets/penguinAvatar3.png')
     }
 }
 
@@ -63,21 +65,6 @@ export function RoundAttackStage(attackStage: AttackStage) {
             return "MULTIPLE_PVP"
         case 3:
             return "NUMBER_PVP"
-    }
-}
-
-export function GetGameState(gameState) {
-    switch (gameState) {
-        case 0:
-            return "IN_LOBBY"
-        case 1:
-            return "IN_PROGRESS"
-        case 2:
-            return "FINISHED"
-        case 3:
-            return "CANCELED"
-        default:
-            return null
     }
 }
 
@@ -162,8 +149,8 @@ export const numberChoicePvpQuestionMock = {
     "question": "When was Bulgaria founded?",
     "type": "number",
     "attackerId": 1,
-    "isLastQuestion" : true,
-    "capitalRoundsRemaining" : 2,
+    "isLastQuestion": true,
+    "capitalRoundsRemaining": 2,
     "defenderId": 2,
     "participants": [
         {
@@ -203,7 +190,7 @@ export const multipleChoiceQuestionMock = {
     "isNeutral": true,
     "question": "When was Bulgaria founded?",
     "type": "multiple",
-    "capitalRoundsRemaining" : 4,
+    "capitalRoundsRemaining": 4,
     "answers": [
         {
             "id": 1,

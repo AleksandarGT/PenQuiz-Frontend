@@ -12,6 +12,7 @@ import useDebugTimer from '../../hooks/useDebugTimer'
 import { Ionicons } from '@expo/vector-icons'
 import { CapitalRoundTimer, LastRoundIndicator } from './TimerSuffixElements'
 import { NumberPlayerQuestionAnswers, QuestionClientResponse } from '../../types/gameResponseTypes'
+import { IAuthData } from '../../types/authTypes'
 
 export default function NumberChoiceScreen({
     question,
@@ -27,7 +28,7 @@ export default function NumberChoiceScreen({
 
 
 
-    const user = useRecoilValue(authAtom)
+    const user = useRecoilValue(authAtom) as IAuthData
 
     function IsPlayerParticipating() {
         return question.participants.find(x => x.playerId == user.id) ? true : false
@@ -50,7 +51,7 @@ export default function NumberChoiceScreen({
                             // Border for right answer
                             borderColor: x.winner ? "#42FF00" : "transparent",
                             borderWidth: 10,
-                        }} key={x.playerId} width="25%" p={1} borderRadius={25} bg={GetAvatarColor(question.participants.find(y => y.playerId == x.playerId).avatarName)}>
+                        }} key={x.playerId} width="25%" p={1} borderRadius={25} bg={GetAvatarColor(question.participants.find(y => y.playerId == x.playerId)!.avatarName)}>
                             <Center>
                                 <Text style={{ textAlign: "center" }} fontSize={{ base: "md", md: "lg", lg: "xl", xl: 25 }}>{x.answer ?? "---"}</Text>
                                 <Text style={{ textAlign: "center" }} fontSize={{ base: "md", md: "lg", lg: "xl", xl: 20 }}>{x.timeElapsed ?? "---"}</Text>
@@ -106,9 +107,9 @@ export default function NumberChoiceScreen({
 
                             {/* Attacker */}
                             {question.isNeutral ?
-                                <PlayerAvatar supportIcon={"sword"} avatarName={question.participants.find(x => x.playerId == user.id).avatarName} />
+                                <PlayerAvatar supportIcon={"sword"} avatarName={question.participants.find(x => x.playerId == user.id)!.avatarName} />
                                 :
-                                <PlayerAvatar supportIcon={"sword"} avatarName={question.participants.find(x => x.playerId == question.attackerId).avatarName} />
+                                <PlayerAvatar supportIcon={"sword"} avatarName={question.participants.find(x => x.playerId == question.attackerId)!.avatarName} />
                             }
 
                             {/* Question */}
@@ -146,7 +147,7 @@ export default function NumberChoiceScreen({
                             {question.isNeutral ?
                                 <MultipleAvatars avatarNames={question.participants.filter(x => x.playerId != user.id).map(e => e.avatarName)} />
                                 :
-                                <PlayerAvatar supportIcon={"shield"} avatarName={question.participants.find(x => x.playerId == question.defenderId).avatarName} />
+                                <PlayerAvatar supportIcon={"shield"} avatarName={question.participants.find(x => x.playerId == question.defenderId)!.avatarName} />
                             }
                         </HStack>
                     </Box>
