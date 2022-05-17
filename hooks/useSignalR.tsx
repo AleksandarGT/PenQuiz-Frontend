@@ -5,7 +5,7 @@ import { GAME_SERVICE_API_URL } from '../injectable'
 import { removeBackStack } from '../helpers'
 import { getConnection } from './SignalRSetup'
 import { useEffect } from 'react'
-import { MCPlayerQuestionAnswers, NumberPlayerQuestionAnswers, QuestionClientResponse, SelectedTerritoryResponse } from '../types/gameResponseTypes'
+import { IPlayerAttackPossibilities, MCPlayerQuestionAnswers, NumberPlayerQuestionAnswers, QuestionClientResponse, SelectedTerritoryResponse } from '../types/gameResponseTypes'
 import { HubConnection } from '@microsoft/signalr'
 import { GameHubStatusCode } from '../types/hubTypes'
 import { GameInstanceResponse, GameState } from '../types/gameInstanceTypes'
@@ -200,12 +200,9 @@ export function useSignalR() {
             removeBackStack("GameMap")
         }))
 
-        connection.on('ShowRoundingAttacker', ((attackerId: number, availableAttackTerritoriesNames: string[]) => {
+        connection.on('ShowRoundingAttacker', ((response: IPlayerAttackPossibilities) => {
             // Set the preview of available attack territories for given playerid
-            setPlayerAttackPossibilities({
-                attackerId: attackerId,
-                availableAttackTerritories: availableAttackTerritoriesNames
-            })
+            setPlayerAttackPossibilities(response)
 
 
 
