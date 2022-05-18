@@ -11,6 +11,7 @@ import { theme } from './theme'
 import { useFonts } from 'expo-font'
 import { Routes } from './routes/Routes'
 import { LoadingComponent } from './routes/LoadingComponent'
+import { activateKeepAwake } from 'expo-keep-awake'
 // Ignore timer warning 
 LogBox.ignoreLogs(['Setting a timer'])
 WebBrowser.maybeCompleteAuthSession()
@@ -78,7 +79,8 @@ export default function App() {
   useEffect(() => {
     if (Platform.OS === 'web') return
     changeScreenOrientation()
-  })
+    activateKeepAwake()
+  }, [])
 
   return (
     <RecoilRoot>

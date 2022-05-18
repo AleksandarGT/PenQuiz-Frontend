@@ -31,6 +31,10 @@ export interface MCPlayerQuestionAnswers {
 }
 
 export interface PlayerIdAnswerId {
+
+    /**
+     * Refers to player ID
+     */
     id: number;
     answerId: number;
 }

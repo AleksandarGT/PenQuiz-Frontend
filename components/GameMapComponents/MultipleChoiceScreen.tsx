@@ -34,6 +34,13 @@ export default function MultipleChoiceScreen({
         setAnsweredId(undefined)
     }, [question])
 
+    useEffect(() => {
+        if(!playerQuestionAnswers) return
+
+        const thisPlayerAnswer = playerQuestionAnswers.playerAnswers.find(e => e.id == user.id)?.answerId
+        setAnsweredId(thisPlayerAnswer)
+    }, [playerQuestionAnswers])
+
     function IsPlayerParticipating() {
         return question.participants.find(x => x.playerId == user.id) ? true : false
     }
