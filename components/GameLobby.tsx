@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { Text, Button, Center, Container, Box, Icon, HStack, Pressable, VStack, Image } from 'native-base'
+import { Text, Button, Center, Container, Box, Icon, HStack, Pressable, VStack, Image, IconButton } from 'native-base'
 import { StyleSheet, ImageBackground, ActivityIndicator, Platform } from 'react-native'
-import { LeaveGameLobby, StartGame, AddGameBot } from '../hooks'
+import { LeaveGameLobby, StartGame, AddGameBot, RemovePlayerFromLobby } from '../hooks'
 import { FontAwesome5 } from "@expo/vector-icons"
 import { useRecoilValue } from "recoil"
 import { connectionStatusAtom, gameInstanceAtom, userIdSelector } from "../state"
@@ -9,6 +9,7 @@ import ExitGameModal from './Popups/ExitGameModal'
 import { GetPenguinAvatarImage } from './GameMapComponents/CommonGameFunc'
 import { GameInstanceResponse, GameType, ParticipantsResponse } from '../types/gameInstanceTypes'
 import { GameHubStatusCode } from '../types/hubTypes'
+import { AntDesign } from '@expo/vector-icons';
 
 export function GameLobby() {
     // There is no condition where the game instanec is null at this point
@@ -47,6 +48,16 @@ export function GameLobby() {
     }
 
     function CodeCard() {
+        if (gameInstance.gameCreatorId != userId) {
+            return (
+                <Box backgroundColor="#C8FBFF" py={Platform.OS == "web" ? 6 : 2} px={'40'} shadow={3} borderRadius={15}>
+                    <Text color="black" fontWeight="bold" fontSize="3xl">
+                        Code: {gameInstance.invitationLink}
+                    </Text>
+                </Box>
+            )
+        }
+
         return (
             <HStack style={{
                 justifyContent: "space-around",
@@ -110,7 +121,21 @@ export function GameLobby() {
                             <Text isTruncated maxWidth="90%" fontSize="md" color="black">
                                 (host)
                             </Text>
-                        ) : null}
+                        ) : gameInstance.gameCreatorId == userId && participant.player?.isBot ?
+                            <IconButton
+                                onPress={() => {
+                                    RemovePlayerFromLobby(participant.playerId)
+                                }}
+                                size="md"
+                                variant="outline"
+                                colorScheme="danger"
+                                _icon={{
+                                    as: AntDesign,
+                                    size: "md",
+                                    name: "closecircle",
+                                }}
+                            /> : null
+                        }
                     </Center>
                 </VStack>
 

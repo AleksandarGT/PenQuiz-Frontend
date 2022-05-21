@@ -100,7 +100,7 @@ export interface ParticipantsResponse {
     avatarName: string;
     playerId: number;
     gameId: number;
-    isBot: boolean;
+    isAfk: boolean;
     score: number;
     finalQuestionScore: number;
     player: UsersResponse | null;
@@ -108,6 +108,7 @@ export interface ParticipantsResponse {
 
 export interface UsersResponse {
     id: number;
+    isBot: boolean;
     username: string;
     userGlobalIdentifier: string;
 }

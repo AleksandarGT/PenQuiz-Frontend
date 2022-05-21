@@ -129,7 +129,7 @@ export function useSignalR() {
                     ...old,
                     participants: old.gameState == 0 ? old.participants.filter(
                         el => el.playerId != disconnectedPersonId) : old.participants.map(
-                            y => y.playerId == disconnectedPersonId ? { ...y, isBot: true } : y
+                            y => y.playerId == disconnectedPersonId ? { ...y, isAfk: true } : y
                         )
                 }
 
@@ -176,7 +176,7 @@ export function useSignalR() {
                 const newValue: GameInstanceResponse = {
                     ...old,
                     participants: old.participants.map(
-                        el => el.playerId === participId ? { ...el, isBot: false } : el
+                        el => el.playerId === participId ? { ...el, isAfk: false } : el
                     )
                 }
 
@@ -273,6 +273,10 @@ export function CreateGameLobby() {
     //RemoveGameData()
 
     connection?.invoke("CreateGameLobby")
+}
+
+export function RemovePlayerFromLobby(playerId: number) {
+    connection?.invoke("RemovePlayerFromLobby", playerId)
 }
 
 export function LeaveGameLobby() {
