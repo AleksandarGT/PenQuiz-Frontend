@@ -287,6 +287,10 @@ export function StartGame() {
     connection?.invoke("StartGame")
 }
 
+export function AddGameBot() {
+    connection?.invoke("AddGameBot")
+}
+
 export function FindPublicMatch() {
     // Remove reference from any previous game instances
     //RemoveGameData()

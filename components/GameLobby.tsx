@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import { Text, Button, Center, Container, Box, Icon, HStack, Pressable, VStack, Image } from 'native-base'
 import { StyleSheet, ImageBackground, ActivityIndicator, Platform } from 'react-native'
-import { LeaveGameLobby, StartGame } from '../hooks'
+import { LeaveGameLobby, StartGame, AddGameBot } from '../hooks'
 import { FontAwesome5 } from "@expo/vector-icons"
 import { useRecoilValue } from "recoil"
 import { connectionStatusAtom, gameInstanceAtom, userIdSelector } from "../state"
 import ExitGameModal from './Popups/ExitGameModal'
 import { GetPenguinAvatarImage } from './GameMapComponents/CommonGameFunc'
-import { GameInstanceResponse, ParticipantsResponse } from '../types/gameInstanceTypes'
+import { GameInstanceResponse, GameType, ParticipantsResponse } from '../types/gameInstanceTypes'
 import { GameHubStatusCode } from '../types/hubTypes'
 
 export function GameLobby() {
@@ -48,11 +48,43 @@ export function GameLobby() {
 
     function CodeCard() {
         return (
-            <Container backgroundColor="#C8FBFF" py={Platform.OS == "web" ? 6 : 2} style={{ paddingHorizontal: "10%" }} shadow={3} borderRadius={15}>
-                <Text color="black" fontWeight="bold" fontSize="3xl">
-                    Code: {gameInstance.invitationLink}
-                </Text>
-            </Container>
+            <HStack style={{
+                justifyContent: "space-around",
+                flex: 1,
+                alignItems: "center",
+            }}>
+                <AddGameBotButton invisible />
+                <Box backgroundColor="#C8FBFF" py={Platform.OS == "web" ? 6 : 2} px={'40'} shadow={3} borderRadius={15}>
+                    <Text color="black" fontWeight="bold" fontSize="3xl">
+                        Code: {gameInstance.invitationLink}
+                    </Text>
+                </Box>
+
+                <Box mx={3} />
+                <AddGameBotButton onPress={() => {
+                    AddGameBot()
+                }} />
+            </HStack>
+        )
+    }
+
+    function AddGameBotButton({ onPress, invisible }: { onPress?: () => void, invisible?: boolean }) {
+        return (
+            <Pressable opacity={invisible ? 0 : 100} disabled={!IsGameHost() || IsLobbyFull()} onPress={() => {
+                gameInstance.gameType == GameType.PRIVATE && onPress && onPress()
+            }}>
+                {({ isHovered, isFocused, isPressed }) => {
+                    return (
+                        <Box shadow={3} bg={
+                            isPressed ? "#BDBDBD" : isHovered ? "#E4E4E4" : "#fff"
+                        } p={2} borderColor="black" borderWidth={2} borderRadius={5}>
+                            <Text textAlign={"center"} color={"black"} >
+                                Add Bot
+                            </Text>
+                        </Box>
+                    )
+                }}
+            </Pressable>
         )
     }
 
