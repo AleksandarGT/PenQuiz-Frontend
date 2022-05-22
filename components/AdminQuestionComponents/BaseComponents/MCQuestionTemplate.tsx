@@ -106,18 +106,18 @@ export function MCQuestionTemplate(stateParameters: useQuestionVerificationParam
                 />
 
 
-                <VStack>
+                {answers && <VStack>
                     <HStack width="50%">
-                        <InputField isEditable={isEditable} answer={answers![0]} onChangeText={(e) => setInputTextState(e, 0)} />
+                        <InputField isEditable={isEditable} answer={answers[0]} onChangeText={(e) => setInputTextState(e, 0)} />
                         <Box mx={1} />
-                        <InputField isEditable={isEditable} answer={answers![1]} onChangeText={(e) => setInputTextState(e, 1)} />
+                        <InputField isEditable={isEditable} answer={answers[1]} onChangeText={(e) => setInputTextState(e, 1)} />
                     </HStack>
                     <HStack width="50%">
-                        <InputField isEditable={isEditable} answer={answers![2]} onChangeText={(e) => setInputTextState(e, 2)} />
+                        <InputField isEditable={isEditable} answer={answers[2]} onChangeText={(e) => setInputTextState(e, 2)} />
                         <Box mx={1} />
-                        <InputField isEditable={isEditable} answer={answers![3]} onChangeText={(e) => setInputTextState(e, 3)} />
+                        <InputField isEditable={isEditable} answer={answers[3]} onChangeText={(e) => setInputTextState(e, 3)} />
                     </HStack>
-                </VStack>
+                </VStack>}
             </Box>
 
             <Box mt={6} />
