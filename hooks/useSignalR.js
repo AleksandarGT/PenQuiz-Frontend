@@ -199,6 +199,12 @@ export function useSignalR() {
         connection.on('GameSendCountDownSeconds', ((secondsForAction) => {
             setGameTimer(secondsForAction)
         }))
+
+
+        // Characters
+        connection.on('WizardGetAbilityUsesLeft', ((usesLeft) => {
+            
+        }))
     }
 }
 
