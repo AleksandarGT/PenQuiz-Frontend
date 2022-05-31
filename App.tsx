@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler'
 import { StatusBar } from 'expo-status-bar'
 import React, { useEffect, useState } from 'react'
-import { Platform, Text } from 'react-native'
+import { Platform, Text, View } from 'react-native'
 import { RecoilRoot } from 'recoil'
 import * as ScreenOrientation from 'expo-screen-orientation'
 import { LogBox } from 'react-native'
@@ -48,6 +48,8 @@ export default function App() {
     Message: ""
   })
 
+  const [isMobileFromWeb, setIsMobileFromWeb] = useState<boolean>(false)
+
   // Pings all required services so they don't idle
   useEffect(() => {
     if (__DEV__) return;
@@ -81,6 +83,29 @@ export default function App() {
     changeScreenOrientation()
     activateKeepAwake()
   }, [])
+
+
+  // Handle clicks on mobile devices using a web browser
+  // Redirect them to the playstore (or to link from where to download the apk)
+  useEffect(() => {
+    const ua = navigator.userAgent.toLowerCase();
+    const isAndroid = ua.indexOf("android") > -1; //&& ua.indexOf("mobile");
+
+    if (!isAndroid)
+      return
+
+    setIsMobileFromWeb(true)
+  }, [])
+
+
+  if (isMobileFromWeb) {
+    return (
+      <View>
+        <Text>Some text, redirecting the user to download the app via something else</Text>
+      </View>
+    )
+  }
+
 
   return (
     <RecoilRoot>

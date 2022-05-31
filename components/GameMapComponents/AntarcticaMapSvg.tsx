@@ -4,9 +4,9 @@ import { View, useWindowDimensions } from 'react-native';
 /* SVGR has dropped some elements not supported by react-native-svg: style */
 import { useRecoilValue } from 'recoil'
 import { authAtom } from '../../state'
-import { GetParticipantColor, GetAttackTerritoryPossibilityColor } from './CommonGameFunc'
+import { GetParticipantColor, GetNeutralTerritoryPossibilityColor, GetPvpTerritoryPossibilityColor } from './CommonGameFunc'
 import DefaultAlert from "../Popups/DefaultAlert";
-import { GameInstanceResponse } from "../../types/gameInstanceTypes";
+import { AttackStage, GameInstanceResponse } from "../../types/gameInstanceTypes";
 import { IPlayerAttackPossibilities } from "../../types/gameResponseTypes";
 
 interface AntarcticaMapSvgParams {
@@ -34,8 +34,30 @@ export default function AntarcticaMapSvg({ gameMapException,
 
   function SetTerritoryColor(territoryName: string) {
     if (playerAttackPossibilities && playerAttackPossibilities.attackerId == currentUser?.id && playerAttackPossibilities?.availableAttackTerritories?.find(x => x == territoryName)) {
-      return GetAttackTerritoryPossibilityColor(gameInstance, playerAttackPossibilities.attackerId)
+      
+      // On pvp round, different territory color - depending on the attacker and defender color (blend)
+      const currentRound = gameInstance.rounds.find(e => e.gameRoundNumber == gameInstance.gameRoundNumber)!
+
+
+      // Trigger only if the current round requires attacking an enemy territory
+      // Always going to be multiple pvp, even if it's a capital
+      // First attack on capital is considered multiple pvp, not capital stage
+      if(currentRound.attackStage == AttackStage.MULTIPLE_PVP) {
+        
+        // Only on pvp stage change territory attack possibilities
+        // This is a pvp round, it definitely has an owner
+
+        const defenderId = gameInstance.objectTerritory.find(e => e.mapTerritory?.territoryName == territoryName)!.attackedBy
+        const defenderAvatar = gameInstance.participants.find(e => e.playerId == defenderId)!.avatarName
+
+        const attackerAvatar = gameInstance.participants.find(e => e.playerId == playerAttackPossibilities.attackerId)!.avatarName
+
+        return GetPvpTerritoryPossibilityColor(defenderAvatar, attackerAvatar);
+      }
+      
+      return GetNeutralTerritoryPossibilityColor(gameInstance, playerAttackPossibilities.attackerId)
     }
+
     const takenBy = gameInstance.objectTerritory.find(x => x.mapTerritory?.territoryName == territoryName)?.takenBy
 
     if (takenBy)
