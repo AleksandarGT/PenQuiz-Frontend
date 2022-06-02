@@ -34,7 +34,7 @@ export default function AntarcticaMapSvg({ gameMapException,
 
   function SetTerritoryColor(territoryName: string) {
     if (playerAttackPossibilities && playerAttackPossibilities.attackerId == currentUser?.id && playerAttackPossibilities?.availableAttackTerritories?.find(x => x == territoryName)) {
-      
+
       // On pvp round, different territory color - depending on the attacker and defender color (blend)
       const currentRound = gameInstance.rounds.find(e => e.gameRoundNumber == gameInstance.gameRoundNumber)!
 
@@ -42,19 +42,24 @@ export default function AntarcticaMapSvg({ gameMapException,
       // Trigger only if the current round requires attacking an enemy territory
       // Always going to be multiple pvp, even if it's a capital
       // First attack on capital is considered multiple pvp, not capital stage
-      if(currentRound.attackStage == AttackStage.MULTIPLE_PVP) {
-        
+      if (currentRound.attackStage == AttackStage.MULTIPLE_PVP) {
+
         // Only on pvp stage change territory attack possibilities
         // This is a pvp round, it definitely has an owner
+        const territoryAvailableToAttackName = playerAttackPossibilities.availableAttackTerritories.find(e => e == territoryName)
+        const territoryAvailableToAttack = gameInstance.objectTerritory.find(e => e.mapTerritory?.territoryName == territoryAvailableToAttackName)
+        
+        if (territoryAvailableToAttack) {
 
-        const defenderId = gameInstance.objectTerritory.find(e => e.mapTerritory?.territoryName == territoryName)!.attackedBy
-        const defenderAvatar = gameInstance.participants.find(e => e.playerId == defenderId)!.avatarName
+          const takenById = territoryAvailableToAttack.takenBy
+          const defenderAvatar = gameInstance.participants.find(e => e.playerId == takenById)?.avatarName
 
-        const attackerAvatar = gameInstance.participants.find(e => e.playerId == playerAttackPossibilities.attackerId)!.avatarName
+          if (defenderAvatar)
+            return GetPvpTerritoryPossibilityColor(defenderAvatar);
 
-        return GetPvpTerritoryPossibilityColor(defenderAvatar, attackerAvatar);
+        }
       }
-      
+
       return GetNeutralTerritoryPossibilityColor(gameInstance, playerAttackPossibilities.attackerId)
     }
 
@@ -62,7 +67,7 @@ export default function AntarcticaMapSvg({ gameMapException,
 
     if (takenBy)
       return GetParticipantColor(gameInstance, takenBy);
-      
+
     return "#d7fffe"
   }
 

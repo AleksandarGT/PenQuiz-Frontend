@@ -10,37 +10,28 @@ export function GetParticipantColor(gameInstance: GameInstanceResponse, playerId
     const particip = gameInstance.participants.find(x => x.playerId == playerId)
 
     if (!particip) return undefined;
-    
+
     return ReturnColor(particip!.avatarName)
 }
 
 
 // Will become obsolete when player characters get introduced
-export function GetPvpTerritoryPossibilityColor(defenderAvatarName: string, attackerAvatarName: string) {
+export function GetPvpTerritoryPossibilityColor(defenderAvatarName: string) {
 
-    // Color if the defender is blue and color of the attacker is purple
-    if(defenderAvatarName == "penguinAvatar" && attackerAvatarName == "penguinAvatar2") {
+    // Blue
+    if (defenderAvatarName == "penguinAvatar")
+        return "#90A7FF"
 
-        // Color should be a mix of blue and purple
+    // Purple
+    if (defenderAvatarName == "penguinAvatar2")
+        return "#BCA0FF"
 
-        return ""
-    }
+    // Red
+    if (defenderAvatarName == "penguinAvatar3")
+        return "#FF98AD"
 
-    // Color if the defender is blue and color of the attacker is red
-    if(defenderAvatarName == "penguinAvatar" && attackerAvatarName == "penguinAvatar3") {
-     
-        // Color should be a mix of blue and red
-        return ""
-    }
 
-    // Color if the defender is purple and color of the attacker is red
-    if(defenderAvatarName == "penguinAvatar2" && attackerAvatarName == "penguinAvatar3") {
-
-        // Color should be a mix of purple and red
-        return ""
-    }
-
-    console.log(`Unhandled color combination - Defender: ${defenderAvatarName}, Attacker: ${attackerAvatarName}`)
+    console.log(`Unhandled color combination - Defender: ${defenderAvatarName}`)
 }
 
 export function GetNeutralTerritoryPossibilityColor(gameInstance: GameInstanceResponse, playerId: number) {
