@@ -32,8 +32,7 @@ export default function AntarcticaMapSvg({ gameMapException,
 
   const aspectRatio = originalWidth / originalHeight;
 
-  function SetTerritoryColor(territoryName: string) {
-    console.log(currentUser?.id)
+  function IsPvPAvailable(territoryName: string) {
     if (playerAttackPossibilities && playerAttackPossibilities.attackerId == currentUser?.id) {
 
       // On pvp round, different territory color - depending on the attacker and defender color (blend)
@@ -48,11 +47,37 @@ export default function AntarcticaMapSvg({ gameMapException,
         // Only on pvp stage change territory attack possibilities
         // This is a pvp round, it definitely has an owner
         const territoryAvailableToAttackName = playerAttackPossibilities.availableAttackTerritories.some(e => e == territoryName)
-        const ownTerritory = gameInstance.objectTerritory.some(e => e.takenBy == currentUser.id && e.mapTerritory?.territoryName == territoryName);
+
+
+        if (territoryAvailableToAttackName)
+          return true
+
+        return false
+      }
+    }
+
+    return true
+  }
+
+  function SetTerritoryColor(territoryName: string) {
+    if (playerAttackPossibilities && playerAttackPossibilities.attackerId == currentUser?.id) {
+
+      // On pvp round, different territory color - depending on the attacker and defender color (blend)
+      const currentRound = gameInstance.rounds.find(e => e.gameRoundNumber == gameInstance.gameRoundNumber)!
+
+
+      // Trigger only if the current round requires attacking an enemy territory
+      // Always going to be multiple pvp, even if it's a capital
+      // First attack on capital is considered multiple pvp, not capital stage
+      if (currentRound.attackStage == AttackStage.MULTIPLE_PVP) {
+
+        // Only on pvp stage change territory attack possibilities
+        // This is a pvp round, it definitely has an owner
+        const territoryAvailableToAttackName = playerAttackPossibilities.availableAttackTerritories.some(e => e == territoryName)
 
         const thisTerritoryTakenById = gameInstance.objectTerritory.find(e => e.mapTerritory?.territoryName == territoryName)?.takenBy!
 
-        if (territoryAvailableToAttackName || ownTerritory)
+        if (territoryAvailableToAttackName)
           return GetParticipantColor(gameInstance, thisTerritoryTakenById);
 
 
@@ -95,7 +120,7 @@ export default function AntarcticaMapSvg({ gameMapException,
 
           {/* Conditionally rendering the capital  */}
           {gameInstance.objectTerritory.find(x => x.mapTerritory?.territoryName == k)?.isCapital ? (
-            <>
+            <G opacity={IsPvPAvailable(k) ? 1 : 0.3}>
               {/* Line between score and igloo */}
               <Path
                 fill="none"
@@ -124,7 +149,7 @@ export default function AntarcticaMapSvg({ gameMapException,
                 d={antarcticaSVGElements[k].IglooTexture}
                 fill="#51565f"
               />
-            </>
+            </G>
           ) : null}
 
 
@@ -146,6 +171,7 @@ export default function AntarcticaMapSvg({ gameMapException,
           <Text
             transform={antarcticaSVGElements[k].ScorePosition}
             fontSize={25}
+            opacity={IsPvPAvailable(k) ? 1 : 0.1}
             pointerEvents="none"
             fill="#fff"
             stroke="#000"

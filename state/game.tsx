@@ -11,8 +11,8 @@ export const gameInstanceAtom = atom<GameInstanceResponse | null>({
     effects_UNSTABLE: [
         ({ onSet }) => {
             onSet(newContent => {
-                 console.log("Updated with:")
-                 console.log(newContent)
+                //  console.log("Updated with:")
+                //  console.log(newContent)
             })
         }
     ]
@@ -21,15 +21,6 @@ export const gameInstanceAtom = atom<GameInstanceResponse | null>({
 export const playerAttackPossibilitiesAtom = atom<IPlayerAttackPossibilities | null>({
     key: "playerAttackPossibilities",
     default: null,
-
-    effects_UNSTABLE: [
-        ({ onSet }) => {
-            onSet(newContent => {
-                 console.log("Updated with:")
-                 console.log(newContent)
-            })
-        }
-    ]
 })
 
 export const roundQuestionAtom = atom<QuestionClientResponse | null>({
