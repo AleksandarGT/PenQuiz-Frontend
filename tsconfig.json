@@ -1,29 +1,29 @@
 {
   "compilerOptions": {
     "strict": true,
-    "baseUrl": ".",
-    "paths": {
-      "@Components/*": [
-        "components/*"
-      ],
-      "@States/*": [
-        "state/*"
-      ],
-      "@Routes/*": [
-        "routes/*"
-      ],
-      "@Assets/*": [
-        "assets/*"
-      ],
-      "@Types/*": [
-        "types/*"
-      ],
+    // "baseUrl": ".",
+    // "paths": {
+    //   "@Components/*": [
+    //     "components/*"
+    //   ],
+    //   "@States/*": [
+    //     "state/*"
+    //   ],
+    //   "@Routes/*": [
+    //     "routes/*"
+    //   ],
+    //   "@Assets/*": [
+    //     "assets/*"
+    //   ],
+    //   "@Types/*": [
+    //     "types/*"
+    //   ],
 
-      // All secret variable
-      "@Injectable": [
-        "injectable.tsx"
-      ]
-    }
+    //   // All secret variable
+    //   "@Injectable": [
+    //     "injectable.tsx"
+    //   ]
+    // }
   },
   "extends": "expo/tsconfig.base",
   "exclude": [

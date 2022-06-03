@@ -12,27 +12,27 @@ module.exports = function (api) {
         "allowUndefined": true
       }],
       // Path alias
-      [
-        'module-resolver',
-        {
-          root: ['./'],
-          extensions: [
-            '.ios.js',
-            '.android.js',
-            '.js',
-            '.ts',
-            '.tsx',
-            '.json',
-          ],
-          alias: {
-            Components: './components',
-            States: './state',
-            Routes: './routes',
-            Assets: './assets',
-            Types: './types',
-          },
-        },
-      ],
+      // [
+      //   'module-resolver',
+      //   {
+      //     root: ['./'],
+      //     extensions: [
+      //       '.ios.js',
+      //       '.android.js',
+      //       '.js',
+      //       '.ts',
+      //       '.tsx',
+      //       '.json',
+      //     ],
+      //     alias: {
+      //       Components: './components',
+      //       States: './state',
+      //       Routes: './routes',
+      //       Assets: './assets',
+      //       Types: './types',
+      //     },
+      //   },
+      // ],
       'react-native-reanimated/plugin',
     ]
   }

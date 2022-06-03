@@ -96,7 +96,7 @@ export interface AttackingNeutralTerritoryResponse {
 
 export interface ParticipantsResponse {
     id: number;
-    inGameParticipantNumber: number;
+    //inGameParticipantNumber: number;
     avatarName: string;
     playerId: number;
     gameId: number;
@@ -110,7 +110,7 @@ export interface UsersResponse {
     id: number;
     isBot: boolean;
     username: string;
-    userGlobalIdentifier: string;
+    userGlobalIdentifier: string | null;
 }
 
 export interface ObjectTerritoryResponse {
