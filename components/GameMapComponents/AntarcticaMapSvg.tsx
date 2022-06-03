@@ -171,7 +171,7 @@ export default function AntarcticaMapSvg({ gameMapException,
           <Text
             transform={antarcticaSVGElements[k].ScorePosition}
             fontSize={25}
-            opacity={IsPvPAvailable(k) ? 1 : 0.1}
+            opacity={IsPvPAvailable(k) ? 1 : 0}
             pointerEvents="none"
             fill="#fff"
             stroke="#000"

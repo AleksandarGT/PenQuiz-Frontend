@@ -25,7 +25,7 @@ export * from './LoadingComponent'
 
 const Stack = createStackNavigator()
 const prefix = Linking.createURL('http://localhost:19006')
-export const isDebugRunning = true
+export const isDebugRunning = false
 
 export function Routes() {
   const localAuthStatus = useRecoilValue(authStatus)
@@ -109,11 +109,11 @@ export function Routes() {
 
   function SwitchAuthState() {
 
-    return (
-      <Stack.Screen name="Loading" options={{ headerShown: false }} >
-        {() => <MockAntarcticaSvgMap />}
-      </Stack.Screen>
-    )
+    // return (
+    //   <Stack.Screen name="Loading" options={{ headerShown: false }} >
+    //     {() => <MockAntarcticaSvgMap />}
+    //   </Stack.Screen>
+    // )
 
     if (localAuthStatus == authStatusType.LOADING) {
       return (
