@@ -1,3 +1,5 @@
+import { GameCharacterResponse } from "./gameCharacterTypes";
+
 export enum GameType {
     PUBLIC,
     PRIVATE
@@ -96,7 +98,7 @@ export interface AttackingNeutralTerritoryResponse {
 
 export interface ParticipantsResponse {
     id: number;
-    //inGameParticipantNumber: number;
+    inGameParticipantNumber: number;
     avatarName: string;
     playerId: number;
     gameId: number;
@@ -104,6 +106,7 @@ export interface ParticipantsResponse {
     score: number;
     finalQuestionScore: number;
     player: UsersResponse | null;
+    gameCharacter: GameCharacterResponse | null;
 }
 
 export interface UsersResponse {

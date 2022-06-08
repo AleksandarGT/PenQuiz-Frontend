@@ -35,7 +35,7 @@ export default function MultipleChoiceScreen({
     }, [question])
 
     useEffect(() => {
-        if(!playerQuestionAnswers) return
+        if (!playerQuestionAnswers) return
 
         const thisPlayerAnswer = playerQuestionAnswers.playerAnswers.find(e => e.id == user.id)?.answerId
         setAnsweredId(thisPlayerAnswer)
@@ -91,9 +91,9 @@ export default function MultipleChoiceScreen({
 
                             {/* Attacker */}
                             {!isDebugMode && question.isNeutral ?
-                                <PlayerAvatar supportIcon={"sword"} avatarName={question.participants.find(x => x.playerId == user.id)!.avatarName} />
+                                <PlayerAvatar supportIcon={"sword"} participant={question.participants.find(e => e.playerId == user.id)!} />
                                 :
-                                <PlayerAvatar supportIcon={"sword"} avatarName={question.participants.find(x => x.playerId == question.attackerId)!.avatarName} />
+                                <PlayerAvatar supportIcon={"sword"} participant={question.participants.find(e => e.playerId == question.attackerId)!} />
                             }
 
                             {/* Question */}
@@ -142,9 +142,9 @@ export default function MultipleChoiceScreen({
 
                             {/* Defender */}
                             {question.isNeutral ?
-                                <MultipleAvatars avatarNames={question.participants.filter(x => x.playerId != user.id).map(e => e.avatarName)} />
+                                <MultipleAvatars participants={question.participants.filter(e => e.playerId != user.id)} />
                                 :
-                                <PlayerAvatar supportIcon={"shield"} avatarName={question.participants.find(x => x.playerId == question.defenderId)!.avatarName} />
+                                <PlayerAvatar supportIcon={"shield"} participant={question.participants.find(e => e.playerId == question.defenderId)!} />
                             }
                         </HStack>
                         {/* Buttons */}

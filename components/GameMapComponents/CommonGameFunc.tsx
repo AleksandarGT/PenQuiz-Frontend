@@ -2,8 +2,19 @@ import { Platform } from 'react-native'
 import { AttackStage, GameInstanceResponse, GameState } from '../../types/gameInstanceTypes'
 import { IPlayerAttackPossibilities } from '../../types/gameResponseTypes';
 
-export function GetAvatarColor(avatarName: string) {
-    return ReturnColor(avatarName)
+export function GetAvatarColor(inGameParticipantNumber: number) {
+    return ReturnColor(inGameParticipantNumber)
+}
+
+function ReturnColor(inGameParticipantNumber: number) {
+    switch (inGameParticipantNumber) {
+        case 1:
+            return "#5074FF"
+        case 2:
+            return "#8350FF"
+        case 3:
+            return "#FF5074"
+    }
 }
 
 
@@ -12,7 +23,7 @@ export function GetParticipantColor(gameInstance: GameInstanceResponse, playerId
 
     if (!particip) return undefined;
 
-    return ReturnColor(particip!.avatarName)
+    return ReturnColor(particip!.inGameParticipantNumber)
 }
 
 
@@ -62,17 +73,6 @@ export function GetNeutralTerritoryPossibilityColor(gameInstance: GameInstanceRe
             return "#BCA0FF"
         case "penguinAvatar3":
             return "#FF98AD"
-    }
-}
-
-function ReturnColor(avatarName: string) {
-    switch (avatarName) {
-        case "penguinAvatar":
-            return "#5074FF"
-        case "penguinAvatar2":
-            return "#8350FF"
-        case "penguinAvatar3":
-            return "#FF5074"
     }
 }
 
@@ -588,6 +588,7 @@ export const gameInstanceMock: GameInstanceResponse = {
         }
     ],
     "participants": [
+        // @ts-ignore
         {
             "id": 64,
             "avatarName": "penguinAvatar2",
@@ -595,6 +596,7 @@ export const gameInstanceMock: GameInstanceResponse = {
             "gameId": 23,
             "isAfk": false,
             "score": 1000,
+            "inGameParticipantNumber": 1,
             "finalQuestionScore": 0,
             "player": {
                 "id": 1,
@@ -603,6 +605,7 @@ export const gameInstanceMock: GameInstanceResponse = {
                 "isBot": false
             }
         },
+        // @ts-ignore
         {
             "id": 65,
             "avatarName": "penguinAvatar",
@@ -610,6 +613,7 @@ export const gameInstanceMock: GameInstanceResponse = {
             "gameId": 23,
             "isAfk": false,
             "score": 1000,
+            "inGameParticipantNumber": 2,
             "finalQuestionScore": 0,
             "player": {
                 "id": 5,
@@ -618,6 +622,7 @@ export const gameInstanceMock: GameInstanceResponse = {
                 "isBot": true
             }
         },
+        // @ts-ignore
         {
             "id": 66,
             "avatarName": "penguinAvatar3",
@@ -625,6 +630,7 @@ export const gameInstanceMock: GameInstanceResponse = {
             "gameId": 23,
             "isAfk": false,
             "score": 1000,
+            "inGameParticipantNumber": 3,
             "finalQuestionScore": 0,
             "player": {
                 "id": 6,

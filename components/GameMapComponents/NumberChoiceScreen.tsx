@@ -1,5 +1,5 @@
 import { Box, Center, HStack, Text, VStack, IconButton } from 'native-base'
-import React, {  } from 'react'
+import React, { } from 'react'
 import { ImageBackground, Platform } from 'react-native'
 import { GetAvatarColor } from './CommonGameFunc'
 import { authAtom } from '../../state'
@@ -104,12 +104,10 @@ export default function NumberChoiceScreen({
                         {/* Question / Avatars */}
                         <HStack >
 
-
-                            {/* Attacker */}
                             {question.isNeutral ?
-                                <PlayerAvatar supportIcon={"sword"} avatarName={question.participants.find(x => x.playerId == user.id)!.avatarName} />
+                                <PlayerAvatar supportIcon={"sword"} participant={question.participants.find(e => e.playerId == user.id)!} />
                                 :
-                                <PlayerAvatar supportIcon={"sword"} avatarName={question.participants.find(x => x.playerId == question.attackerId)!.avatarName} />
+                                <PlayerAvatar supportIcon={"sword"} participant={question.participants.find(e => e.playerId == question.attackerId)!} />
                             }
 
                             {/* Question */}
@@ -117,18 +115,18 @@ export default function NumberChoiceScreen({
 
 
                                 {/* Timer */}
-                                {question.capitalRoundsRemaining ? 
+                                {question.capitalRoundsRemaining ?
 
-                                    <CapitalRoundTimer question={question} /> : 
+                                    <CapitalRoundTimer question={question} /> :
 
-                                    question.isLastQuestion ? 
+                                    question.isLastQuestion ?
 
-                                    <LastRoundIndicator /> :
+                                        <LastRoundIndicator /> :
 
 
-                                    <HStack mb={5} justifyContent={"center"} >
-                                        <MCQuestionTimer key="gameTimer" />
-                                    </HStack>
+                                        <HStack mb={5} justifyContent={"center"} >
+                                            <MCQuestionTimer key="gameTimer" />
+                                        </HStack>
                                 }
 
 
@@ -145,10 +143,11 @@ export default function NumberChoiceScreen({
 
                             {/* Defender */}
                             {question.isNeutral ?
-                                <MultipleAvatars avatarNames={question.participants.filter(x => x.playerId != user.id).map(e => e.avatarName)} />
+                                <MultipleAvatars participants={question.participants.filter(e => e.playerId != user.id)} />
                                 :
-                                <PlayerAvatar supportIcon={"shield"} avatarName={question.participants.find(x => x.playerId == question.defenderId)!.avatarName} />
+                                <PlayerAvatar supportIcon={"shield"} participant={question.participants.find(e => e.playerId == question.defenderId)!} />
                             }
+
                         </HStack>
                     </Box>
                     {playerQuestionAnswers ?

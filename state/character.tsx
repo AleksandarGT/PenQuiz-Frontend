@@ -1,4 +1,4 @@
-import { GameCharacterResponse } from "@Types/gameCharacterTypes";
+import { GameCharacterResponse } from "../types/gameCharacterTypes";
 import { atom } from "recoil";
 
 export const gameCharacterAtom = atom<GameCharacterResponse | null>({
