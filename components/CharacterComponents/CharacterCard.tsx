@@ -8,6 +8,10 @@ export default function CharacterCard({
     avatarName,
     avatarImageName,
     onPress,
+}: {
+    avatarName: string,
+    avatarImageName: string,
+    onPress: () => void
 }) {
 
     return (

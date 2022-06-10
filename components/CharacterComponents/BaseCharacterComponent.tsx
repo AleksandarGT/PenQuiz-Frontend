@@ -5,7 +5,7 @@ import CharacterCard from './CharacterCard';
 import { MaterialIcons } from '@expo/vector-icons';
 
 
-function ChampionHeader({ headerText }) {
+function ChampionHeader({ headerText }: { headerText: string }) {
     return (
         <Box>
             <HStack justifyContent="space-between" alignItems={"flex-end"} >
@@ -67,19 +67,19 @@ export default function BaseCharacterComponent() {
 
 
                                 <HStack justifyContent="space-evenly">
-                                    <CharacterCard avatarImageName={"penguinAvatar"} avatarName="Pedala" onPress={() => console.log("eh maika ti")} />
-                                    <CharacterCard avatarImageName={"penguinAvatar"} avatarName="Pedala" onPress={() => console.log("eh maika ti")} />
-                                    <CharacterCard avatarImageName={"penguinAvatar"} avatarName="Pedala" onPress={() => console.log("eh maika ti")} />
+                                    <CharacterCard avatarImageName={"penguinAvatarKing"} avatarName="Pedala" onPress={() => console.log("eh maika ti")} />
+                                    <CharacterCard avatarImageName={"penguinAvatarKing"} avatarName="Pedala" onPress={() => console.log("eh maika ti")} />
+                                    <CharacterCard avatarImageName={"penguinAvatarKing"} avatarName="Pedala" onPress={() => console.log("eh maika ti")} />
                                 </HStack>
 
-                                
+
                                 <Box my={7} />
                                 <ChampionHeader headerText={"Premium penguins"} />
 
                                 <HStack justifyContent="space-evenly">
-                                    <CharacterCard avatarImageName={"penguinAvatar2"} avatarName="Baroveca" onPress={() => console.log("eh maika ti")} />
-                                    <CharacterCard avatarImageName={"penguinAvatar2"} avatarName="Baroveca" onPress={() => console.log("eh maika ti")} />
-                                    <CharacterCard avatarImageName={"penguinAvatar2"} avatarName="Baroveca" onPress={() => console.log("eh maika ti")} />
+                                    <CharacterCard avatarImageName={"penguinAvatarWizard"} avatarName="Baroveca" onPress={() => console.log("eh maika ti")} />
+                                    <CharacterCard avatarImageName={"penguinAvatarWizard"} avatarName="Baroveca" onPress={() => console.log("eh maika ti")} />
+                                    <CharacterCard avatarImageName={"penguinAvatarWizard"} avatarName="Baroveca" onPress={() => console.log("eh maika ti")} />
                                 </HStack>
                             </ScrollView>
 
