@@ -13,7 +13,7 @@ export interface GameCharacterResponse {
     id: number;
     userId: number;
     gameInstanceId: number;
-    characterAbilities: GameCharacterAbilities;
+    characterAbilities: GameCharacterAbilitiesResponse;
     character: CharacterResponse;
 }
 
@@ -29,25 +29,25 @@ export interface CharacterResponse {
     price: number | null;
 }
 
-
-export interface GameCharacterAbilities {
-    id: number;
+export interface GameCharacterAbilitiesResponse {
     characterType: CharacterType;
     gameCharacterId: number;
+    vikingCharacterAbilitiesResponse: VikingCharacterAbilitiesResponse;
+    kingCharacterAbilitiesResponse: KingCharacterAbilitiesResponse;
+    wizardCharacterAbilitiesResponse: WizardCharacterAbilitiesResponse;
 }
 
-export interface VikingCharacterAbilities extends GameCharacterAbilities {
+export interface VikingCharacterAbilitiesResponse {
     fortifyCapitalUseCount: number;
     fortifyCapitalMaxUseCount: number;
 }
 
-export interface KingCharacterAbilities extends GameCharacterAbilities {
+export interface KingCharacterAbilitiesResponse {
     currentBonusPoints: number;
     pointsMultiplier: number;
 }
 
-export interface WizardCharacterAbilities extends GameCharacterAbilities {
-    isMCHintsAvailable: boolean;
+export interface WizardCharacterAbilitiesResponse {
     mCQuestionHintUseCount: number;
     mCQuestionHintMaxUseCount: number;
 }

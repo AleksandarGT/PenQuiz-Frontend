@@ -4,7 +4,7 @@ import { View, useWindowDimensions } from 'react-native';
 /* SVGR has dropped some elements not supported by react-native-svg: style */
 import { useRecoilValue } from 'recoil'
 import { authAtom } from '../../state'
-import { GetParticipantColor, GetNeutralTerritoryPossibilityColor, GetPvpTerritoryPossibilityColor, GetPvpTerritoryNonHighlightColor } from './CommonGameFunc'
+import { GetParticipantColor, GetNeutralTerritoryPossibilityColor, GetPvpTerritoryNonHighlightColor } from './CommonGameFunc'
 import DefaultAlert from "../Popups/DefaultAlert";
 import { AttackStage, GameInstanceResponse } from "../../types/gameInstanceTypes";
 import { IPlayerAttackPossibilities } from "../../types/gameResponseTypes";
@@ -81,9 +81,9 @@ export default function AntarcticaMapSvg({ gameMapException,
           return GetParticipantColor(gameInstance, thisTerritoryTakenById);
 
 
-        const avatarName = gameInstance.participants.find(e => e.playerId == thisTerritoryTakenById)!.avatarName
+        const inGameParticipantNumber = gameInstance.participants.find(e => e.playerId == thisTerritoryTakenById)!.inGameParticipantNumber
 
-        const response = GetPvpTerritoryNonHighlightColor(avatarName)
+        const response = GetPvpTerritoryNonHighlightColor(inGameParticipantNumber)
 
         return response
       }

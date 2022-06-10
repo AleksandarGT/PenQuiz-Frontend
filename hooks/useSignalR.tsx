@@ -1,8 +1,8 @@
 import { setupSignalRConnection } from './SignalRSetup'
 import { authToken, gameInstanceAtom, joiningGameExceptionAtom, connectionStatusAtom, gameTimerAtom, gameMapExceptionAtom, authAtom, roundQuestionAtom, playerQuestionAnswersAtom, playerAttackPossibilitiesAtom } from '../state'
-import { useRecoilValue, useRecoilState } from 'recoil'
+import { useRecoilValue, useRecoilState, useSetRecoilState } from 'recoil'
 import { GAME_SERVICE_API_URL } from '../injectable'
-import { removeBackStack } from '../helpers'
+import { IsKing, IsViking, IsWizard, removeBackStack } from '../helpers'
 import { getConnection } from './SignalRSetup'
 import { useEffect } from 'react'
 import { IPlayerAttackPossibilities, MCPlayerQuestionAnswers, NumberPlayerQuestionAnswers, QuestionClientResponse, SelectedTerritoryResponse } from '../types/gameResponseTypes'
@@ -10,6 +10,8 @@ import { HubConnection } from '@microsoft/signalr'
 import { GameHubStatusCode } from '../types/hubTypes'
 import { GameInstanceResponse, GameState } from '../types/gameInstanceTypes'
 import { IAuthData } from '../types/authTypes'
+import { GameCharacterResponse } from '../types/gameCharacterTypes'
+import { gameCharacterAtom } from '../state/character'
 
 const connectionHub = `${GAME_SERVICE_API_URL}/gamehubs`
 
@@ -17,15 +19,19 @@ const connectionHub = `${GAME_SERVICE_API_URL}/gamehubs`
 let connection: HubConnection | null
 export function useSignalR() {
     const userJwt = useRecoilValue(authToken)
-    const [currentUser, setCurrentUser] = useRecoilState(authAtom)
+    const setCurrentUser = useSetRecoilState(authAtom)
     const [gameInstance, setGameInstance] = useRecoilState(gameInstanceAtom)
-    const [joiningGameException, setJoiningGameException] = useRecoilState(joiningGameExceptionAtom)
-    const [connectionStatus, setConnectionStatus] = useRecoilState(connectionStatusAtom)
-    const [gameTimer, setGameTimer] = useRecoilState(gameTimerAtom)
-    const [playerAttackPossibilities, setPlayerAttackPossibilities] = useRecoilState(playerAttackPossibilitiesAtom)
-    const [gameMapException, setGameMapException] = useRecoilState(gameMapExceptionAtom)
-    const [roundQuestion, setRoundQuestion] = useRecoilState(roundQuestionAtom)
-    const [playerQuestionAnswers, setPlayerQuestionAnswers] = useRecoilState(playerQuestionAnswersAtom)
+
+    const setJoiningGameException = useSetRecoilState(joiningGameExceptionAtom)
+    const setConnectionStatus = useSetRecoilState(connectionStatusAtom)
+    const setGameTimer = useSetRecoilState(gameTimerAtom)
+    const setPlayerAttackPossibilities = useSetRecoilState(playerAttackPossibilitiesAtom)
+    const setGameMapException = useSetRecoilState(gameMapExceptionAtom)
+    const setRoundQuestion = useSetRecoilState(roundQuestionAtom)
+    const setPlayerQuestionAnswers = useSetRecoilState(playerQuestionAnswersAtom)
+
+    const setGameCharacter = useSetRecoilState(gameCharacterAtom)
+
     connection = getConnection()
 
     useEffect(() => {
@@ -235,14 +241,18 @@ export function useSignalR() {
         }))
 
         // Timer event
-        connection.on('GameSendCountDownSeconds', ((secondsForAction) => {
+        connection.on('GameSendCountDownSeconds', ((secondsForAction: number) => {
             setGameTimer(secondsForAction)
         }))
 
 
         // Characters
-        connection.on('WizardGetAbilityUsesLeft', ((usesLeft) => {
-            
+        connection.on('WizardGetAbilityUsesLeft', ((usesLeft: number) => {
+
+        }))
+
+        connection.on("GetGameCharacter", ((characterResponse: GameCharacterResponse) => {
+            setGameCharacter(characterResponse)
         }))
     }
 }

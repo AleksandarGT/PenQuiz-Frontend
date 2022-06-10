@@ -9,10 +9,13 @@ export function GetAvatarColor(inGameParticipantNumber: number) {
 function ReturnColor(inGameParticipantNumber: number) {
     switch (inGameParticipantNumber) {
         case 1:
+            // Blue
             return "#5074FF"
         case 2:
+            // Purple
             return "#8350FF"
         case 3:
+            // Red
             return "#FF5074"
     }
 }
@@ -27,70 +30,55 @@ export function GetParticipantColor(gameInstance: GameInstanceResponse, playerId
 }
 
 
-// Will become obsolete when player characters get introduced
-export function GetPvpTerritoryPossibilityColor(defenderAvatarName: string) {
-
+export function GetPvpTerritoryNonHighlightColor(inGameParticipantNumber: number) {
     // Blue
-    if (defenderAvatarName == "penguinAvatar")
-        return "#90A7FF"
-
-    // Purple
-    if (defenderAvatarName == "penguinAvatar2")
-        return "#BCA0FF"
-
-    // Red
-    if (defenderAvatarName == "penguinAvatar3")
-        return "#FF98AD"
-
-
-    console.log(`Unhandled color combination - Defender: ${defenderAvatarName}`)
-}
-
-export function GetPvpTerritoryNonHighlightColor(defenderAvatarName: string) {
-    // Blue
-    if (defenderAvatarName == "penguinAvatar")
+    if (inGameParticipantNumber == 1)
         return "#1A3A89"
 
     // Purple
-    if (defenderAvatarName == "penguinAvatar2")
+    if (inGameParticipantNumber == 2)
         return "#292F89"
 
     // Red
-    if (defenderAvatarName == "penguinAvatar3")
+    if (inGameParticipantNumber == 3)
         return "#513060"
 
 
-    console.log(`Unhandled color combination - Defender: ${defenderAvatarName}`)
+    console.log(`Unhandled color combination - Defender participant number: ${inGameParticipantNumber}`)
 }
 
 export function GetNeutralTerritoryPossibilityColor(gameInstance: GameInstanceResponse, playerId: number) {
     const particip = gameInstance.participants.find(x => x.playerId == playerId)
 
-    switch (particip?.avatarName) {
-        case "penguinAvatar":
+    switch (particip?.inGameParticipantNumber) {
+        // Blue
+        case 1:
             return "#90A7FF"
-        case "penguinAvatar2":
+        // Purple
+        case 2:
             return "#BCA0FF"
-        case "penguinAvatar3":
+
+        // Red
+        case 3:
             return "#FF98AD"
     }
 }
 
 export function GetPenguinAvatarImage(avatarName: string) {
     if (Platform.OS == "web") {
-        return avatarName == "penguinAvatar"
-            ? require('../../assets/penguinAvatar.svg')
-            : avatarName == "penguinAvatar2"
-                ? require('../../assets/penguinAvatar2.svg')
-                : require('../../assets/penguinAvatar3.svg')
+        return avatarName == "penguinAvatarWizard"
+            ? require('../../assets/penguinAvatarWizard.svg')
+            : avatarName == "penguinAvatarKing"
+                ? require('../../assets/penguinAvatarKing.svg')
+                : require('../../assets/penguinAvatarViking.svg')
     }
-    else {
-        return avatarName == "penguinAvatar"
-            ? require('../../assets/penguinAvatar.png')
-            : avatarName == "penguinAvatar2"
-                ? require('../../assets/penguinAvatar2.png')
-                : require('../../assets/penguinAvatar3.png')
-    }
+
+
+    return avatarName == "penguinAvatarWizard"
+        ? require('../../assets/penguinAvatarWizard.png')
+        : avatarName == "penguinAvatarKing"
+            ? require('../../assets/penguinAvatarKing.png')
+            : require('../../assets/penguinAvatarViking.png')
 }
 
 export function RoundAttackStage(attackStage: AttackStage) {
@@ -108,19 +96,19 @@ export function RoundAttackStage(attackStage: AttackStage) {
 
 export const gameSvgs = [
     {
-        name: "penguinAvatar",
-        img: require(`../../assets/penguinAvatar.svg`),
-        imgPng: require(`../../assets/penguinAvatar.png`)
+        name: "penguinAvatarWizard",
+        img: require(`../../assets/penguinAvatarWizard.svg`),
+        imgPng: require(`../../assets/penguinAvatarWizard.png`)
     },
     {
-        name: "penguinAvatar2",
-        img: require(`../../assets/penguinAvatar2.svg`),
-        imgPng: require(`../../assets/penguinAvatar2.png`)
+        name: "penguinAvatarKing",
+        img: require(`../../assets/penguinAvatarKing.svg`),
+        imgPng: require(`../../assets/penguinAvatarKing.png`)
     },
     {
-        name: "penguinAvatar3",
-        img: require(`../../assets/penguinAvatar3.svg`),
-        imgPng: require(`../../assets/penguinAvatar3.png`)
+        name: "penguinAvatarViking",
+        img: require(`../../assets/penguinAvatarViking.svg`),
+        imgPng: require(`../../assets/penguinAvatarViking.png`)
     },
     {
         name: "shield",
