@@ -14,7 +14,7 @@ function TemplateButton({ onClick, isAdmin, isBanned }: { onClick: () => void, i
                 return (
                     <Box borderColor="white" borderWidth={1} px={9} shadow={3} bg={isAdmin ? "gray.500" : isBanned && isPressed ? "green.700" : isBanned && isHovered ? "green.600" : isBanned ? "#00930F" : !isBanned && isPressed ? "red.700" : !isBanned && isHovered ? "red.600" : "#A01B1B"} borderRadius={50}>
                         <Box pb={2} pt={2}>
-                            <Text fontSize={{ base: "md", md: "lg", lg: "xl", xl: "xl" }}>
+                            <Text selectable={false} fontSize={{ base: "md", md: "lg", lg: "xl", xl: "xl" }}>
                                 {isBanned ? "Unban" : "Ban"}
                             </Text>
                         </Box>

@@ -29,7 +29,7 @@ export function SubmitQuestionBase() {
                     return (
                         <Box px={9} shadow={3} bg={isPressed ? "#8EC8CD" : isHovered ? "#ACE6EB" : "#C8FBFF"} p={2} borderRadius={50}>
                             <Box px={4} pb={2} pt={2}>
-                                <Text fontSize={{ base: "md", md: "lg", lg: "xl", xl: 35 }} color="#032157" fontStyle="italic">
+                                <Text selectable={false} fontSize={{ base: "md", md: "lg", lg: "xl", xl: 35 }} color="#032157" fontStyle="italic">
                                     {buttonText}
                                 </Text>
                             </Box>

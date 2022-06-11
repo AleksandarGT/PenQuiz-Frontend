@@ -32,7 +32,7 @@ export default function BaseAdminAccountsComponent() {
                                         <MaterialIcons name="keyboard-arrow-left" size={24} color="black" />
                                     </Center>}
 
-                                    <Text fontSize={{ base: "sm", md: "md", lg: "lg", xl: "xl" }} color="#032157" fontStyle="italic">
+                                    <Text selectable={false} fontSize={{ base: "sm", md: "md", lg: "lg", xl: "xl" }} color="#032157" fontStyle="italic">
                                         {buttonText}
                                     </Text>
 
@@ -66,7 +66,7 @@ export default function BaseAdminAccountsComponent() {
 
                                             </Center>
                                         </AspectRatio>
-                                        <Text alignSelf="center" ml={3} isTruncated maxW={windowWidth * 0.4} fontSize={{ base: "md", md: "md", lg: "lg", xl: "xl" }}>
+                                        <Text selectable={false} alignSelf="center" ml={3} isTruncated maxW={windowWidth * 0.4} fontSize={{ base: "md", md: "md", lg: "lg", xl: "xl" }}>
                                             {user.email}
                                         </Text>
                                     </HStack>

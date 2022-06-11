@@ -83,7 +83,7 @@ export default function GameEndModal({ gameInstance, onExit }: GameEndModalParam
                     return (
                         <Box px={9} shadow={3} bg={isPressed ? "#0D569B" : isHovered ? "#06326F" : "#071D56"} p={2} borderRadius={50}>
                             <Box px={4} pb={2} pt={2}>
-                                <Text fontSize={{ base: "md", md: "lg", lg: "xl", xl: 35 }}>
+                                <Text selectable={false} fontSize={{ base: "md", md: "lg", lg: "xl", xl: 35 }}>
                                     Exit Game
                                 </Text>
                             </Box>

@@ -56,7 +56,7 @@ export default function CharacterCard({
                                     borderLeftWidth: 2,
                                     borderRightWidth: 2
                                 }} p={3} backgroundColor="#0F5688">
-                                    <Text textAlign={"center"} fontSize={{ base: "md", md: "lg", lg: "xl", xl: "4xl" }} style={{ fontFamily: 'Before-Collapse', }}>
+                                    <Text selectable={false} textAlign={"center"} fontSize={{ base: "md", md: "lg", lg: "xl", xl: "4xl" }} style={{ fontFamily: 'Before-Collapse', }}>
                                         {avatarName}
                                     </Text>
                                 </Box>

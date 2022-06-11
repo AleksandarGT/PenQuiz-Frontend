@@ -36,7 +36,7 @@ export function GameLobby() {
                                 isPressed ? "#0D569B" : isHovered ? "#06326F" : "#071D56"
                         } p={2} borderRadius={50}>
                             <Box px={4} pb={2} pt={2}>
-                                <Text fontSize={{ base: "md", md: "lg", lg: "xl", xl: 35 }}>
+                                <Text selectable={false} fontSize={{ base: "md", md: "lg", lg: "xl", xl: 35 }}>
                                     {!IsLobbyFull() ? `Waiting for ${RequiredPlayers - gameInstance.participants?.length} more players` : IsGameHost() ? "Start game" : "Waiting for host to start"}
                                 </Text>
                             </Box>
@@ -89,7 +89,7 @@ export function GameLobby() {
                         <Box shadow={3} bg={
                             isPressed ? "#BDBDBD" : isHovered ? "#E4E4E4" : "#fff"
                         } p={2} borderColor="black" borderWidth={2} borderRadius={5}>
-                            <Text textAlign={"center"} color={"black"} >
+                            <Text selectable={false} textAlign={"center"} color={"black"} >
                                 Add Bot
                             </Text>
                         </Box>
@@ -136,6 +136,9 @@ export function GameLobby() {
                                 }}
                             /> : null
                         }
+                        <Text isTruncated maxWidth="90%" fontWeight="bold" fontSize="md" color="black">
+                            {participant.gameCharacter?.character.name}
+                        </Text>
                     </Center>
                 </VStack>
 

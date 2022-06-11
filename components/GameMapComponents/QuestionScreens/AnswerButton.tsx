@@ -75,7 +75,7 @@ export default function AnswerButton({ answer,
                                 borderWidth: playerQuestionAnswers?.correctAnswerId == answer.id ? 10 : 1,
                             }}>
                             <Box px={8} minWidth={Platform.OS == "web" ? "35vw" : window.width * 0.2} maxWidth={Platform.OS == "web" ? "40vw" : window.width * 0.4} py={2}>
-                                <Text style={{ flexWrap: 'wrap', color: playerAnswers?.length > 0 || answeredId == answer.id ? "white" : "black" }} fontStyle="italic" fontSize={{ base: "md", md: "lg", lg: "xl", xl: "3xl" }}>
+                                <Text selectable={false} style={{ flexWrap: 'wrap', color: playerAnswers?.length > 0 || answeredId == answer.id ? "white" : "black" }} fontStyle="italic" fontSize={{ base: "md", md: "lg", lg: "xl", xl: "3xl" }}>
                                     {decodeURIComponent(answer.answer)}
                                 </Text>
 

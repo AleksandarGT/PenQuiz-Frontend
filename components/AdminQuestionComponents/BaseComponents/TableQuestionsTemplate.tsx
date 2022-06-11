@@ -92,7 +92,7 @@ export function TableQuestionsTemplate({ mode }: { mode: QuestionsTemplateMode }
                                     <MaterialIcons name="keyboard-arrow-left" size={24} color="black" />
                                 </Center>}
 
-                                <Text fontSize={{ base: "sm", md: "md", lg: "lg", xl: "xl" }} color="#032157" fontStyle="italic">
+                                <Text selectable={false} fontSize={{ base: "sm", md: "md", lg: "lg", xl: "xl" }} color="#032157" fontStyle="italic">
                                     {buttonText}
                                 </Text>
 
@@ -122,7 +122,7 @@ function QuestionRow({ type, question, onPress }: { type: "multiple" | "number",
                                 <HStack>
                                     <AspectRatio p={Platform.OS == "web" ? 4 : 3} bg="white" ratio={1 / 1} borderRadius={10}>
                                         <Center>
-                                            <Text color="black" fontSize={Platform.OS == "web" ? "md" : "xs"}>
+                                            <Text selectable={false} color="black" fontSize={Platform.OS == "web" ? "md" : "xs"}>
                                                 {type == "multiple" ? "abc" : type == "number" ? "123" : "--"}
                                             </Text>
                                         </Center>

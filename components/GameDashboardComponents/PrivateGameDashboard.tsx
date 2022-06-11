@@ -15,7 +15,7 @@ function CreateGameButton({ onPress }: { onPress: () => void }) {
                 return (
                     <Box px={9} shadow={3} bg={isPressed ? "#0D569B" : isHovered ? "#06326F" : "#071D56"} p={2} borderRadius={50}>
                         <Box px={4} pb={2} pt={2}>
-                            <Text fontSize={{ base: "md", md: "lg", lg: "xl", xl: 35 }}>
+                            <Text selectable={false} fontSize={{ base: "md", md: "lg", lg: "xl", xl: 35 }}>
                                 Create Game
                             </Text>
                         </Box>
@@ -33,7 +33,7 @@ function JoinGameButton({ onPress }: { onPress: () => void }) {
                 return (
                     <Box shadow={3} bg={isPressed ? "#C6C6C6" : isHovered ? "#D7D7D7" : "white"} px={8} borderRadius={25}>
                         <Box px={4} >
-                            <Text color="black" fontSize={{ base: "md", md: "lg", lg: "xl", xl: 25 }}>
+                            <Text selectable={false} color="black" fontSize={{ base: "md", md: "lg", lg: "xl", xl: 25 }}>
                                 Join Game
                             </Text>
                         </Box>
