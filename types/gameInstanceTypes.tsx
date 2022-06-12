@@ -99,14 +99,13 @@ export interface AttackingNeutralTerritoryResponse {
 export interface ParticipantsResponse {
     id: number;
     inGameParticipantNumber: number;
-    avatarName: string;
     playerId: number;
     gameId: number;
     isAfk: boolean;
     score: number;
     finalQuestionScore: number;
     player: UsersResponse | null;
-    gameCharacter: GameCharacterResponse | null;
+    gameCharacter: GameCharacterResponse;
 }
 
 export interface UsersResponse {

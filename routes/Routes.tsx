@@ -19,6 +19,7 @@ import { authStatusType } from '../types/authTypes'
 import { GameState } from '../types/gameInstanceTypes'
 import Svg, { G, Path } from 'react-native-svg'
 import MockAntarcticaSvgMap from '../components/TestingComponents/MockAntarcticaSvgMap'
+import { multipleChoicePvpQuestionMock, playerQuestionAnswersMock } from '../components/GameMapComponents/CommonGameFunc'
 
 export * from './LoadingComponent'
 
@@ -109,11 +110,14 @@ export function Routes() {
 
   function SwitchAuthState() {
 
-    // return (
-    //   <Stack.Screen name="Loading" options={{ headerShown: false }} >
-    //     {() => <MockAntarcticaSvgMap />}
-    //   </Stack.Screen>
-    // )
+    if (isDebugRunning)
+      return (
+        <Stack.Screen name="Loading" options={{ headerShown: false }} >
+          {/* {() => <MockAntarcticaSvgMap />} */}
+          {() => <MultipleChoiceScreen playerQuestionAnswers={playerQuestionAnswersMock} question={multipleChoicePvpQuestionMock} />}
+        </Stack.Screen>
+      )
+
 
     if (localAuthStatus == authStatusType.LOADING) {
       return (

@@ -43,7 +43,7 @@ export default function GameEndModal({ gameInstance, onExit }: GameEndModalParam
                     <HStack justifyContent="space-around">
                         <Container bg="#fff" borderRadius={200} p={2}>
                             <Image
-                                source={GetPenguinAvatarImage(participant.avatarName)}
+                                source={GetPenguinAvatarImage(participant.gameCharacter!.character.avatarName)}
                                 alt="Alternate Text"
                                 resizeMode="contain"
                                 size="xs"

@@ -105,7 +105,7 @@ export function GameLobby() {
                 <VStack >
                     <Center>
                         <Image
-                            source={GetPenguinAvatarImage(participant.avatarName)}
+                            source={GetPenguinAvatarImage(participant.gameCharacter!.character.avatarName)}
                             alt="Alternate Text"
                             resizeMode="contain"
                             size={Platform.OS === 'web' ? "xl" : "sm"}

@@ -32,9 +32,9 @@ export interface CharacterResponse {
 export interface GameCharacterAbilitiesResponse {
     characterType: CharacterType;
     gameCharacterId: number;
-    vikingCharacterAbilitiesResponse: VikingCharacterAbilitiesResponse;
-    kingCharacterAbilitiesResponse: KingCharacterAbilitiesResponse;
-    wizardCharacterAbilitiesResponse: WizardCharacterAbilitiesResponse;
+    vikingCharacterAbilitiesResponse: VikingCharacterAbilitiesResponse | null;
+    kingCharacterAbilitiesResponse: KingCharacterAbilitiesResponse | null;
+    wizardCharacterAbilitiesResponse: WizardCharacterAbilitiesResponse | null;
 }
 
 export interface VikingCharacterAbilitiesResponse {
@@ -48,6 +48,6 @@ export interface KingCharacterAbilitiesResponse {
 }
 
 export interface WizardCharacterAbilitiesResponse {
-    mCQuestionHintUseCount: number;
-    mCQuestionHintMaxUseCount: number;
+    mcQuestionHintUseCount: number;
+    mcQuestionHintMaxUseCount: number;
 }

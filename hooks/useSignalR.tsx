@@ -223,6 +223,7 @@ export function useSignalR() {
         // Question events
         connection.on('GetRoundQuestion', ((roundQuestion: QuestionClientResponse) => {
             setPlayerQuestionAnswers(null)
+            console.log(roundQuestion)
             setRoundQuestion(roundQuestion)
         }))
 
@@ -247,14 +248,33 @@ export function useSignalR() {
 
 
         // Characters
-        connection.on('WizardGetAbilityUsesLeft', ((usesLeft: number) => {
+        // connection.on('WizardGetAbilityUsesLeft', ((usesLeft: number) => {
 
-        }))
+        //     setGameCharacter(old => {
+        //         if (old == null)
+        //             return null
+
+        //         const newValue: GameCharacterResponse = {
+        //             ...old,
+        //         }
+
+        //         // Update to given uses left
+        //         newValue.characterAbilities.wizardCharacterAbilitiesResponse!.mCQuestionHintUseCount = usesLeft
+
+        //         return newValue
+        //     })
+
+        // }))
 
         connection.on("GetGameCharacter", ((characterResponse: GameCharacterResponse) => {
             setGameCharacter(characterResponse)
         }))
     }
+}
+
+export function WizardUseMultipleChoiceHint(gameTimer: number) {
+    if (gameTimer <= 0) return;
+    connection?.invoke("WizardUseAbility")
 }
 
 // Game map events

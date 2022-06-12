@@ -1,6 +1,6 @@
 import { Platform } from 'react-native'
 import { AttackStage, GameInstanceResponse, GameState } from '../../types/gameInstanceTypes'
-import { IPlayerAttackPossibilities } from '../../types/gameResponseTypes';
+import { IPlayerAttackPossibilities, QuestionClientResponse } from '../../types/gameResponseTypes';
 
 export function GetAvatarColor(inGameParticipantNumber: number) {
     return ReturnColor(inGameParticipantNumber)
@@ -253,41 +253,117 @@ export const multipleChoiceQuestionMock = {
     ],
 }
 
-export const multipleChoicePvpQuestionMock = {
-    "id": 1,
+export const multipleChoicePvpQuestionMock: QuestionClientResponse = {
+    "isLastQuestion": false,
     "isNeutral": false,
-    "question": "When was Bulgaria founded?",
+    "capitalRoundsRemaining": null,
+    "id": 158,
+    "question": "When was bulgaria created?",
     "type": "multiple",
     "answers": [
         {
-            "id": 1,
+            "id": 428,
             "answer": "681"
         },
         {
-            "id": 2,
-            "answer": "1332"
+            "id": 429,
+            "answer": "15"
         },
         {
-            "id": 3,
-            "answer": "806"
+            "id": 430,
+            "answer": "22"
         },
         {
-            "id": 4,
-            "answer": "927"
-        },
-    ],
-    "attackerId": 1,
-    "defenderId": 2,
-    "participants": [
-        {
-            "avatarName": "penguinAvatar",
-            "playerId": 1,
-        },
-        {
-            "avatarName": "penguinAvatar2",
-            "playerId": 2,
+            "id": 431,
+            "answer": "512"
         }
     ],
+    "participants": [
+        {
+            "id": 83,
+            "inGameParticipantNumber": 3,
+            "playerId": 1,
+            "gameId": 62,
+            "isAfk": false,
+            "score": 1000,
+            "finalQuestionScore": 0,
+            "gameCharacter": {
+                "id": 76,
+                "userId": 1,
+                "gameInstanceId": 62,
+                "characterAbilities": {
+                    "characterType": 0,
+                    "gameCharacterId": 76,
+                    kingCharacterAbilitiesResponse: null,
+                    vikingCharacterAbilitiesResponse: null,
+                    "wizardCharacterAbilitiesResponse": {
+                        mcQuestionHintMaxUseCount: 2,
+                        mcQuestionHintUseCount: 0,
+                    }
+                },
+                "character": {
+                    "id": 1,
+                    "characterGlobalIdentifier": "2afae81c-806f-4c67-b977-fb124b4c13db",
+                    "name": "Wizard",
+                    "avatarName": "penguinAvatarWizard",
+                    "description": "Some description",
+                    "abilityDescription": "Can remove half the options to select from in a multiple choice question. Ability can be used: 3",
+                    "pricingType": 0,
+                    "characterType": 0,
+                    "price": null
+                }
+            },
+            "player": {
+                "id": 1,
+                "username": "Boosted Penguin",
+                "userGlobalIdentifier": "c0d2a2dc-a040-402b-8d5e-89553745c37d",
+                "isBot": false
+            }
+        },
+        {
+            "id": 84,
+            "inGameParticipantNumber": 2,
+            "playerId": 5,
+            "gameId": 62,
+            "isAfk": false,
+            "score": 1000,
+            "finalQuestionScore": 0,
+            "gameCharacter": {
+                "id": 77,
+                "userId": 5,
+                "gameInstanceId": 62,
+                "characterAbilities": {
+                    vikingCharacterAbilitiesResponse: null,
+                    wizardCharacterAbilitiesResponse: null,
+                    "characterType": 1,
+                    "gameCharacterId": 77,
+                    "kingCharacterAbilitiesResponse": {
+                        "currentBonusPoints": 0,
+                        "pointsMultiplier": 0.1
+                    }
+                },
+                "character": {
+                    "id": 2,
+                    "characterGlobalIdentifier": "c0cfb149-10ed-477f-8009-ff22a16a3b5e",
+                    "name": "King",
+                    "avatarName": "penguinAvatarKing",
+                    "description": "Some description",
+                    "abilityDescription": "Has a permanent score bonus multiplier when you capture a territory. Multiplier: 10%",
+                    "pricingType": 0,
+                    "characterType": 1,
+                    "price": null
+                }
+            },
+            "player": {
+                "id": 5,
+                "username": "[BOT]Penguin-5267",
+                "userGlobalIdentifier": null,
+                "isBot": true
+            }
+        }
+    ],
+    "attackerId": 1,
+    "defenderId": 5
 }
 
 export const playerAttackPossibilitiesMock: IPlayerAttackPossibilities = {
@@ -579,7 +655,6 @@ export const gameInstanceMock: GameInstanceResponse = {
         // @ts-ignore
         {
             "id": 64,
-            "avatarName": "penguinAvatar2",
             "playerId": 1,
             "gameId": 23,
             "isAfk": false,
@@ -596,7 +671,6 @@ export const gameInstanceMock: GameInstanceResponse = {
         // @ts-ignore
         {
             "id": 65,
-            "avatarName": "penguinAvatar",
             "playerId": 5,
             "gameId": 23,
             "isAfk": false,
@@ -613,7 +687,6 @@ export const gameInstanceMock: GameInstanceResponse = {
         // @ts-ignore
         {
             "id": 66,
-            "avatarName": "penguinAvatar3",
             "playerId": 6,
             "gameId": 23,
             "isAfk": false,

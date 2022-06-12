@@ -1,5 +1,5 @@
 import { Box, Center, Container, HStack, Text, VStack, Image, Divider, Pressable, IconButton, Button } from 'native-base'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { Dimensions, ImageBackground, Platform, View } from 'react-native'
 import { gameInstanceMock, gameSvgs, multipleChoicePvpQuestionMock, multipleChoiceQuestionMock, playerQuestionAnswersMock, playerQuestionNumberAnswersMock } from './CommonGameFunc'
 import { authAtom, gameTimerAtom } from '../../state'
@@ -13,6 +13,64 @@ import { Ionicons } from '@expo/vector-icons'
 import { TowerSvg } from './TimerSuffixElements'
 import { MCPlayerQuestionAnswers, QuestionClientResponse } from '../../types/gameResponseTypes'
 import { IAuthData } from '../../types/authTypes'
+import { CharacterType, WizardCharacterAbilitiesResponse } from '../../types/gameCharacterTypes'
+import { WizardUseMultipleChoiceHint } from '../../hooks'
+
+
+function WizardActionComponent({ question, invisible }
+    : { question: QuestionClientResponse, invisible?: boolean }) {
+
+    const [showWizardButton, setShowWizardButton] = useState<boolean>(false);
+    const globalDisplayTime = useRecoilValue(gameTimerAtom)
+    const user = useRecoilValue(authAtom) as IAuthData
+
+    const getThisUserWizardAbilities = useMemo(() => {
+        return question.participants.find(e => e.playerId == user.id)?.gameCharacter?.characterAbilities.wizardCharacterAbilitiesResponse
+    }, [question, user])
+
+    const areAllHintsUsed = useMemo(() => {
+        if (!getThisUserWizardAbilities) return true;
+
+        return getThisUserWizardAbilities?.mcQuestionHintUseCount >= getThisUserWizardAbilities?.mcQuestionHintMaxUseCount
+    }, [getThisUserWizardAbilities])
+
+
+    useEffect(() => {
+        const thisUserParticipant = question.participants.find(e => e.playerId == user.id)
+
+        if (thisUserParticipant?.gameCharacter?.characterAbilities.characterType != CharacterType.WIZARD) return
+
+        setShowWizardButton(true)
+    }, [question, user])
+
+
+    if (!showWizardButton)
+        return null
+
+
+    return (
+        <Pressable opacity={invisible ? 0 : 100} disabled={invisible || areAllHintsUsed} onPress={() => WizardUseMultipleChoiceHint(globalDisplayTime)}>
+            {({ isHovered, isFocused, isPressed }) => {
+                return (
+                    <Box style={{
+                        aspectRatio: 1 / 1,
+                    }} p={2} mt={6} shadow={3} bg={
+                        isPressed ? "#0D569B" : isHovered ? "#06326F" : "#071D56"
+                    } borderRadius={10}>
+                        <Center>
+                            <Text selectable={false} >
+                                Wizard
+                            </Text>
+                            <Text selectable={false}>
+                                {getThisUserWizardAbilities?.mcQuestionHintUseCount} / {getThisUserWizardAbilities?.mcQuestionHintMaxUseCount}
+                            </Text>
+                        </Center>
+                    </Box>
+                )
+            }}
+        </Pressable>
+    )
+}
 
 export default function MultipleChoiceScreen({
     question,
@@ -22,6 +80,7 @@ export default function MultipleChoiceScreen({
 
     const user = useRecoilValue(authAtom) as IAuthData
     const [answeredId, setAnsweredId] = useState<number>()
+
 
 
     // Run debug timer to simulate actual countdown
@@ -149,6 +208,7 @@ export default function MultipleChoiceScreen({
                         </HStack>
                         {/* Buttons */}
                         <HStack justifyContent="space-evenly" >
+                            <WizardActionComponent question={question} />
                             <VStack >
                                 <AnswerButton
                                     setAnsweredId={setAnsweredId}
@@ -193,6 +253,7 @@ export default function MultipleChoiceScreen({
                                     playerAnswers={playerQuestionAnswers?.playerAnswers?.filter(x => x.answerId == question.answers[3].id)}
                                 />
                             </VStack>
+                            <WizardActionComponent question={question} invisible={true} />
                         </HStack>
                     </Box>
                 </Center>
