@@ -8,10 +8,10 @@ import { useEffect } from 'react'
 import { IPlayerAttackPossibilities, MCPlayerQuestionAnswers, NumberPlayerQuestionAnswers, QuestionClientResponse, SelectedTerritoryResponse } from '../types/gameResponseTypes'
 import { HubConnection } from '@microsoft/signalr'
 import { GameHubStatusCode } from '../types/hubTypes'
-import { GameInstanceResponse, GameState } from '../types/gameInstanceTypes'
+import { GameInstanceResponse, GameState, ParticipantsResponse } from '../types/gameInstanceTypes'
 import { IAuthData } from '../types/authTypes'
-import { GameCharacterResponse } from '../types/gameCharacterTypes'
-import { gameCharacterAtom } from '../state/character'
+import { GameCharacterResponse, WizardCharacterAbilitiesResponse, WizardUseMultipleChoiceHintResponse } from '../types/gameCharacterTypes'
+import { gameCharacterAtom, wizardHintQuestionAtom } from '../state/character'
 
 const connectionHub = `${GAME_SERVICE_API_URL}/gamehubs`
 
@@ -31,6 +31,8 @@ export function useSignalR() {
     const setPlayerQuestionAnswers = useSetRecoilState(playerQuestionAnswersAtom)
 
     const setGameCharacter = useSetRecoilState(gameCharacterAtom)
+
+    const setWizardHint = useSetRecoilState(wizardHintQuestionAtom)
 
     connection = getConnection()
 
@@ -62,8 +64,15 @@ export function useSignalR() {
         })
     }
 
+
     function setupEvents() {
         if (connection == null) return;
+
+        function RemoveQuestionDataOnExit() {
+            setRoundQuestion(null)
+            setPlayerQuestionAnswers(null)
+            setWizardHint(null)
+        }
 
         connection.onreconnecting((error) => {
             setConnectionStatus({
@@ -197,8 +206,7 @@ export function useSignalR() {
         }))
 
         connection.on('ShowGameMap', (() => {
-            setRoundQuestion(null)
-            setPlayerQuestionAnswers(null)
+            RemoveQuestionDataOnExit()
         }))
 
         // Game events
@@ -212,8 +220,7 @@ export function useSignalR() {
 
 
 
-            setPlayerQuestionAnswers(null)
-            setRoundQuestion(null)
+            RemoveQuestionDataOnExit()
         }))
 
         connection.on('BorderSelectedGameException', ((msg: string) => {
@@ -248,23 +255,49 @@ export function useSignalR() {
 
 
         // Characters
-        // connection.on('WizardGetAbilityUsesLeft', ((usesLeft: number) => {
+        connection.on('WizardUseMultipleChoiceHint', ((res: WizardUseMultipleChoiceHintResponse) => {
+            setWizardHint(res)
 
-        //     setGameCharacter(old => {
-        //         if (old == null)
-        //             return null
+            setRoundQuestion(old => {
 
-        //         const newValue: GameCharacterResponse = {
-        //             ...old,
-        //         }
+                if (old == null) return null;
 
-        //         // Update to given uses left
-        //         newValue.characterAbilities.wizardCharacterAbilitiesResponse!.mCQuestionHintUseCount = usesLeft
+                const newValue: QuestionClientResponse = {
+                    ...old,
+                    participants: old.participants.map(e => {
+                        if (e.playerId != res.playerId)
+                            return e
 
-        //         return newValue
-        //     })
+                        const newAbilities: WizardCharacterAbilitiesResponse = {
+                            mcQuestionHintMaxUseCount: e.gameCharacter.characterAbilities.wizardCharacterAbilitiesResponse!.mcQuestionHintMaxUseCount,
+                            mcQuestionHintUseCount: e.gameCharacter.characterAbilities.wizardCharacterAbilitiesResponse!.mcQuestionHintUseCount + 1
+                        }
 
-        // }))
+                        return {
+                            ...e,
+                            gameCharacter: {
+                                ...e.gameCharacter,
+                                characterAbilities: {
+                                    ...e.gameCharacter.characterAbilities,
+                                    wizardCharacterAbilitiesResponse: newAbilities
+                                }
+                            }
+                        }
+                    })
+                }
+
+                return newValue;
+            })
+
+
+            // const newValue: GameInstanceResponse = {
+            //     ...old,
+            //     participants: old.gameState == 0 ? old.participants.filter(
+            //         el => el.playerId != disconnectedPersonId) : old.participants.map(
+            //             y => y.playerId == disconnectedPersonId ? { ...y, isAfk: true } : y
+            //         )
+            // }
+        }))
 
         connection.on("GetGameCharacter", ((characterResponse: GameCharacterResponse) => {
             setGameCharacter(characterResponse)

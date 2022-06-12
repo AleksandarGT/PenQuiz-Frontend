@@ -1,3 +1,5 @@
+import { AnswerClientResponse } from "./gameResponseTypes";
+
 export enum CharacterType {
     WIZARD,
     KING,
@@ -50,4 +52,9 @@ export interface KingCharacterAbilitiesResponse {
 export interface WizardCharacterAbilitiesResponse {
     mcQuestionHintUseCount: number;
     mcQuestionHintMaxUseCount: number;
+}
+
+export interface WizardUseMultipleChoiceHintResponse {
+    playerId: number,
+    answers: AnswerClientResponse[];
 }

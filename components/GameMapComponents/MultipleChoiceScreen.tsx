@@ -15,6 +15,7 @@ import { MCPlayerQuestionAnswers, QuestionClientResponse } from '../../types/gam
 import { IAuthData } from '../../types/authTypes'
 import { CharacterType, WizardCharacterAbilitiesResponse } from '../../types/gameCharacterTypes'
 import { WizardUseMultipleChoiceHint } from '../../hooks'
+import { wizardHintQuestionAtom } from '../../state/character'
 
 
 function WizardActionComponent({ question, invisible }

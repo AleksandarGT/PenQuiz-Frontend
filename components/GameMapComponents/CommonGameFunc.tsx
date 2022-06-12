@@ -1,4 +1,5 @@
 import { Platform } from 'react-native'
+import { WizardUseMultipleChoiceHintResponse } from '../../types/gameCharacterTypes';
 import { AttackStage, GameInstanceResponse, GameState } from '../../types/gameInstanceTypes'
 import { IPlayerAttackPossibilities, QuestionClientResponse } from '../../types/gameResponseTypes';
 
@@ -251,6 +252,28 @@ export const multipleChoiceQuestionMock = {
             "playerId": 3,
         }
     ],
+}
+
+export const wizardUseMultipleChoiceHintMock: WizardUseMultipleChoiceHintResponse = {
+    playerId: 1,
+    answers: [
+        {
+            "id": 428,
+            "answer": "681"
+        },
+        {
+            "id": 429,
+            "answer": "15"
+        },
+        {
+            "id": 430,
+            "answer": "22"
+        },
+        {
+            "id": 431,
+            "answer": "512"
+        }
+    ]
 }
 
 export const multipleChoicePvpQuestionMock: QuestionClientResponse = {

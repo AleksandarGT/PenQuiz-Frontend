@@ -13,13 +13,10 @@ import { HomeDrawer } from './HomeDrawer'
 import { LoadingComponent } from './LoadingComponent'
 import { GameLobby } from '../components/GameLobby'
 import GameMap from '../components/GameMapComponents/GameMap'
-import MultipleChoiceScreen from '../components/GameMapComponents/MultipleChoiceScreen'
-import NumberChoiceScreen from '../components/GameMapComponents/NumberChoiceScreen'
 import { authStatusType } from '../types/authTypes'
 import { GameState } from '../types/gameInstanceTypes'
 import Svg, { G, Path } from 'react-native-svg'
-import MockAntarcticaSvgMap from '../components/TestingComponents/MockAntarcticaSvgMap'
-import { multipleChoicePvpQuestionMock, playerQuestionAnswersMock } from '../components/GameMapComponents/CommonGameFunc'
+import MockMultipleChoiceScreen from '../components/TestingComponents/MockMultipleChoiceScreen'
 
 export * from './LoadingComponent'
 
@@ -113,8 +110,7 @@ export function Routes() {
     if (isDebugRunning)
       return (
         <Stack.Screen name="Loading" options={{ headerShown: false }} >
-          {/* {() => <MockAntarcticaSvgMap />} */}
-          {() => <MultipleChoiceScreen playerQuestionAnswers={playerQuestionAnswersMock} question={multipleChoicePvpQuestionMock} />}
+          {() => <MockMultipleChoiceScreen />}
         </Stack.Screen>
       )
 

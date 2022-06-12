@@ -1,5 +1,6 @@
-import { GameCharacterResponse } from "../types/gameCharacterTypes";
+import { GameCharacterResponse, WizardUseMultipleChoiceHintResponse } from "../types/gameCharacterTypes";
 import { atom } from "recoil";
+import { WizardUseMultipleChoiceHint } from "../hooks";
 
 export const gameCharacterAtom = atom<GameCharacterResponse | null>({
     key: "gameCharacterAtom",
@@ -14,3 +15,8 @@ export const gameCharacterAtom = atom<GameCharacterResponse | null>({
         }
     ]
 });
+
+export const wizardHintQuestionAtom = atom<WizardUseMultipleChoiceHintResponse | null>({
+    key: "wizardUseMultipleChoiceHintResponseAtom",
+    default: null,
+})

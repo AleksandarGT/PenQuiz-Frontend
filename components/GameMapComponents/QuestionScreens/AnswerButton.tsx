@@ -1,5 +1,5 @@
 import { Box, Text, Pressable, View } from 'native-base'
-import React from 'react'
+import React, { useMemo } from 'react'
 import { Dimensions, Platform } from 'react-native'
 import { useRecoilValue } from 'recoil'
 import { authAtom, gameTimerAtom } from '../../../state'
@@ -8,6 +8,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { MCPlayerQuestionAnswers, QuestionClientResponse } from '../../../types/gameResponseTypes'
 import { AnswerMCQuestion } from '../../../hooks/useSignalR'
 import { IAuthData } from '../../../types/authTypes'
+import { wizardHintQuestionAtom } from '../../../state/character'
 interface AnswerButtonParams {
     isDisabled: boolean,
     answeredId: number,
@@ -18,10 +19,11 @@ interface AnswerButtonParams {
     answer: {
         id: number;
         answer: string;
-    }
+    },
 }
 
-export default function AnswerButton({ answer,
+export default function AnswerButton({
+    answer,
     playerAnswers,
     isDisabled,
     answeredId,
@@ -34,8 +36,31 @@ export default function AnswerButton({ answer,
     const user = useRecoilValue(authAtom) as IAuthData
     const gameTimer = useRecoilValue(gameTimerAtom)
 
+    const wizardHintResponse = useRecoilValue(wizardHintQuestionAtom)
+
+    function IsWizardHint(answer: {
+        id: number;
+        answer: string;
+    }) {
+        if (!wizardHintResponse) return false;
+
+        return wizardHintResponse.answers.some(e => e.id == answer.id)
+    }
+
+    // If there is no response, the answer should be always visible
+    // If there is a response, and this answer id is present in the response, the answer should be visible
+    // if there is a response, but this answer id is not present in the response, the answer should NOT be visible
+    const isWizardVisibleAnswer = useMemo(() => {
+        if (!wizardHintResponse) return true
+
+        if (wizardHintResponse.answers.some(e => e.id == answer.id)) return true
+
+        return false
+    }, [wizardHintResponse, answer])
+
+
     return (
-        <Pressable onPress={() => {
+        <Pressable disabled={!isWizardVisibleAnswer} opacity={!isWizardVisibleAnswer ? 0 : 100} onPress={() => {
             if (answeredId) return
             if (gameTimer <= 0) return
             setAnsweredId(answer.id)
