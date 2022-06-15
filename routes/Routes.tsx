@@ -17,6 +17,7 @@ import { authStatusType } from '../types/authTypes'
 import { GameState } from '../types/gameInstanceTypes'
 import Svg, { G, Path } from 'react-native-svg'
 import MockMultipleChoiceScreen from '../components/TestingComponents/MockMultipleChoiceScreen'
+import MockGameMap from '../components/TestingComponents/MockGameMap'
 
 export * from './LoadingComponent'
 
@@ -110,7 +111,7 @@ export function Routes() {
     if (isDebugRunning)
       return (
         <Stack.Screen name="Loading" options={{ headerShown: false }} >
-          {() => <MockMultipleChoiceScreen />}
+          {() => <MockGameMap />}
         </Stack.Screen>
       )
 

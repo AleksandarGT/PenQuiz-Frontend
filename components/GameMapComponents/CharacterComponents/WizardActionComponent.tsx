@@ -11,6 +11,8 @@ export default function WizardActionComponent({ question, invisible }
     : { question: QuestionClientResponse, invisible?: boolean }) {
 
     const [showWizardButton, setShowWizardButton] = useState<boolean>(false);
+    const [wizardAbilityUsed, setWizardAbilityUsed] = useState<boolean>(false);
+    
     const globalDisplayTime = useRecoilValue(gameTimerAtom)
     const user = useRecoilValue(authAtom) as IAuthData
 
@@ -39,7 +41,10 @@ export default function WizardActionComponent({ question, invisible }
 
 
     return (
-        <Pressable opacity={invisible ? 0 : 100} disabled={invisible || areAllHintsUsed} onPress={() => WizardUseMultipleChoiceHint(globalDisplayTime)}>
+        <Pressable opacity={invisible ? 0 : 100} disabled={invisible || areAllHintsUsed || wizardAbilityUsed} onPress={() => {
+            WizardUseMultipleChoiceHint(globalDisplayTime)
+            setWizardAbilityUsed(true)
+        }}>
             {({ isHovered, isFocused, isPressed }) => {
                 return (
                     <Box style={{

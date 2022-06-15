@@ -1,8 +1,9 @@
 import { Center, Container, HStack, Text, Image, VStack, Box } from "native-base"
-import React from "react"
+import React, { useMemo } from "react"
 import { Platform } from 'react-native'
 import { GetAvatarColor, GetPenguinAvatarImage } from './CommonGameFunc'
 import { GameInstanceResponse, ParticipantsResponse } from "../../types/gameInstanceTypes"
+import { CharacterType } from "../../types/gameCharacterTypes"
 
 export default function GameBoards({ gameInstance, currentAttackerId }: { gameInstance: GameInstanceResponse, currentAttackerId?: number }) {
     return (
@@ -16,6 +17,17 @@ export default function GameBoards({ gameInstance, currentAttackerId }: { gameIn
 
 function GamePlayerBoard({ participant, hisTurn }: { participant: ParticipantsResponse, hisTurn?: boolean }) {
 
+    const kingCharacterMultiplier = useMemo(() => {
+
+        const characterAbilities = participant.gameCharacter.characterAbilities
+        if (characterAbilities.characterType != CharacterType.KING)
+            return { isKing: false }
+
+        const originalPoints = participant.score - characterAbilities.kingCharacterAbilitiesResponse!.currentBonusPoints
+
+        return { isKing: true, additionalPoints: characterAbilities.kingCharacterAbilitiesResponse!.currentBonusPoints, originalPoints: originalPoints }
+
+    }, [participant])
     return (
         <>
             <Box backgroundColor={GetAvatarColor(participant.inGameParticipantNumber)} style={hisTurn ? {
@@ -41,9 +53,14 @@ function GamePlayerBoard({ participant, hisTurn }: { participant: ParticipantsRe
 
                             <Box ml={2} width="150" bg="#fff" borderRadius={15}>
                                 <Center>
-                                    <Text color={GetAvatarColor(participant.inGameParticipantNumber)}
-                                        fontSize={{ base: "sm", md: "md", lg: "xl" }}>
-                                        {participant.score}
+                                    <Text py={1}>
+                                        <Text color={GetAvatarColor(participant.inGameParticipantNumber)}
+                                            fontSize={{ base: "sm", md: "md", lg: "xl" }}>
+                                            {!kingCharacterMultiplier?.isKing ? participant.score : kingCharacterMultiplier.originalPoints}
+                                        </Text>
+                                        {kingCharacterMultiplier.isKing && <Text ml={2} color={GetAvatarColor(participant.inGameParticipantNumber)}>
+                                            +{kingCharacterMultiplier.additionalPoints}
+                                        </Text>}
                                     </Text>
                                 </Center>
                             </Box>

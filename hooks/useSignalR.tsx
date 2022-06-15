@@ -230,7 +230,6 @@ export function useSignalR() {
         // Question events
         connection.on('GetRoundQuestion', ((roundQuestion: QuestionClientResponse) => {
             setPlayerQuestionAnswers(null)
-            console.log(roundQuestion)
             setRoundQuestion(roundQuestion)
         }))
 
