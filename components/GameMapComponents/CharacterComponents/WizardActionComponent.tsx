@@ -12,7 +12,7 @@ export default function WizardActionComponent({ question, invisible }
 
     const [showWizardButton, setShowWizardButton] = useState<boolean>(false);
     const [wizardAbilityUsed, setWizardAbilityUsed] = useState<boolean>(false);
-    
+
     const globalDisplayTime = useRecoilValue(gameTimerAtom)
     const user = useRecoilValue(authAtom) as IAuthData
 
@@ -31,6 +31,10 @@ export default function WizardActionComponent({ question, invisible }
         const thisUserParticipant = question.participants.find(e => e.playerId == user.id)
 
         if (thisUserParticipant?.gameCharacter?.characterAbilities.characterType != CharacterType.WIZARD) return
+
+        // Visible only on multiple rounds
+        if (question.type != "multiple")
+            return
 
         setShowWizardButton(true)
     }, [question, user])

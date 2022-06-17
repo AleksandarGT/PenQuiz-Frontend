@@ -298,6 +298,11 @@ export function useSignalR() {
             // }
         }))
 
+        connection.on("VikingUseFortifyCapital", ((roundQuestion: QuestionClientResponse) => {
+            console.log(roundQuestion)
+            setRoundQuestion(roundQuestion)
+        }))
+
         connection.on("GetGameCharacter", ((characterResponse: GameCharacterResponse) => {
             setGameCharacter(characterResponse)
         }))
@@ -307,6 +312,11 @@ export function useSignalR() {
 export function WizardUseMultipleChoiceHint(gameTimer: number) {
     if (gameTimer <= 0) return;
     connection?.invoke("WizardUseAbility")
+}
+
+export function VikingUseAbility(gameTimer: number) {
+    if (gameTimer <= 0) return;
+    connection?.invoke("VikingUseAbility")
 }
 
 // Game map events

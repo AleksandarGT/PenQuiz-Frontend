@@ -50,13 +50,16 @@ export default function AnswerButton({
     // If there is no response, the answer should be always visible
     // If there is a response, and this answer id is present in the response, the answer should be visible
     // if there is a response, but this answer id is not present in the response, the answer should NOT be visible
+    // If the timer elapses, and results of all particip are out, the answer SHOULD BE visible
     const isWizardVisibleAnswer = useMemo(() => {
         if (!wizardHintResponse) return true
 
         if (wizardHintResponse.answers.some(e => e.id == answer.id)) return true
 
+        if (playerQuestionAnswers) return true
+
         return false
-    }, [wizardHintResponse, answer])
+    }, [wizardHintResponse, answer, playerQuestionAnswers])
 
 
     return (

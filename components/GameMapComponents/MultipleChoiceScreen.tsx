@@ -16,6 +16,8 @@ import { IAuthData } from '../../types/authTypes'
 import { CharacterType, WizardCharacterAbilitiesResponse } from '../../types/gameCharacterTypes'
 import { WizardUseMultipleChoiceHint } from '../../hooks'
 import WizardActionComponent from './CharacterComponents/WizardActionComponent'
+import VikingActionComponent from './CharacterComponents/VikingActionComponent'
+import CharacterQuestionActionComponent from './CharacterComponents/CharacterQuestionActionComponent'
 
 
 export default function MultipleChoiceScreen({
@@ -154,7 +156,7 @@ export default function MultipleChoiceScreen({
                         </HStack>
                         {/* Buttons */}
                         <HStack justifyContent="space-evenly" >
-                            <WizardActionComponent question={question} />
+                            <CharacterQuestionActionComponent question={question} />
                             <VStack >
                                 <AnswerButton
                                     setAnsweredId={setAnsweredId}
@@ -199,7 +201,7 @@ export default function MultipleChoiceScreen({
                                     playerAnswers={playerQuestionAnswers?.playerAnswers?.filter(x => x.answerId == question.answers[3].id)}
                                 />
                             </VStack>
-                            <WizardActionComponent question={question} invisible={true} />
+                            <CharacterQuestionActionComponent question={question} invisible={true} />
                         </HStack>
                     </Box>
                 </Center>
