@@ -37,9 +37,11 @@ export default function MultipleChoiceScreen({
     // Use game sounds for timer
     const { sound, setSound } = useGameSoundEffect()
 
+
+    // Trigger only when the question (text) changes, keep selected answer if only sub-properties change
     useEffect(() => {
         setAnsweredId(undefined)
-    }, [question])
+    }, [question.question])
 
     useEffect(() => {
         if (!playerQuestionAnswers) return

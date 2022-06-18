@@ -62,4 +62,5 @@ export interface WizardUseMultipleChoiceHintResponse {
 export interface VikingUseFortifyResponse {
     questionResponse: QuestionClientResponse;
     usedInRoundId: number;
+    gameLink: string;
 }

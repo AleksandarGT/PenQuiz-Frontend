@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Text, Button, Center, Container, Box, Icon, HStack, Pressable, VStack, Image, IconButton } from 'native-base'
 import { StyleSheet, ImageBackground, ActivityIndicator, Platform } from 'react-native'
 import { LeaveGameLobby, StartGame, AddGameBot, RemovePlayerFromLobby } from '../hooks'
@@ -105,7 +105,7 @@ export function GameLobby() {
                 <VStack >
                     <Center>
                         <Image
-                            source={GetPenguinAvatarImage(participant.gameCharacter!.character.avatarName)}
+                            source={GetPenguinAvatarImage(participant.gameCharacter?.character.avatarName)}
                             alt="Alternate Text"
                             resizeMode="contain"
                             size={Platform.OS === 'web' ? "xl" : "sm"}

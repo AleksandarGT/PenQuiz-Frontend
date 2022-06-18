@@ -10,7 +10,7 @@ import { HubConnection } from '@microsoft/signalr'
 import { GameHubStatusCode } from '../types/hubTypes'
 import { GameInstanceResponse, GameState, ParticipantsResponse } from '../types/gameInstanceTypes'
 import { IAuthData } from '../types/authTypes'
-import { GameCharacterResponse, VikingUseFortifyResponse, WizardCharacterAbilitiesResponse, WizardUseMultipleChoiceHintResponse } from '../types/gameCharacterTypes'
+import { CharacterType, GameCharacterResponse, VikingUseFortifyResponse, WizardCharacterAbilitiesResponse, WizardUseMultipleChoiceHintResponse } from '../types/gameCharacterTypes'
 import { gameCharacterAtom, vikingAbilityUsedInRoundAtom, wizardHintQuestionAtom } from '../state/character'
 
 const connectionHub = `${GAME_SERVICE_API_URL}/gamehubs`
@@ -19,7 +19,7 @@ const connectionHub = `${GAME_SERVICE_API_URL}/gamehubs`
 let connection: HubConnection | null
 export function useSignalR() {
     const userJwt = useRecoilValue(authToken)
-    const setCurrentUser = useSetRecoilState(authAtom)
+    const [currentUser, setCurrentUser] = useRecoilState(authAtom)
     const [gameInstance, setGameInstance] = useRecoilState(gameInstanceAtom)
 
     const setJoiningGameException = useSetRecoilState(joiningGameExceptionAtom)
@@ -231,6 +231,8 @@ export function useSignalR() {
         // Question events
         connection.on('GetRoundQuestion', ((roundQuestion: QuestionClientResponse) => {
             setPlayerQuestionAnswers(null)
+            setWizardHint(null)
+
             setRoundQuestion(roundQuestion)
         }))
 
@@ -300,7 +302,13 @@ export function useSignalR() {
         }))
 
         connection.on("VikingUseFortifyCapital", ((vikingRes: VikingUseFortifyResponse) => {
-            setVikingFortifyCapital(vikingRes.usedInRoundId)
+            // Set the viking data only if the current character is a viking
+            if (gameInstance?.participants.find(e => e.player?.userGlobalIdentifier == currentUser?.globalId)
+                ?.gameCharacter
+                .characterAbilities
+                .characterType == CharacterType.VIKING)
+                setVikingFortifyCapital(vikingRes.usedInRoundId)
+
             setRoundQuestion(vikingRes.questionResponse)
         }))
 
