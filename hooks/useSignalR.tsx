@@ -10,8 +10,8 @@ import { HubConnection } from '@microsoft/signalr'
 import { GameHubStatusCode } from '../types/hubTypes'
 import { GameInstanceResponse, GameState, ParticipantsResponse } from '../types/gameInstanceTypes'
 import { IAuthData } from '../types/authTypes'
-import { GameCharacterResponse, WizardCharacterAbilitiesResponse, WizardUseMultipleChoiceHintResponse } from '../types/gameCharacterTypes'
-import { gameCharacterAtom, wizardHintQuestionAtom } from '../state/character'
+import { GameCharacterResponse, VikingUseFortifyResponse, WizardCharacterAbilitiesResponse, WizardUseMultipleChoiceHintResponse } from '../types/gameCharacterTypes'
+import { gameCharacterAtom, vikingAbilityUsedInRoundAtom, wizardHintQuestionAtom } from '../state/character'
 
 const connectionHub = `${GAME_SERVICE_API_URL}/gamehubs`
 
@@ -33,6 +33,7 @@ export function useSignalR() {
     const setGameCharacter = useSetRecoilState(gameCharacterAtom)
 
     const setWizardHint = useSetRecoilState(wizardHintQuestionAtom)
+    const setVikingFortifyCapital = useSetRecoilState(vikingAbilityUsedInRoundAtom)
 
     connection = getConnection()
 
@@ -298,9 +299,9 @@ export function useSignalR() {
             // }
         }))
 
-        connection.on("VikingUseFortifyCapital", ((roundQuestion: QuestionClientResponse) => {
-            console.log(roundQuestion)
-            setRoundQuestion(roundQuestion)
+        connection.on("VikingUseFortifyCapital", ((vikingRes: VikingUseFortifyResponse) => {
+            setVikingFortifyCapital(vikingRes.usedInRoundId)
+            setRoundQuestion(vikingRes.questionResponse)
         }))
 
         connection.on("GetGameCharacter", ((characterResponse: GameCharacterResponse) => {

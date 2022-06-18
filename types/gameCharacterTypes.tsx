@@ -1,4 +1,4 @@
-import { AnswerClientResponse } from "./gameResponseTypes";
+import { AnswerClientResponse, QuestionClientResponse } from "./gameResponseTypes";
 
 export enum CharacterType {
     WIZARD,
@@ -57,4 +57,9 @@ export interface WizardCharacterAbilitiesResponse {
 export interface WizardUseMultipleChoiceHintResponse {
     playerId: number,
     answers: AnswerClientResponse[];
+}
+
+export interface VikingUseFortifyResponse {
+    questionResponse: QuestionClientResponse;
+    usedInRoundId: number;
 }
