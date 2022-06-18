@@ -18,13 +18,14 @@ import { GameState } from '../types/gameInstanceTypes'
 import Svg, { G, Path } from 'react-native-svg'
 import MockMultipleChoiceScreen from '../components/TestingComponents/MockMultipleChoiceScreen'
 import MockGameMap from '../components/TestingComponents/MockGameMap'
+import MockNumberChoiceScreen from '../components/TestingComponents/MockNumberChoiceScreen'
 
 export * from './LoadingComponent'
 
 
 const Stack = createStackNavigator()
 const prefix = Linking.createURL('http://localhost:19006')
-export const isDebugRunning = false
+export const isDebugRunning = true
 
 export function Routes() {
   const localAuthStatus = useRecoilValue(authStatus)
@@ -40,7 +41,7 @@ export function Routes() {
     !isDebugRunning && useuseAuthActions.refreshToken()
 
     isDebugRunning && setUser({
-      id: 1,
+      id: 2,
       status: authStatusType.LOADING
     })
   }, [])
@@ -111,7 +112,7 @@ export function Routes() {
     if (isDebugRunning)
       return (
         <Stack.Screen name="Loading" options={{ headerShown: false }} >
-          {() => <MockMultipleChoiceScreen />}
+          {() => <MockNumberChoiceScreen />}
         </Stack.Screen>
       )
 

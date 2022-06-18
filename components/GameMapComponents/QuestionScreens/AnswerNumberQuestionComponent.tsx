@@ -8,6 +8,7 @@ import { MaterialIcons } from '@expo/vector-icons'
 import { AnswerNumberQuestion } from '../../../hooks'
 import { QuestionClientResponse } from '../../../types/gameResponseTypes'
 import { IAuthData } from '../../../types/authTypes'
+import CharacterQuestionActionComponent from '../CharacterComponents/CharacterQuestionActionComponent'
 
 
 export default function AnswerNumberQuestionComponent({ question }: { question: QuestionClientResponse }) {
@@ -47,53 +48,60 @@ export default function AnswerNumberQuestionComponent({ question }: { question: 
                     </HStack>
                 </Box>
                 :
-                <Center mt={Platform.OS == "web" ? 9 : 0} mb={2}>
-                    <HStack>
-                        <Input editable={Platform.OS == "web" ? true : false} onChangeText={(e) => {
-                            if (/^\d+$/.test(e) || !e) {
-                                setAnswer(e)
-                            }
-                        }}
-                            onSubmitEditing={() => {
-                                if (isAnswered) return
-                                setisAnswered(true)
-                                AnswerNumberQuestion(answer, timer)
-                            }}
-                            value={answer}
-                            maxLength={14}
-                            mr={2}
-                            keyboardType="numeric"
-                            variant="rounded"
-                            backgroundColor="#D4EDFD"
-                            color="black"
-                            _hover={{ backgroundColor: "#A8CCE2" }}
-                            size="md"
-                            minWidth="250px"
-                            width={Platform.OS == "web" ? "40vw" : "40%"}
-                            placeholderTextColor="#737373"
-                            style={{
-                                fontStyle: "italic"
-                            }}
-                            placeholder="123" />
+                <>
+                    <HStack justifyContent="space-evenly" alignItems="center">
+                        <CharacterQuestionActionComponent question={question} />
 
-                        <IconButton
-                            onPress={() => {
-                                if (isAnswered) return
-                                setisAnswered(true)
-                                AnswerNumberQuestion(answer, timer)
-                            }}
-                            size="md"
-                            colorScheme={Platform.OS == "web" ? "blue_button_bd" : "success"}
-                            borderWidth={1}
-                            borderRadius={10}
-                            variant="solid"
-                            _icon={{
-                                as: MaterialIcons,
-                                name: "check",
-                                color: "white"
-                            }}
-                        />
+                        <HStack>
 
+                            <Input editable={Platform.OS == "web" ? true : false} onChangeText={(e) => {
+                                if (/^\d+$/.test(e) || !e) {
+                                    setAnswer(e)
+                                }
+                            }}
+                                onSubmitEditing={() => {
+                                    if (isAnswered) return
+                                    setisAnswered(true)
+                                    AnswerNumberQuestion(answer, timer)
+                                }}
+                                value={answer}
+                                maxLength={14}
+                                mr={2}
+                                keyboardType="numeric"
+                                variant="rounded"
+                                backgroundColor="#D4EDFD"
+                                color="black"
+                                _hover={{ backgroundColor: "#A8CCE2" }}
+                                size="md"
+                                minWidth="250px"
+                                width={Platform.OS == "web" ? "40vw" : "40%"}
+                                placeholderTextColor="#737373"
+                                style={{
+                                    fontStyle: "italic"
+                                }}
+                                placeholder="123" />
+
+                            <IconButton
+                                onPress={() => {
+                                    if (isAnswered) return
+                                    setisAnswered(true)
+                                    AnswerNumberQuestion(answer, timer)
+                                }}
+                                size="md"
+                                colorScheme={Platform.OS == "web" ? "blue_button_bd" : "success"}
+                                borderWidth={1}
+                                borderRadius={10}
+                                variant="solid"
+                                _icon={{
+                                    as: MaterialIcons,
+                                    name: "check",
+                                    color: "white"
+                                }}
+                            />
+                        </HStack>
+
+
+                        <CharacterQuestionActionComponent invisible={true} question={question} />
 
                     </HStack>
                     {Platform.OS != "web" && <HStack mt={3}>
@@ -112,7 +120,7 @@ export default function AnswerNumberQuestionComponent({ question }: { question: 
                         })}
 
                     </HStack>}
-                </Center>
+                </>
             }
         </>
     )

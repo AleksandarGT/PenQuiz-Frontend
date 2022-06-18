@@ -1,7 +1,7 @@
 import { Platform } from 'react-native'
 import { WizardUseMultipleChoiceHintResponse } from '../../types/gameCharacterTypes';
 import { AttackStage, GameInstanceResponse, GameState } from '../../types/gameInstanceTypes'
-import { IPlayerAttackPossibilities, QuestionClientResponse } from '../../types/gameResponseTypes';
+import { IPlayerAttackPossibilities, NumberPlayerQuestionAnswers, QuestionClientResponse } from '../../types/gameResponseTypes';
 
 export function GetAvatarColor(inGameParticipantNumber: number) {
     return ReturnColor(inGameParticipantNumber)
@@ -143,27 +143,27 @@ export const playerQuestionAnswersMock = {
 
 
 
-export const playerQuestionNumberAnswersMock = {
-    "correctAnswer": 681,
+export const playerQuestionNumberAnswersMock: NumberPlayerQuestionAnswers = {
+    "correctAnswer": "681",
     "playerAnswers": [
         {
             "playerId": 1,
-            "answer": 312,
-            "differenceWithCorrect": 369,
+            "answer": "312",
+            "differenceWithCorrect": "369",
             "timeElapsed": "3.5s",
             "winner": true,
         },
         {
             "playerId": 2,
-            "answer": 1211,
-            "differenceWithCorrect": 530,
+            "answer": "1211",
+            "differenceWithCorrect": "530",
             "timeElapsed": "8.9s",
             "winner": false,
         },
         {
             "playerId": 3,
-            "answer": 1532,
-            "differenceWithCorrect": 851,
+            "answer": "1532",
+            "differenceWithCorrect": "851",
             "timeElapsed": "5.3s",
             "winner": false,
         },
@@ -191,25 +191,105 @@ export const numberChoicePvpQuestionMock = {
     ],
 }
 
-export const numberChoiceQuestionMock = {
-    "id": 1,
-    "isNeutral": true,
-    "question": "When was Bulgaria founded?",
+export const numberChoiceQuestionMock: QuestionClientResponse  = {
+    "isLastQuestion": false,
+    "isNeutral": false,
+    "capitalRoundsRemaining": 3,
+    "id": 1563,
+    "question": "When was covid discovered?",
     "type": "number",
-    "participants": [
+    "answers": [
         {
-            "avatarName": "penguinAvatar",
-            "playerId": 1,
-        },
-        {
-            "avatarName": "penguinAvatar2",
-            "playerId": 2,
-        },
-        {
-            "avatarName": "penguinAvatar3",
-            "playerId": 3,
+            "id": 4400,
+            "answer": "2019"
         }
     ],
+    "participants": [
+        {
+            "id": 364,
+            "inGameParticipantNumber": 3,
+            "playerId": 2,
+            "gameId": 169,
+            "isAfk": false,
+            "score": 3500,
+            "finalQuestionScore": 0,
+            "gameCharacter": {
+                "id": 357,
+                "userId": 2,
+                "gameInstanceId": 169,
+                "characterAbilities": {
+                    "characterType": 2,
+                    "gameCharacterId": 357,
+                    "vikingCharacterAbilitiesResponse": {
+                        "fortifyCapitalUseCount": 1,
+                        "fortifyCapitalMaxUseCount": 2
+                    },
+                    "kingCharacterAbilitiesResponse": null,
+                    "wizardCharacterAbilitiesResponse": null,
+                },
+                "character": {
+                    "id": 3,
+                    "characterGlobalIdentifier": "d591a05f-5a1a-4a81-8f9e-7fdb2558da3d",
+                    "name": "Viking",
+                    "avatarName": "penguinAvatarViking",
+                    "description": "Some description",
+                    "abilityDescription": "Can fortify his capital against attacks, increasing the amount of required consecutive wins for the enemy. Amount of times he can fortify his capital",
+                    "pricingType": 0,
+                    "characterType": 2,
+                    "price": null
+                }
+            },
+            "player": {
+                "id": 2,
+                "username": "Alex Todorov",
+                "userGlobalIdentifier": "285ad7ff-8cf8-4426-b0ae-2cdd276ab98d",
+                "isBot": false
+            }
+        },
+        {
+            "id": 365,
+            "inGameParticipantNumber": 2,
+            "playerId": 1,
+            "gameId": 169,
+            "isAfk": false,
+            "score": 3500,
+            "finalQuestionScore": 0,
+            "gameCharacter": {
+                "id": 358,
+                "userId": 1,
+                "gameInstanceId": 169,
+                "characterAbilities": {
+                    "characterType": 0,
+                    "gameCharacterId": 358,
+                    "wizardCharacterAbilitiesResponse": {
+                        "mcQuestionHintUseCount": 0,
+                        "mcQuestionHintMaxUseCount": 3
+                    },
+                    "kingCharacterAbilitiesResponse": null,
+                    "vikingCharacterAbilitiesResponse": null,
+                },
+                "character": {
+                    "id": 1,
+                    "characterGlobalIdentifier": "2afae81c-806f-4c67-b977-fb124b4c13db",
+                    "name": "Wizard",
+                    "avatarName": "penguinAvatarWizard",
+                    "description": "Some description",
+                    "abilityDescription": "Can remove half the options to select from in a multiple choice question. Ability can be used: 3",
+                    "pricingType": 0,
+                    "characterType": 0,
+                    "price": null
+                }
+            },
+            "player": {
+                "id": 1,
+                "username": "Boosted Penguin",
+                "userGlobalIdentifier": "c0d2a2dc-a040-402b-8d5e-89553745c37d",
+                "isBot": false
+            }
+        }
+    ],
+    "attackerId": 1,
+    "defenderId": 2
 }
 
 export const multipleChoiceQuestionMock = {

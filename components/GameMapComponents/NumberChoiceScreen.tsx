@@ -13,6 +13,7 @@ import { Ionicons } from '@expo/vector-icons'
 import { CapitalRoundTimer, LastRoundIndicator } from './TimerSuffixElements'
 import { NumberPlayerQuestionAnswers, QuestionClientResponse } from '../../types/gameResponseTypes'
 import { IAuthData } from '../../types/authTypes'
+import CharacterQuestionActionComponent from './CharacterComponents/CharacterQuestionActionComponent'
 
 export default function NumberChoiceScreen({
     question,
@@ -25,8 +26,6 @@ export default function NumberChoiceScreen({
 
     // Use game sounds for timer
     const { sound, setSound } = useGameSoundEffect()
-
-
 
     const user = useRecoilValue(authAtom) as IAuthData
 
@@ -103,7 +102,6 @@ export default function NumberChoiceScreen({
 
                         {/* Question / Avatars */}
                         <HStack >
-
                             {question.isNeutral ?
                                 <PlayerAvatar supportIcon={"sword"} participant={question.participants.find(e => e.playerId == user.id)!} />
                                 :
@@ -149,12 +147,14 @@ export default function NumberChoiceScreen({
                             }
 
                         </HStack>
-                    </Box>
+
                     {playerQuestionAnswers ?
                         <NumberQuestionResult key="numQResult" />
                         :
                         <AnswerNumberQuestionComponent question={question} key="answerNQComp" />
                     }
+                    </Box>
+
                 </Center>
             </ImageBackground>
         </>
