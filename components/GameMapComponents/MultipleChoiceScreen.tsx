@@ -158,7 +158,7 @@ export default function MultipleChoiceScreen({
                         </HStack>
                         {/* Buttons */}
                         <HStack justifyContent="space-evenly" >
-                            <CharacterQuestionActionComponent question={question} />
+                            {!playerQuestionAnswers && <CharacterQuestionActionComponent hasPlayerAnswered={answeredId ? true : false} question={question} />}
                             <VStack >
                                 <AnswerButton
                                     setAnsweredId={setAnsweredId}
@@ -203,7 +203,7 @@ export default function MultipleChoiceScreen({
                                     playerAnswers={playerQuestionAnswers?.playerAnswers?.filter(x => x.answerId == question.answers[3].id)}
                                 />
                             </VStack>
-                            <CharacterQuestionActionComponent question={question} invisible={true} />
+                            {!playerQuestionAnswers && <CharacterQuestionActionComponent hasPlayerAnswered={answeredId ? true : false} invisible question={question} />}
                         </HStack>
                     </Box>
                 </Center>

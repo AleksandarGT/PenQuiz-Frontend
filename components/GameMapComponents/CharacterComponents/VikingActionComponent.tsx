@@ -39,14 +39,17 @@ export default function VikingActionComponent({ question, invisible }
         const currentRound =
             gameInstance?.rounds.find(e => e.gameRoundNumber == gameInstance.gameRoundNumber)
 
+
         // Visible only on capital rounds
         if (!currentRound || !currentRound.pvpRound || !currentRound.pvpRound.attackedTerritory?.isCapital)
             return
 
+        // If you aren't the defender don't show button
+        if (currentRound?.pvpRound.defenderId != user.id)
+            return
+
         // Without using the viking ability the max capital rounds would be 1
         // Therefore, we can assume that if there is more than 1, then this person used it in this round
-
-        // Wouldn't work because we receive an updated game instance after the round is complete
         if (currentRound.pvpRound.capitalRounds.length > 1)
             return
 
@@ -58,6 +61,7 @@ export default function VikingActionComponent({ question, invisible }
     useEffect(() => {
         if (!vikingAbilityUsedInRoundId)
             return
+
 
         const currentRound =
             gameInstance?.rounds.find(e => e.gameRoundNumber == gameInstance.gameRoundNumber)

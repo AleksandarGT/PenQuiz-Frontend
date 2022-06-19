@@ -62,18 +62,6 @@ export default function AnswerButton({
     }, [wizardHintResponse, answer, playerQuestionAnswers])
 
 
-    const buttonColor = useMemo(() => {
-        // If the question was not answered, skip checks and return nothing
-        if (!answeredId)
-            return null
-            
-        return playerAnswers?.length == 3 ? ["#5074FF", "#8350FF", "#8350FF", "#FF5074"] :
-            playerAnswers?.length == 2 ? [GetAvatarColor(question.participants.find(x => x.playerId == playerAnswers[0].id)!.inGameParticipantNumber)!, GetAvatarColor(question.participants.find(x => x.playerId == playerAnswers[1].id)!.inGameParticipantNumber)!] :
-                playerAnswers?.length == 1 ? [GetAvatarColor(question.participants.find(x => x.playerId == playerAnswers[0].id)!.inGameParticipantNumber)!, GetAvatarColor(question.participants.find(x => x.playerId == playerAnswers[0].id)!.inGameParticipantNumber)!] :
-                    answeredId == answer.id ? [GetAvatarColor(question.participants.find(x => x.playerId == user.id)!.inGameParticipantNumber)!, GetAvatarColor(question.participants.find(x => x.playerId == user.id)!.inGameParticipantNumber)!] : null
-    }, [playerAnswers, answer, answeredId, question])
-
-
     return (
         <Pressable disabled={!isWizardVisibleAnswer} opacity={!isWizardVisibleAnswer ? 0 : 100} onPress={() => {
             if (answeredId) return
@@ -93,9 +81,12 @@ export default function AnswerButton({
                         <LinearGradient
                             // Button Linear Gradient
                             colors={
-                                buttonColor ? buttonColor :
-                                    isPressed ? ["#96BAD0", "#96BAD0"] :
-                                        isHovered ? ["#A8CCE2", "#A8CCE2"] : ["#D4EDFD", "#D4EDFD"]
+                                playerAnswers?.length == 3 ? ["#5074FF", "#8350FF", "#8350FF", "#FF5074"] :
+                                    playerAnswers?.length == 2 ? [GetAvatarColor(question.participants.find(x => x.playerId == playerAnswers[0].id)!.inGameParticipantNumber)!, GetAvatarColor(question.participants.find(x => x.playerId == playerAnswers[1].id)!.inGameParticipantNumber)!] :
+                                        playerAnswers?.length == 1 ? [GetAvatarColor(question.participants.find(x => x.playerId == playerAnswers[0].id)!.inGameParticipantNumber)!, GetAvatarColor(question.participants.find(x => x.playerId == playerAnswers[0].id)!.inGameParticipantNumber)!] :
+                                            answeredId == answer.id ? [GetAvatarColor(question.participants.find(x => x.playerId == user.id)!.inGameParticipantNumber)!, GetAvatarColor(question.participants.find(x => x.playerId == user.id)!.inGameParticipantNumber)!] :
+                                                isPressed ? ["#96BAD0", "#96BAD0"] :
+                                                    isHovered ? ["#A8CCE2", "#A8CCE2"] : ["#D4EDFD", "#D4EDFD"]
                             }
 
                             locations={playerAnswers?.length == 3 ? [0.33, 0.33, 0.66, 0.66] :

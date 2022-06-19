@@ -18,7 +18,7 @@ export default function WizardActionComponent({ question, invisible }
 
     const getThisUserWizardAbilities = useMemo(() => {
         return question.participants.find(e => e.playerId == user.id)?.gameCharacter?.characterAbilities.wizardCharacterAbilitiesResponse
-    }, [question.question, user])
+    }, [question, user])
 
     const areAllHintsUsed = useMemo(() => {
         if (!getThisUserWizardAbilities) return true;

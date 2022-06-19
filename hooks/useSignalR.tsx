@@ -73,6 +73,7 @@ export function useSignalR() {
             setRoundQuestion(null)
             setPlayerQuestionAnswers(null)
             setWizardHint(null)
+            setVikingFortifyCapital(null)
         }
 
         connection.onreconnecting((error) => {
@@ -103,18 +104,10 @@ export function useSignalR() {
             // Game is canceled
             if (gameInstance == null) return
 
-
-            setGameInstance(old => {
-                if (old == null)
-                    return null
-
-                const newValue: GameInstanceResponse = {
-                    ...old,
-                    gameState: GameState.CANCELED
-                }
-
-                return newValue
-            })
+            RemoveQuestionDataOnExit()
+            setGameMapException("")
+            setPlayerAttackPossibilities(null)
+            setGameInstance(null)
         }))
         connection.on('TESTING', ((msg) => {
             console.log(msg)
