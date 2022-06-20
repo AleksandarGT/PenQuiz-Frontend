@@ -5,7 +5,7 @@ import WizardActionComponent from "./WizardActionComponent";
 export default function CharacterQuestionActionComponent({ question, invisible, hasPlayerAnswered }
     : { question: QuestionClientResponse, hasPlayerAnswered: boolean, invisible?: boolean }) {
 
-    if (!hasPlayerAnswered)
+    if (hasPlayerAnswered)
         return null
 
     return (
