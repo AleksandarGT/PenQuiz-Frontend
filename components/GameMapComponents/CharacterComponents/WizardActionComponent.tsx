@@ -2,7 +2,7 @@ import { Box, Center, Pressable, Text } from "native-base";
 import React, { useEffect, useMemo, useState } from "react";
 import { useRecoilValue } from "recoil";
 import { WizardUseMultipleChoiceHint } from "../../../hooks";
-import { gameTimerAtom, authAtom } from "../../../state";
+import { gameTimerAtom, authAtom, gameInstanceAtom } from "../../../state";
 import { IAuthData } from "../../../types/authTypes";
 import { CharacterType } from "../../../types/gameCharacterTypes";
 import { QuestionClientResponse } from "../../../types/gameResponseTypes";
@@ -15,6 +15,7 @@ export default function WizardActionComponent({ question, invisible }
 
     const globalDisplayTime = useRecoilValue(gameTimerAtom)
     const user = useRecoilValue(authAtom) as IAuthData
+    const gameInstance = useRecoilValue(gameInstanceAtom)
 
     const getThisUserWizardAbilities = useMemo(() => {
         return question.participants.find(e => e.playerId == user.id)?.gameCharacter?.characterAbilities.wizardCharacterAbilitiesResponse
@@ -39,6 +40,20 @@ export default function WizardActionComponent({ question, invisible }
         setShowWizardButton(true)
         setWizardAbilityUsed(false)
     }, [question.question, user])
+
+
+    // If the wizard ability was used this round do not allow any more activations for this round
+    useEffect(() => {
+        if (!getThisUserWizardAbilities || !getThisUserWizardAbilities.abilityUsedInRounds)
+            return
+
+        const currentRound =
+            gameInstance?.rounds.find(e => e.gameRoundNumber == gameInstance.gameRoundNumber)
+
+        if (!getThisUserWizardAbilities.abilityUsedInRounds.some(e => e == currentRound?.id))
+
+        setWizardAbilityUsed(true)
+    }, [getThisUserWizardAbilities?.abilityUsedInRounds])
 
 
     if (!showWizardButton)

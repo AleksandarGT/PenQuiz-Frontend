@@ -11,7 +11,7 @@ import { GameHubStatusCode } from '../types/hubTypes'
 import { GameInstanceResponse, GameState, ParticipantsResponse } from '../types/gameInstanceTypes'
 import { IAuthData } from '../types/authTypes'
 import { CharacterType, GameCharacterResponse, VikingUseFortifyResponse, WizardCharacterAbilitiesResponse, WizardUseMultipleChoiceHintResponse } from '../types/gameCharacterTypes'
-import { gameCharacterAtom, vikingAbilityUsedInRoundAtom, wizardHintQuestionAtom } from '../state/character'
+import { gameCharacterAtom, wizardHintQuestionAtom } from '../state/character'
 
 const connectionHub = `${GAME_SERVICE_API_URL}/gamehubs`
 
@@ -33,7 +33,6 @@ export function useSignalR() {
     const setGameCharacter = useSetRecoilState(gameCharacterAtom)
 
     const setWizardHint = useSetRecoilState(wizardHintQuestionAtom)
-    const setVikingFortifyCapital = useSetRecoilState(vikingAbilityUsedInRoundAtom)
 
     connection = getConnection()
 
@@ -73,7 +72,6 @@ export function useSignalR() {
             setRoundQuestion(null)
             setPlayerQuestionAnswers(null)
             setWizardHint(null)
-            setVikingFortifyCapital(null)
         }
 
         connection.onreconnecting((error) => {
@@ -252,56 +250,10 @@ export function useSignalR() {
         // Characters
         connection.on('WizardUseMultipleChoiceHint', ((res: WizardUseMultipleChoiceHintResponse) => {
             setWizardHint(res)
-
-            setRoundQuestion(old => {
-
-                if (old == null) return null;
-
-                const newValue: QuestionClientResponse = {
-                    ...old,
-                    participants: old.participants.map(e => {
-                        if (e.playerId != res.playerId)
-                            return e
-
-                        const newAbilities: WizardCharacterAbilitiesResponse = {
-                            mcQuestionHintMaxUseCount: e.gameCharacter.characterAbilities.wizardCharacterAbilitiesResponse!.mcQuestionHintMaxUseCount,
-                            mcQuestionHintUseCount: e.gameCharacter.characterAbilities.wizardCharacterAbilitiesResponse!.mcQuestionHintUseCount + 1
-                        }
-
-                        return {
-                            ...e,
-                            gameCharacter: {
-                                ...e.gameCharacter,
-                                characterAbilities: {
-                                    ...e.gameCharacter.characterAbilities,
-                                    wizardCharacterAbilitiesResponse: newAbilities
-                                }
-                            }
-                        }
-                    })
-                }
-
-                return newValue;
-            })
-
-
-            // const newValue: GameInstanceResponse = {
-            //     ...old,
-            //     participants: old.gameState == 0 ? old.participants.filter(
-            //         el => el.playerId != disconnectedPersonId) : old.participants.map(
-            //             y => y.playerId == disconnectedPersonId ? { ...y, isAfk: true } : y
-            //         )
-            // }
+            setRoundQuestion(res.questionResponse)
         }))
 
         connection.on("VikingUseFortifyCapital", ((vikingRes: VikingUseFortifyResponse) => {
-            // Set the viking data only if the current character is a viking
-            if (gameInstance?.participants.find(e => e.player?.userGlobalIdentifier == currentUser?.globalId)
-                ?.gameCharacter
-                .characterAbilities
-                .characterType == CharacterType.VIKING)
-                setVikingFortifyCapital(vikingRes.usedInRoundId)
-
             setRoundQuestion(vikingRes.questionResponse)
         }))
 

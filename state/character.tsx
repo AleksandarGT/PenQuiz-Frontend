@@ -22,9 +22,3 @@ export const wizardHintQuestionAtom = atom<WizardUseMultipleChoiceHintResponse |
     key: "wizardUseMultipleChoiceHintResponseAtom",
     default: null,
 })
-
-// Store the last round where the viking ability was last used
-export const vikingAbilityUsedInRoundAtom = atom<number | null>({
-    key: "vikingAbilityUsedInRoundAtom",
-    default: null,
-})

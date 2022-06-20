@@ -50,7 +50,7 @@ export default function AnswerNumberQuestionComponent({ question }: { question: 
                 :
                 <>
                     <HStack justifyContent="space-evenly" alignItems="center">
-                        <CharacterQuestionActionComponent question={question} />
+                        <CharacterQuestionActionComponent hasPlayerAnswered={isAnswered} question={question} />
 
                         <HStack>
 
@@ -101,7 +101,7 @@ export default function AnswerNumberQuestionComponent({ question }: { question: 
                         </HStack>
 
 
-                        <CharacterQuestionActionComponent invisible={true} question={question} />
+                        <CharacterQuestionActionComponent hasPlayerAnswered={isAnswered} invisible={true} question={question} />
 
                     </HStack>
                     {Platform.OS != "web" && <HStack mt={3}>

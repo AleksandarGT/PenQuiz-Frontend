@@ -191,7 +191,7 @@ export const numberChoicePvpQuestionMock = {
     ],
 }
 
-export const numberChoiceQuestionMock: QuestionClientResponse  = {
+export const numberChoiceQuestionMock: QuestionClientResponse = {
     "isLastQuestion": false,
     "isNeutral": false,
     "capitalRoundsRemaining": 3,
@@ -222,7 +222,8 @@ export const numberChoiceQuestionMock: QuestionClientResponse  = {
                     "gameCharacterId": 357,
                     "vikingCharacterAbilitiesResponse": {
                         "fortifyCapitalUseCount": 1,
-                        "fortifyCapitalMaxUseCount": 2
+                        "fortifyCapitalMaxUseCount": 2,
+                        "abilityUsedInRounds": [1],
                     },
                     "kingCharacterAbilitiesResponse": null,
                     "wizardCharacterAbilitiesResponse": null,
@@ -263,7 +264,8 @@ export const numberChoiceQuestionMock: QuestionClientResponse  = {
                     "gameCharacterId": 358,
                     "wizardCharacterAbilitiesResponse": {
                         "mcQuestionHintUseCount": 0,
-                        "mcQuestionHintMaxUseCount": 3
+                        "mcQuestionHintMaxUseCount": 3,
+                        "abilityUsedInRounds": [],
                     },
                     "kingCharacterAbilitiesResponse": null,
                     "vikingCharacterAbilitiesResponse": null,
@@ -334,28 +336,6 @@ export const multipleChoiceQuestionMock = {
     ],
 }
 
-export const wizardUseMultipleChoiceHintMock: WizardUseMultipleChoiceHintResponse = {
-    playerId: 1,
-    answers: [
-        {
-            "id": 428,
-            "answer": "681"
-        },
-        {
-            "id": 429,
-            "answer": "15"
-        },
-        {
-            "id": 430,
-            "answer": "22"
-        },
-        {
-            "id": 431,
-            "answer": "512"
-        }
-    ]
-}
-
 export const multipleChoicePvpQuestionMock: QuestionClientResponse = {
     "isLastQuestion": false,
     "isNeutral": false,
@@ -402,6 +382,7 @@ export const multipleChoicePvpQuestionMock: QuestionClientResponse = {
                     "wizardCharacterAbilitiesResponse": {
                         mcQuestionHintMaxUseCount: 2,
                         mcQuestionHintUseCount: 0,
+                        "abilityUsedInRounds": [],
                     }
                 },
                 "character": {
@@ -469,6 +450,28 @@ export const multipleChoicePvpQuestionMock: QuestionClientResponse = {
     "defenderId": 5
 }
 
+export const wizardUseMultipleChoiceHintMock: WizardUseMultipleChoiceHintResponse = {
+    playerId: 1,
+    answers: [
+        {
+            "id": 428,
+            "answer": "681"
+        },
+        {
+            "id": 429,
+            "answer": "15"
+        },
+        {
+            "id": 430,
+            "answer": "22"
+        },
+        {
+            "id": 431,
+            "answer": "512"
+        }
+    ],
+    questionResponse: multipleChoicePvpQuestionMock
+}
 export const playerAttackPossibilitiesMock: IPlayerAttackPossibilities = {
     "attackerId": 1,
     "availableAttackTerritories": [
@@ -815,6 +818,7 @@ export const gameInstanceMock: GameInstanceResponse = {
                     "characterType": 0,
                     "gameCharacterId": 230,
                     "wizardCharacterAbilitiesResponse": {
+                        "abilityUsedInRounds": [],
                         "mcQuestionHintUseCount": 0,
                         "mcQuestionHintMaxUseCount": 3
                     }
@@ -857,6 +861,7 @@ export const gameInstanceMock: GameInstanceResponse = {
                     "gameCharacterId": 231,
                     "vikingCharacterAbilitiesResponse": {
                         "fortifyCapitalUseCount": 0,
+                        "abilityUsedInRounds": [],
                         "fortifyCapitalMaxUseCount": 2
                     }
                 },

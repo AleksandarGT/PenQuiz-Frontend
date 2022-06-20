@@ -41,6 +41,7 @@ export interface GameCharacterAbilitiesResponse {
 
 export interface VikingCharacterAbilitiesResponse {
     fortifyCapitalUseCount: number;
+    abilityUsedInRounds: number[];
     fortifyCapitalMaxUseCount: number;
 }
 
@@ -51,16 +52,17 @@ export interface KingCharacterAbilitiesResponse {
 
 export interface WizardCharacterAbilitiesResponse {
     mcQuestionHintUseCount: number;
+    abilityUsedInRounds: number[];
     mcQuestionHintMaxUseCount: number;
 }
 
 export interface WizardUseMultipleChoiceHintResponse {
     playerId: number,
     answers: AnswerClientResponse[];
+    questionResponse: QuestionClientResponse;
 }
 
 export interface VikingUseFortifyResponse {
     questionResponse: QuestionClientResponse;
-    usedInRoundId: number;
     gameLink: string;
 }

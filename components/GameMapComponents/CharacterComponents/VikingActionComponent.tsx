@@ -3,7 +3,6 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useRecoilValue } from "recoil";
 import { VikingUseAbility, WizardUseMultipleChoiceHint } from "../../../hooks";
 import { gameTimerAtom, authAtom, gameInstanceAtom } from "../../../state";
-import { vikingAbilityUsedInRoundAtom } from "../../../state/character";
 import { IAuthData } from "../../../types/authTypes";
 import { CharacterType } from "../../../types/gameCharacterTypes";
 import { QuestionClientResponse } from "../../../types/gameResponseTypes";
@@ -15,7 +14,6 @@ export default function VikingActionComponent({ question, invisible }
     const [vikingAbilityUsed, setVikingAbilityUsed] = useState<boolean>(false);
     const gameInstance = useRecoilValue(gameInstanceAtom)
 
-    const vikingAbilityUsedInRoundId = useRecoilValue(vikingAbilityUsedInRoundAtom)
     const globalDisplayTime = useRecoilValue(gameTimerAtom)
     const user = useRecoilValue(authAtom) as IAuthData
 
@@ -59,18 +57,17 @@ export default function VikingActionComponent({ question, invisible }
 
     // If the viking ability was used this round do not allow any more activations for this round
     useEffect(() => {
-        if (!vikingAbilityUsedInRoundId)
+        if (!getThisVikingAbilities || !getThisVikingAbilities.abilityUsedInRounds)
             return
-
 
         const currentRound =
             gameInstance?.rounds.find(e => e.gameRoundNumber == gameInstance.gameRoundNumber)
 
-        if (currentRound?.id != vikingAbilityUsedInRoundId)
+        if (!getThisVikingAbilities.abilityUsedInRounds.some(e => e == currentRound?.id))
             return
 
         setVikingAbilityUsed(true)
-    }, [vikingAbilityUsedInRoundId])
+    }, [getThisVikingAbilities?.abilityUsedInRounds])
 
     if (!showVikingButton)
         return null
