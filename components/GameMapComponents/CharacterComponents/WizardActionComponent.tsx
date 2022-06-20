@@ -51,7 +51,8 @@ export default function WizardActionComponent({ question, invisible }
             gameInstance?.rounds.find(e => e.gameRoundNumber == gameInstance.gameRoundNumber)
 
         if (!getThisUserWizardAbilities.abilityUsedInRounds.some(e => e == currentRound?.id))
-
+            return
+            
         setWizardAbilityUsed(true)
     }, [getThisUserWizardAbilities?.abilityUsedInRounds])
 
