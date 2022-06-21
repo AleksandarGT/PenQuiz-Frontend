@@ -67,19 +67,44 @@ export function GetNeutralTerritoryPossibilityColor(gameInstance: GameInstanceRe
 
 export function GetPenguinAvatarImage(avatarName: string) {
     if (Platform.OS == "web") {
-        return avatarName == "penguinAvatarWizard"
-            ? require('../../assets/penguinAvatarWizard.svg')
-            : avatarName == "penguinAvatarKing"
-                ? require('../../assets/penguinAvatarKing.svg')
-                : require('../../assets/penguinAvatarViking.svg')
+
+
+        switch (avatarName) {
+            case "penguinAvatarWizard":
+                return require("../../assets/penguinAvatarWizard.svg")
+
+            case "penguinAvatarKing":
+                return require('../../assets/penguinAvatarKing.svg')
+
+            case "penguinAvatarViking":
+                return require('../../assets/penguinAvatarViking.svg')
+
+            case "penguinAvatarScientist":
+                return require("../../assets/penguinAvatarScientist.svg")
+
+            default:
+                return require("../../assets/penguinAvatarWizard.svg")
+        }
     }
 
 
-    return avatarName == "penguinAvatarWizard"
-        ? require('../../assets/penguinAvatarWizard.png')
-        : avatarName == "penguinAvatarKing"
-            ? require('../../assets/penguinAvatarKing.png')
-            : require('../../assets/penguinAvatarViking.png')
+
+    switch (avatarName) {
+        case "penguinAvatarWizard":
+            return require("../../assets/penguinAvatarWizard.png")
+
+        case "penguinAvatarKing":
+            return require('../../assets/penguinAvatarKing.png')
+
+        case "penguinAvatarViking":
+            return require('../../assets/penguinAvatarViking.png')
+
+        case "penguinAvatarScientist":
+            return require("../../assets/penguinAvatarScientist.png")
+
+        default:
+            return require("../../assets/penguinAvatarWizard.png")
+    }
 }
 
 export function RoundAttackStage(attackStage: AttackStage) {
@@ -225,6 +250,7 @@ export const numberChoiceQuestionMock: QuestionClientResponse = {
                         "fortifyCapitalMaxUseCount": 2,
                         "abilityUsedInRounds": [1],
                     },
+                    "scientistCharacterAbilitiesResponse": null,
                     "kingCharacterAbilitiesResponse": null,
                     "wizardCharacterAbilitiesResponse": null,
                 },
@@ -267,6 +293,7 @@ export const numberChoiceQuestionMock: QuestionClientResponse = {
                         "mcQuestionHintMaxUseCount": 3,
                         "abilityUsedInRounds": [],
                     },
+                    "scientistCharacterAbilitiesResponse": null,
                     "kingCharacterAbilitiesResponse": null,
                     "vikingCharacterAbilitiesResponse": null,
                 },
@@ -379,6 +406,7 @@ export const multipleChoicePvpQuestionMock: QuestionClientResponse = {
                     "gameCharacterId": 76,
                     kingCharacterAbilitiesResponse: null,
                     vikingCharacterAbilitiesResponse: null,
+                    "scientistCharacterAbilitiesResponse": null,
                     "wizardCharacterAbilitiesResponse": {
                         mcQuestionHintMaxUseCount: 2,
                         mcQuestionHintUseCount: 0,
@@ -419,6 +447,7 @@ export const multipleChoicePvpQuestionMock: QuestionClientResponse = {
                 "characterAbilities": {
                     vikingCharacterAbilitiesResponse: null,
                     wizardCharacterAbilitiesResponse: null,
+                    "scientistCharacterAbilitiesResponse": null,
                     "characterType": 1,
                     "gameCharacterId": 77,
                     "kingCharacterAbilitiesResponse": {
