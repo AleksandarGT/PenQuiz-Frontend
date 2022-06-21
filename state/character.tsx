@@ -1,4 +1,4 @@
-import { GameCharacterResponse, VikingUseFortifyResponse, WizardUseMultipleChoiceHintResponse } from "../types/gameCharacterTypes";
+import { GameCharacterResponse, ScientistUseNumberHintResponse, ScientistUseNumberHintState, VikingUseFortifyResponse, WizardUseMultipleChoiceHintResponse, WizardUseMultipleChoiceHintState } from "../types/gameCharacterTypes";
 import { atom } from "recoil";
 import { WizardUseMultipleChoiceHint } from "../hooks";
 
@@ -18,7 +18,12 @@ export const gameCharacterAtom = atom<GameCharacterResponse | null>({
     ]
 });
 
-export const wizardHintQuestionAtom = atom<WizardUseMultipleChoiceHintResponse | null>({
+export const wizardHintQuestionAtom = atom<WizardUseMultipleChoiceHintState | null>({
     key: "wizardUseMultipleChoiceHintResponseAtom",
+    default: null,
+})
+
+export const scientistHintQuestionAtom = atom<ScientistUseNumberHintState | null>({
+    key: "scientistHintQuestionAtom",
     default: null,
 })

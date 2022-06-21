@@ -10,8 +10,8 @@ import { HubConnection } from '@microsoft/signalr'
 import { GameHubStatusCode } from '../types/hubTypes'
 import { GameInstanceResponse, GameState, ParticipantsResponse } from '../types/gameInstanceTypes'
 import { IAuthData } from '../types/authTypes'
-import { CharacterType, GameCharacterResponse, VikingUseFortifyResponse, WizardCharacterAbilitiesResponse, WizardUseMultipleChoiceHintResponse } from '../types/gameCharacterTypes'
-import { gameCharacterAtom, wizardHintQuestionAtom } from '../state/character'
+import { CharacterType, GameCharacterResponse, ScientistUseNumberHintResponse, VikingUseFortifyResponse, WizardCharacterAbilitiesResponse, WizardUseMultipleChoiceHintResponse } from '../types/gameCharacterTypes'
+import { gameCharacterAtom, scientistHintQuestionAtom, wizardHintQuestionAtom } from '../state/character'
 
 const connectionHub = `${GAME_SERVICE_API_URL}/gamehubs`
 
@@ -33,6 +33,7 @@ export function useSignalR() {
     const setGameCharacter = useSetRecoilState(gameCharacterAtom)
 
     const setWizardHint = useSetRecoilState(wizardHintQuestionAtom)
+    const setScientistHint = useSetRecoilState(scientistHintQuestionAtom)
 
     connection = getConnection()
 
@@ -249,7 +250,26 @@ export function useSignalR() {
 
         // Characters
         connection.on('WizardUseMultipleChoiceHint', ((res: WizardUseMultipleChoiceHintResponse) => {
-            setWizardHint(res)
+
+            // State only wizard data from the response
+            const { answers, playerId } = res
+            setWizardHint({
+                answers, 
+                playerId
+            })
+
+            setRoundQuestion(res.questionResponse)
+        }))
+
+        connection.on("ScientistUseNumberHint", ((res: ScientistUseNumberHintResponse) => {
+
+            const { maxRange, minRange, playerId } = res
+            setScientistHint({
+                maxRange,
+                minRange,
+                playerId
+            })
+
             setRoundQuestion(res.questionResponse)
         }))
 
@@ -261,6 +281,11 @@ export function useSignalR() {
             setGameCharacter(characterResponse)
         }))
     }
+}
+
+export function ScientistUseAbility(gameTimer: number) {
+    if (gameTimer <= 0) return;
+    connection?.invoke("ScientistUseAbility")
 }
 
 export function WizardUseMultipleChoiceHint(gameTimer: number) {
