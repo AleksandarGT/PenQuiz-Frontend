@@ -1,4 +1,4 @@
-import { Box, Center, HStack, Text, Input, Button, IconButton } from 'native-base'
+import { Box, Center, HStack, Text, Input, Button, IconButton, VStack } from 'native-base'
 import React, { useState } from 'react'
 import { Platform } from 'react-native'
 import { GetAvatarColor } from '../CommonGameFunc'
@@ -9,6 +9,7 @@ import { AnswerNumberQuestion } from '../../../hooks'
 import { QuestionClientResponse } from '../../../types/gameResponseTypes'
 import { IAuthData } from '../../../types/authTypes'
 import CharacterQuestionActionComponent from '../CharacterComponents/CharacterQuestionActionComponent'
+import ScientistResponseComponent from '../CharacterComponents/ScientistResponseComponent'
 
 
 export default function AnswerNumberQuestionComponent({ question }: { question: QuestionClientResponse }) {
@@ -52,53 +53,56 @@ export default function AnswerNumberQuestionComponent({ question }: { question: 
                     <HStack justifyContent="space-evenly" alignItems="center">
                         <CharacterQuestionActionComponent hasPlayerAnswered={isAnswered} question={question} />
 
-                        <HStack>
+                        <VStack>
+                            <HStack>
 
-                            <Input editable={Platform.OS == "web" ? true : false} onChangeText={(e) => {
-                                if (/^\d+$/.test(e) || !e) {
-                                    setAnswer(e)
-                                }
-                            }}
-                                onSubmitEditing={() => {
-                                    if (isAnswered) return
-                                    setisAnswered(true)
-                                    AnswerNumberQuestion(answer, timer)
+                                <Input editable={Platform.OS == "web" ? true : false} onChangeText={(e) => {
+                                    if (/^\d+$/.test(e) || !e) {
+                                        setAnswer(e)
+                                    }
                                 }}
-                                value={answer}
-                                maxLength={14}
-                                mr={2}
-                                keyboardType="numeric"
-                                variant="rounded"
-                                backgroundColor="#D4EDFD"
-                                color="black"
-                                _hover={{ backgroundColor: "#A8CCE2" }}
-                                size="md"
-                                minWidth="250px"
-                                width={Platform.OS == "web" ? "40vw" : "40%"}
-                                placeholderTextColor="#737373"
-                                style={{
-                                    fontStyle: "italic"
-                                }}
-                                placeholder="123" />
+                                    onSubmitEditing={() => {
+                                        if (isAnswered) return
+                                        setisAnswered(true)
+                                        AnswerNumberQuestion(answer, timer)
+                                    }}
+                                    value={answer}
+                                    maxLength={14}
+                                    mr={2}
+                                    keyboardType="numeric"
+                                    variant="rounded"
+                                    backgroundColor="#D4EDFD"
+                                    color="black"
+                                    _hover={{ backgroundColor: "#A8CCE2" }}
+                                    size="md"
+                                    minWidth="250px"
+                                    width={Platform.OS == "web" ? "40vw" : "40%"}
+                                    placeholderTextColor="#737373"
+                                    style={{
+                                        fontStyle: "italic"
+                                    }}
+                                    placeholder="123" />
 
-                            <IconButton
-                                onPress={() => {
-                                    if (isAnswered) return
-                                    setisAnswered(true)
-                                    AnswerNumberQuestion(answer, timer)
-                                }}
-                                size="md"
-                                colorScheme={Platform.OS == "web" ? "blue_button_bd" : "success"}
-                                borderWidth={1}
-                                borderRadius={10}
-                                variant="solid"
-                                _icon={{
-                                    as: MaterialIcons,
-                                    name: "check",
-                                    color: "white"
-                                }}
-                            />
-                        </HStack>
+                                <IconButton
+                                    onPress={() => {
+                                        if (isAnswered) return
+                                        setisAnswered(true)
+                                        AnswerNumberQuestion(answer, timer)
+                                    }}
+                                    size="md"
+                                    colorScheme={Platform.OS == "web" ? "blue_button_bd" : "success"}
+                                    borderWidth={1}
+                                    borderRadius={10}
+                                    variant="solid"
+                                    _icon={{
+                                        as: MaterialIcons,
+                                        name: "check",
+                                        color: "white"
+                                    }}
+                                />
+                            </HStack>
+                            <ScientistResponseComponent question={question} key={"ScientistResponse"} />
+                        </VStack>
 
 
                         <CharacterQuestionActionComponent hasPlayerAnswered={isAnswered} invisible={true} question={question} />

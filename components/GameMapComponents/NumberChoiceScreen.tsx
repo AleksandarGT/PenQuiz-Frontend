@@ -148,11 +148,11 @@ export default function NumberChoiceScreen({
 
                         </HStack>
 
-                    {playerQuestionAnswers ?
-                        <NumberQuestionResult key="numQResult" />
-                        :
-                        <AnswerNumberQuestionComponent question={question} key="answerNQComp" />
-                    }
+                        {playerQuestionAnswers ?
+                            <NumberQuestionResult key="numQResult" />
+                            :
+                            <AnswerNumberQuestionComponent question={question} key="answerNQComp" />
+                        }
                     </Box>
 
                 </Center>
