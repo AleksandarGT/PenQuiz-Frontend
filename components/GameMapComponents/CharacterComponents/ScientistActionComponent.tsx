@@ -75,7 +75,7 @@ export default function ScientistActionComponent({ question, invisible }
                     } borderRadius={10}>
                         <Center>
                             <Text selectable={false} >
-                                Wizard
+                                Scientist
                             </Text>
                             <Text selectable={false}>
                                 {getThisUserScientistAbilities?.numberQuestionHintUseCount} / {getThisUserScientistAbilities?.numberQuestionHintMaxUseCount}

@@ -4,7 +4,7 @@ import { authAtom } from "../../../state"
 import { scientistHintQuestionAtom } from "../../../state/character"
 import { IAuthData } from "../../../types/authTypes"
 import { CharacterType } from "../../../types/gameCharacterTypes"
-import { Box, Text } from "native-base"
+import { Box, Center, Text } from "native-base"
 import { QuestionClientResponse } from "../../../types/gameResponseTypes"
 
 export default function ScientistResponseComponent({ question }: { question: QuestionClientResponse }) {
@@ -16,6 +16,7 @@ export default function ScientistResponseComponent({ question }: { question: Que
     useEffect(() => {
         const participAbilities = question.participants.find(e => e.playerId == user.id)!.gameCharacter.characterAbilities
 
+        console.log(participAbilities)
         if (!scientistState) {
             setIsHidden(true)
             return
@@ -35,10 +36,12 @@ export default function ScientistResponseComponent({ question }: { question: Que
 
     return (
         <>
-            <Box>
-                <Text>Answer is between:</Text>
-                <Text>{scientistState?.minRange} - {scientistState?.maxRange}</Text>
-            </Box>
+            <Center>
+                <Box backgroundColor={"#071D56"} mt={2} textAlign={"center"} borderRadius={15} p={3}>
+                    <Text>Answer is between:</Text>
+                    <Text fontWeight={"bold"}>{scientistState?.minRange} - {scientistState?.maxRange}</Text>
+                </Box>
+            </Center>
         </>
     )
 }

@@ -1,5 +1,5 @@
 import { Platform } from 'react-native'
-import { WizardUseMultipleChoiceHintResponse } from '../../types/gameCharacterTypes';
+import { ScientistUseNumberHintResponse, WizardUseMultipleChoiceHintResponse } from '../../types/gameCharacterTypes';
 import { AttackStage, GameInstanceResponse, GameState } from '../../types/gameInstanceTypes'
 import { IPlayerAttackPossibilities, NumberPlayerQuestionAnswers, QuestionClientResponse } from '../../types/gameResponseTypes';
 
@@ -167,7 +167,6 @@ export const playerQuestionAnswersMock = {
 }
 
 
-
 export const playerQuestionNumberAnswersMock: NumberPlayerQuestionAnswers = {
     "correctAnswer": "681",
     "playerAnswers": [
@@ -286,14 +285,14 @@ export const numberChoiceQuestionMock: QuestionClientResponse = {
                 "userId": 1,
                 "gameInstanceId": 169,
                 "characterAbilities": {
-                    "characterType": 0,
+                    "characterType": 3,
                     "gameCharacterId": 358,
-                    "wizardCharacterAbilitiesResponse": {
-                        "mcQuestionHintUseCount": 0,
-                        "mcQuestionHintMaxUseCount": 3,
+                    "wizardCharacterAbilitiesResponse": null,
+                    "scientistCharacterAbilitiesResponse": {
                         "abilityUsedInRounds": [],
+                        "numberQuestionHintMaxUseCount": 2,
+                        "numberQuestionHintUseCount": 0,
                     },
-                    "scientistCharacterAbilitiesResponse": null,
                     "kingCharacterAbilitiesResponse": null,
                     "vikingCharacterAbilitiesResponse": null,
                 },
@@ -319,6 +318,13 @@ export const numberChoiceQuestionMock: QuestionClientResponse = {
     ],
     "attackerId": 1,
     "defenderId": 2
+}
+
+export const scientistResponseMock: ScientistUseNumberHintResponse = {
+    maxRange: "1500",
+    minRange: "1000",
+    playerId: 1,
+    questionResponse: numberChoiceQuestionMock,
 }
 
 export const multipleChoiceQuestionMock = {

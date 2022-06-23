@@ -25,7 +25,7 @@ export * from './LoadingComponent'
 
 const Stack = createStackNavigator()
 const prefix = Linking.createURL('http://localhost:19006')
-export const isDebugRunning = false
+export const isDebugRunning = true
 
 export function Routes() {
   const localAuthStatus = useRecoilValue(authStatus)
@@ -41,7 +41,7 @@ export function Routes() {
     !isDebugRunning && useuseAuthActions.refreshToken()
 
     isDebugRunning && setUser({
-      id: 2,
+      id: 1,
       status: authStatusType.LOADING
     })
   }, [])
