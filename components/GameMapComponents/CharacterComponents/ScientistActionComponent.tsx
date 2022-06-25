@@ -1,4 +1,4 @@
-import { Box, Center, Pressable, Text } from "native-base";
+import { Box, Center, Divider, HStack, Image, Pressable, Text, Tooltip } from "native-base";
 import React, { useEffect, useMemo, useState } from "react";
 import { useRecoilValue } from "recoil";
 import { WizardUseMultipleChoiceHint } from "../../../hooks";
@@ -52,7 +52,7 @@ export default function ScientistActionComponent({ question, invisible }
 
         if (!getThisUserScientistAbilities.abilityUsedInRounds.some(e => e == currentRound?.id))
             return
-            
+
         setScientistAbilityUsed(true)
     }, [getThisUserScientistAbilities?.abilityUsedInRounds])
 
@@ -62,28 +62,54 @@ export default function ScientistActionComponent({ question, invisible }
 
 
     return (
-        <Pressable opacity={invisible ? 0 : 100} disabled={invisible || areAllHintsUsed || scientistAbilityUsed} onPress={() => {
-            WizardUseMultipleChoiceHint(globalDisplayTime)
-            setScientistAbilityUsed(true)
-        }}>
-            {({ isHovered, isFocused, isPressed }) => {
-                return (
-                    <Box style={{
-                        aspectRatio: 1 / 1,
-                    }} p={2} mt={6} shadow={3} bg={
-                        isPressed ? "#0D569B" : isHovered ? "#06326F" : "#071D56"
-                    } borderRadius={10}>
-                        <Center>
-                            <Text selectable={false} >
-                                Scientist
-                            </Text>
-                            <Text selectable={false}>
-                                {getThisUserScientistAbilities?.numberQuestionHintUseCount} / {getThisUserScientistAbilities?.numberQuestionHintMaxUseCount}
-                            </Text>
-                        </Center>
-                    </Box>
-                )
-            }}
-        </Pressable>
+        <>
+            <HStack>
+
+                <Pressable opacity={invisible ? 0 : 100} disabled={invisible || areAllHintsUsed || scientistAbilityUsed} onPress={() => {
+                    WizardUseMultipleChoiceHint(globalDisplayTime)
+                    setScientistAbilityUsed(true)
+                }}>
+                    {({ isHovered, isFocused, isPressed }) => {
+                        return (
+
+                            <Box justifyContent={"center"} style={{
+                                aspectRatio: 1 / 1,
+                            }} px={1.5} mt={6} shadow={3} bg={
+                                isPressed ? "#0D569B" : isHovered ? "#06326F" : "#083965"
+                            } borderRadius={25}>
+                                <Center >
+                                    <HStack alignItems={"center"}>
+
+                                        <Text fontWeight={"bold"} color={"#C5DFFF"} fontSize={"lg"} selectable={false} >
+                                            Help!
+                                        </Text>
+                                        <Image
+                                            source={require("../../../assets/characterAssets/scientistFlask.svg")}
+                                            alt="Alternate Text"
+                                            resizeMode="contain"
+                                            size="xs"
+                                        />
+                                    </HStack>
+                                    <Divider my={1} backgroundColor={"#C5DFFF"} />
+                                    <Text fontWeight={"bold"} fontSize={"md"} color={"#C5DFFF"} selectable={false}>
+                                        {getThisUserScientistAbilities?.numberQuestionHintUseCount} / {getThisUserScientistAbilities?.numberQuestionHintMaxUseCount} uses
+                                    </Text>
+                                </Center>
+                            </Box>
+                        )
+                    }}
+                </Pressable>
+                <Tooltip label="Narrows down the correct answer" placement="right">
+                    <Image
+                        source={require("../../../assets/characterAssets/hintPopup.svg")}
+                        alt="Alternate Text"
+                        resizeMode="contain"
+                        size="xs"
+                    />
+                </Tooltip>
+            </HStack>
+
+        </>
+
     )
 }
