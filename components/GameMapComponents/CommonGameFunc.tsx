@@ -493,14 +493,6 @@ export const wizardUseMultipleChoiceHintMock: WizardUseMultipleChoiceHintRespons
             "answer": "681"
         },
         {
-            "id": 429,
-            "answer": "15"
-        },
-        {
-            "id": 430,
-            "answer": "22"
-        },
-        {
             "id": 431,
             "answer": "512"
         }

@@ -63,7 +63,7 @@ export default function ScientistActionComponent({ question, invisible }
 
     return (
         <>
-            <HStack>
+            <HStack mt={6}>
 
                 <Pressable opacity={invisible ? 0 : 100} disabled={invisible || areAllHintsUsed || scientistAbilityUsed} onPress={() => {
                     WizardUseMultipleChoiceHint(globalDisplayTime)
@@ -74,8 +74,8 @@ export default function ScientistActionComponent({ question, invisible }
 
                             <Box justifyContent={"center"} style={{
                                 aspectRatio: 1 / 1,
-                            }} px={1.5} mt={6} shadow={3} bg={
-                                isPressed ? "#0D569B" : isHovered ? "#06326F" : "#083965"
+                            }} px={1.5} shadow={3} bg={
+                                isPressed ? "#1E609C" : isHovered ? "#165085" : "#083965"
                             } borderRadius={25}>
                                 <Center >
                                     <HStack alignItems={"center"}>

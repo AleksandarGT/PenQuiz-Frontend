@@ -112,7 +112,7 @@ export function Routes() {
     if (isDebugRunning)
       return (
         <Stack.Screen name="Loading" options={{ headerShown: false }} >
-          {() => <MockNumberChoiceScreen />}
+          {() => <MockMultipleChoiceScreen />}
         </Stack.Screen>
       )
 

@@ -1,4 +1,4 @@
-import { Box, Center, Pressable, Text } from "native-base";
+import { Box, Center, Divider, HStack, Image, Pressable, Text, Tooltip, View } from "native-base";
 import React, { useEffect, useMemo, useState } from "react";
 import { useRecoilValue } from "recoil";
 import { WizardUseMultipleChoiceHint } from "../../../hooks";
@@ -52,7 +52,7 @@ export default function WizardActionComponent({ question, invisible }
 
         if (!getThisUserWizardAbilities.abilityUsedInRounds.some(e => e == currentRound?.id))
             return
-            
+
         setWizardAbilityUsed(true)
     }, [getThisUserWizardAbilities?.abilityUsedInRounds])
 
@@ -62,28 +62,53 @@ export default function WizardActionComponent({ question, invisible }
 
 
     return (
-        <Pressable opacity={invisible ? 0 : 100} disabled={invisible || areAllHintsUsed || wizardAbilityUsed} onPress={() => {
-            WizardUseMultipleChoiceHint(globalDisplayTime)
-            setWizardAbilityUsed(true)
-        }}>
-            {({ isHovered, isFocused, isPressed }) => {
-                return (
-                    <Box style={{
-                        aspectRatio: 1 / 1,
-                    }} p={2} mt={6} shadow={3} bg={
-                        isPressed ? "#0D569B" : isHovered ? "#06326F" : "#071D56"
-                    } borderRadius={10}>
-                        <Center>
-                            <Text selectable={false} >
-                                Wizard
-                            </Text>
-                            <Text selectable={false}>
-                                {getThisUserWizardAbilities?.mcQuestionHintUseCount} / {getThisUserWizardAbilities?.mcQuestionHintMaxUseCount}
-                            </Text>
-                        </Center>
-                    </Box>
-                )
-            }}
-        </Pressable>
+        <View opacity={invisible ? 0 : 100} >
+            <HStack mt={6}>
+                <Center>
+                    <Pressable disabled={invisible || areAllHintsUsed || wizardAbilityUsed} onPress={() => {
+                        WizardUseMultipleChoiceHint(globalDisplayTime)
+                        setWizardAbilityUsed(true)
+                    }}>
+                        {({ isHovered, isFocused, isPressed }) => {
+                            return (
+                                <Box justifyContent={"center"} style={{
+                                    aspectRatio: 1 / 1,
+                                }} px={1.5} shadow={3} bg={
+                                    isPressed ? "#6654D6" : isHovered ? "#5A48C6" : "#3E2E9E"
+                                } borderRadius={25}>
+                                    <Center >
+                                        <HStack alignItems={"center"}>
+
+                                            <Text fontWeight={"bold"} color={"#C5DFFF"} fontSize={"lg"} selectable={false} >
+                                                Help!
+                                            </Text>
+                                            <Image
+                                                source={require("../../../assets/characterAssets/wizardWand.svg")}
+                                                alt="Alternate Text"
+                                                resizeMode="contain"
+                                                size="xs"
+                                            />
+                                        </HStack>
+                                        <Divider my={1} backgroundColor={"#C5DFFF"} />
+                                        <Text fontWeight={"bold"} fontSize={"md"} color={"#C5DFFF"} selectable={false}>
+                                            {getThisUserWizardAbilities?.mcQuestionHintUseCount} / {getThisUserWizardAbilities?.mcQuestionHintMaxUseCount} uses
+                                        </Text>
+                                    </Center>
+                                </Box>
+                            )
+                        }}
+                    </Pressable>
+                </Center>
+
+                <Tooltip label="Removes 2 wrong answers" placement="right">
+                    <Image
+                        source={require("../../../assets/characterAssets/hintPopup.svg")}
+                        alt="Alternate Text"
+                        resizeMode="contain"
+                        size="xs"
+                    />
+                </Tooltip>
+            </HStack>
+        </View>
     )
 }
