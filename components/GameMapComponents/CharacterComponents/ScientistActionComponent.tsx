@@ -1,7 +1,7 @@
 import { Box, Center, Divider, HStack, Image, Pressable, Text, Tooltip } from "native-base";
 import React, { useEffect, useMemo, useState } from "react";
 import { useRecoilValue } from "recoil";
-import { WizardUseMultipleChoiceHint } from "../../../hooks";
+import { ScientistUseAbility, WizardUseMultipleChoiceHint } from "../../../hooks";
 import { gameTimerAtom, authAtom, gameInstanceAtom } from "../../../state";
 import { IAuthData } from "../../../types/authTypes";
 import { CharacterType } from "../../../types/gameCharacterTypes";
@@ -66,7 +66,7 @@ export default function ScientistActionComponent({ question, invisible }
             <HStack mt={6}>
 
                 <Pressable opacity={invisible ? 0 : 100} disabled={invisible || areAllHintsUsed || scientistAbilityUsed} onPress={() => {
-                    WizardUseMultipleChoiceHint(globalDisplayTime)
+                    ScientistUseAbility(globalDisplayTime)
                     setScientistAbilityUsed(true)
                 }}>
                     {({ isHovered, isFocused, isPressed }) => {

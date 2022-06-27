@@ -73,6 +73,7 @@ export function useSignalR() {
             setRoundQuestion(null)
             setPlayerQuestionAnswers(null)
             setWizardHint(null)
+            setScientistHint(null)
         }
 
         connection.onreconnecting((error) => {
@@ -223,7 +224,10 @@ export function useSignalR() {
         // Question events
         connection.on('GetRoundQuestion', ((roundQuestion: QuestionClientResponse) => {
             setPlayerQuestionAnswers(null)
+            
+            // Remove previous hints on new question
             setWizardHint(null)
+            setScientistHint(null)
 
             setRoundQuestion(roundQuestion)
         }))

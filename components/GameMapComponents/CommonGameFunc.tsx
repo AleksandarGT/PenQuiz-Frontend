@@ -122,6 +122,11 @@ export function RoundAttackStage(attackStage: AttackStage) {
 
 export const gameSvgs = [
     {
+        name: "penguinAvatarScientist",
+        img: require(`../../assets/penguinAvatarScientist.svg`),
+        imgPng: require(`../../assets/penguinAvatarScientist.png`)
+    },
+    {
         name: "penguinAvatarWizard",
         img: require(`../../assets/penguinAvatarWizard.svg`),
         imgPng: require(`../../assets/penguinAvatarWizard.png`)

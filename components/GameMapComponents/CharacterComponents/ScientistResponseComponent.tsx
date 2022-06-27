@@ -16,7 +16,6 @@ export default function ScientistResponseComponent({ question }: { question: Que
     useEffect(() => {
         const participAbilities = question.participants.find(e => e.playerId == user.id)!.gameCharacter.characterAbilities
 
-        console.log(participAbilities)
         if (!scientistState) {
             setIsHidden(true)
             return
