@@ -8,15 +8,17 @@ export default function CharacterCard({
     avatarName,
     avatarImageName,
     onPress,
+    invisible
 }: {
     avatarName: string,
     avatarImageName: string,
-    onPress: () => void
+    onPress: () => void,
+    invisible?: boolean
 }) {
 
     return (
-        <Center>
-            <Pressable onPress={() => {
+        <Center opacity={invisible ? 0 : 100}>
+            <Pressable disabled={invisible} onPress={() => {
                 onPress()
             }}>
                 {({ isHovered, isFocused, isPressed }) => {
@@ -45,7 +47,7 @@ export default function CharacterCard({
                                         source={require(`../../assets/${avatarImageName}.svg`)}
                                         alt="Alternate Text"
                                         resizeMode="contain"
-                                        size={"56"}
+                                        size={'48'}
                                     />
                                 </Box>
                                 <Box style={{

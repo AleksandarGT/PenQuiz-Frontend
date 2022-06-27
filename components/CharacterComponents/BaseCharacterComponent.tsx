@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { View, ImageBackground, StyleSheet, ActivityIndicator, Platform } from 'react-native'
 import { Text, Button, Center, Box, Pressable, Alert, VStack, HStack, AspectRatio, Icon, ScrollView, Input, Image, Container, IconButton, Divider } from 'native-base'
 import CharacterCard from './CharacterCard';
 import { MaterialIcons } from '@expo/vector-icons';
+import useCharacterData from '../../hooks/useCharacterData';
+import DefaultAlert from '../Popups/DefaultAlert';
 
 
 function ChampionHeader({ headerText }: { headerText: string }) {
@@ -34,12 +36,38 @@ function ChampionHeader({ headerText }: { headerText: string }) {
 
 export default function BaseCharacterComponent() {
     const [currentScreen, setCurrentScreen] = useState("base")
+    const {
+        serverError,
+        characters,
+        getCharacter,
+        freeCharacters,
+        premiumCharacters,
+    } = useCharacterData()
+
+    // Adds each of the free characters into a row by 3
+    const rowedFreeCharacters = useMemo(() => {
+        if (!freeCharacters) return
+        const rows = [...Array(Math.ceil(freeCharacters.length / 3))];
+
+        return rows.map((row, idx) => freeCharacters.slice(idx * 3, idx * 3 + 3))
+    }, [characters])
+
+    // Adds each of the premium characters into a row by 3
+    const rowedPremiumCharacters = useMemo(() => {
+        if (!premiumCharacters) return
+        const rows = [...Array(Math.ceil(premiumCharacters.length / 3))];
+
+        return rows.map((row, idx) => premiumCharacters.slice(idx * 3, idx * 3 + 3))
+    }, [characters])
 
     return (
         <ImageBackground source={Platform.OS === 'web' ? require('../../assets/homeBackground.svg') : require('../../assets/homeBackground.png')} resizeMode="cover" style={{
             flex: 1,
             justifyContent: "center"
         }}>
+
+
+
             {currentScreen != "base" && <Button onPress={() => {
                 setCurrentScreen("base")
             }} borderColor="white" borderWidth={2} colorScheme='white_bd' variant="outline" color="white" style={{ position: "absolute", top: 5, left: 5 }} leftIcon={<Icon as={MaterialIcons} name="arrow-back-ios" size="sm" />}>
@@ -57,30 +85,43 @@ export default function BaseCharacterComponent() {
                         </Text>
 
 
+                        {/* Display error if fetching characters */}
+                        {serverError && <DefaultAlert message={serverError} />}
 
                         {/* Characters */}
-
                         <VStack flex={1}>
                             <ScrollView>
                                 {/* Basic champions */}
                                 <ChampionHeader headerText={"Basic penguins"} />
+                                {rowedFreeCharacters?.map(itemRow =>
+                                    <HStack key={`${itemRow.length}-stack-free`} my={3} justifyContent="space-evenly">
+                                        {itemRow.map(item =>
+                                            <CharacterCard key={item.avatarName} avatarImageName={item.avatarName} avatarName={item.name} onPress={() => console.log("eh maika ti")} />
+                                        )}
 
-
-                                <HStack justifyContent="space-evenly">
-                                    <CharacterCard avatarImageName={"penguinAvatarKing"} avatarName="Pedala" onPress={() => console.log("eh maika ti")} />
-                                    <CharacterCard avatarImageName={"penguinAvatarKing"} avatarName="Pedala" onPress={() => console.log("eh maika ti")} />
-                                    <CharacterCard avatarImageName={"penguinAvatarKing"} avatarName="Pedala" onPress={() => console.log("eh maika ti")} />
-                                </HStack>
+                                        {/* Invisible elements to keep the proportions on screen */}
+                                        {itemRow.length != 3 && [...Array(3 - itemRow.length)].map((el, i) =>
+                                            <CharacterCard invisible key={`${i}-free`}  avatarImageName={"penguinAvatarKing"} avatarName={"penguinAvatarKing"} onPress={() => null} />
+                                        )}
+                                    </HStack>
+                                )}
 
 
                                 <Box my={7} />
                                 <ChampionHeader headerText={"Premium penguins"} />
 
-                                <HStack justifyContent="space-evenly">
-                                    <CharacterCard avatarImageName={"penguinAvatarWizard"} avatarName="Baroveca" onPress={() => console.log("eh maika ti")} />
-                                    <CharacterCard avatarImageName={"penguinAvatarWizard"} avatarName="Baroveca" onPress={() => console.log("eh maika ti")} />
-                                    <CharacterCard avatarImageName={"penguinAvatarWizard"} avatarName="Baroveca" onPress={() => console.log("eh maika ti")} />
-                                </HStack>
+                                {rowedPremiumCharacters?.map(itemRow =>
+                                    <HStack key={`${itemRow.length}-stack-premium`} my={3} justifyContent="space-evenly">
+                                        {itemRow.map(item =>
+                                            <CharacterCard key={item.avatarName} avatarImageName={item.avatarName} avatarName={item.name} onPress={() => console.log("eh maika ti")} />
+                                        )}
+
+                                        {/* Invisible elements to keep the proportions on screen */}
+                                        {itemRow.length != 3 && [...Array(3 - itemRow.length)].map((el, i) =>
+                                            <CharacterCard key={`${i}-premium`} invisible avatarImageName={"penguinAvatarKing"} avatarName={"King"} onPress={() => null} />
+                                        )}
+                                    </HStack>
+                                )}
                             </ScrollView>
 
                         </VStack>
