@@ -21,7 +21,7 @@ export default function MCQuestionTimer() {
                 <HStack>
                     <MaterialIcons name="timer" size={32} color="white" />
                     <Text fontSize="xl" color="white" fontWeight="bold">
-                        {`${globalDisplayTime}s`}
+                        {globalDisplayTime ? `${globalDisplayTime - 1}s` : "0s"}
                     </Text>
                 </HStack>
             </Center>

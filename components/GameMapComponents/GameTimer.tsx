@@ -12,7 +12,7 @@ export default function GameTimer({ gameState }: { gameState: GameState }) {
     function DisplayTimeFunc() {
         switch (gameState) {
             case GameState.IN_PROGRESS:
-                return displayTime ? `${displayTime}s` : `Preview`
+                return displayTime ? `${displayTime - 1}s` : `Preview`
             case GameState.FINISHED:
                 return "Game Over"
             default:
