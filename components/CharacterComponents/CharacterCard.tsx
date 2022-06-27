@@ -3,7 +3,6 @@ import { ImageBackground, Platform } from 'react-native'
 import { Text, Button, Center, Box, Pressable, Image, } from 'native-base'
 import { MaterialIcons } from '@expo/vector-icons';
 
-
 export default function CharacterCard({
     avatarName,
     avatarImageName,
@@ -12,14 +11,14 @@ export default function CharacterCard({
 }: {
     avatarName: string,
     avatarImageName: string,
-    onPress: () => void,
+    onPress?: () => void,
     invisible?: boolean
 }) {
 
     return (
         <Center opacity={invisible ? 0 : 100}>
             <Pressable disabled={invisible} onPress={() => {
-                onPress()
+                onPress && onPress()
             }}>
                 {({ isHovered, isFocused, isPressed }) => {
                     return (
