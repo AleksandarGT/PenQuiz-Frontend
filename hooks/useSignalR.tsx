@@ -11,7 +11,7 @@ import { GameHubStatusCode } from '../types/hubTypes'
 import { GameInstanceResponse, GameState, ParticipantsResponse } from '../types/gameInstanceTypes'
 import { IAuthData } from '../types/authTypes'
 import { CharacterType, GameCharacterResponse, ScientistUseNumberHintResponse, VikingUseFortifyResponse, WizardCharacterAbilitiesResponse, WizardUseMultipleChoiceHintResponse } from '../types/gameCharacterTypes'
-import { gameCharacterAtom, scientistHintQuestionAtom, wizardHintQuestionAtom } from '../state/character'
+import { scientistHintQuestionAtom, wizardHintQuestionAtom } from '../state/character'
 
 const connectionHub = `${GAME_SERVICE_API_URL}/gamehubs`
 
@@ -29,8 +29,6 @@ export function useSignalR() {
     const setGameMapException = useSetRecoilState(gameMapExceptionAtom)
     const setRoundQuestion = useSetRecoilState(roundQuestionAtom)
     const setPlayerQuestionAnswers = useSetRecoilState(playerQuestionAnswersAtom)
-
-    const setGameCharacter = useSetRecoilState(gameCharacterAtom)
 
     const setWizardHint = useSetRecoilState(wizardHintQuestionAtom)
     const setScientistHint = useSetRecoilState(scientistHintQuestionAtom)
@@ -279,10 +277,6 @@ export function useSignalR() {
 
         connection.on("VikingUseFortifyCapital", ((vikingRes: VikingUseFortifyResponse) => {
             setRoundQuestion(vikingRes.questionResponse)
-        }))
-
-        connection.on("GetGameCharacter", ((characterResponse: GameCharacterResponse) => {
-            setGameCharacter(characterResponse)
         }))
     }
 }
