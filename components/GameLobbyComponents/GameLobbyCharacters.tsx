@@ -1,4 +1,4 @@
-import { VStack, HStack, Box, Text, Button, Icon } from "native-base"
+import { VStack, HStack, Box, Text, Button, Icon, Modal } from "native-base"
 import React, { useEffect, useMemo } from "react"
 import { ImageBackground, Platform, ScrollView, View } from "react-native"
 import { useRecoilState, useRecoilValue } from "recoil"
@@ -14,8 +14,6 @@ import { authAtom } from "../../state"
 import { CharacterPricingType } from "../../types/gameCharacterTypes"
 
 export default function GameLobbyCharacters() {
-
-    const lobbyData = useRecoilValue(gameLobbyAtom) as GameLobbyDataResponse
     const [gameCharacters, setGameCharacters] = useRecoilState(gameLobbyCharactersAtom)
     const participantGameCharacters = useRecoilValue(gameLobbyParticipantCharacterAtom)
     const user = useRecoilValue(authAtom)
@@ -61,60 +59,62 @@ export default function GameLobbyCharacters() {
 
     return (
         <>
+            <Modal defaultIsOpen={false} isOpen={true} closeOnOverlayClick={false} isKeyboardDismissable={false} size="full" px={8}>
 
-            <View style={{ alignItems: "center", flex: 1, justifyContent: "center" }}>
-                <Box flex={0.9} width="90%" minWidth="70%" bg="#071D56" p={5} borderRadius={25}>
+                        <View style={{ alignItems: "center", flex: 1, justifyContent: "center" }}>
+                            <Box flex={0.9} width="90%" minWidth="70%" bg="#071D56" p={5} borderRadius={25}>
 
-                    {/* Characters */}
-                    <VStack flex={1}>
-                        <ScrollView>
-                            {/* Basic champions */}
-                            <Text textAlign="center" color="#fff" fontSize={{ base: 18, md: 24, lg: 36, xl: 40 }} style={{ fontFamily: 'Before-Collapse' }}>
-                                Choose your champion
-                            </Text>
+                                {/* Characters */}
+                                <VStack flex={1}>
+                                    <ScrollView>
+                                        {/* Basic champions */}
+                                        <Text textAlign="center" color="#fff" fontSize={{ base: 18, md: 24, lg: 36, xl: 40 }} style={{ fontFamily: 'Before-Collapse' }}>
+                                            Choose your champion
+                                        </Text>
 
-                            {rowedCharacters?.map(itemRow =>
-                                <HStack key={`${itemRow[0].avatarName ?? "first"}-stack-free`} my={3} justifyContent="space-evenly">
-                                    {itemRow.map(item =>
-                                        <Box key={item.avatarName} flex={0.3}>
+                                        {rowedCharacters?.map(itemRow =>
+                                            <HStack key={`${itemRow[0].avatarName ?? "first"}-stack-free`} my={3} justifyContent="space-evenly">
+                                                {itemRow.map(item =>
+                                                    <Box key={item.avatarName} flex={0.3}>
 
-                                            <CharacterCard selected={selectedCharacterId == item.id} unavailable={IsThisCharacterAvailable(item.id)} avatarImageName={item.avatarName} avatarName={item.name} onPress={() => {
-                                                SelectLobbyCharacter(item.id)
-                                            }} />
-                                        </Box>
-                                    )}
+                                                        <CharacterCard selected={selectedCharacterId == item.id} unavailable={IsThisCharacterAvailable(item.id)} avatarImageName={item.avatarName} avatarName={item.name} onPress={() => {
+                                                            SelectLobbyCharacter(item.id)
+                                                        }} />
+                                                    </Box>
+                                                )}
 
-                                    {/* Invisible elements to keep the proportions on screen */}
-                                    {itemRow.length != charactersPerRow && [...Array(charactersPerRow - itemRow.length)].map((el, i) =>
-                                        <Box key={`${i}-free`} flex={0.3}>
-                                            <CharacterCard invisible avatarImageName={"penguinAvatarKing"} avatarName={"penguinAvatarKing"} />
-                                        </Box>
-                                    )}
-                                </HStack>
-                            )}
-                        </ScrollView>
-                        <Box my={2} />
-                        <Button
-                            py={3}
-                            _loading={{
-                                bg: "#fff:alpha.100",
-                            }}
-                            _spinner={{
-                                color: "#000"
-                            }}
-                            size="lg"
-                            colorScheme={"cyan_bd"}
-                            onPress={() => LockInSelectedLobbyCharacter()}
-                            leftIcon={<Icon color="black" as={MaterialIcons} name="lock" size="sm" />}
-                        >
-                            <Text fontSize="md" fontWeight={"bold"} color="black">
-                                Lock in
-                            </Text>
+                                                {/* Invisible elements to keep the proportions on screen */}
+                                                {itemRow.length != charactersPerRow && [...Array(charactersPerRow - itemRow.length)].map((el, i) =>
+                                                    <Box key={`${i}-free`} flex={0.3}>
+                                                        <CharacterCard invisible avatarImageName={"penguinAvatarKing"} avatarName={"penguinAvatarKing"} />
+                                                    </Box>
+                                                )}
+                                            </HStack>
+                                        )}
+                                    </ScrollView>
+                                    <Box my={2} />
+                                    <Button
+                                        py={3}
+                                        _loading={{
+                                            bg: "#fff:alpha.100",
+                                        }}
+                                        _spinner={{
+                                            color: "#000"
+                                        }}
+                                        size="lg"
+                                        colorScheme={"cyan_bd"}
+                                        onPress={() => LockInSelectedLobbyCharacter()}
+                                        leftIcon={<Icon color="black" as={MaterialIcons} name="lock" size="sm" />}
+                                    >
+                                        <Text fontSize="md" fontWeight={"bold"} color="black">
+                                            Lock in
+                                        </Text>
 
-                        </Button>
-                    </VStack>
-                </Box>
-            </View>
+                                    </Button>
+                                </VStack>
+                            </Box>
+                        </View>
+            </Modal>
         </>
     )
 }
