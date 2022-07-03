@@ -8,10 +8,11 @@ import { useEffect } from 'react'
 import { IPlayerAttackPossibilities, MCPlayerQuestionAnswers, NumberPlayerQuestionAnswers, QuestionClientResponse, SelectedTerritoryResponse } from '../types/gameResponseTypes'
 import { HubConnection } from '@microsoft/signalr'
 import { GameHubStatusCode } from '../types/hubTypes'
-import { GameInstanceResponse, GameState, ParticipantsResponse } from '../types/gameInstanceTypes'
+import { GameInstanceResponse, GameLobbyDataResponse, GameState, LobbyParticipantCharacterResponse, ParticipantsResponse } from '../types/gameInstanceTypes'
 import { IAuthData } from '../types/authTypes'
-import { CharacterType, GameCharacterResponse, ScientistUseNumberHintResponse, VikingUseFortifyResponse, WizardCharacterAbilitiesResponse, WizardUseMultipleChoiceHintResponse } from '../types/gameCharacterTypes'
+import { CharacterResponse, CharacterType, GameCharacterResponse, ScientistUseNumberHintResponse, VikingUseFortifyResponse, WizardCharacterAbilitiesResponse, WizardUseMultipleChoiceHintResponse } from '../types/gameCharacterTypes'
 import { scientistHintQuestionAtom, wizardHintQuestionAtom } from '../state/character'
+import { gameLobbyAtom, gameLobbyCharactersAtom, gameLobbyParticipantCharacterAtom } from '../state/lobby'
 
 const connectionHub = `${GAME_SERVICE_API_URL}/gamehubs`
 
@@ -32,6 +33,10 @@ export function useSignalR() {
 
     const setWizardHint = useSetRecoilState(wizardHintQuestionAtom)
     const setScientistHint = useSetRecoilState(scientistHintQuestionAtom)
+
+    const setGameLobbyData = useSetRecoilState(gameLobbyAtom)
+    const setGameLobbyCharactersData = useSetRecoilState(gameLobbyCharactersAtom)
+    const setGameLobbyParticipantCharacterData = useSetRecoilState(gameLobbyParticipantCharacterAtom)
 
     connection = getConnection()
 
@@ -125,6 +130,21 @@ export function useSignalR() {
 
                 return newValue
             })
+        }))
+
+        connection.on("GameLobbyGetAvailableCharacters", ((gameCharacters: CharacterResponse[]) => {
+            console.log(gameCharacters)
+            setGameLobbyCharactersData(gameCharacters);
+        }))
+
+        connection.on("GetGameLobbyData", ((response: GameLobbyDataResponse) => {
+            console.log(response)
+            setGameLobbyData(response);
+        }))
+
+        connection.on("GameLobbyGetTakenCharacters", ((response: LobbyParticipantCharacterResponse) => {
+            console.log(response)
+            setGameLobbyParticipantCharacterData(response.participantCharacters)
         }))
 
         connection.on('PersonLeftGame', ((disconnectedPersonId: number) => {
@@ -279,6 +299,15 @@ export function useSignalR() {
             setRoundQuestion(vikingRes.questionResponse)
         }))
     }
+}
+
+
+export function SelectLobbyCharacter(characterId: number) {
+    connection?.invoke("SelectLobbyCharacter", characterId)
+}
+
+export function LockInSelectedLobbyCharacter() {
+    connection?.invoke("SelectLobbyCharacter")
 }
 
 export function ScientistUseAbility(gameTimer: number) {

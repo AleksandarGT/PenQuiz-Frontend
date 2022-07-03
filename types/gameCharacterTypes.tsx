@@ -1,3 +1,4 @@
+import { UsersResponse } from "./gameInstanceTypes";
 import { AnswerClientResponse, QuestionClientResponse } from "./gameResponseTypes";
 
 export enum CharacterType {
@@ -30,6 +31,8 @@ export interface CharacterResponse {
     pricingType: CharacterPricingType;
     characterType: CharacterType;
     price: number | null;
+    
+    belongToUsers?: UsersResponse[] | null;
 }
 
 // Character data

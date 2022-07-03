@@ -130,3 +130,28 @@ export interface MapTerritoryResponse {
     id: number;
     territoryName: string;
 }
+
+export interface GameLobbyDataResponse {
+    invitationLink: string;
+    gameType: GameType;
+    participants: ParticipantsResponse[];
+    gameCreatorId: number;
+}
+
+export interface LobbyParticipantCharacterResponse {
+    participantCharacters: ParticipantCharacter[];
+    invitiationLink: string;
+}
+
+export enum GameLobbyParticipantCharacterStatus {
+    SELECTED,
+    UNSELECTED,
+    LOCKED
+}
+
+export interface ParticipantCharacter {
+    playerId: number;
+    ownedCharacterIds: number[];
+    characterId: number;
+    participantCharacterStatus: GameLobbyParticipantCharacterStatus;
+}

@@ -1,43 +1,51 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { Text, Button, Center, Container, Box, Icon, HStack, Pressable, VStack, Image, IconButton } from 'native-base'
 import { StyleSheet, ImageBackground, ActivityIndicator, Platform } from 'react-native'
-import { LeaveGameLobby, StartGame, AddGameBot, RemovePlayerFromLobby } from '../hooks'
+import { LeaveGameLobby, StartGame, AddGameBot, RemovePlayerFromLobby, SelectLobbyCharacter } from '../../hooks'
 import { FontAwesome5 } from "@expo/vector-icons"
 import { useRecoilValue } from "recoil"
-import { connectionStatusAtom, gameInstanceAtom, userIdSelector } from "../state"
-import ExitGameModal from './Popups/ExitGameModal'
-import { GetPenguinAvatarImage } from './GameMapComponents/CommonGameFunc'
-import { GameInstanceResponse, GameType, ParticipantsResponse } from '../types/gameInstanceTypes'
-import { GameHubStatusCode } from '../types/hubTypes'
+import { connectionStatusAtom, gameInstanceAtom, userIdSelector } from "../../state"
+import ExitGameModal from '../Popups/ExitGameModal'
+import { GetPenguinAvatarImage } from '../GameMapComponents/CommonGameFunc'
+import { GameInstanceResponse, GameLobbyDataResponse, GameType, ParticipantsResponse } from '../../types/gameInstanceTypes'
+import { GameHubStatusCode } from '../../types/hubTypes'
 import { AntDesign } from '@expo/vector-icons';
+import { gameLobbyAtom, gameLobbyCharactersAtom, gameLobbyParticipantCharacterAtom } from '../../state/lobby'
 
-export function GameLobby() {
-    // There is no condition where the game instanec is null at this point
-    const gameInstance = useRecoilValue(gameInstanceAtom) as GameInstanceResponse
+export default function GameLobby() {
     const connectionStatus = useRecoilValue(connectionStatusAtom)
+    const lobbyData = useRecoilValue(gameLobbyAtom) as GameLobbyDataResponse
+    const gameCharacters = useRecoilValue(gameLobbyCharactersAtom)
+    const participantGameCharacters = useRecoilValue(gameLobbyParticipantCharacterAtom)
 
     const [isClosing, setIsClosing] = useState(false)
     const RequiredPlayers = 3
     const userId = useRecoilValue(userIdSelector)
 
-    const IsLobbyFull = () => gameInstance.participants?.length == RequiredPlayers ? true : false
-    const IsGameHost = () => userId == gameInstance.gameCreatorId ? true : false
+    const IsLobbyFull = useMemo(() => {
+        return lobbyData.participants.length == RequiredPlayers ? true : false
+    }, [lobbyData])
+
+    const IsGameHost = useMemo(() => {
+        return lobbyData.gameCreatorId == userId ? true : false
+    }, [lobbyData, userId])
+
 
     // Gametype - 0 public, 1 private
     function StartGameButton({ onPress }: { onPress: () => void }) {
         return (
-            <Pressable disabled={!IsGameHost() || !IsLobbyFull()} onPress={() => {
-                gameInstance.gameType == 1 && onPress()
+            <Pressable disabled={!IsGameHost || !IsLobbyFull} onPress={() => {
+                lobbyData.gameType == 1 && onPress()
             }}>
                 {({ isHovered, isFocused, isPressed }) => {
                     return (
                         <Box px={9} mt={6} shadow={3} bg={
-                            !IsLobbyFull() ? "#4D66A5" :
+                            !IsLobbyFull ? "#4D66A5" :
                                 isPressed ? "#0D569B" : isHovered ? "#06326F" : "#071D56"
                         } p={2} borderRadius={50}>
                             <Box px={4} pb={2} pt={2}>
                                 <Text selectable={false} fontSize={{ base: "md", md: "lg", lg: "xl", xl: 35 }}>
-                                    {!IsLobbyFull() ? `Waiting for ${RequiredPlayers - gameInstance.participants?.length} more players` : IsGameHost() ? "Start game" : "Waiting for host to start"}
+                                    {!IsLobbyFull ? `Waiting for ${RequiredPlayers - lobbyData.participants?.length} more players` : IsGameHost ? "Start game" : "Waiting for host to start"}
                                 </Text>
                             </Box>
                         </Box>
@@ -48,11 +56,11 @@ export function GameLobby() {
     }
 
     function CodeCard() {
-        if (gameInstance.gameCreatorId != userId) {
+        if (lobbyData.gameCreatorId != userId) {
             return (
                 <Box backgroundColor="#C8FBFF" py={Platform.OS == "web" ? 6 : 2} px={'40'} shadow={3} borderRadius={15}>
                     <Text color="black" fontWeight="bold" fontSize="3xl">
-                        Code: {gameInstance.invitationLink}
+                        Code: {lobbyData.invitationLink}
                     </Text>
                 </Box>
             )
@@ -67,13 +75,14 @@ export function GameLobby() {
                 <AddGameBotButton invisible />
                 <Box backgroundColor="#C8FBFF" py={Platform.OS == "web" ? 6 : 2} px={'40'} shadow={3} borderRadius={15}>
                     <Text color="black" fontWeight="bold" fontSize="3xl">
-                        Code: {gameInstance.invitationLink}
+                        Code: {lobbyData.invitationLink}
                     </Text>
                 </Box>
 
                 <Box mx={3} />
                 <AddGameBotButton onPress={() => {
-                    AddGameBot()
+                    // AddGameBot()
+                    SelectLobbyCharacter(3)
                 }} />
             </HStack>
         )
@@ -81,8 +90,8 @@ export function GameLobby() {
 
     function AddGameBotButton({ onPress, invisible }: { onPress?: () => void, invisible?: boolean }) {
         return (
-            <Pressable opacity={invisible ? 0 : 100} disabled={!IsGameHost() || IsLobbyFull()} onPress={() => {
-                gameInstance.gameType == GameType.PRIVATE && onPress && onPress()
+            <Pressable opacity={invisible ? 0 : 100} disabled={!IsGameHost || IsLobbyFull} onPress={() => {
+                lobbyData.gameType == GameType.PRIVATE && onPress && onPress()
             }}>
                 {({ isHovered, isFocused, isPressed }) => {
                     return (
@@ -101,7 +110,7 @@ export function GameLobby() {
 
     function PlayerCard({ participant }: { participant: ParticipantsResponse }) {
         return (
-            <Container style={{ borderWidth: participant.playerId == gameInstance.gameCreatorId ? 5 : 0, borderColor: "gold", }} m={5} p={3} backgroundColor="white" borderRadius={20}>
+            <Container style={{ borderWidth: participant.playerId == lobbyData.gameCreatorId ? 5 : 0, borderColor: "gold", }} m={5} p={3} backgroundColor="white" borderRadius={20}>
                 <VStack >
                     <Center>
                         <Image
@@ -117,11 +126,11 @@ export function GameLobby() {
                             {participant.player?.username}
                         </Text>
 
-                        {participant.playerId == gameInstance.gameCreatorId ? (
+                        {participant.playerId == lobbyData.gameCreatorId ? (
                             <Text isTruncated maxWidth="90%" fontSize="md" color="black">
                                 (host)
                             </Text>
-                        ) : gameInstance.gameCreatorId == userId && participant.player?.isBot ?
+                        ) : lobbyData.gameCreatorId == userId && participant.player?.isBot ?
                             <IconButton
                                 onPress={() => {
                                     RemovePlayerFromLobby(participant.playerId)
@@ -177,7 +186,7 @@ export function GameLobby() {
 
             <Center>
                 <HStack>
-                    {gameInstance.participants?.map(x => {
+                    {lobbyData.participants?.map(x => {
                         return (
                             <PlayerCard key={x.playerId} participant={x} />
                         )
@@ -186,7 +195,7 @@ export function GameLobby() {
 
                 </HStack>
 
-                {gameInstance.gameType == 1 && CodeCard()}
+                {lobbyData.gameType == 1 && CodeCard()}
                 <StartGameButton onPress={() =>
                     StartGame()
                 } />
