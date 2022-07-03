@@ -165,7 +165,7 @@ export default function GameLobby() {
     }
 
     return (
-        <ImageBackground source={Platform.OS === 'web' ? require('../assets/gameLobby.svg') : require('../assets/gameLobby.png')} resizeMode="cover" style={styles.image}>
+        <ImageBackground source={Platform.OS === 'web' ? require('../../assets/gameLobby.svg') : require('../../assets/gameLobby.png')} resizeMode="cover" style={styles.image}>
             {isClosing && <ExitGameModal backAction={isClosing}
                 onAccept={() => {
                     LeaveGameLobby()

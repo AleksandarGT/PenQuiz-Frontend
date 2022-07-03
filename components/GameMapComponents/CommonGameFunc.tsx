@@ -1,5 +1,5 @@
 import { Platform } from 'react-native'
-import { ScientistUseNumberHintResponse, WizardUseMultipleChoiceHintResponse } from '../../types/gameCharacterTypes';
+import { CharacterResponse, ScientistUseNumberHintResponse, WizardUseMultipleChoiceHintResponse } from '../../types/gameCharacterTypes';
 import { AttackStage, GameInstanceResponse, GameState } from '../../types/gameInstanceTypes'
 import { IPlayerAttackPossibilities, NumberPlayerQuestionAnswers, QuestionClientResponse } from '../../types/gameResponseTypes';
 
@@ -64,6 +64,57 @@ export function GetNeutralTerritoryPossibilityColor(gameInstance: GameInstanceRe
             return "#FF98AD"
     }
 }
+
+export const gameCharacterResponse: CharacterResponse[] = [
+    {
+        "id": 1,
+        "characterGlobalIdentifier": "3ab6238c-e706-4125-b8fd-24ec3dda5a21",
+        "name": "Wizard",
+        "avatarName": "penguinAvatarWizard",
+        "description": "Some description",
+        "abilityDescription": "Can remove half the options to select from in a multiple choice question. Ability can be used: 3",
+        "pricingType": 0,
+        "characterType": 0,
+        "price": null,
+        "belongToUsers": []
+    },
+    {
+        "id": 2,
+        "characterGlobalIdentifier": "841f8033-1f87-48aa-a338-6d4228cb217b",
+        "name": "King",
+        "avatarName": "penguinAvatarKing",
+        "description": "Some description",
+        "abilityDescription": "Has a permanent score bonus multiplier when you capture a territory. Multiplier: 10%",
+        "pricingType": 1,
+        "characterType": 1,
+        "price": null,
+        "belongToUsers": []
+    },
+    {
+        "id": 3,
+        "characterGlobalIdentifier": "b6d396ed-7274-4c0f-b8fb-6848b0e8013d",
+        "name": "Viking",
+        "avatarName": "penguinAvatarViking",
+        "description": "Some description",
+        "abilityDescription": "Can fortify his capital against attacks, increasing the amount of required consecutive wins for the enemy. Amount of times he can fortify his capital",
+        "pricingType": 0,
+        "characterType": 2,
+        "price": null,
+        "belongToUsers": []
+    },
+    {
+        "id": 4,
+        "characterGlobalIdentifier": "32b86e8a-f94c-498c-8202-3143ebe7db31",
+        "name": "Scientist",
+        "avatarName": "penguinAvatarScientist",
+        "description": "Some description",
+        "abilityDescription": "Can help narrow down the number choice question answer. Ability can be used 3",
+        "pricingType": 0,
+        "characterType": 3,
+        "price": null,
+        "belongToUsers": []
+    }
+]
 
 export function GetPenguinAvatarImage(avatarName: string) {
     if (Platform.OS == "web") {

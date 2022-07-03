@@ -19,13 +19,14 @@ import Svg, { G, Path } from 'react-native-svg'
 import MockMultipleChoiceScreen from '../components/TestingComponents/MockMultipleChoiceScreen'
 import MockGameMap from '../components/TestingComponents/MockGameMap'
 import MockNumberChoiceScreen from '../components/TestingComponents/MockNumberChoiceScreen'
+import GameLobbyCharacters from '../components/GameLobbyComponents/GameLobbyCharacters'
 
 export * from './LoadingComponent'
 
 
 const Stack = createStackNavigator()
 const prefix = Linking.createURL('http://localhost:19006')
-export const isDebugRunning = false
+export const isDebugRunning = true
 
 export function Routes() {
   const localAuthStatus = useRecoilValue(authStatus)
@@ -112,7 +113,7 @@ export function Routes() {
     if (isDebugRunning)
       return (
         <Stack.Screen name="Loading" options={{ headerShown: false }} >
-          {() => <MockMultipleChoiceScreen />}
+          {() => <GameLobbyCharacters />}
         </Stack.Screen>
       )
 

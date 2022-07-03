@@ -15,6 +15,18 @@ const theme = extendTheme({
         800: '#9C9C9C',
         900: '#929292',
       },
+      cyan_bd: {
+        50: '#C8FBFF',
+        100: '#C8FBFF',
+        200: '#C8FBFF',
+        300: '#C8FBFF',
+        400: '#C8FBFF',
+        500: '#C8FBFF',
+        600: '#C8FBFF',
+        700: '#A1F8FF',
+        800: '#61B5BC',
+        900: '#61B5BC',
+      },
       blue_button_bd: {
         500: '#061C53',
         600: '#002B96',

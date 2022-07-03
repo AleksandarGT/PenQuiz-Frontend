@@ -9,7 +9,7 @@ import { CharacterResponse } from '../../types/gameCharacterTypes';
 import CharacterComponent from './CharacterComponent';
 
 
-function ChampionHeader({ headerText }: { headerText: string }) {
+export function ChampionHeader({ headerText }: { headerText: string }) {
     return (
         <Box>
             <HStack justifyContent="space-between" alignItems={"flex-end"} >
@@ -100,14 +100,18 @@ export default function BaseCharacterComponent() {
                                     {rowedFreeCharacters?.map(itemRow =>
                                         <HStack key={`${itemRow.length}-stack-free`} my={3} justifyContent="space-evenly">
                                             {itemRow.map(item =>
-                                                <CharacterCard key={item.avatarName} avatarImageName={item.avatarName} avatarName={item.name} onPress={() => {
-                                                    setSelectedCharacter(item)
-                                                }} />
+                                                <Box flex={0.3}>
+                                                    <CharacterCard key={item.avatarName} avatarImageName={item.avatarName} avatarName={item.name} onPress={() => {
+                                                        setSelectedCharacter(item)
+                                                    }} />
+                                                </Box>
                                             )}
 
                                             {/* Invisible elements to keep the proportions on screen */}
                                             {itemRow.length != charactersPerRow && [...Array(charactersPerRow - itemRow.length)].map((el, i) =>
-                                                <CharacterCard invisible key={`${i}-free`} avatarImageName={"penguinAvatarKing"} avatarName={"penguinAvatarKing"} />
+                                                <Box flex={0.3}>
+                                                    <CharacterCard invisible key={`${i}-free`} avatarImageName={"penguinAvatarKing"} avatarName={"penguinAvatarKing"} />
+                                                </Box>
                                             )}
                                         </HStack>
                                     )}
@@ -119,12 +123,16 @@ export default function BaseCharacterComponent() {
                                     {rowedPremiumCharacters?.map(itemRow =>
                                         <HStack key={`${itemRow.length}-stack-premium`} my={3} justifyContent="space-evenly">
                                             {itemRow.map(item =>
-                                                <CharacterCard key={item.avatarName} avatarImageName={item.avatarName} avatarName={item.name} onPress={() => setSelectedCharacter(item)} />
+                                                <Box flex={0.3}>
+                                                    <CharacterCard key={item.avatarName} avatarImageName={item.avatarName} avatarName={item.name} onPress={() => setSelectedCharacter(item)} />
+                                                </Box>
                                             )}
 
                                             {/* Invisible elements to keep the proportions on screen */}
                                             {itemRow.length != charactersPerRow && [...Array(charactersPerRow - itemRow.length)].map((el, i) =>
-                                                <CharacterCard key={`${i}-premium`} invisible avatarImageName={"penguinAvatarKing"} avatarName={"King"} />
+                                                <Box flex={0.3}>
+                                                    <CharacterCard key={`${i}-premium`} invisible avatarImageName={"penguinAvatarKing"} avatarName={"King"} />
+                                                </Box>
                                             )}
                                         </HStack>
                                     )}

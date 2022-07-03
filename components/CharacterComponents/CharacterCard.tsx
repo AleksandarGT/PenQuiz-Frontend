@@ -7,25 +7,41 @@ export default function CharacterCard({
     avatarName,
     avatarImageName,
     onPress,
-    invisible
+    invisible,
+    unavailable,
+    selected,
 }: {
     avatarName: string,
     avatarImageName: string,
     onPress?: () => void,
-    invisible?: boolean
+    unavailable?: boolean,
+    invisible?: boolean,
+    selected?: boolean,
 }) {
 
     return (
         <Center opacity={invisible ? 0 : 100}>
-            <Pressable disabled={invisible} onPress={() => {
+
+            <Pressable disabled={invisible || unavailable} onPress={() => {
                 onPress && onPress()
             }}>
                 {({ isHovered, isFocused, isPressed }) => {
                     return (
                         <Box style={{
                             backgroundColor: "#fff",
-                            borderRadius: 25
+                            borderRadius: 25,
+                            borderColor: "gold",
+                            borderWidth: selected ? 3 : 0,
                         }}>
+                            {unavailable && <Box height="100%" style={{
+                                position: "absolute",
+                                borderRadius: 25,
+                                zIndex: 150,
+                                elevation: 10,
+                                backgroundColor: "rgba(0, 0, 0, 0.6)",
+                                justifyContent: "center"
+                            }}
+                                width="100%" />}
 
                             <ImageBackground imageStyle={{ borderRadius: 25, borderColor: "#fff", borderWidth: 2, opacity: 0.8 }} resizeMode="cover" source={require('../../assets/characterBackground.svg')}>
 
