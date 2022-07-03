@@ -11,12 +11,11 @@ import { GameInstanceResponse, GameLobbyDataResponse, GameType, ParticipantsResp
 import { GameHubStatusCode } from '../../types/hubTypes'
 import { AntDesign } from '@expo/vector-icons';
 import { gameLobbyAtom, gameLobbyCharactersAtom, gameLobbyParticipantCharacterAtom } from '../../state/lobby'
+import GameLobbyCharacters from './GameLobbyCharacters'
 
 export default function GameLobby() {
     const connectionStatus = useRecoilValue(connectionStatusAtom)
     const lobbyData = useRecoilValue(gameLobbyAtom) as GameLobbyDataResponse
-    const gameCharacters = useRecoilValue(gameLobbyCharactersAtom)
-    const participantGameCharacters = useRecoilValue(gameLobbyParticipantCharacterAtom)
 
     const [isClosing, setIsClosing] = useState(false)
     const RequiredPlayers = 3
@@ -200,6 +199,9 @@ export default function GameLobby() {
                     StartGame()
                 } />
             </Center>
+
+
+            <GameLobbyCharacters  />
         </ImageBackground>
     )
 }

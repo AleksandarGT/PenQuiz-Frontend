@@ -307,7 +307,7 @@ export function SelectLobbyCharacter(characterId: number) {
 }
 
 export function LockInSelectedLobbyCharacter() {
-    connection?.invoke("SelectLobbyCharacter")
+    connection?.invoke("LockInSelectedLobbyCharacter")
 }
 
 export function ScientistUseAbility(gameTimer: number) {

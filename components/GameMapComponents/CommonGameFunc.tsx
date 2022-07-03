@@ -134,7 +134,7 @@ export function GetPenguinAvatarImage(avatarName: string) {
                 return require("../../assets/penguinAvatarScientist.svg")
 
             default:
-                return require("../../assets/penguinAvatarWizard.svg")
+                return require("../../assets/question-mark.svg")
         }
     }
 
