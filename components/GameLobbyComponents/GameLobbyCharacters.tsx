@@ -29,9 +29,7 @@ export default function GameLobbyCharacters() {
         return rows.map((row, idx) => gameCharacters.slice(idx * charactersPerRow, idx * charactersPerRow + charactersPerRow))
     }, [gameCharacters])
 
-    useEffect(() => {
-        setGameCharacters(gameCharacterResponse)
-    }, [])
+
 
 
 
@@ -99,7 +97,7 @@ export default function GameLobbyCharacters() {
                                             <Box key={item.avatarName} flex={0.3}>
 
                                                 <CharacterCard selected={selectedCharacterId == item.id} unavailable={!IsThisCharacterAvailable(item.id)} avatarImageName={item.avatarName} avatarName={item.name} onPress={() => {
-                                                    SelectLobbyCharacter(item.id)
+                                                    SelectLobbyCharacter(item.id, gameTimer, participantGameCharacters?.length ?? 0)
                                                 }} />
                                             </Box>
                                         )}
@@ -124,7 +122,7 @@ export default function GameLobbyCharacters() {
                                 }}
                                 size="lg"
                                 colorScheme={"cyan_bd"}
-                                onPress={() => LockInSelectedLobbyCharacter()}
+                                onPress={() => LockInSelectedLobbyCharacter(gameTimer, participantGameCharacters?.length ?? 0)}
                                 leftIcon={<Icon color="black" as={MaterialIcons} name="lock" size="sm" />}
                             >
                                 <Text fontSize="md" fontWeight={"bold"} color="black">

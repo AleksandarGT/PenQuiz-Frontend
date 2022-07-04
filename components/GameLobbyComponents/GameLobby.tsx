@@ -80,8 +80,7 @@ export default function GameLobby() {
 
                 <Box mx={3} />
                 <AddGameBotButton onPress={() => {
-                    // AddGameBot()
-                    SelectLobbyCharacter(3)
+                    AddGameBot()
                 }} />
             </HStack>
         )

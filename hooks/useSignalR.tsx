@@ -302,11 +302,13 @@ export function useSignalR() {
 }
 
 
-export function SelectLobbyCharacter(characterId: number) {
+export function SelectLobbyCharacter(characterId: number, gameTimer: number, currentPlayersInLobby: number) {
+    if (currentPlayersInLobby == 3 && gameTimer <= 0) return;
     connection?.invoke("SelectLobbyCharacter", characterId)
 }
 
-export function LockInSelectedLobbyCharacter() {
+export function LockInSelectedLobbyCharacter(gameTimer: number, currentPlayersInLobby: number) {
+    if (currentPlayersInLobby == 3 && gameTimer <= 0) return;
     connection?.invoke("LockInSelectedLobbyCharacter")
 }
 

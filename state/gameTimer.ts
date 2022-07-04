@@ -1,5 +1,5 @@
 import { atom } from 'recoil'
-export const gameTimerAtom = atom({
+export const gameTimerAtom = atom<number>({
     key: "gameTimer",
     default: 0,
     effects_UNSTABLE: [
