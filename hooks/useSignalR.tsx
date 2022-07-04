@@ -8,7 +8,7 @@ import { useEffect } from 'react'
 import { IPlayerAttackPossibilities, MCPlayerQuestionAnswers, NumberPlayerQuestionAnswers, QuestionClientResponse, SelectedTerritoryResponse } from '../types/gameResponseTypes'
 import { HubConnection } from '@microsoft/signalr'
 import { GameHubStatusCode } from '../types/hubTypes'
-import { GameInstanceResponse, GameLobbyDataResponse, GameState, LobbyParticipantCharacterResponse, ParticipantsResponse } from '../types/gameInstanceTypes'
+import { GameInstanceResponse, GameLobbyDataResponse, GameState, LobbyParticipantCharacterResponse, ParticipantCharacter, ParticipantsResponse } from '../types/gameInstanceTypes'
 import { IAuthData } from '../types/authTypes'
 import { CharacterResponse, CharacterType, GameCharacterResponse, ScientistUseNumberHintResponse, VikingUseFortifyResponse, WizardCharacterAbilitiesResponse, WizardUseMultipleChoiceHintResponse } from '../types/gameCharacterTypes'
 import { scientistHintQuestionAtom, wizardHintQuestionAtom } from '../state/character'
@@ -133,21 +133,38 @@ export function useSignalR() {
         }))
 
         connection.on("GameLobbyGetAvailableCharacters", ((gameCharacters: CharacterResponse[]) => {
-            console.log(gameCharacters)
             setGameLobbyCharactersData(gameCharacters);
         }))
 
         connection.on("GetGameLobbyData", ((response: GameLobbyDataResponse) => {
-            console.log(response)
             setGameLobbyData(response);
         }))
 
         connection.on("GameLobbyGetTakenCharacters", ((response: LobbyParticipantCharacterResponse) => {
-            console.log(response)
             setGameLobbyParticipantCharacterData(response.participantCharacters)
         }))
 
         connection.on('PersonLeftGame', ((disconnectedPersonId: number) => {
+
+            setGameLobbyData(old => {
+                if (old == null)
+                    return null
+
+                const newValue: GameLobbyDataResponse = {
+                    ...old,
+                    participants: old.participants.filter(e => e.playerId != disconnectedPersonId)
+                }
+                return newValue
+            })
+
+            setGameLobbyParticipantCharacterData(old => {
+                if (old == null)
+                    return null
+
+                const newValue: ParticipantCharacter[] = [...old.filter(e => e.playerId != disconnectedPersonId)]
+                return newValue
+            })
+
             setGameInstance(old => {
                 if (old == null)
                     return null
@@ -242,7 +259,7 @@ export function useSignalR() {
         // Question events
         connection.on('GetRoundQuestion', ((roundQuestion: QuestionClientResponse) => {
             setPlayerQuestionAnswers(null)
-            
+
             // Remove previous hints on new question
             setWizardHint(null)
             setScientistHint(null)
@@ -276,7 +293,7 @@ export function useSignalR() {
             // State only wizard data from the response
             const { answers, playerId } = res
             setWizardHint({
-                answers, 
+                answers,
                 playerId
             })
 

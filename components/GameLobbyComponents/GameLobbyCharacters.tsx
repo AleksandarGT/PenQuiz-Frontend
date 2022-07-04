@@ -113,6 +113,7 @@ export default function GameLobbyCharacters() {
                             </ScrollView>
                             <Box my={2} />
                             <Button
+                                isDisabled={selectedCharacterId == 0 || selectedCharacterId == undefined}
                                 py={3}
                                 _loading={{
                                     bg: "#fff:alpha.100",

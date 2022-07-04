@@ -4,7 +4,7 @@ import { StyleSheet, ImageBackground, ActivityIndicator, Platform } from 'react-
 import { LeaveGameLobby, StartGame, AddGameBot, RemovePlayerFromLobby, SelectLobbyCharacter } from '../../hooks'
 import { FontAwesome5 } from "@expo/vector-icons"
 import { useRecoilValue } from "recoil"
-import { connectionStatusAtom, gameInstanceAtom, userIdSelector } from "../../state"
+import { connectionStatusAtom, gameInstanceAtom, gameTimerAtom, userIdSelector } from "../../state"
 import ExitGameModal from '../Popups/ExitGameModal'
 import { GetPenguinAvatarImage } from '../GameMapComponents/CommonGameFunc'
 import { GameInstanceResponse, GameLobbyDataResponse, GameType, ParticipantsResponse } from '../../types/gameInstanceTypes'
@@ -12,6 +12,37 @@ import { GameHubStatusCode } from '../../types/hubTypes'
 import { AntDesign } from '@expo/vector-icons';
 import { gameLobbyAtom, gameLobbyCharactersAtom, gameLobbyParticipantCharacterAtom } from '../../state/lobby'
 import GameLobbyCharacters from './GameLobbyCharacters'
+
+
+
+// Gametype - 0 public, 1 private
+function StartGameButton({ onPress, IsGameHost, IsLobbyFull, participantAmount, gameType }: { onPress: () => void, IsGameHost: boolean, IsLobbyFull: boolean, participantAmount: number, gameType: GameType }) {
+    const gameTimer = useRecoilValue(gameTimerAtom)
+    const gameTimerDisplay = useMemo(() => {
+        return gameTimer ? `Starting in ${gameTimer - 1}s` : "Starting in 0s"
+    }, [gameTimer])
+
+    return (
+        <Pressable disabled={!IsGameHost || !IsLobbyFull} onPress={() => {
+            gameType == 1 && onPress()
+        }}>
+            {({ isHovered, isFocused, isPressed }) => {
+                return (
+                    <Box px={9} mt={6} shadow={3} bg={
+                        !IsLobbyFull ? "#4D66A5" :
+                            isPressed ? "#0D569B" : isHovered ? "#06326F" : "#071D56"
+                    } p={2} borderRadius={50}>
+                        <Box px={4} pb={2} pt={2}>
+                            <Text selectable={false} fontSize={{ base: "md", md: "lg", lg: "xl", xl: 35 }}>
+                                {!IsLobbyFull ? `Waiting for ${3 - participantAmount} more players` : gameTimerDisplay}
+                            </Text>
+                        </Box>
+                    </Box>
+                )
+            }}
+        </Pressable>
+    )
+}
 
 export default function GameLobby() {
     const connectionStatus = useRecoilValue(connectionStatusAtom)
@@ -28,31 +59,6 @@ export default function GameLobby() {
     const IsGameHost = useMemo(() => {
         return lobbyData.gameCreatorId == userId ? true : false
     }, [lobbyData, userId])
-
-
-    // Gametype - 0 public, 1 private
-    function StartGameButton({ onPress }: { onPress: () => void }) {
-        return (
-            <Pressable disabled={!IsGameHost || !IsLobbyFull} onPress={() => {
-                lobbyData.gameType == 1 && onPress()
-            }}>
-                {({ isHovered, isFocused, isPressed }) => {
-                    return (
-                        <Box px={9} mt={6} shadow={3} bg={
-                            !IsLobbyFull ? "#4D66A5" :
-                                isPressed ? "#0D569B" : isHovered ? "#06326F" : "#071D56"
-                        } p={2} borderRadius={50}>
-                            <Box px={4} pb={2} pt={2}>
-                                <Text selectable={false} fontSize={{ base: "md", md: "lg", lg: "xl", xl: 35 }}>
-                                    {!IsLobbyFull ? `Waiting for ${RequiredPlayers - lobbyData.participants?.length} more players` : IsGameHost ? "Start game" : "Waiting for host to start"}
-                                </Text>
-                            </Box>
-                        </Box>
-                    )
-                }}
-            </Pressable>
-        )
-    }
 
     function CodeCard() {
         if (lobbyData.gameCreatorId != userId) {
@@ -194,13 +200,13 @@ export default function GameLobby() {
                 </HStack>
 
                 {lobbyData.gameType == 1 && CodeCard()}
-                <StartGameButton onPress={() =>
+                <StartGameButton IsLobbyFull={IsLobbyFull} gameType={lobbyData.gameType} participantAmount={lobbyData.participants.length} IsGameHost={IsGameHost}  onPress={() =>
                     StartGame()
                 } />
             </Center>
 
 
-            <GameLobbyCharacters  />
+            <GameLobbyCharacters />
         </ImageBackground>
     )
 }
