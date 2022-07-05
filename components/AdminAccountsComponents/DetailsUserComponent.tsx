@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Text, Center, Box, Input, HStack, Icon, Pressable } from 'native-base'
+import { Text, Center, Box, Input, HStack, Icon, Pressable, Button, Alert, VStack } from 'native-base'
 import DefaultAlert from '../Popups/DefaultAlert'
 import { MaterialIcons } from '@expo/vector-icons';
 import useAdminAccountActions from '../../hooks/useAdminAccountActions';
@@ -25,7 +25,7 @@ function TemplateButton({ onClick, isAdmin, isBanned }: { onClick: () => void, i
     )
 }
 export default function DetailsUserComponent({ userData }: { userData: DetailedUserResponse }) {
-    const adminActions = useAdminAccountActions(userData.id)
+    const adminActions = useAdminAccountActions(userData.id, userData.userGlobalIdentifier)
 
     const [isBanned, setIsBanned] = useState<boolean>(userData.isBanned)
 
@@ -44,8 +44,24 @@ export default function DetailsUserComponent({ userData }: { userData: DetailedU
         }
     }
 
+    function SuccessAlert({ message }: { message: string }) {
+        return (
+            <Alert my={3} maxW="90%" status="success">
+                <VStack space={2} flexShrink={1} w="100%">
+                    <HStack flexShrink={1} space={2} >
+                        <Alert.Icon mt="1" />
+                        <Text fontSize="md" color="coolGray.800">
+                            {message}
+                        </Text>
+                    </HStack>
+                </VStack>
+            </Alert>
+        )
+    }
+
     return (
         <Center>
+            {/* {adminActions.serverSuccess && <SuccessAlert message={adminActions.serverSuccess} />} */}
             {adminActions.serverError && <DefaultAlert message={adminActions.serverError} />}
 
             {/* User ID */}
@@ -146,6 +162,9 @@ export default function DetailsUserComponent({ userData }: { userData: DetailedU
 
             <HStack width="50%" minWidth="250px" maxWidth="600px" justifyContent="space-between">
                 <TemplateButton isAdmin={userData.role == "admin"} isBanned={isBanned} onClick={OnBanActionClick} />
+                <Button onPress={adminActions.giftUser} colorScheme="purple">
+                    <Text fontSize="lg" >Gift scientist</Text>
+                </Button>
             </HStack>
 
         </Center>

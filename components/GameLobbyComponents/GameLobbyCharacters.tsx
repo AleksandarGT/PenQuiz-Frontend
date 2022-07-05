@@ -66,7 +66,7 @@ export default function GameLobbyCharacters() {
 
     return (
         <>
-            <Modal defaultIsOpen={false} isOpen={isModalOpen} closeOnOverlayClick={false} isKeyboardDismissable={false} size="full" px={8}>
+            <Modal defaultIsOpen={true} isOpen={isModalOpen} closeOnOverlayClick={false} isKeyboardDismissable={false} size="full" px={8}>
 
                 <View style={{ alignItems: "center", flex: 1, justifyContent: "center" }}>
                     <Box flex={0.9} width="90%" minWidth="70%" bg="#071D56" p={5} borderRadius={25}>
