@@ -4,7 +4,7 @@ import { authAtom } from "../../../state"
 import { scientistHintQuestionAtom } from "../../../state/character"
 import { IAuthData } from "../../../types/authTypes"
 import { CharacterType } from "../../../types/gameCharacterTypes"
-import { Box, Center, Text } from "native-base"
+import { Box, Center, HStack, Text, VStack, Image, Divider } from "native-base"
 import { QuestionClientResponse } from "../../../types/gameResponseTypes"
 
 export default function ScientistResponseComponent({ question }: { question: QuestionClientResponse }) {
@@ -36,9 +36,20 @@ export default function ScientistResponseComponent({ question }: { question: Que
     return (
         <>
             <Center>
-                <Box backgroundColor={"#071D56"} mt={2} textAlign={"center"} borderRadius={15} p={3}>
-                    <Text>Answer is between:</Text>
-                    <Text fontWeight={"bold"}>{scientistState?.minRange} - {scientistState?.maxRange}</Text>
+                <Box backgroundColor={"#071D56"} mt={2} textAlign={"center"} borderRadius={20} borderColor={"#C5DFFF"} borderWidth={2} p={3}>
+                    <HStack>
+                        <VStack>
+                            <Text color={"#C5DFFF"} fontSize="lg" fontWeight={"bold"}>{scientistState?.minRange} - {scientistState?.maxRange}</Text>
+                            <Divider />
+                            <Text color={"#C5DFFF"} fontWeight="bold">Correct answer</Text>
+                        </VStack>
+                        <Image
+                            source={require("../../../assets/characterAssets/scientistFlask.svg")}
+                            alt="Alternate Text"
+                            resizeMode="contain"
+                            size="xs"
+                        />
+                    </HStack>
                 </Box>
             </Center>
         </>
