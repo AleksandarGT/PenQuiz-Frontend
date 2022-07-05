@@ -59,7 +59,7 @@ export default function CharacterCard({
                                 <Box px={3} m={3}>
 
                                     <Image
-                                        source={require(`../../assets/${avatarImageName}.svg`)}
+                                        source={require(`../../assets/characters/${avatarImageName}.svg`)}
                                         alt="Alternate Text"
                                         resizeMode="contain"
                                         size={'48'}

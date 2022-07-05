@@ -122,16 +122,16 @@ export function GetPenguinAvatarImage(avatarName: string) {
 
         switch (avatarName) {
             case "penguinAvatarWizard":
-                return require("../../assets/penguinAvatarWizard.svg")
+                return require("../../assets/characters/penguinAvatarWizard.svg")
 
             case "penguinAvatarKing":
-                return require('../../assets/penguinAvatarKing.svg')
+                return require('../../assets/characters/penguinAvatarKing.svg')
 
             case "penguinAvatarViking":
-                return require('../../assets/penguinAvatarViking.svg')
+                return require('../../assets/characters/penguinAvatarViking.svg')
 
             case "penguinAvatarScientist":
-                return require("../../assets/penguinAvatarScientist.svg")
+                return require("../../assets/characters/penguinAvatarScientist.svg")
 
             default:
                 return require("../../assets/question-mark.svg")
@@ -142,19 +142,19 @@ export function GetPenguinAvatarImage(avatarName: string) {
 
     switch (avatarName) {
         case "penguinAvatarWizard":
-            return require("../../assets/penguinAvatarWizard.png")
+            return require("../../assets/characters/penguinAvatarWizard.png")
 
         case "penguinAvatarKing":
-            return require('../../assets/penguinAvatarKing.png')
+            return require('../../assets/characters/penguinAvatarKing.png')
 
         case "penguinAvatarViking":
-            return require('../../assets/penguinAvatarViking.png')
+            return require('../../assets/characters/penguinAvatarViking.png')
 
         case "penguinAvatarScientist":
-            return require("../../assets/penguinAvatarScientist.png")
+            return require("../../assets/characters/penguinAvatarScientist.png")
 
-        default:
-            return require("../../assets/penguinAvatarWizard.png")
+            default:
+                return require("../../assets/question-mark.svg")
     }
 }
 
@@ -174,23 +174,23 @@ export function RoundAttackStage(attackStage: AttackStage) {
 export const gameSvgs = [
     {
         name: "penguinAvatarScientist",
-        img: require(`../../assets/penguinAvatarScientist.svg`),
-        imgPng: require(`../../assets/penguinAvatarScientist.png`)
+        img: require(`../../assets/characters/penguinAvatarScientist.svg`),
+        imgPng: require(`../../assets/characters/penguinAvatarScientist.png`)
     },
     {
         name: "penguinAvatarWizard",
-        img: require(`../../assets/penguinAvatarWizard.svg`),
-        imgPng: require(`../../assets/penguinAvatarWizard.png`)
+        img: require(`../../assets/characters/penguinAvatarWizard.svg`),
+        imgPng: require(`../../assets/characters/penguinAvatarWizard.png`)
     },
     {
         name: "penguinAvatarKing",
-        img: require(`../../assets/penguinAvatarKing.svg`),
-        imgPng: require(`../../assets/penguinAvatarKing.png`)
+        img: require(`../../assets/characters/penguinAvatarKing.svg`),
+        imgPng: require(`../../assets/characters/penguinAvatarKing.png`)
     },
     {
         name: "penguinAvatarViking",
-        img: require(`../../assets/penguinAvatarViking.svg`),
-        imgPng: require(`../../assets/penguinAvatarViking.png`)
+        img: require(`../../assets/characters/penguinAvatarViking.svg`),
+        imgPng: require(`../../assets/characters/penguinAvatarViking.png`)
     },
     {
         name: "shield",
