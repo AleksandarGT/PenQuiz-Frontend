@@ -63,9 +63,9 @@ export default function ScientistActionComponent({ question, invisible }
 
     return (
         <>
-            <HStack mt={6}>
+            <HStack mt={6} opacity={invisible ? 0 : 100}>
 
-                <Pressable opacity={invisible ? 0 : 100} disabled={invisible || areAllHintsUsed || scientistAbilityUsed} onPress={() => {
+                <Pressable  disabled={invisible || areAllHintsUsed || scientistAbilityUsed} onPress={() => {
                     ScientistUseAbility(globalDisplayTime)
                     setScientistAbilityUsed(true)
                 }}>

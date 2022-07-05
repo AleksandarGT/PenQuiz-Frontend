@@ -390,10 +390,6 @@ export function JoinLobby(code: string) {
     connection?.invoke("JoinGameLobby", code)
 }
 
-export function StartGame() {
-    connection?.invoke("StartGame")
-}
-
 export function AddGameBot() {
     connection?.invoke("AddGameBot")
 }

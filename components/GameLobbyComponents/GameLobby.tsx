@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { Text, Button, Center, Container, Box, Icon, HStack, Pressable, VStack, Image, IconButton } from 'native-base'
 import { StyleSheet, ImageBackground, ActivityIndicator, Platform } from 'react-native'
-import { LeaveGameLobby, StartGame, AddGameBot, RemovePlayerFromLobby, SelectLobbyCharacter } from '../../hooks'
+import { LeaveGameLobby, AddGameBot, RemovePlayerFromLobby, SelectLobbyCharacter } from '../../hooks'
 import { FontAwesome5 } from "@expo/vector-icons"
 import { useRecoilValue } from "recoil"
 import { connectionStatusAtom, gameInstanceAtom, gameTimerAtom, userIdSelector } from "../../state"
@@ -16,7 +16,7 @@ import GameLobbyCharacters from './GameLobbyCharacters'
 
 
 // Gametype - 0 public, 1 private
-function StartGameButton({ onPress, IsGameHost, IsLobbyFull, participantAmount, gameType }: { onPress: () => void, IsGameHost: boolean, IsLobbyFull: boolean, participantAmount: number, gameType: GameType }) {
+function StartGameButton({ onPress, IsGameHost, IsLobbyFull, participantAmount, gameType }: { onPress?: () => void, IsGameHost: boolean, IsLobbyFull: boolean, participantAmount: number, gameType: GameType }) {
     const gameTimer = useRecoilValue(gameTimerAtom)
     const gameTimerDisplay = useMemo(() => {
         return gameTimer ? `Starting in ${gameTimer - 1}s` : "Starting in 0s"
@@ -24,7 +24,7 @@ function StartGameButton({ onPress, IsGameHost, IsLobbyFull, participantAmount, 
 
     return (
         <Pressable disabled={!IsGameHost || !IsLobbyFull} onPress={() => {
-            gameType == 1 && onPress()
+            gameType == 1 && onPress && onPress()
         }}>
             {({ isHovered, isFocused, isPressed }) => {
                 return (
@@ -200,9 +200,7 @@ export default function GameLobby() {
                 </HStack>
 
                 {lobbyData.gameType == 1 && CodeCard()}
-                <StartGameButton IsLobbyFull={IsLobbyFull} gameType={lobbyData.gameType} participantAmount={lobbyData.participants.length} IsGameHost={IsGameHost}  onPress={() =>
-                    StartGame()
-                } />
+                <StartGameButton IsLobbyFull={IsLobbyFull} gameType={lobbyData.gameType} participantAmount={lobbyData.participants.length} IsGameHost={IsGameHost} />
             </Center>
 
 
