@@ -1,5 +1,6 @@
 import { Box, Center, Divider, HStack, Image, Pressable, Text, Tooltip, View } from "native-base";
 import React, { useEffect, useMemo, useState } from "react";
+import { Platform } from "react-native";
 import { useRecoilValue } from "recoil";
 import { WizardUseMultipleChoiceHint } from "../../../hooks";
 import { gameTimerAtom, authAtom, gameInstanceAtom } from "../../../state";
@@ -83,10 +84,10 @@ export default function WizardActionComponent({ question, invisible }
                                                 Help!
                                             </Text>
                                             <Image
-                                                source={require("../../../assets/characterAssets/wizardWand.svg")}
-                                                alt="Alternate Text"
+                                                source={Platform.OS == "web" ? require("../../../assets/characterAssets/wizardWand.svg") : require("../../../assets/characterAssets/wizardWand.png")}
                                                 resizeMode="contain"
                                                 size="xs"
+                                                alt="wz"
                                             />
                                         </HStack>
                                         <Divider my={1} backgroundColor={"#C5DFFF"} />
@@ -100,14 +101,13 @@ export default function WizardActionComponent({ question, invisible }
                     </Pressable>
                 </Center>
 
-                <Tooltip label="Removes 2 wrong answers" placement="right">
+                {Platform.OS == "web" && <Tooltip label="Removes 2 wrong answers" placement="right">
                     <Image
                         source={require("../../../assets/characterAssets/hintPopup.svg")}
-                        alt="Alternate Text"
                         resizeMode="contain"
                         size="xs"
                     />
-                </Tooltip>
+                </Tooltip>}
             </HStack>
         </View>
     )

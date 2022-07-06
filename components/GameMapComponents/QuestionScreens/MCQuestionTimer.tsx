@@ -1,5 +1,5 @@
 import React, {  } from 'react'
-import { View } from 'react-native'
+import { Platform, View } from 'react-native'
 import { gameTimerAtom } from '../../../state';
 import { Center, HStack, Text } from 'native-base'
 import { useRecoilValue } from 'recoil';
@@ -11,9 +11,9 @@ export default function MCQuestionTimer() {
     return (
         <View style={{
             justifyContent: "center",
-            minWidth: 240,
+            minWidth: Platform.OS == "web" ? 240 : 30,
             minHeight: 50,
-            width: "30%",
+            width: Platform.OS == "web" ? "30%" : "20%",
             backgroundColor: "#073C72",
             borderRadius: 50,
         }}>

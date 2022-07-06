@@ -46,21 +46,26 @@ function StartGameButton({ onPress, IsGameHost, IsLobbyFull, participantAmount, 
 
 export default function GameLobby() {
     const connectionStatus = useRecoilValue(connectionStatusAtom)
-    const lobbyData = useRecoilValue(gameLobbyAtom) as GameLobbyDataResponse
+    const lobbyData = useRecoilValue(gameLobbyAtom)
 
     const [isClosing, setIsClosing] = useState(false)
     const RequiredPlayers = 3
     const userId = useRecoilValue(userIdSelector)
 
+    if (!lobbyData) return null
+
     const IsLobbyFull = useMemo(() => {
+
         return lobbyData.participants.length == RequiredPlayers ? true : false
     }, [lobbyData])
 
     const IsGameHost = useMemo(() => {
+        if (!lobbyData?.gameCreatorId) return false
+
         return lobbyData.gameCreatorId == userId ? true : false
     }, [lobbyData, userId])
 
-    function CodeCard() {
+    const CodeCard = () => {
         if (lobbyData.gameCreatorId != userId) {
             return (
                 <Box backgroundColor="#C8FBFF" py={Platform.OS == "web" ? 6 : 2} px={'40'} shadow={3} borderRadius={15}>
@@ -74,7 +79,6 @@ export default function GameLobby() {
         return (
             <HStack style={{
                 justifyContent: "space-around",
-                flex: 1,
                 alignItems: "center",
             }}>
                 <AddGameBotButton invisible />
@@ -92,7 +96,7 @@ export default function GameLobby() {
         )
     }
 
-    function AddGameBotButton({ onPress, invisible }: { onPress?: () => void, invisible?: boolean }) {
+    const AddGameBotButton = ({ onPress, invisible }: { onPress?: () => void, invisible?: boolean }) => {
         return (
             <Pressable opacity={invisible ? 0 : 100} disabled={!IsGameHost || IsLobbyFull} onPress={() => {
                 lobbyData.gameType == GameType.PRIVATE && onPress && onPress()
@@ -112,7 +116,7 @@ export default function GameLobby() {
         )
     }
 
-    function PlayerCard({ participant }: { participant: ParticipantsResponse }) {
+    const PlayerCard = ({ participant }: { participant: ParticipantsResponse }) => {
         return (
             <Container style={{ borderWidth: participant.playerId == lobbyData.gameCreatorId ? 5 : 0, borderColor: "gold", }} m={5} p={3} backgroundColor="white" borderRadius={20}>
                 <VStack >
@@ -200,7 +204,7 @@ export default function GameLobby() {
                 </HStack>
 
                 {lobbyData.gameType == 1 && CodeCard()}
-                <StartGameButton IsLobbyFull={IsLobbyFull} gameType={lobbyData.gameType} participantAmount={lobbyData.participants.length} IsGameHost={IsGameHost} />
+                <StartGameButton IsLobbyFull={IsLobbyFull} gameType={lobbyData.gameType} participantAmount={lobbyData.participants?.length} IsGameHost={IsGameHost} />
             </Center>
 
 

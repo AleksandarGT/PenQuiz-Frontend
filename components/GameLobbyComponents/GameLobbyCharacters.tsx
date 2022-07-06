@@ -79,7 +79,7 @@ export default function GameLobbyCharacters() {
                                     <Text textAlign="center" color="#fff" fontSize={{ base: 18, md: 24, lg: 36, xl: 40 }} style={{ fontFamily: 'Before-Collapse' }}>
                                         Choose your champion
                                     </Text>
-                                    {gameTimer && <Box ml={6}>
+                                    {gameTimer ? <Box ml={6}>
                                         <Center>
                                             <HStack>
                                                 <MaterialIcons name="timer" size={32} color="white" />
@@ -88,7 +88,7 @@ export default function GameLobbyCharacters() {
                                                 </Text>
                                             </HStack>
                                         </Center>
-                                    </Box>}
+                                    </Box> : null}
                                 </HStack>
 
                                 {rowedCharacters?.map(itemRow =>

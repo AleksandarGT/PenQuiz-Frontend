@@ -1,5 +1,6 @@
 import { Box, Center, Divider, HStack, Image, Pressable, Text, Tooltip } from "native-base";
 import React, { useEffect, useMemo, useState } from "react";
+import { Platform } from "react-native";
 import { useRecoilValue } from "recoil";
 import { ScientistUseAbility, WizardUseMultipleChoiceHint } from "../../../hooks";
 import { gameTimerAtom, authAtom, gameInstanceAtom } from "../../../state";
@@ -65,7 +66,7 @@ export default function ScientistActionComponent({ question, invisible }
         <>
             <HStack mt={6} opacity={invisible ? 0 : 100}>
 
-                <Pressable  disabled={invisible || areAllHintsUsed || scientistAbilityUsed} onPress={() => {
+                <Pressable disabled={invisible || areAllHintsUsed || scientistAbilityUsed} onPress={() => {
                     ScientistUseAbility(globalDisplayTime)
                     setScientistAbilityUsed(true)
                 }}>
@@ -84,10 +85,10 @@ export default function ScientistActionComponent({ question, invisible }
                                             Help!
                                         </Text>
                                         <Image
-                                            source={require("../../../assets/characterAssets/scientistFlask.svg")}
-                                            alt="Alternate Text"
+                                            source={Platform.OS == "web" ? require("../../../assets/characterAssets/scientistFlask.svg") :require("../../../assets/characterAssets/scientistFlask.png") }
                                             resizeMode="contain"
                                             size="xs"
+                                            alt="sc"
                                         />
                                     </HStack>
                                     <Divider my={1} backgroundColor={"#C5DFFF"} />
@@ -99,14 +100,14 @@ export default function ScientistActionComponent({ question, invisible }
                         )
                     }}
                 </Pressable>
-                <Tooltip label="Narrows down the correct answer" placement="right">
+                {Platform.OS == "web" && <Tooltip label="Narrows down the correct answer" placement="right">
                     <Image
                         source={require("../../../assets/characterAssets/hintPopup.svg")}
-                        alt="Alternate Text"
                         resizeMode="contain"
                         size="xs"
+                        alt="sc"
                     />
-                </Tooltip>
+                </Tooltip>}
             </HStack>
 
         </>

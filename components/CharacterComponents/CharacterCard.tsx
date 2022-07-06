@@ -2,6 +2,7 @@ import React from 'react'
 import { ImageBackground, Platform } from 'react-native'
 import { Text, Button, Center, Box, Pressable, Image, } from 'native-base'
 import { MaterialIcons } from '@expo/vector-icons';
+import { GetPenguinAvatarImage } from '../GameMapComponents/CommonGameFunc';
 
 export default function CharacterCard({
     avatarName,
@@ -43,7 +44,9 @@ export default function CharacterCard({
                             }}
                                 width="100%" />}
 
-                            <ImageBackground imageStyle={{ borderRadius: 25, borderColor: "#fff", borderWidth: 2, opacity: 0.8 }} resizeMode="cover" source={require('../../assets/characterBackground.svg')}>
+                            <ImageBackground style={{
+                                backgroundColor: "#032157",
+                            }} source={Platform.OS === "web" ? require('../../assets/characterBackground.svg') : require('../../assets/characterBackground.png')} imageStyle={{ borderRadius: 25, borderColor: "#fff", borderWidth: 2, opacity: 0.8 }} resizeMode="cover" >
 
                                 {/* On hover, press toggle overlay */}
                                 {(isHovered || isPressed) && <Box height="100%" style={{
@@ -59,10 +62,10 @@ export default function CharacterCard({
                                 <Box px={3} m={3}>
 
                                     <Image
-                                        source={require(`../../assets/characters/${avatarImageName}.svg`)}
+                                        source={GetPenguinAvatarImage(avatarImageName)}
                                         alt="Alternate Text"
                                         resizeMode="contain"
-                                        size={'48'}
+                                        size={Platform.OS == "web" ? "48" : "sm"}
                                     />
                                 </Box>
                                 <Box style={{

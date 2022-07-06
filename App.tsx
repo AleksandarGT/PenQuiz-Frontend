@@ -88,6 +88,7 @@ export default function App() {
   // Handle clicks on mobile devices using a web browser
   // Redirect them to the playstore (or to link from where to download the apk)
   useEffect(() => {
+    if (!navigator.userAgent) return
     const ua = navigator.userAgent.toLowerCase();
     const isAndroid = ua.indexOf("android") > -1; //&& ua.indexOf("mobile");
 

@@ -10,7 +10,7 @@ export function CapitalRoundTimer({ question }: { question: QuestionClientRespon
     return (
         <>
             {/* Timer */}
-            <HStack mb={5} justifyContent={"space-between"} >
+            <HStack mb={5} justifyContent={"space-around"} >
 
                 {/* 
                     This copies the right sidebar and hides it,

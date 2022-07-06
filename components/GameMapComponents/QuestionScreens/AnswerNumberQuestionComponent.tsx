@@ -108,7 +108,7 @@ export default function AnswerNumberQuestionComponent({ question }: { question: 
                         <CharacterQuestionActionComponent hasPlayerAnswered={isAnswered} invisible={true} question={question} />
 
                     </HStack>
-                    {Platform.OS != "web" && <HStack mt={3}>
+                    {Platform.OS != "web" && <HStack mt={3} justifyContent="center">
 
                         {numbers.map(e => {
 

@@ -1,5 +1,6 @@
 import { Box, Center, Divider, HStack, Image, Pressable, Text, Tooltip, View } from "native-base";
 import React, { useEffect, useMemo, useState } from "react";
+import { Platform } from "react-native";
 import { useRecoilValue } from "recoil";
 import { VikingUseAbility, WizardUseMultipleChoiceHint } from "../../../hooks";
 import { gameTimerAtom, authAtom, gameInstanceAtom } from "../../../state";
@@ -95,10 +96,10 @@ export default function VikingActionComponent({ question, invisible }
                                                 Help!
                                             </Text>
                                             <Image
-                                                source={require("../../../assets/characterAssets/vikingAxe.svg")}
-                                                alt="Alternate Text"
+                                                source={Platform.OS == "web" ? require("../../../assets/characterAssets/vikingAxe.svg") : require("../../../assets/characterAssets/vikingAxe.png")}
                                                 resizeMode="contain"
                                                 size="xs"
+                                                alt="sc"
                                             />
                                         </HStack>
                                         <Divider my={1} backgroundColor={"#C5DFFF"} />
@@ -112,14 +113,13 @@ export default function VikingActionComponent({ question, invisible }
                     </Pressable>
                 </Center>
 
-                <Tooltip label="Adds an additional capital round" placement="right">
+                {Platform.OS == "web" && <Tooltip label="Adds an additional capital round" placement="right">
                     <Image
                         source={require("../../../assets/characterAssets/hintPopup.svg")}
-                        alt="Alternate Text"
                         resizeMode="contain"
                         size="xs"
                     />
-                </Tooltip>
+                </Tooltip>}
             </HStack>
         </View>
     )

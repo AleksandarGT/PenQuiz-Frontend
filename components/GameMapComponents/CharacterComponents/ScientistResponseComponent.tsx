@@ -6,6 +6,7 @@ import { IAuthData } from "../../../types/authTypes"
 import { CharacterType } from "../../../types/gameCharacterTypes"
 import { Box, Center, HStack, Text, VStack, Image, Divider } from "native-base"
 import { QuestionClientResponse } from "../../../types/gameResponseTypes"
+import { Platform } from "react-native"
 
 export default function ScientistResponseComponent({ question }: { question: QuestionClientResponse }) {
     const scientistState = useRecoilValue(scientistHintQuestionAtom)
@@ -38,17 +39,24 @@ export default function ScientistResponseComponent({ question }: { question: Que
             <Center>
                 <Box backgroundColor={"#071D56"} mt={2} textAlign={"center"} borderRadius={20} borderColor={"#C5DFFF"} borderWidth={2} p={3}>
                     <HStack>
-                        <VStack>
-                            <Text color={"#C5DFFF"} fontSize="lg" fontWeight={"bold"}>{scientistState?.minRange} - {scientistState?.maxRange}</Text>
-                            <Divider />
-                            <Text color={"#C5DFFF"} fontWeight="bold">Correct answer</Text>
-                        </VStack>
-                        <Image
-                            source={require("../../../assets/characterAssets/scientistFlask.svg")}
-                            alt="Alternate Text"
+                        {Platform.OS == "web" ?
+                            <VStack>
+                                <Text color={"#C5DFFF"} fontSize={{ base: "md", md: "lg", lg: "xl" }} fontWeight={"bold"}>{scientistState?.minRange} - {scientistState?.maxRange}</Text>
+                                <Divider />
+                                <Text color={"#C5DFFF"} fontWeight="bold">Correct answer</Text>
+                            </VStack>
+                            :
+                            <HStack>
+                                <Text color={"#C5DFFF"} fontWeight={"bold"}>{scientistState?.minRange} - {scientistState?.maxRange}</Text>
+                                <Text ml={3} color={"#C5DFFF"} fontWeight="bold">Correct answer</Text>
+                            </HStack>
+                        }
+                        {Platform.OS == "web" && <Image
+                            source={Platform.OS == "web" ? require("../../../assets/characterAssets/scientistFlask.svg") : require("../../../assets/characterAssets/scientistFlask.png")}
                             resizeMode="contain"
+                            alt="sc"
                             size="xs"
-                        />
+                        />}
                     </HStack>
                 </Box>
             </Center>
