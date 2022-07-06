@@ -100,8 +100,8 @@ export default function BaseCharacterComponent() {
                                     {rowedFreeCharacters?.map(itemRow =>
                                         <HStack key={`${itemRow.length}-stack-free`} my={3} justifyContent="space-evenly">
                                             {itemRow.map(item =>
-                                                <Box flex={0.3}>
-                                                    <CharacterCard key={item.avatarName} avatarImageName={item.avatarName} avatarName={item.name} onPress={() => {
+                                                <Box key={item.avatarName} flex={0.3}>
+                                                    <CharacterCard avatarImageName={item.avatarName} avatarName={item.name} onPress={() => {
                                                         setSelectedCharacter(item)
                                                     }} />
                                                 </Box>
@@ -109,8 +109,8 @@ export default function BaseCharacterComponent() {
 
                                             {/* Invisible elements to keep the proportions on screen */}
                                             {itemRow.length != charactersPerRow && [...Array(charactersPerRow - itemRow.length)].map((el, i) =>
-                                                <Box flex={0.3}>
-                                                    <CharacterCard invisible key={`${i}-free`} avatarImageName={"penguinAvatarKing"} avatarName={"penguinAvatarKing"} />
+                                                <Box key={`${i}-free`} flex={0.3}>
+                                                    <CharacterCard invisible avatarImageName={"penguinAvatarKing"} avatarName={"penguinAvatarKing"} />
                                                 </Box>
                                             )}
                                         </HStack>
@@ -123,15 +123,15 @@ export default function BaseCharacterComponent() {
                                     {rowedPremiumCharacters?.map(itemRow =>
                                         <HStack key={`${itemRow.length}-stack-premium`} my={3} justifyContent="space-evenly">
                                             {itemRow.map(item =>
-                                                <Box flex={0.3}>
-                                                    <CharacterCard key={item.avatarName} avatarImageName={item.avatarName} avatarName={item.name} onPress={() => setSelectedCharacter(item)} />
+                                                <Box key={item.avatarName} flex={0.3}>
+                                                    <CharacterCard avatarImageName={item.avatarName} avatarName={item.name} onPress={() => setSelectedCharacter(item)} />
                                                 </Box>
                                             )}
 
                                             {/* Invisible elements to keep the proportions on screen */}
                                             {itemRow.length != charactersPerRow && [...Array(charactersPerRow - itemRow.length)].map((el, i) =>
-                                                <Box flex={0.3}>
-                                                    <CharacterCard key={`${i}-premium`} invisible avatarImageName={"penguinAvatarKing"} avatarName={"King"} />
+                                                <Box key={`${i}-premium`} flex={0.3}>
+                                                    <CharacterCard invisible avatarImageName={"penguinAvatarKing"} avatarName={"King"} />
                                                 </Box>
                                             )}
                                         </HStack>
