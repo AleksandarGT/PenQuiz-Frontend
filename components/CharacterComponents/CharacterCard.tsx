@@ -28,12 +28,7 @@ export default function CharacterCard({
             }}>
                 {({ isHovered, isFocused, isPressed }) => {
                     return (
-                        <Box style={{
-                            backgroundColor: "#fff",
-                            borderRadius: 25,
-                            borderColor: "gold",
-                            borderWidth: selected ? 3 : 0,
-                        }}>
+                        <Box>
                             {unavailable && <Box height="100%" style={{
                                 position: "absolute",
                                 borderRadius: 25,
@@ -46,6 +41,9 @@ export default function CharacterCard({
 
                             <ImageBackground style={{
                                 backgroundColor: "#032157",
+                                borderRadius: 25,
+                                borderColor: "gold",
+                                borderWidth: selected ? 3 : 0,
                             }} source={Platform.OS === "web" ? require('../../assets/characterBackground.svg') : require('../../assets/characterBackground.png')} imageStyle={{ borderRadius: 25, borderColor: "#fff", borderWidth: 2, opacity: 0.8 }} resizeMode="cover" >
 
                                 {/* On hover, press toggle overlay */}

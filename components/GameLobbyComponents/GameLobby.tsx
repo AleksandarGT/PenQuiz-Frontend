@@ -47,6 +47,7 @@ function StartGameButton({ onPress, IsGameHost, IsLobbyFull, participantAmount, 
 export default function GameLobby() {
     const connectionStatus = useRecoilValue(connectionStatusAtom)
     const lobbyData = useRecoilValue(gameLobbyAtom)
+    console.log(lobbyData)
 
     const [isClosing, setIsClosing] = useState(false)
     const RequiredPlayers = 3
@@ -134,7 +135,7 @@ export default function GameLobby() {
                             {participant.player?.username}
                         </Text>
 
-                        {participant.playerId == lobbyData.gameCreatorId ? (
+                        {lobbyData.gameType == GameType.PRIVATE && participant.playerId == lobbyData.gameCreatorId ? (
                             <Text isTruncated maxWidth="90%" fontSize="md" color="black">
                                 (host)
                             </Text>
