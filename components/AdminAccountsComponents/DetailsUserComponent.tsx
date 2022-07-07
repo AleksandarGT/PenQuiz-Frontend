@@ -163,7 +163,7 @@ export default function DetailsUserComponent({ userData }: { userData: DetailedU
             <HStack width="50%" minWidth="250px" maxWidth="600px" justifyContent="space-between">
                 <TemplateButton isAdmin={userData.role == "admin"} isBanned={isBanned} onClick={OnBanActionClick} />
                 <Button onPress={adminActions.giftUser} colorScheme="purple">
-                    <Text fontSize="lg" >Gift scientist</Text>
+                    <Text fontSize="lg" >Gift king</Text>
                 </Button>
             </HStack>
 

@@ -54,7 +54,7 @@ export default function AnswerNumberQuestionComponent({ question }: { question: 
                         <CharacterQuestionActionComponent hasPlayerAnswered={isAnswered} question={question} />
 
                         <VStack>
-                            <HStack>
+                            <HStack justifyContent={"center"}>
 
                                 <Input editable={Platform.OS == "web" ? true : false} onChangeText={(e) => {
                                     if (/^\d+$/.test(e) || !e) {

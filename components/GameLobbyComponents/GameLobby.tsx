@@ -7,7 +7,7 @@ import { useRecoilValue } from "recoil"
 import { connectionStatusAtom, gameInstanceAtom, gameTimerAtom, userIdSelector } from "../../state"
 import ExitGameModal from '../Popups/ExitGameModal'
 import { GetPenguinAvatarImage } from '../GameMapComponents/CommonGameFunc'
-import { GameInstanceResponse, GameLobbyDataResponse, GameType, ParticipantsResponse } from '../../types/gameInstanceTypes'
+import { GameInstanceResponse, GameLobbyDataResponse, GameLobbyParticipantCharacterStatus, GameType, ParticipantsResponse } from '../../types/gameInstanceTypes'
 import { GameHubStatusCode } from '../../types/hubTypes'
 import { AntDesign } from '@expo/vector-icons';
 import { gameLobbyAtom, gameLobbyCharactersAtom, gameLobbyParticipantCharacterAtom } from '../../state/lobby'
@@ -47,7 +47,7 @@ function StartGameButton({ onPress, IsGameHost, IsLobbyFull, participantAmount, 
 export default function GameLobby() {
     const connectionStatus = useRecoilValue(connectionStatusAtom)
     const lobbyData = useRecoilValue(gameLobbyAtom)
-    console.log(lobbyData)
+    const participantGameCharacters = useRecoilValue(gameLobbyParticipantCharacterAtom)
 
     const [isClosing, setIsClosing] = useState(false)
     const RequiredPlayers = 3
@@ -65,6 +65,11 @@ export default function GameLobby() {
 
         return lobbyData.gameCreatorId == userId ? true : false
     }, [lobbyData, userId])
+
+    const isModalOpen = useMemo(() => {
+        const thisParticipantCharacter = participantGameCharacters?.find(e => e.playerId == userId)
+        return thisParticipantCharacter?.participantCharacterStatus == GameLobbyParticipantCharacterStatus.LOCKED ? false : true
+    }, [participantGameCharacters, userId])
 
     const CodeCard = () => {
         if (lobbyData.gameCreatorId != userId) {
@@ -184,13 +189,13 @@ export default function GameLobby() {
                     setIsClosing(false)
                 }} />}
 
-            <Box position="absolute" top="0" left="0">
+            {!isModalOpen && <Box position="absolute" top="0" left="0">
                 <Button onPress={() => {
                     setIsClosing(true)
                 }} leftIcon={<Icon as={FontAwesome5} name="arrow-left" size="sm" color="white" />} size="lg" colorScheme="danger">
                     <Text fontSize="lg" >Exit game lobby</Text>
                 </Button>
-            </Box>
+            </Box>}
 
 
             <Center>

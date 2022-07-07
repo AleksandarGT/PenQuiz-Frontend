@@ -74,7 +74,7 @@ export default function BaseCharacterComponent() {
 
             {selectedCharacter && <Button onPress={() => {
                 setSelectedCharacter(undefined)
-            }} borderColor="white" borderWidth={2} colorScheme='white_bd' variant="outline" color="white" style={{ position: "absolute", top: 5, left: 5 }} leftIcon={<Icon as={MaterialIcons} name="arrow-back-ios" size="sm" />}>
+            }} borderColor="white" borderWidth={2} colorScheme='white_bd' variant="outline" color="white" style={{ position: "absolute", top: 5, left: 5, zIndex: 150 }} leftIcon={<Icon as={MaterialIcons} name="arrow-back-ios" size="sm" />}>
                 Back
             </Button>}
 

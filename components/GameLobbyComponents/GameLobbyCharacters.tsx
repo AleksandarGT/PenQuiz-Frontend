@@ -1,8 +1,8 @@
 import { VStack, HStack, Box, Text, Button, Icon, Modal, Center } from "native-base"
-import React, { useEffect, useMemo } from "react"
+import React, { useEffect, useMemo, useState } from "react"
 import { ImageBackground, Platform, ScrollView, View } from "react-native"
 import { useRecoilState, useRecoilValue } from "recoil"
-import { LockInSelectedLobbyCharacter, SelectLobbyCharacter } from "../../hooks"
+import { LeaveGameLobby, LockInSelectedLobbyCharacter, SelectLobbyCharacter } from "../../hooks"
 import { gameLobbyAtom, gameLobbyCharactersAtom, gameLobbyParticipantCharacterAtom } from "../../state/lobby"
 import { GameLobbyDataResponse, GameLobbyParticipantCharacterStatus } from "../../types/gameInstanceTypes"
 import { ChampionHeader } from "../CharacterComponents/BaseCharacterComponent"
@@ -12,12 +12,14 @@ import DefaultAlert from "../Popups/DefaultAlert"
 import { MaterialIcons } from '@expo/vector-icons';
 import { authAtom, gameTimerAtom } from "../../state"
 import { CharacterPricingType } from "../../types/gameCharacterTypes"
+import { FontAwesome5 } from "@expo/vector-icons"
 
 export default function GameLobbyCharacters() {
     const [gameCharacters, setGameCharacters] = useRecoilState(gameLobbyCharactersAtom)
     const participantGameCharacters = useRecoilValue(gameLobbyParticipantCharacterAtom)
     const user = useRecoilValue(authAtom)
     const charactersPerRow = 3
+    const [modalOpenOverride, setModalOpenOverride] = useState<boolean>(true)
 
     const gameTimer = useRecoilValue(gameTimerAtom);
 
@@ -66,7 +68,7 @@ export default function GameLobbyCharacters() {
 
     return (
         <>
-            <Modal defaultIsOpen={true} isOpen={isModalOpen} closeOnOverlayClick={false} isKeyboardDismissable={false} size="full" px={8}>
+            <Modal defaultIsOpen={true} isOpen={isModalOpen && modalOpenOverride} closeOnOverlayClick={false} isKeyboardDismissable={false} size="full" px={8}>
 
                 <View style={{ alignItems: "center", flex: 1, justifyContent: "center" }}>
                     <Box flex={0.9} width="90%" minWidth="70%" bg="#071D56" p={5} borderRadius={25}>
@@ -75,11 +77,18 @@ export default function GameLobbyCharacters() {
                         <VStack flex={1}>
                             <ScrollView>
                                 {/* Basic champions */}
-                                <HStack alignItems="center" justifyContent={"center"}>
-                                    <Text textAlign="center" color="#fff" fontSize={{ base: 18, md: 24, lg: 36, xl: 40 }} style={{ fontFamily: 'Before-Collapse' }}>
+                                <HStack alignItems="center" justifyContent={"space-around"}>
+
+                                    <Button onPress={() => {
+                                        setModalOpenOverride(false)
+                                        LeaveGameLobby()
+                                    }} size="sm" colorScheme="danger">
+                                        <Text fontSize="sm" >Exit lobby</Text>
+                                    </Button>
+                                    <Text textAlign="center" color="#fff" fontSize={{ base: "lg", xl: 40 }} style={{ fontFamily: 'Before-Collapse' }}>
                                         Choose your champion
                                     </Text>
-                                    {gameTimer ? <Box ml={6}>
+                                    <Box ml={6} opacity={gameTimer ? 100 : 0}>
                                         <Center>
                                             <HStack>
                                                 <MaterialIcons name="timer" size={32} color="white" />
@@ -88,7 +97,7 @@ export default function GameLobbyCharacters() {
                                                 </Text>
                                             </HStack>
                                         </Center>
-                                    </Box> : null}
+                                    </Box>
                                 </HStack>
 
                                 {rowedCharacters?.map(itemRow =>
