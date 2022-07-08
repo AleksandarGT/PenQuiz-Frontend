@@ -53,7 +53,7 @@ export default function App() {
   // Pings all required services so they don't idle
   useEffect(() => {
     if (__DEV__) return;
-    setServicesStatus({ Status: Status.INACTIVE, Message: "Loading ConQuiz, please wait..." })
+    setServicesStatus({ Status: Status.INACTIVE, Message: "Loading PenQuiz, please wait..." })
 
     Promise.all([
       fetch("https://conquiz-account-api.azurewebsites.net/api/account").then(res => {
@@ -99,21 +99,17 @@ export default function App() {
   }, [])
 
 
-  if (isMobileFromWeb) {
-    return (
-      <View>
-        <Text>Some text, redirecting the user to download the app via something else</Text>
-      </View>
-    )
-  }
-
-
   return (
     <RecoilRoot>
       <NativeBaseProvider theme={theme}>
         <StatusBar hidden={true} />
-        {servicesStatus.Status == Status.INACTIVE || !fontsLoaded ? <LoadingComponent message={servicesStatus.Message} /> : <Routes />}
-        {/* <Routes /> */}
+
+        {servicesStatus.Status == Status.INACTIVE || !fontsLoaded ?
+          <LoadingComponent message={servicesStatus.Message} /> : isMobileFromWeb ?
+            <LoadingComponent message='Please download and install PenQuiz app for Android devices:' link='https://onedrive.live.com/download?cid=D25E3AABFBD442D5&resid=D25E3AABFBD442D5%2111938&authkey=AJEh8Ch5F2nIbHs' /> :
+            <Routes />
+        }
+
       </NativeBaseProvider>
     </RecoilRoot>
   )

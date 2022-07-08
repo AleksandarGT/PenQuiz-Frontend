@@ -1,13 +1,21 @@
-import { Box, Center, Image, Text } from 'native-base';
+import { Box, Button, Center, Image, Text } from 'native-base';
 import React from 'react';
-import { View, ActivityIndicator, ImageBackground } from 'react-native';
+import { View, ActivityIndicator, ImageBackground, Linking } from 'react-native';
 
 
 interface IProps {
   message: string
+  link?: string
 }
 
 export function LoadingComponent(props: IProps) {
+
+  const handleLinkPress = () => {
+    if (!props.link) return
+
+    Linking.openURL(props.link)
+  }
+
   return (
     <View style={{
       flex: 1,
@@ -29,10 +37,13 @@ export function LoadingComponent(props: IProps) {
                 size="xl"
               />
               <Text color="black" fontWeight="semibold" fontSize={{ base: "md", md: "lg", lg: "xl" }}>{props.message}</Text>
+              {props.link && <Button mt={2} onPress={handleLinkPress} colorScheme={'cyan'}>
+                <Text>Download PenQuiz</Text>
+              </Button>}
 
               {/* Spacer */}
               <Box my={2} />
-              <ActivityIndicator color="#032157" size="large" />
+              {!props.link && <ActivityIndicator color="#032157" size="large" />}
             </Center>
           </Box>
         </Center>
