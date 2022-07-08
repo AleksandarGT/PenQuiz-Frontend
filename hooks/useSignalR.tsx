@@ -108,6 +108,7 @@ export function useSignalR() {
             if (gameInstance == null) return
 
             RemoveQuestionDataOnExit()
+            setGameTimer(0)
             setGameMapException("")
             setPlayerAttackPossibilities(null)
             setGameInstance(null)
