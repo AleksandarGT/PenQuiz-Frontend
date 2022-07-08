@@ -67,8 +67,12 @@ export default function WizardActionComponent({ question, invisible }
             <HStack mt={6}>
                 <Center>
                     <Pressable disabled={invisible || areAllHintsUsed || wizardAbilityUsed} onPress={() => {
+                        if (wizardAbilityUsed) return
+                        if (globalDisplayTime <= 0) return
+
                         WizardUseMultipleChoiceHint(globalDisplayTime)
                         setWizardAbilityUsed(true)
+
                     }}>
                         {({ isHovered, isFocused, isPressed }) => {
                             return (
@@ -107,7 +111,7 @@ export default function WizardActionComponent({ question, invisible }
                         resizeMode="contain"
                         size="xs"
                         alt="alt"
-                        />
+                    />
                 </Tooltip>}
             </HStack>
         </View>

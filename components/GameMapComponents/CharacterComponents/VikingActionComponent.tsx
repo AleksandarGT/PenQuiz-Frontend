@@ -79,8 +79,12 @@ export default function VikingActionComponent({ question, invisible }
             <HStack mt={6}>
                 <Center>
                     <Pressable disabled={invisible || areAllFortifiesUsed || vikingAbilityUsed} onPress={() => {
+                        if (vikingAbilityUsed) return
+                        if (globalDisplayTime <= 0) return
+
                         VikingUseAbility(globalDisplayTime)
                         setVikingAbilityUsed(true)
+
                     }}>
                         {({ isHovered, isFocused, isPressed }) => {
                             return (

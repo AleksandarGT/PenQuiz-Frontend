@@ -67,6 +67,9 @@ export default function ScientistActionComponent({ question, invisible }
             <HStack mt={6} opacity={invisible ? 0 : 100}>
 
                 <Pressable disabled={invisible || areAllHintsUsed || scientistAbilityUsed} onPress={() => {
+                    if (scientistAbilityUsed) return
+                    if (globalDisplayTime <= 0) return
+
                     ScientistUseAbility(globalDisplayTime)
                     setScientistAbilityUsed(true)
                 }}>
@@ -85,7 +88,7 @@ export default function ScientistActionComponent({ question, invisible }
                                             Help!
                                         </Text>
                                         <Image
-                                            source={Platform.OS == "web" ? require("../../../assets/characterAssets/scientistFlask.svg") :require("../../../assets/characterAssets/scientistFlask.png") }
+                                            source={Platform.OS == "web" ? require("../../../assets/characterAssets/scientistFlask.svg") : require("../../../assets/characterAssets/scientistFlask.png")}
                                             resizeMode="contain"
                                             size="xs"
                                             alt="sc"
