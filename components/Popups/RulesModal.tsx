@@ -20,7 +20,7 @@ export default function RulesModal({ showRulesModal, setShowRulesModal }: RulesM
                         Game Rules
                     </Text>
                     <Text>
-                        ConQuiz is a round-based PvP trivia game
+                        PenQuiz is a round-based PvP trivia game
                         revolved around capturing the territories
                         of the continent of Antarctica.
                     </Text>

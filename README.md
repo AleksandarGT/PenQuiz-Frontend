@@ -1,4 +1,4 @@
-# ConQuiz
+# PenQuiz
 Trivia PvP game set in Antarctica. Core concept of the game is to capture territories from other players during the game. The end score is based on the amount of territories and points you control.
 
 # Production

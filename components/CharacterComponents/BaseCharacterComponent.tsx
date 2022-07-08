@@ -85,7 +85,7 @@ export default function BaseCharacterComponent() {
                         <>
                             {/* Header text */}
                             <Text mb={5} textAlign="center" color="#fff" fontSize={{ base: "md", md: "lg", lg: "xl", xl: "5xl" }} style={{ fontFamily: 'Before-Collapse', }}>
-                                ConQuiz Penguins
+                                PenQuiz Penguins
                             </Text>
 
 

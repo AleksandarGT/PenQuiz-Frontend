@@ -65,7 +65,7 @@ export default function PrivateGameDashboard() {
         <GameDashboardBase>
             <Center>
                 <Text textAlign="center" color="#fff" fontSize={{ base: 40, md: 60, lg: 80, xl: 90 }} style={{ fontFamily: 'Before-Collapse', }}>
-                    ConQuiz
+                PenQuiz
                 </Text>
 
                 {joiningGameException ? (

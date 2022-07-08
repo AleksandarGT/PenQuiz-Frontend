@@ -114,7 +114,7 @@ function RenderCard() {
                 <AboutModal showAboutModal={showAboutModal} setShowAboutModal={setShowAboutModal} />
                 <Box px={4} >
                     <Text textAlign="center" color="#fff" fontSize={{ base: 40, md: 60, lg: 80 }} style={{ fontFamily: 'Before-Collapse', }}>
-                        ConQuiz
+                    PenQuiz
                     </Text>
                 </Box>
                 <Box px={4}>

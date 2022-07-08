@@ -14,10 +14,10 @@ export default function AboutModal({ showAboutModal, setShowAboutModal }: AboutM
             <>
                 <VStack style={{ maxWidth: maxW }}>
                     <Text color="#fff" fontSize={{ base: 40, lg: 50 }} style={{ fontFamily: 'Before-Collapse', textAlign: "left" }}>
-                        About  ConQuiz
+                        About  PenQuiz
                     </Text>
                     <Text>
-                        ConQuiz is developed and maintained by Aleksandar Todorov
+                        PenQuiz is developed and maintained by Aleksandar Todorov
                         as an open-source project found on Github <Text style={{ color: "black" }} onPress={() => {
                             Linking.openURL("https://github.com/BoostedPenguin/ConQuiz-Backend")
                         }}>here</Text>.

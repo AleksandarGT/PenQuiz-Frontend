@@ -12,7 +12,7 @@ describe("AuthenticatedTests", () => {
     })
 
     it("Logged in initial screen", () => {
-        cy.contains("ConQuiz")
+        cy.contains("PenQuiz")
         cy.contains("Find Game")
     });
 

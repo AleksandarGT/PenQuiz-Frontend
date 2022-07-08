@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "ConQuiz",
-    "slug": "ConQuiz",
+    "name": "PenQuiz",
+    "slug": "PenQuiz",
     "version": "1.0.0",
     "orientation": "landscape",
     "icon": "./assets/icon.png",
-    "scheme": "conquiz",
+    "scheme": "penquiz",
     "splash": {
       "image": "./assets/adaptive-icon.png",
       "resizeMode": "contain",
@@ -29,7 +29,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.boostedpenguin.conquizfrontend"
+      "package": "com.boostedpenguin.penquiz"
     },
     "web": {
       "favicon": "./assets/favicon.png"
