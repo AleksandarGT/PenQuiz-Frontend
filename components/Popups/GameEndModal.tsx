@@ -44,7 +44,7 @@ export default function GameEndModal({ gameInstance, onExit }: GameEndModalParam
                         <Container bg="#fff" borderRadius={200} p={2}>
                             <Image
                                 source={GetPenguinAvatarImage(participant.gameCharacter!.character.avatarName)}
-                                alt="Alternate Text"
+                                alt="alt"
                                 resizeMode="contain"
                                 size="xs"
                             />

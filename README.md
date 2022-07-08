@@ -4,10 +4,10 @@ Trivia PvP game set in Antarctica. Core concept of the game is to capture territ
 # Production
 For Android users you can download the APK from <a style="text-decorations: none" href="https://onedrive.live.com/download?cid=D25E3AABFBD442D5&resid=D25E3AABFBD442D5%2111758&authkey=AP4ErA6uiw2xL8E">here</a> and install it on your phone.
 
-For desktop users, please visit the fully working game at https://conquiz.netlify.app/
+For desktop users, please visit the fully working game at https://penquiz.netlify.app/
 
 # Architecture
-This repository contains all the frontend UI and logic for the ConQuiz project. The back-end .NET 5 repository is located <a href="https://github.com/BoostedPenguin/ConQuiz-Backend">here</a>.
+This repository contains all the frontend UI and logic for the PenQuiz project. The back-end .NET 5 repository is located <a href="https://github.com/BoostedPenguin/ConQuiz-Backend">here</a>.
 <img src="https://i.imgur.com/kaaqNMW.png" />
 
 # Frontend stack:

@@ -16,7 +16,7 @@ export function MultipleAvatars({ participants }: { participants: ParticipantsRe
                                     <Image
                                         source={Platform.OS == "web" ? gameSvgs.find(x => x.name == participants[0].gameCharacter?.character.avatarName)!.img
                                             : gameSvgs.find(x => x.name == participants[0].gameCharacter?.character.avatarName)!.imgPng}
-                                        alt="Alternate Text"
+                                        alt="alt"
                                         resizeMode="contain"
                                         size={Platform.OS == "web" ? "md" : "xs"}
                                     />
@@ -38,7 +38,7 @@ export function MultipleAvatars({ participants }: { participants: ParticipantsRe
                                     <Image
                                         source={Platform.OS == "web" ? gameSvgs.find(x => x.name == participants[1].gameCharacter?.character.avatarName)!.img
                                             : gameSvgs.find(x => x.name == participants[1].gameCharacter?.character.avatarName)!.imgPng}
-                                        alt="Alternate Text"
+                                        alt="alt"
                                         resizeMode="contain"
                                         size={Platform.OS == "web" ? "md" : "xs"}
                                     />

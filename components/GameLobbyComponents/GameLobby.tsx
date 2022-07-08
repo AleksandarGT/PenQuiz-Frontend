@@ -129,7 +129,7 @@ export default function GameLobby() {
                     <Center>
                         <Image
                             source={GetPenguinAvatarImage(participant.gameCharacter?.character.avatarName)}
-                            alt="Alternate Text"
+                            alt="alt"
                             resizeMode="contain"
                             size={Platform.OS === 'web' ? "xl" : "sm"}
                         />

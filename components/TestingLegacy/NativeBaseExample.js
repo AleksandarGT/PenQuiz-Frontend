@@ -26,7 +26,7 @@ function RenderAntarctica() {
         <Image
           source={require('../assets/minified_antarctica.svg')}
           style={{ resizeMode: 'contain' }}
-          alt="Alternate Text"
+          alt="alt"
           size="2xl"
         />
       </Center>

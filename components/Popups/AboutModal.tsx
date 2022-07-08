@@ -18,9 +18,6 @@ export default function AboutModal({ showAboutModal, setShowAboutModal }: AboutM
                     </Text>
                     <Text>
                         PenQuiz is developed and maintained by Aleksandar Todorov
-                        as an open-source project found on Github <Text style={{ color: "black" }} onPress={() => {
-                            Linking.openURL("https://github.com/BoostedPenguin/ConQuiz-Backend")
-                        }}>here</Text>.
                         {"\n"}
                         {"\n"}
                         For any questions or inqueries regarding the game,
@@ -39,8 +36,6 @@ export default function AboutModal({ showAboutModal, setShowAboutModal }: AboutM
                         <Modal.CloseButton />
 
                         <RenderContent maxW='100%' /> :
-
-
 
                     </Modal.Body>
                 </Modal.Content>

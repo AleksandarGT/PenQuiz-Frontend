@@ -118,6 +118,8 @@ export default function VikingActionComponent({ question, invisible }
                         source={require("../../../assets/characterAssets/hintPopup.svg")}
                         resizeMode="contain"
                         size="xs"
+                        alt="alt"
+
                     />
                 </Tooltip>}
             </HStack>

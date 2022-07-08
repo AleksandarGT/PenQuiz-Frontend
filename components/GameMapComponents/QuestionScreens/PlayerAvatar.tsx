@@ -13,7 +13,7 @@ export function PlayerAvatar({ supportIcon, participant }: { supportIcon: string
                 <Center style={{ borderColor: "white", borderWidth: 5, borderRadius: 15 }} p={2}>
                     <Image
                         source={Platform.OS == "web" ? gameSvgs.find(x => x.name == supportIcon)!.img : gameSvgs.find(x => x.name == supportIcon)!.imgPng}
-                        alt="Alternate Text"
+                        alt="alt"
                         resizeMode="contain"
                         size={Platform.OS == "web" ? "sm" : "xs"}
                     />
@@ -28,7 +28,7 @@ export function PlayerAvatar({ supportIcon, participant }: { supportIcon: string
                                         source={Platform.OS == "web" ? gameSvgs.find(x => x.name == participant.gameCharacter?.character.avatarName)!.img
                                             : gameSvgs.find(x => x.name == participant.gameCharacter?.character.avatarName)!.imgPng}
 
-                                        alt="Alternate Text"
+                                        alt="alt"
                                         resizeMode="contain"
                                         size={Platform.OS == "web" ? "md" : "xs"}
                                     />

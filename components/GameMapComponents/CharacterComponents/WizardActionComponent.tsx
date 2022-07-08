@@ -106,7 +106,8 @@ export default function WizardActionComponent({ question, invisible }
                         source={require("../../../assets/characterAssets/hintPopup.svg")}
                         resizeMode="contain"
                         size="xs"
-                    />
+                        alt="alt"
+                        />
                 </Tooltip>}
             </HStack>
         </View>

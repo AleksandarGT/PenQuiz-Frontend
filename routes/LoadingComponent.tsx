@@ -33,7 +33,7 @@ export function LoadingComponent(props: IProps) {
                 mb={4}
                 source={require('../assets/penguinLogoBackground.svg')}
                 style={{ resizeMode: 'contain' }}
-                alt="Alternate Text"
+                alt="alt"
                 size="xl"
               />
               <Text color="black" fontWeight="semibold" fontSize={{ base: "md", md: "lg", lg: "xl" }}>{props.message}</Text>

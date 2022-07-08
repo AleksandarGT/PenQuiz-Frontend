@@ -61,7 +61,7 @@ export default function CharacterCard({
 
                                     <Image
                                         source={GetPenguinAvatarImage(avatarImageName)}
-                                        alt="Alternate Text"
+                                        alt="alt"
                                         resizeMode="contain"
                                         size={Platform.OS == "web" ? "48" : "sm"}
                                     />
