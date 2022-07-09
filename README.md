@@ -7,7 +7,7 @@ For Android users you can download the APK from <a style="text-decorations: none
 For desktop users, please visit the fully working game at https://penquiz.netlify.app/
 
 # Architecture
-This repository contains all the frontend UI and logic for the PenQuiz project. The back-end .NET 5 repository is located <a href="https://github.com/BoostedPenguin/ConQuiz-Backend">here</a>.
+This repository contains all the frontend UI and logic for the PenQuiz project. The back-end .NET 5 repository is located <a href="https://github.com/BoostedPenguin/PenQuiz-Backend">here</a>.
 <img src="https://i.imgur.com/kaaqNMW.png" />
 
 # Frontend stack:

@@ -40,7 +40,6 @@ export default function MultipleChoiceScreen({
 
     // Trigger only when the question (text) changes, keep selected answer if only sub-properties change
     useEffect(() => {
-        console.log("The answer Id should be reset!!!")
         setAnsweredId(undefined)
     }, [question.question])
 
