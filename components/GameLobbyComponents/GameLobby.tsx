@@ -71,6 +71,16 @@ export default function GameLobby() {
         return thisParticipantCharacter?.participantCharacterStatus == GameLobbyParticipantCharacterStatus.LOCKED ? false : true
     }, [participantGameCharacters, userId])
 
+    const RecommendPrivateGame = () => {
+        return (
+            <Box backgroundColor="#C8FBFF" py={Platform.OS == "web" ? 6 : 2} px={'40'} shadow={3} borderRadius={15}>
+                <Text color="black" fontWeight="bold" fontSize="xl">
+                    Long queue time detected. Please, play Private Games with bots for now!
+                </Text>
+            </Box>
+        )
+    }
+
     const CodeCard = () => {
         if (lobbyData.gameCreatorId != userId) {
             return (
@@ -209,7 +219,8 @@ export default function GameLobby() {
 
                 </HStack>
 
-                {lobbyData.gameType == 1 && CodeCard()}
+                {lobbyData.gameType == GameType.PRIVATE && CodeCard()}
+                {lobbyData.gameType == GameType.PUBLIC && RecommendPrivateGame()}
                 <StartGameButton IsLobbyFull={IsLobbyFull} gameType={lobbyData.gameType} participantAmount={lobbyData.participants?.length} IsGameHost={IsGameHost} />
             </Center>
 
