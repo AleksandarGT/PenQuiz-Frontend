@@ -74,7 +74,7 @@ export default function GameLobby() {
     const RecommendPrivateGame = () => {
         return (
             <Box backgroundColor="#C8FBFF" py={Platform.OS == "web" ? 6 : 2} px={'40'} shadow={3} borderRadius={15}>
-                <Text color="black" fontWeight="bold" fontSize="xl">
+                <Text color="black" fontWeight="bold" fontSize="lg">
                     Long queue time detected. Please, play Private Games with bots for now!
                 </Text>
             </Box>

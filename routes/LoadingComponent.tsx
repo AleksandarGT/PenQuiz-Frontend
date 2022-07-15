@@ -1,5 +1,6 @@
 import { Box, Button, Center, Image, Text } from 'native-base';
 import React from 'react';
+import { Platform } from 'react-native';
 import { View, ActivityIndicator, ImageBackground, Linking } from 'react-native';
 
 
@@ -31,7 +32,7 @@ export function LoadingComponent(props: IProps) {
             <Center>
               <Image
                 mb={4}
-                source={require('../assets/penguinLogoBackground.svg')}
+                source={Platform.OS == "web" ? require("../assets/penguinLogoBackground.svg") : require("../assets/penguinLogoBackground.png")}
                 style={{ resizeMode: 'contain' }}
                 alt="alt"
                 size="xl"
