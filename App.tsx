@@ -103,11 +103,10 @@ export default function App() {
     <RecoilRoot>
       <NativeBaseProvider theme={theme}>
         <StatusBar hidden={true} />
-        
+
         {servicesStatus.Status == Status.INACTIVE || !fontsLoaded ?
           <LoadingComponent message={servicesStatus.Message} /> : isMobileFromWeb ?
-            <LoadingComponent message='Please download and install PenQuiz app for Android devices:'
-              link='https://onedrive.live.com/download?cid=D25E3AABFBD442D5&resid=d25e3aabfbd442d5%2112035&authkey=APC58N0IcgTu62I' /> :
+            <LoadingComponent message='Please download and install PenQuiz app for Android devices:' link='https://onedrive.live.com/download?cid=D25E3AABFBD442D5&resid=d25e3aabfbd442d5%2112006&authkey=AFUTx5Dgm91DciU' /> :
             <Routes />
         }
 
