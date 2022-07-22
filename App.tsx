@@ -106,7 +106,8 @@ export default function App() {
 
         {servicesStatus.Status == Status.INACTIVE || !fontsLoaded ?
           <LoadingComponent message={servicesStatus.Message} /> : isMobileFromWeb ?
-            <LoadingComponent message='Please download and install PenQuiz app for Android devices:' link='https://onedrive.live.com/download?cid=D25E3AABFBD442D5&resid=d25e3aabfbd442d5%2112006&authkey=AFUTx5Dgm91DciU' /> :
+          
+            <LoadingComponent message='Please download and install PenQuiz app for Android devices:' link="https://onedrive.live.com/download?cid=D25E3AABFBD442D5&resid=d25e3aabfbd442d5%2112065&authkey=ABdM1G9ewafE1J4" /> :
             <Routes />
         }
 

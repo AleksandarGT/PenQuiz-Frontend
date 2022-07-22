@@ -15,7 +15,7 @@ import { Platform } from 'react-native'
 // Just add some lines here to trigger update on variable until solution is fixed
 
 // LAN HTTPS with self-signed certificates is hard to test with mobile, disable for development
-var b = 34
+var b = 23
 export const EXPO_GO_ANDROID_GOOGLE_CLIENT_URL = EXPO_GO_ANDROID_GOOGLE_CLIENT_URL_ENV
 export const NATIVE_ANDROID_GOOGLE_CLIENT_URL = NATIVE_ANDROID_GOOGLE_CLIENT_URL_ENV
 
